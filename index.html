@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calm Match</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;600&display=swap">
+<style>
+/* Layout: one calm column — a quiet header, one task card, one row of answers, progress below. Nothing moves unless it means something. */
+:root{
+  --bg:#eef3f1; --surface:#ffffff; --ink:#1f2d2b; --muted:#5b6d69; --line:#cfdcd8;
+  --accent:#3f7c74; --accent-soft:#d7e9e5; --ok:#3d7f4f; --ok-soft:#dcefe0; --hint:#c08a2e; --dim:#e4ebe9;
+  --display:"Lexend","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",Verdana,system-ui,sans-serif;
+  --tile:clamp(84px,24vw,128px); --emoji:clamp(44px,13vw,68px);
+  --speed:.25s;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#152120; --surface:#1d2b29; --ink:#e3ece9; --muted:#9fb3ae; --line:#2f4440;
+  --accent:#7fbfb5; --accent-soft:#25403c; --ok:#86c896; --ok-soft:#203a28; --hint:#e2b664; --dim:#243432; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#152120; --surface:#1d2b29; --ink:#e3ece9; --muted:#9fb3ae; --line:#2f4440;
+  --accent:#7fbfb5; --accent-soft:#25403c; --ok:#86c896; --ok-soft:#203a28; --hint:#e2b664; --dim:#243432; color-scheme:dark}
+body[data-contrast="high"]{--bg:#ffffff;--surface:#ffffff;--ink:#000000;--muted:#000000;--line:#000000;--accent:#003b8e;--accent-soft:#ffffff;--ok:#005a1c;--ok-soft:#ffffff;--hint:#8a4b00;--dim:#ffffff}
+body[data-big="on"]{--tile:clamp(110px,40vw,170px);--emoji:clamp(60px,20vw,92px)}
+body[data-calm="on"]{--speed:0s}
+@media (prefers-reduced-motion:reduce){:root{--speed:0s}}
+
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--body);padding-inline:16px;padding-block:12px 32px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font:600 22px/1.2 var(--display);letter-spacing:.01em;display:flex;align-items:center;gap:10px}
+.brand i{width:14px;height:14px;border-radius:50%;background:var(--accent);display:inline-block}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.grown{position:relative;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-size:14px;color:var(--muted);overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:none}
+.grown .fill{position:absolute;inset:0;background:var(--accent-soft);transform-origin:left;transform:scaleX(0)}
+.grown span{position:relative}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.say{font:600 clamp(22px,5.5vw,30px)/1.25 var(--display);text-wrap:balance;margin:0}
+.sub{color:var(--muted);margin:0;max-width:52ch}
+.target{width:calc(var(--tile) * 1.15);height:calc(var(--tile) * 1.15);border-radius:24px;border:3px dashed var(--accent);display:grid;place-items:center;font-size:calc(var(--emoji) * 1.15);background:var(--accent-soft)}
+.label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+.options{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.opt{width:var(--tile);height:var(--tile);border-radius:22px;border:2px solid var(--line);background:var(--surface);font-size:var(--emoji);display:grid;place-items:center;transition:opacity var(--speed),background var(--speed),border-color var(--speed)}
+.opt:hover{border-color:var(--accent)}
+.opt[disabled]{opacity:.3;cursor:default;background:var(--dim)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft);opacity:1;border-width:4px}
+.opt.hint{border-color:var(--hint);border-width:4px;border-style:dashed}
+
+.feedback{min-height:1.6em;font-weight:700;margin:0}
+.feedback.ok{color:var(--ok)}
+
+.progress{display:flex;flex-direction:column;align-items:center;gap:8px}
+.dots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--accent);background:transparent}
+.dot.done{background:var(--accent)}
+.next{color:var(--muted);font-size:15px;margin:0}
+
+.big-btn{background:var(--accent);color:var(--bg);border:0;border-radius:16px;padding:16px 36px;font:600 20px/1 var(--display)}
+.ghost-btn{background:transparent;border:2px solid var(--line);border-radius:16px;padding:14px 28px;font:600 18px/1 var(--display)}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.preview{display:flex;gap:10px;font-size:40px;justify-content:center;flex-wrap:wrap}
+
+/* Grown-ups panel */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:18px}
+.panel h2{font:600 20px/1.2 var(--display);margin:0}
+.panel h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 20px}
+.toggle{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.toggle input{width:22px;height:22px;accent-color:var(--accent);margin-top:2px;flex:none}
+.toggle small{display:block;color:var(--muted);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:15px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.log{list-style:none;margin:0;padding:0;font-size:14px;display:flex;flex-direction:column;gap:6px;max-height:180px;overflow:auto}
+.log li{border-left:3px solid var(--accent);padding-left:10px;color:var(--muted)}
+.log li b{color:var(--ink)}
+.status{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted)}
+.note{font-size:14px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><i></i>Calm Match</div>
+    <button class="grown" id="grownBtn" aria-label="Grown-ups settings. Press and hold to open."><div class="fill" id="grownFill"></div><span id="grownTxt">Grown-ups: hold</span></button>
+  </header>
+
+  <section class="panel" id="panel" hidden aria-label="Grown-ups settings">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <h2>Settings for grown-ups</h2>
+      <button class="ghost-btn" id="closePanel">Done</button>
+    </div>
+
+    <div>
+      <h3>Interest theme</h3>
+      <div class="chips" id="themeChips" style="margin-top:10px"></div>
+    </div>
+
+    <div>
+      <h3>Senses</h3>
+      <div class="grid2">
+        <label class="toggle"><input type="checkbox" id="s-sound"><span>Soft sounds<small>A gentle chime for a match. Never a sound for a miss.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-speech"><span>Read aloud<small>Says the instruction and the picture name.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-calm"><span>No motion<small>Turns off all fades and transitions.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-contrast"><span>High contrast<small>Black on white with strong outlines.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-big"><span>Bigger buttons<small>For less precise tapping.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Follows the rules below. Turn off to fix the level.</small></span></label>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <h3>Pictures per session</h3>
+        <div class="chips" id="roundChips" style="margin-top:10px"></div>
+      </div>
+      <div>
+        <h3>Starting level</h3>
+        <div class="chips" id="levelChips" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <div>
+      <h3>Rules in use</h3>
+      <p class="note" style="margin-top:8px">3 matches in a row: one more picture to choose from. 2 misses in a row: one fewer picture next time, and the right answer gets a dashed outline now. Changes only happen between rounds, so the screen never rearranges mid-task.</p>
+    </div>
+
+    <div>
+      <h3>What the engine did <span class="status" id="status"></span></h3>
+      <ul class="log" id="log" style="margin-top:10px"><li>Nothing yet. Start a session to see each rule as it fires.</li></ul>
+    </div>
+    <p class="note">Settings stay on this device only. Nothing is sent anywhere.</p>
+  </section>
+
+  <main class="card" id="stage" aria-live="polite"></main>
+
+  <div class="progress" id="progress" hidden>
+    <div class="dots" id="dots"></div>
+    <p class="next" id="next"></p>
+  </div>
+</div>
+
+<script>
+const THEMES={
+  vehicles:{label:"Trains & vehicles",items:[["🚂","train"],["🚌","bus"],["🚗","car"],["🚲","bike"],["🚁","helicopter"],["🚜","tractor"],["⛵","boat"],["🚒","fire engine"]]},
+  animals:{label:"Animals",items:[["🐶","dog"],["🐱","cat"],["🐰","rabbit"],["🐸","frog"],["🐢","turtle"],["🐘","elephant"],["🦁","lion"],["🐧","penguin"]]},
+  space:{label:"Space",items:[["🚀","rocket"],["🌙","moon"],["⭐","star"],["🪐","planet"],["☀️","sun"],["🛸","spaceship"],["🌍","Earth"],["👩‍🚀","astronaut"]]},
+  dinos:{label:"Dinosaurs",items:[["🦕","long-neck dinosaur"],["🦖","T-rex"],["🥚","egg"],["🌋","volcano"],["🌴","palm tree"],["🦴","bone"],["🐊","crocodile"],["🦎","lizard"]]},
+  colours:{label:"Colours",items:[["🔴","red"],["🟢","green"],["🔵","blue"],["🟡","yellow"],["🟣","purple"],["🟠","orange"],["⚫","black"],["🟤","brown"]]}
+};
+const LEVELS=[2,3,4,6];
+const KEY="calm-match-settings";
+const defaults={theme:"vehicles",sound:true,speech:false,calm:false,contrast:false,big:false,adaptive:true,rounds:8,startLevel:0};
+let S={...defaults};
+try{S={...defaults,...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+
+let level=S.startLevel, okRun=0, missRun=0, round=0, hint=false, target=null, lastTarget=null, locked=false, playing=false;
+const $=id=>document.getElementById(id);
+const stage=$("stage");
+
+/* ---------- senses ---------- */
+function applySenses(){
+  document.body.dataset.calm=S.calm?"on":"off";
+  document.body.dataset.contrast=S.contrast?"high":"normal";
+  document.body.dataset.big=S.big?"on":"off";
+}
+let ctx=null;
+function chime(){
+  if(!S.sound)return;
+  try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    [523.25,659.25].forEach((f,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+i*.16;
+      o.type="sine";o.frequency.value=f;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+.6);
+      o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+.65);
+    });
+  }catch(e){}
+}
+function say(text){
+  if(!S.speech||!("speechSynthesis" in window))return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=.85;u.pitch=1;speechSynthesis.speak(u)}catch(e){}
+}
+
+/* ---------- engine log ---------- */
+const logEl=$("log");let logStarted=false;
+function log(rule,result){
+  if(!logStarted){logEl.innerHTML="";logStarted=true}
+  const li=document.createElement("li");
+  li.innerHTML=`<b>${rule}</b> → ${result}`;
+  logEl.prepend(li);
+  updateStatus();
+}
+function updateStatus(){$("status").textContent=`· level ${level+1} (${LEVELS[level]} pictures)`}
+
+/* ---------- screens ---------- */
+function theme(){return THEMES[S.theme]}
+function startScreen(){
+  playing=false;$("progress").hidden=true;
+  const t=theme();
+  stage.innerHTML=`
+    <p class="label">Today</p>
+    <h1 class="say">Match ${S.rounds} pictures</h1>
+    <div class="preview" aria-hidden="true">${t.items.slice(0,4).map(i=>`<span>${i[0]}</span>`).join("")}</div>
+    <p class="sub">You will see one picture at the top. Tap the one that is the same. There are ${S.rounds} turns, then we stop.</p>
+    <button class="big-btn" id="startBtn">Start</button>`;
+  $("startBtn").onclick=()=>{
+    level=S.startLevel;okRun=0;missRun=0;round=0;hint=false;
+    log("Session start",`${t.label}, ${LEVELS[level]} pictures to choose from`);
+    playing=true;nextRound();
+  };
+}
+function pickTarget(){
+  const items=theme().items;let t;
+  do{t=items[Math.floor(Math.random()*items.length)]}while(lastTarget&&t[0]===lastTarget[0]);
+  return t;
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function renderDots(){
+  $("progress").hidden=false;
+  $("dots").innerHTML=Array.from({length:S.rounds},(_,i)=>`<span class="dot ${i<round?"done":""}"></span>`).join("");
+  const left=S.rounds-round;
+  $("next").textContent=left===1?"This is the last one. Then all done.":`${left} more, then all done.`;
+}
+function nextRound(){
+  if(round>=S.rounds)return endScreen();
+  target=pickTarget();lastTarget=target;locked=false;
+  const n=LEVELS[level];
+  const others=shuffle(theme().items.filter(i=>i[0]!==target[0])).slice(0,n-1);
+  const opts=shuffle([target,...others]);
+  stage.innerHTML=`
+    <h1 class="say">Find the same one</h1>
+    <div><p class="label" style="margin:0 0 8px">Find this</p><div class="target" aria-label="${target[1]}">${target[0]}</div></div>
+    <div class="options" role="group" aria-label="Choose a picture">
+      ${opts.map(o=>`<button class="opt ${hint&&o[0]===target[0]?"hint":""}" data-e="${o[0]}" aria-label="${o[1]}">${o[0]}</button>`).join("")}
+    </div>
+    <p class="feedback" id="fb">${hint?"Look for the dashed outline.":""}</p>`;
+  stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(b));
+  renderDots();
+  say(`Find the ${target[1]}`);
+}
+function pick(btn){
+  if(locked||btn.disabled)return;
+  const fb=$("fb");
+  if(btn.dataset.e===target[0]){
+    locked=true;btn.classList.remove("hint");btn.classList.add("right");
+    fb.className="feedback ok";fb.textContent=`Yes! That is the ${target[1]}.`;
+    chime();say(`Yes! The ${target[1]}`);
+    okRun++;missRun=0;
+    if(hint){hint=false;log("Match after hint","hint switched off for next turn")}
+    if(S.adaptive&&okRun>=3&&level<LEVELS.length-1){
+      level++;okRun=0;log("3 matches in a row",`next turn has ${LEVELS[level]} pictures`);
+    }
+    round++;renderDots();
+    setTimeout(nextRound,S.calm?1600:1300);
+  }else{
+    btn.disabled=true;okRun=0;missRun++;
+    fb.className="feedback";fb.textContent="Not that one. Look again.";
+    say("Look again");
+    if(missRun>=2){
+      if(!hint){
+        hint=true;
+        const r=stage.querySelector(`.opt[data-e="${target[0]}"]`);if(r)r.classList.add("hint");
+        fb.textContent="Look for the dashed outline.";
+        log("2 misses in a row","dashed outline shown on the right answer");
+      }
+      if(S.adaptive&&level>0){level--;log("2 misses in a row",`next turn has ${LEVELS[level]} pictures`)}
+      missRun=0;
+    }
+  }
+}
+function endScreen(){
+  playing=false;
+  log("Session end",`${S.rounds} pictures matched`);
+  stage.innerHTML=`
+    <p class="label">All done</p>
+    <h1 class="say">You matched ${S.rounds} pictures</h1>
+    <p class="sub">Good looking and good tapping. You can play again or take a break.</p>
+    <div class="row"><button class="big-btn" id="again">Play again</button><button class="ghost-btn" id="rest">Take a break</button></div>`;
+  say(`All done. You matched ${S.rounds} pictures`);
+  $("again").onclick=startScreen;
+  $("rest").onclick=()=>{$("progress").hidden=true;stage.innerHTML=`<h1 class="say">Break time</h1><p class="sub">Come back whenever you are ready.</p><button class="ghost-btn" id="back">I'm ready</button>`;$("back").onclick=startScreen};
+}
+
+/* ---------- grown-ups gate: press and hold ---------- */
+(function(){
+  const btn=$("grownBtn"),fill=$("grownFill");let t=null,start=0,raf=0;const HOLD=1500;
+  const step=()=>{const p=Math.min(1,(performance.now()-start)/HOLD);fill.style.transform=`scaleX(${p})`;if(p>=1){stop();openPanel()}else raf=requestAnimationFrame(step)};
+  const begin=e=>{e.preventDefault();start=performance.now();raf=requestAnimationFrame(step)};
+  const stop=()=>{cancelAnimationFrame(raf);fill.style.transform="scaleX(0)"};
+  btn.addEventListener("pointerdown",begin);
+  ["pointerup","pointerleave","pointercancel"].forEach(ev=>btn.addEventListener(ev,stop));
+  btn.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openPanel()}}); // keyboard users are almost always adults
+  btn.addEventListener("contextmenu",e=>e.preventDefault());
+})();
+function openPanel(){$("panel").hidden=false;$("grownBtn").hidden=true;updateStatus();$("closePanel").focus()}
+$("closePanel").onclick=()=>{$("panel").hidden=true;$("grownBtn").hidden=false;if(!playing)startScreen()};
+
+/* ---------- settings UI ---------- */
+function chipGroup(el,entries,current,onPick){
+  el.innerHTML=entries.map(([v,l])=>`<button class="chip" aria-pressed="${v===current}" data-v="${v}">${l}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{onPick(b.dataset.v);el.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b))});
+}
+chipGroup($("themeChips"),Object.entries(THEMES).map(([k,v])=>[k,`${v.items[0][0]} ${v.label}`]),S.theme,v=>{S.theme=v;save();log("Theme changed",`${THEMES[v].label} from the next turn`)});
+chipGroup($("roundChips"),[["5","5"],["8","8"],["10","10"]],String(S.rounds),v=>{S.rounds=+v;save()});
+chipGroup($("levelChips"),LEVELS.map((n,i)=>[String(i),`${n} pictures`]),String(S.startLevel),v=>{S.startLevel=+v;save()});
+["sound","speech","calm","contrast","big","adaptive"].forEach(k=>{
+  const c=$("s-"+k);c.checked=!!S[k];
+  c.onchange=()=>{S[k]=c.checked;save();applySenses()};
+});
+
+applySenses();startScreen();
+</script>
+</body>
+</html>
