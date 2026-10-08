@@ -1,0 +1,28 @@
+/* ============================================================
+   Calm Match site settings. Edit this file, then redeploy.
+   Everything here is public (it is sent to every browser), so
+   never put a Supabase service_role key or any password here.
+   ============================================================ */
+window.CM_CONFIG = {
+  siteName: "Calm Match",
+
+  // Who runs the site (shown in the privacy policy and terms).
+  ownerName: "",            // e.g. "Jane Murphy" or your business name
+  contactEmail: "",         // e.g. "hello@yourdomain.ie"
+  siteUrl: "",              // e.g. "https://calm-match.pages.dev" (no trailing slash)
+  policyDate: "8 October 2026",
+
+  // Supabase (parent accounts and sync). Leave blank to run with no accounts:
+  // the site then works fully on the device with nothing sent anywhere.
+  supabaseUrl: "",          // e.g. "https://abcdefghijkl.supabase.co"
+  supabaseAnonKey: "",      // the "anon" / "publishable" key, NOT the service_role key
+  supabaseRegion: "EU (Ireland, eu-west-1)", // match the region you pick when creating the project
+
+  // Supabase JS library. The site first tries /vendor/supabase.js (self-hosted, best for privacy),
+  // then falls back to this pinned CDN copy.
+  supabaseCdn: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js",
+
+  // Donations. Leave blank to hide the button.
+  donateUrl: "",            // e.g. "https://ko-fi.com/yourname" or a Stripe payment link
+  donateLabel: "Support the site"
+};

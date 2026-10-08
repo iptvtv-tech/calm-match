@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calm Match</title>
+<meta name="description" content="Calm, predictable learning games designed with autistic children in mind. Matching, sorting, patterns, counting and pairs, themed around what your child loves. Free, no ads, no tracking.">
+<meta name="theme-color" content="#3f7c74">
+<meta property="og:title" content="Calm Match">
+<meta property="og:description" content="Calm, predictable learning games designed with autistic children in mind. Free, no ads, no tracking.">
+<meta property="og:type" content="website">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <a class="brand" href="index.html"><i></i>Calm Match</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="index.html">About</a><a href="account.html" data-accounts-on hidden>Account</a><a href="support.html">Support</a><a class="cta" href="play.html">Play</a>
+  </nav>
+</header>
+
+<main id="main" class="page">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Free · No ads · No tracking</p>
+      <h1>Calm learning games, built around what your child loves</h1>
+      <p class="lede">Matching, sorting, patterns, counting and pairs. Each game looks and works the same way every time, with trains, animals, space, dinosaurs or colours. Designed with autistic children in mind.</p>
+      <div class="hero-cta"><a class="btn btn-primary" href="play.html">Start playing</a><a class="btn btn-ghost" href="#how">How it works</a></div>
+    </div>
+    <div class="hero-demo" aria-hidden="true">
+      <div class="demo-sched"><span class="now">🚂🚂 Match</span><span>then</span><span>🧺 Sort</span><span>then</span><span>🏁 All done</span></div>
+      <div class="demo-card">
+        <p class="demo-label">Find this</p>
+        <div class="demo-target">🚂</div>
+        <div class="demo-opts"><span>🚌</span><span class="ok">🚂</span><span>🚁</span></div>
+        <p class="demo-fb">Yes! The train.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" aria-label="What makes it calm">
+    <div><h2>Predictable</h2><p>A picture schedule shows every game before it starts. The plan never changes mid-session, and the child always sees how many turns are left.</p></div>
+    <div><h2>Gentle</h2><p>No timers, no scores, no losing. A soft chime for a right answer and no sound for a wrong one. A Break button is always on screen.</p></div>
+    <div><h2>Sensory settings</h2><p>Turn off sound or motion, switch on high contrast, read-aloud or bigger buttons. Each child keeps their own settings.</p></div>
+    <div><h2>Their interests</h2><p>The same games with trains, animals, space, dinosaurs or colours, so practice feels familiar.</p></div>
+  </section>
+
+  <section id="how" class="prose">
+    <h2>How it adapts</h2>
+    <p>Calm Match uses simple, visible rules rather than a black box. You can read every decision in the Grown-ups area.</p>
+    <ul>
+      <li><b>Inside a game:</b> three right answers in a row adds a choice. Two misses on one turn shows a dashed outline on the right answer and takes a choice away.</li>
+      <li><b>Skill map:</b> 13 small skills across five games. New skills open as earlier ones are learned, for example Pattern A B before Pattern A A B.</li>
+      <li><b>Session plan:</b> each session starts with the strongest game, practises something that is ready to learn, and ends on something familiar. If a skill was hard last time, it steps back to the one before it.</li>
+    </ul>
+    <p>Parents see a skill map with progress bars, a history of sessions, and the reason behind each choice the engine makes.</p>
+
+    <h2>Private by default</h2>
+    <p>Everything works without an account, and then nothing leaves the device. If you make an optional parent account, we store your email plus each child's avatar and settings. Children's names stay on the device. There is no place to enter a diagnosis, and we never ask for one. <a href="privacy.html">Read the privacy policy</a>.</p>
+
+    <h2>What it is not</h2>
+    <p>Calm Match is a set of practice games. It is not a medical device, a diagnostic tool, or a replacement for therapy, teaching or professional advice. It works best with a grown-up nearby.</p>
+
+    <div class="box" style="margin-top:24px">
+      <h2 style="margin-top:0">Keeping it free</h2>
+      <p>Calm Match has no ads and no paid features. If it helps your family, you can chip in towards hosting costs. It's entirely optional.</p>
+      <p style="margin-bottom:0"><a class="btn btn-ghost" href="support.html">Support the site</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <span>© <span id="year"></span> <span data-cfg="ownerName"></span></span>
+  <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="terms.html">Terms</a><a href="accessibility.html">Accessibility</a><a href="support.html">Support the site</a></nav>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/common.js"></script>
+</body>
+</html>

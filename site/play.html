@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play · Calm Match</title>
+<meta name="description" content="Calm, predictable learning games: match, sort, patterns, counting and pairs.">
+<meta name="theme-color" content="#3f7c74">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body class="play">
+<div class="wrap">
+  <header class="play-head">
+    <div class="brand"><i></i>Calm Match</div>
+    <div class="hright">
+      <span class="who" id="who"></span>
+      <button class="breakbtn" id="breakBtn" type="button" hidden>Break</button>
+      <button class="grown" id="grownBtn" type="button" aria-label="Grown-ups area"><span class="fill" id="grownFill"></span><span id="grownTxt">Grown-ups</span></button>
+    </div>
+  </header>
+
+  <nav class="sched" id="sched" aria-label="Today's plan"></nav>
+
+  <section class="gate" id="gate" hidden aria-label="Grown-ups check"></section>
+
+  <section class="panel" id="panel" hidden aria-label="Grown-ups area">
+    <div class="row" style="justify-content:space-between">
+      <h2>Grown-ups</h2>
+      <button class="ghost-btn" id="closePanel" type="button">Back to the game</button>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" type="button" data-tab="skills">Progress</button>
+      <button class="tab" role="tab" type="button" data-tab="history">History</button>
+      <button class="tab" role="tab" type="button" data-tab="settings">Settings</button>
+      <button class="tab" role="tab" type="button" data-tab="child">Children</button>
+      <button class="tab" role="tab" type="button" data-tab="account">Account</button>
+      <button class="tab" role="tab" type="button" data-tab="engine">Engine log</button>
+    </div>
+
+    <section data-pane="skills">
+      <div>
+        <h3>Next session plan</h3>
+        <ol class="plan" id="planPreview" style="margin-top:8px"></ol>
+      </div>
+      <div>
+        <h3>Skill map</h3>
+        <p class="note" style="margin-top:6px">Each bar shows how sure the engine is that a skill is learned. A skill opens once the one above it passes the first mark (60%). It counts as learned at the second mark (90%).</p>
+        <div class="smap" id="smap" style="margin-top:12px"></div>
+      </div>
+      <div>
+        <h3>Rules in use</h3>
+        <p class="note" style="margin-top:8px">Inside a game: 3 right first time in a row adds an answer choice. 2 misses on one turn puts a dashed outline on the right answer and removes a choice next turn. In Pairs, two good boards shorten the peek at the start. Between sessions: a game where fewer than half the turns were right first time is flagged, and next time the engine practises the skill before it. Sessions start with the strongest game and end on something familiar. Once a session starts its plan never changes.</p>
+      </div>
+    </section>
+
+    <section data-pane="history" hidden>
+      <div>
+        <h3>Right first time</h3>
+        <div id="histChart" style="margin-top:8px"></div>
+      </div>
+      <div class="tablewrap"><table><thead><tr><th>When</th><th>Games</th><th>Right first time</th><th>Hints</th><th>Breaks</th><th>Minutes</th></tr></thead><tbody id="histBody"></tbody></table></div>
+      <div>
+        <h3>Take a copy</h3>
+        <div class="row start" style="margin-top:8px"><button class="small-btn" type="button" id="downloadBtn">Download this child's progress</button><button class="small-btn" type="button" id="copyBtn">Copy as text</button><span class="note" id="copyMsg"></span></div>
+        <textarea id="copyArea" hidden aria-label="Progress data" readonly></textarea>
+      </div>
+    </section>
+
+    <section data-pane="settings" hidden>
+      <div>
+        <h3>Interest theme</h3>
+        <p class="note">The same games, with pictures your child likes.</p>
+        <div class="chips" id="themeChips"></div>
+      </div>
+      <div>
+        <h3>Senses</h3>
+        <div class="grid2">
+          <label class="toggle"><input type="checkbox" id="s-sound"><span>Soft sounds<small>A gentle chime for a match. Never a sound for a miss.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="s-speech"><span>Read aloud<small>Says each instruction and picture name, using this device's voice.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="s-calm"><span>No motion<small>Turns off fades, transitions and the breathing animation.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="s-contrast"><span>High contrast<small>Black on white with strong outlines.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="s-big"><span>Bigger buttons<small>For less precise tapping.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="s-keys"><span>Number keys<small>Shows 1, 2, 3 on answers for keyboard or switch users.</small></span></label>
+        </div>
+        <div class="chips" id="rateChips" aria-label="Voice speed"></div>
+      </div>
+      <div class="grid2">
+        <div><h3>Games per session</h3><div class="chips" id="blockChips"></div></div>
+        <div><h3>Turns per game</h3><div class="chips" id="turnChips"></div></div>
+      </div>
+      <div>
+        <h3>Which games</h3>
+        <div class="grid2">
+          <label class="toggle"><input type="checkbox" id="g-match"><span>Match<small>Find the same picture.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="g-sort"><span>Sort<small>Put each picture in the right basket.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="g-seq"><span>Patterns<small>What comes next?</small></span></label>
+          <label class="toggle"><input type="checkbox" id="g-count"><span>Count<small>How many pictures?</small></span></label>
+          <label class="toggle"><input type="checkbox" id="g-pairs"><span>Pairs<small>Turn over cards to find matching pairs.</small></span></label>
+        </div>
+      </div>
+      <div>
+        <h3>Who picks the games</h3>
+        <div class="chips" id="modeChips"></div>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules on the Progress tab.</small></span></label>
+      </div>
+      <div>
+        <h3>Grown-ups button</h3>
+        <p class="note">How to open this area. Applies to everyone on this device.</p>
+        <div class="chips" id="gateChips"></div>
+      </div>
+    </section>
+
+    <section data-pane="child" hidden>
+      <div>
+        <h3>Who is playing</h3>
+        <div class="chips" id="profileChips"></div>
+        <p class="note" id="childMsg" aria-live="polite" style="margin-top:8px"></p>
+      </div>
+      <div>
+        <h3>Nickname</h3>
+        <div class="inline-field"><input type="text" id="renameInput" maxlength="20" aria-label="Nickname"><button class="small-btn" type="button" id="renameBtn">Save</button></div>
+      </div>
+      <div>
+        <h3>Add a child</h3>
+        <div class="inline-field"><input type="text" id="newName" maxlength="20" placeholder="Nickname" aria-label="New child nickname"><button class="small-btn" type="button" id="addBtn">Add</button></div>
+        <div class="chips" id="avatarChips"></div>
+        <p class="note" style="margin-top:8px">Use a nickname only. Please don't enter a full name, age, diagnosis or anything medical. Nicknames stay on this device and are never uploaded.</p>
+      </div>
+      <div>
+        <h3>Sticker book</h3>
+        <div class="stickers book" id="stickerBook" style="margin-top:8px"></div>
+      </div>
+      <div class="row start">
+        <button class="small-btn" type="button" id="exampleBtn">Add example child with progress</button>
+        <button class="small-btn danger" type="button" id="resetBtn">Reset this child's progress</button>
+        <button class="small-btn danger" type="button" id="deleteBtn">Remove this child</button>
+        <button class="small-btn danger" type="button" id="wipeBtn">Delete everything on this device</button>
+      </div>
+    </section>
+
+    <section data-pane="account" hidden>
+      <div id="acctBox"></div>
+      <div>
+        <h3>More</h3>
+        <div class="panel-links" style="margin-top:8px">
+          <a class="small-btn" href="index.html">About Calm Match</a>
+          <a class="small-btn" href="privacy.html">Privacy policy</a>
+          <a class="small-btn" href="support.html">Support the site</a>
+          <a class="small-btn primary" data-donate href="#"></a>
+        </div>
+      </div>
+    </section>
+
+    <section data-pane="engine" hidden>
+      <p class="note">Every decision the engine makes on this visit, newest first.</p>
+      <ul class="log" id="log"></ul>
+    </section>
+  </section>
+
+  <main class="card" id="stage" aria-live="polite"></main>
+
+  <div class="progress" id="progress" hidden>
+    <div class="dots" id="dots"></div>
+    <p class="next" id="next"></p>
+  </div>
+</div>
+<script src="js/config.js"></script>
+<script src="js/common.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/store.js"></script>
+<script src="js/cloud.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

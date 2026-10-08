@@ -1,0 +1,22 @@
+/* Home page only */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:32px;align-items:center;padding-block:24px 40px}
+@media (max-width:760px){.hero{grid-template-columns:1fr}}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 10px}
+.hero h1{font-size:clamp(30px,5.6vw,48px);line-height:1.1;margin-bottom:14px}
+.hero .lede{font-size:19px;color:var(--muted);max-width:52ch;margin:0 0 22px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-demo{display:flex;flex-direction:column;gap:12px;min-width:0}
+.demo-sched{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;font:600 13px/1 var(--display);color:var(--muted)}
+.demo-sched span:not(:nth-child(even)){border:2px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 8px}
+.demo-sched .now{border-color:var(--accent)!important;background:var(--accent-soft)!important;color:var(--ink)}
+.demo-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.demo-label{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.demo-target{width:92px;height:92px;border-radius:20px;border:3px dashed var(--accent);background:var(--accent-soft);display:grid;place-items:center;font-size:52px}
+.demo-opts{display:flex;gap:12px}
+.demo-opts span{width:72px;height:72px;border-radius:16px;border:2px solid var(--line);display:grid;place-items:center;font-size:40px}
+.demo-opts .ok{border:4px solid var(--ok);background:var(--ok-soft)}
+.demo-fb{margin:0;font-weight:700;color:var(--ok)}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.features div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.features h2{font-size:18px;margin-bottom:6px}
+.features p{margin:0;color:var(--muted);font-size:16px}

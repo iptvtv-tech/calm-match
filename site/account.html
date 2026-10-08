@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Account · Calm Match</title>
+<meta name="description" content="Optional parent account for Calm Match: keep each child's settings on more than one device.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#3f7c74">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <a class="brand" href="index.html"><i></i>Calm Match</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="index.html">About</a><a href="account.html">Account</a><a href="support.html">Support</a><a class="cta" href="play.html">Play</a>
+  </nav>
+</header>
+
+<main id="main" class="page">
+  <div class="prose">
+    <h1>Parent account</h1>
+    <p class="lede">An account is optional. It keeps each child's settings, and progress if you choose, on more than one device. Children don't need or use accounts.</p>
+  </div>
+
+  <div data-accounts-off class="box" hidden>
+    <p><b>Accounts aren't switched on for this site yet.</b> Everything works without one: games, settings and progress stay on this device.</p>
+  </div>
+
+  <div data-accounts-on hidden>
+    <div id="acctMsg" aria-live="polite"></div>
+    <p id="loading" class="meta">Loading…</p>
+
+    <!-- signed out -->
+    <section id="signedOut" hidden>
+      <div class="tabs" role="tablist" style="max-width:560px">
+        <button class="tab" role="tab" type="button" data-form="signin" aria-selected="true">Sign in</button>
+        <button class="tab" role="tab" type="button" data-form="signup">Create account</button>
+        <button class="tab" role="tab" type="button" data-form="link">Email me a sign-in link</button>
+        <button class="tab" role="tab" type="button" data-form="forgot">Forgot password</button>
+      </div>
+
+      <form id="f-signin" class="box" style="max-width:560px;margin-top:12px" novalidate>
+        <div class="field"><label for="si-email">Email</label><input id="si-email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="si-pw">Password</label><input id="si-pw" type="password" autocomplete="current-password" required></div>
+        <button class="btn btn-primary" type="submit">Sign in</button>
+      </form>
+
+      <form id="f-signup" class="box" style="max-width:560px;margin-top:12px" hidden novalidate>
+        <div class="field"><label for="su-email">Email</label><input id="su-email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="su-pw">Password</label><input id="su-pw" type="password" autocomplete="new-password" minlength="8" required><span class="meta">At least 8 characters.</span></div>
+        <label class="check"><input type="checkbox" id="su-adult"><span>I am 18 or over, and I am a parent, carer, teacher or therapist.</span></label>
+        <label class="check"><input type="checkbox" id="su-policy"><span>I have read the <a href="privacy.html">privacy policy</a> and agree to the <a href="terms.html">terms</a>.</span></label>
+        <button class="btn btn-primary" type="submit">Create account</button>
+        <p class="meta" style="margin-top:12px">We'll email you a link to confirm your address. We only use your email to sign you in and for messages about your account.</p>
+      </form>
+
+      <form id="f-link" class="box" style="max-width:560px;margin-top:12px" hidden novalidate>
+        <div class="field"><label for="ml-email">Email</label><input id="ml-email" type="email" autocomplete="email" required></div>
+        <button class="btn btn-primary" type="submit">Email me a link</button>
+        <p class="meta" style="margin-top:12px">For existing accounts. Open the link on this device to sign in.</p>
+      </form>
+
+      <form id="f-forgot" class="box" style="max-width:560px;margin-top:12px" hidden novalidate>
+        <div class="field"><label for="fp-email">Email</label><input id="fp-email" type="email" autocomplete="email" required></div>
+        <button class="btn btn-primary" type="submit">Send reset link</button>
+      </form>
+    </section>
+
+    <!-- set a new password after a reset link -->
+    <section id="resetPw" class="box" style="max-width:560px" hidden>
+      <h2>Choose a new password</h2>
+      <form id="f-newpw" novalidate style="margin-top:12px">
+        <div class="field"><label for="np-pw">New password</label><input id="np-pw" type="password" autocomplete="new-password" minlength="8" required></div>
+        <button class="btn btn-primary" type="submit">Save password</button>
+      </form>
+    </section>
+
+    <!-- signed in -->
+    <section id="signedIn" hidden>
+      <div class="box" style="margin-bottom:16px">
+        <p style="margin:0">Signed in as <b id="meEmail"></b>. <span id="syncState" class="meta"></span></p>
+        <div class="row start" style="margin-top:12px"><a class="btn btn-primary" href="play.html">Go to the games</a><button class="btn btn-ghost" type="button" id="syncNowBtn">Sync now</button><button class="btn btn-ghost" type="button" id="signOutBtn">Sign out</button></div>
+      </div>
+
+      <div class="prose">
+        <h2>What is stored</h2>
+        <p>For each child: an avatar emoji and their game and sensory settings. Nicknames stay on each device and are never uploaded. There is no field for a child's name, age or diagnosis.</p>
+        <label class="check" style="margin-top:12px"><input type="checkbox" id="syncProgress"><span><b>Also back up skill progress.</b> Stores each child's skill scores and recent session results (dates, games played, how many turns were right first time) so they show on your other devices. Off by default. Turning it off deletes the backed-up progress straight away.</span></label>
+        <div id="storedView" class="tablewrap"></div>
+
+        <h2>Your data</h2>
+        <p>Download everything we hold about this account, plus everything stored on this device.</p>
+        <button class="btn btn-ghost" type="button" id="exportBtn">Download my data</button>
+
+        <h2>Change email</h2>
+        <form id="f-email" novalidate>
+          <div class="field"><label for="ce-email">New email</label><input id="ce-email" type="email" autocomplete="email" required></div>
+          <button class="btn btn-ghost" type="submit">Change email</button>
+        </form>
+
+        <h2>Change password</h2>
+        <form id="f-pw" novalidate>
+          <div class="field"><label for="cp-pw">New password</label><input id="cp-pw" type="password" autocomplete="new-password" minlength="8" required></div>
+          <button class="btn btn-ghost" type="submit">Change password</button>
+        </form>
+
+        <h2>Delete account</h2>
+        <p>This deletes your account and everything stored with it, straight away. It can't be undone. Games and progress on this device are not affected; you can clear those from the Grown-ups area.</p>
+        <div class="field"><label for="delConfirm">Type DELETE to confirm</label><input id="delConfirm" type="text" autocomplete="off"></div>
+        <button class="btn btn-danger" type="button" id="deleteAcct" disabled>Delete my account</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <span>© <span id="year"></span> <span data-cfg="ownerName"></span></span>
+  <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="terms.html">Terms</a><a href="accessibility.html">Accessibility</a><a href="support.html">Support the site</a></nav>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/common.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/store.js"></script>
+<script src="js/cloud.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>
