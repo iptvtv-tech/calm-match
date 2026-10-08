@@ -1,48 +1,73 @@
-/* The adaptive engine: content, skill map, knowledge tracing and session planning. No network access. */
+/* The adaptive engine: content, skill map, knowledge tracing, prompt fading and session planning. No network access. */
 (function () {
   "use strict";
   var CM = window.CM;
 
+  // Each item: [emoji, English name, Irish name]
   CM.THEMES = {
-    vehicles: { label: "Trains & vehicles", items: [["🚂","train"],["🚌","bus"],["🚗","car"],["🚲","bike"],["🚁","helicopter"],["🚜","tractor"],["⛵","boat"],["🚒","fire engine"]] },
-    animals:  { label: "Animals", items: [["🐶","dog"],["🐱","cat"],["🐰","rabbit"],["🐸","frog"],["🐢","turtle"],["🐘","elephant"],["🦁","lion"],["🐧","penguin"]] },
-    space:    { label: "Space", items: [["🚀","rocket"],["🌙","moon"],["⭐","star"],["🪐","planet"],["☀️","sun"],["🛸","spaceship"],["🌍","Earth"],["👩‍🚀","astronaut"]] },
-    dinos:    { label: "Dinosaurs", items: [["🦕","long-neck dinosaur"],["🦖","T-rex"],["🥚","egg"],["🌋","volcano"],["🌴","palm tree"],["🦴","bone"],["🐊","crocodile"],["🦎","lizard"]] },
-    colours:  { label: "Colours", items: [["🔴","red"],["🟢","green"],["🔵","blue"],["🟡","yellow"],["🟣","purple"],["🟠","orange"],["⚫","black"],["🟤","brown"]] }
+    vehicles: { label: "Trains & vehicles", ga: "Traenacha & feithiclí", group: { en: "Vehicles", ga: "Feithiclí" },
+      items: [["🚂","train","traein"],["🚌","bus","bus"],["🚗","car","carr"],["🚲","bike","rothar"],["🚁","helicopter","héileacaptar"],["🚜","tractor","tarracóir"],["⛵","boat","bád"],["🚒","fire engine","inneall dóiteáin"]] },
+    animals:  { label: "Animals", ga: "Ainmhithe", group: { en: "Animals", ga: "Ainmhithe" },
+      items: [["🐶","dog","madra"],["🐱","cat","cat"],["🐰","rabbit","coinín"],["🐸","frog","frog"],["🐢","turtle","turtar"],["🐘","elephant","eilifint"],["🦁","lion","leon"],["🐧","penguin","piongain"]] },
+    space:    { label: "Space", ga: "Spás", group: { en: "Space", ga: "Spás" },
+      items: [["🚀","rocket","roicéad"],["🌙","moon","gealach"],["⭐","star","réalta"],["🪐","planet","pláinéad"],["☀️","sun","grian"],["🛸","spaceship","spásárthach"],["🌍","Earth","an Domhan"],["👩‍🚀","astronaut","spásaire"]] },
+    dinos:    { label: "Dinosaurs", ga: "Díneasáir", group: { en: "Dinosaurs", ga: "Díneasáir" },
+      items: [["🦕","long-neck dinosaur","díneasár"],["🦖","T-rex","T-rex"],["🥚","egg","ubh"],["🌋","volcano","bolcán"],["🌴","palm tree","crann pailme"],["🦴","bone","cnámh"],["🐊","crocodile","crogall"],["🦎","lizard","laghairt"]] },
+    colours:  { label: "Colours", ga: "Dathanna", group: { en: "Colours", ga: "Dathanna" },
+      items: [["🔴","red","dearg"],["🟢","green","glas"],["🔵","blue","gorm"],["🟡","yellow","buí"],["🟣","purple","corcra"],["🟠","orange","oráiste"],["⚫","black","dubh"],["🟤","brown","donn"]] }
   };
 
+  // Feelings for the Feelings game. Several faces per feeling, so children learn the feeling, not one picture.
+  CM.FEELINGS = [
+    { id: "happy",     en: "happy",     ga: "sásta",      faces: ["😀","😊","😄","🙂"], q: { en: "Which face is happy?",     ga: "Cén aghaidh atá sásta?" } },
+    { id: "sad",       en: "sad",       ga: "brónach",    faces: ["😢","😞","😔","☹️"], q: { en: "Which face is sad?",       ga: "Cén aghaidh atá brónach?" } },
+    { id: "angry",     en: "angry",     ga: "crosta",     faces: ["😠","😡"],          q: { en: "Which face is angry?",     ga: "Cén aghaidh atá crosta?" } },
+    { id: "scared",    en: "scared",    ga: "scanraithe", faces: ["😨","😱","😰"],     q: { en: "Which face is scared?",    ga: "Cén aghaidh atá scanraithe?" } },
+    { id: "surprised", en: "surprised", ga: "ionadh",     faces: ["😮","😲","😯"],     q: { en: "Which face is surprised?", ga: "Cén aghaidh a bhfuil ionadh uirthi?" } },
+    { id: "sleepy",    en: "sleepy",    ga: "tuirseach",  faces: ["😴","🥱","😪"],     q: { en: "Which face is sleepy?",    ga: "Cén aghaidh atá tuirseach?" } }
+  ];
+
   CM.GAMES = {
-    match: { label: "Match",    does: "Find the picture that is the same." },
-    sort:  { label: "Sort",     does: "Put each picture in the right basket." },
-    seq:   { label: "Patterns", does: "Look at the line of pictures. Find what comes next." },
-    count: { label: "Count",    does: "Count the pictures. Tap the number." },
-    pairs: { label: "Pairs",    does: "Turn over two cards. Find the ones that are the same." }
+    match: { label: "Match",    ga: "Meaitseáil", does: "Find the picture that is the same.", doesGa: "Aimsigh an pictiúr atá mar an gcéanna." },
+    sort:  { label: "Sort",     ga: "Sórtáil",    does: "Put each picture in the right basket.", doesGa: "Cuir gach pictiúr sa chiseán ceart." },
+    seq:   { label: "Patterns", ga: "Patrúin",    does: "Look at the line of pictures. Find what comes next.", doesGa: "Féach ar líne na bpictiúr. Aimsigh cad a thagann ina dhiaidh." },
+    count: { label: "Count",    ga: "Comhair",    does: "Count the pictures. Tap the number.", doesGa: "Comhair na pictiúir. Brúigh an uimhir." },
+    pairs: { label: "Pairs",    ga: "Péirí",      does: "Turn over two cards. Find the ones that are the same.", doesGa: "Iompaigh dhá chárta. Aimsigh na cinn atá mar an gcéanna." },
+    feel:  { label: "Feelings", ga: "Mothúcháin", does: "Look at the faces. Find the feeling.", doesGa: "Féach ar na haghaidheanna. Aimsigh an mothúchán." }
   };
-  CM.GAME_ORDER = ["match", "sort", "seq", "count", "pairs"];
+  CM.GAME_ORDER = ["match", "sort", "seq", "count", "pairs", "feel"];
 
   // The skill map. Each skill opens when every skill in `pre` is at least READY.
   CM.SKILLS = [
-    { id: "same",     game: "match", name: "Same picture",       pre: [] },
-    { id: "sortPic",  game: "sort",  name: "Sort by picture",    pre: ["same"], mode: "picture" },
-    { id: "sortSize", game: "sort",  name: "Sort big and small", pre: ["sortPic"], mode: "size" },
-    { id: "sortKind", game: "sort",  name: "Sort by group",      pre: ["sortSize"], mode: "kind" },
-    { id: "seqAB",    game: "seq",   name: "Pattern A B",        pre: ["same"], pattern: "AB" },
-    { id: "seqAAB",   game: "seq",   name: "Pattern A A B",      pre: ["seqAB"], pattern: "AAB" },
-    { id: "seqABC",   game: "seq",   name: "Pattern A B C",      pre: ["seqAAB"], pattern: "ABC" },
-    { id: "count3",   game: "count", name: "Count to 3",         pre: ["same"], max: 3 },
-    { id: "count5",   game: "count", name: "Count to 5",         pre: ["count3"], max: 5 },
-    { id: "count8",   game: "count", name: "Count to 8",         pre: ["count5"], max: 8 },
-    { id: "pairs2",   game: "pairs", name: "Pairs: 2 pairs",     pre: ["same"], n: 2 },
-    { id: "pairs3",   game: "pairs", name: "Pairs: 3 pairs",     pre: ["pairs2"], n: 3 },
-    { id: "pairs4",   game: "pairs", name: "Pairs: 4 pairs",     pre: ["pairs3"], n: 4 }
+    { id: "same",      game: "match", name: "Same picture",           pre: [] },
+    { id: "sortPic",   game: "sort",  name: "Sort by picture",        pre: ["same"], mode: "picture" },
+    { id: "sortSize",  game: "sort",  name: "Sort big and small",     pre: ["sortPic"], mode: "size" },
+    { id: "sortKind",  game: "sort",  name: "Sort by group",          pre: ["sortSize"], mode: "kind" },
+    { id: "seqAB",     game: "seq",   name: "Pattern A B",            pre: ["same"], pattern: "AB" },
+    { id: "seqAAB",    game: "seq",   name: "Pattern A A B",          pre: ["seqAB"], pattern: "AAB" },
+    { id: "seqABC",    game: "seq",   name: "Pattern A B C",          pre: ["seqAAB"], pattern: "ABC" },
+    { id: "count3",    game: "count", name: "Count to 3",             pre: ["same"], max: 3 },
+    { id: "count5",    game: "count", name: "Count to 5",             pre: ["count3"], max: 5 },
+    { id: "count8",    game: "count", name: "Count to 8",             pre: ["count5"], max: 8 },
+    { id: "pairs2",    game: "pairs", name: "Pairs: 2 pairs",         pre: ["same"], n: 2 },
+    { id: "pairs3",    game: "pairs", name: "Pairs: 3 pairs",         pre: ["pairs2"], n: 3 },
+    { id: "pairs4",    game: "pairs", name: "Pairs: 4 pairs",         pre: ["pairs3"], n: 4 },
+    { id: "feelSame",  game: "feel",  name: "Same face",              pre: ["same"], mode: "same" },
+    { id: "feelName",  game: "feel",  name: "Name the feeling",       pre: ["feelSame"], mode: "name" },
+    { id: "feelOther", game: "feel",  name: "Same feeling, new face", pre: ["feelName"], mode: "other" }
   ];
   CM.SK = {}; CM.SKILLS.forEach(function (s) { CM.SK[s.id] = s; });
+  CM.TRACKS = [
+    { game: "sort", title: "Sorting" }, { game: "seq", title: "Patterns" }, { game: "count", title: "Counting" },
+    { game: "pairs", title: "Pairs" }, { game: "feel", title: "Feelings" }
+  ];
 
   // Difficulty ladders inside a game. Index 0 is easiest.
-  CM.LV = { match: [2, 3, 4, 6], sort: [2, 3], seq: [2, 3, 4], count: [2, 3, 4], pairs: [3, 1.5, 0] };
+  CM.LV = { match: [2, 3, 4, 6], sort: [2, 3], seq: [2, 3, 4], count: [2, 3, 4], pairs: [3, 1.5, 0], feel: [2, 3, 4] };
   CM.lvDesc = function (game, i, skill) {
     var v = CM.LV[game][Math.min(i, CM.LV[game].length - 1)];
     if (game === "match") return v + " pictures to choose from";
+    if (game === "feel") return v + " faces to choose from";
     if (game === "sort") return (skill && skill.mode === "size" ? 2 : v) + " baskets";
     if (game === "pairs") return v ? "cards shown for " + v + " seconds first" : "no peek at the start";
     return v + " answers to choose from";
@@ -53,15 +78,16 @@
     if (game === "pairs") return v ? v + "s peek" : "no peek";
     return v + " choices";
   };
+  CM.PROMPT_NAMES = ["no help", "outline on the answer", "answer highlighted"];
 
   CM.READY = 0.6; CM.MASTER = 0.9; CM.PRIOR = 0.15;
   var P_TRANSIT = 0.2, P_SLIP = 0.1;
 
+  CM.theme = function () { return CM.THEMES[CM.store.S().theme] || CM.THEMES.vehicles; };
   CM.gameIcon = function (g) {
     var it = CM.theme().items;
-    return { match: it[0][0] + it[0][0], sort: "🧺", seq: it[0][0] + it[1][0] + it[0][0], count: "1 2 3", pairs: "❔" + it[2][0] }[g];
+    return { match: it[0][0] + it[0][0], sort: "🧺", seq: it[0][0] + it[1][0] + it[0][0], count: "1 2 3", pairs: "❔" + it[2][0], feel: "😊😢" }[g];
   };
-  CM.theme = function () { return CM.THEMES[CM.store.S().theme] || CM.THEMES.vehicles; };
 
   var skillState = function (s) { return CM.store.P().skills[s.id]; };
   CM.pp = function (s) { return skillState(s).p; };
@@ -76,7 +102,7 @@
     return st.turns ? "learning" : "ready";
   };
 
-  // Bayesian Knowledge Tracing: update the chance a skill is learned after one first attempt.
+  // Bayesian Knowledge Tracing: update the chance a skill is learned after one unprompted first attempt.
   CM.bkt = function (s, correct, nOpts) {
     var st = skillState(s), g = Math.min(0.5, 1 / Math.max(2, nOpts)), p = st.p;
     var post = correct ? p * (1 - P_SLIP) / (p * (1 - P_SLIP) + (1 - p) * g)
@@ -84,7 +110,6 @@
     st.p = Math.min(0.995, post + (1 - post) * P_TRANSIT);
   };
 
-  // Which skill to practise inside a game, with a plain-English reason.
   CM.pickSkill = function (game, commit) {
     var list = CM.SKILLS.filter(function (s) { return s.game === game; });
     var strug = list.find(function (s) { return skillState(s).struggle && CM.unlocked(s); });
@@ -103,7 +128,6 @@
 
   CM.pct = function (p) { return Math.round(p * 100) + "%"; };
 
-  // Plan which games to play this session. Fixed once the session starts, so the child is never surprised.
   CM.planSession = function () {
     var S = CM.store.S(), P = CM.store.P(), N = S.blocks;
     var games = CM.GAME_ORDER.filter(function (g) { return S.games[g]; });

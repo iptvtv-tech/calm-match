@@ -24,5 +24,8 @@ window.CM_CONFIG = {
 
   // Donations. Leave blank to hide the button.
   donateUrl: "",            // e.g. "https://ko-fi.com/yourname" or a Stripe payment link
-  donateLabel: "Support the site"
+  donateLabel: "Support the site",
+
+  // Optional built-in photo packs (see photos/README.txt), e.g. ["vehicles"]. Parents can add their own photos either way.
+  photoPacks: []
 };

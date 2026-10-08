@@ -1,9 +1,9 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-08-1";
+var VERSION = "cm-2026-10-08-2";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html",
   "css/base.css", "css/app.css", "css/home.css",
-  "js/config.js", "js/common.js", "js/engine.js", "js/store.js", "js/cloud.js", "js/app.js",
+  "js/config.js", "js/common.js", "js/engine.js", "js/i18n.js", "js/store.js", "js/photos.js", "js/cloud.js", "js/tools.js", "js/app.js",
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png"
 ];
 

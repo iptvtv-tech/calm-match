@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Play · Calm Match</title>
-<meta name="description" content="Calm, predictable learning games: match, sort, patterns, counting and pairs.">
+<meta name="description" content="Calm, predictable learning games: match, sort, patterns, counting, pairs and feelings. In English or Irish.">
 <meta name="theme-color" content="#3f7c74">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -35,46 +35,96 @@
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" type="button" data-tab="skills">Progress</button>
       <button class="tab" role="tab" type="button" data-tab="history">History</button>
+      <button class="tab" role="tab" type="button" data-tab="tools">Timer &amp; board</button>
       <button class="tab" role="tab" type="button" data-tab="settings">Settings</button>
       <button class="tab" role="tab" type="button" data-tab="child">Children</button>
       <button class="tab" role="tab" type="button" data-tab="account">Account</button>
       <button class="tab" role="tab" type="button" data-tab="engine">Engine log</button>
     </div>
 
+    <!-- PROGRESS -->
     <section data-pane="skills">
+      <div class="tiles" id="progSummary"></div>
       <div>
-        <h3>Next session plan</h3>
-        <ol class="plan" id="planPreview" style="margin-top:8px"></ol>
+        <h3>In a sentence</h3>
+        <ul class="pwords" id="progWords"></ul>
       </div>
       <div>
         <h3>Skill map</h3>
-        <p class="note" style="margin-top:6px">Each bar shows how sure the engine is that a skill is learned. A skill opens once the one above it passes the first mark (60%). It counts as learned at the second mark (90%).</p>
-        <div class="smap" id="smap" style="margin-top:12px"></div>
+        <p class="note" style="margin-top:6px">Each circle is one skill. The ring fills as the engine becomes more sure the skill is learned. A tick means learned; a lock means it opens after the skill before it. ↩ means it was hard last time.</p>
+        <div class="pmap" id="progMap"></div>
+        <div id="nodeDetail" aria-live="polite"></div>
       </div>
       <div>
-        <h3>Rules in use</h3>
-        <p class="note" style="margin-top:8px">Inside a game: 3 right first time in a row adds an answer choice. 2 misses on one turn puts a dashed outline on the right answer and removes a choice next turn. In Pairs, two good boards shorten the peek at the start. Between sessions: a game where fewer than half the turns were right first time is flagged, and next time the engine practises the skill before it. Sessions start with the strongest game and end on something familiar. Once a session starts its plan never changes.</p>
+        <h3>Next session</h3>
+        <ol class="pplan" id="planPreview"></ol>
       </div>
+      <details class="rules">
+        <summary>How the engine decides</summary>
+        <p class="note">Inside a game: 3 right first time in a row adds an answer choice. 2 misses on one turn puts a dashed outline on the right answer and removes a choice next turn. In Pairs, two good boards shorten the peek at the start. With errorless start on, a new skill begins with the right answer highlighted; after 2 right answers the help drops to an outline, then to no help. Helped answers don't count towards "how sure". Between sessions: a game where fewer than half the independent turns were right first time is flagged, and next time the engine practises the skill before it. Sessions start with the strongest game and end on something familiar. Once a session starts its plan never changes.</p>
+      </details>
     </section>
 
+    <!-- HISTORY -->
     <section data-pane="history" hidden>
       <div>
         <h3>Right first time</h3>
+        <p class="note">Independent turns only: turns with errorless help are not counted.</p>
         <div id="histChart" style="margin-top:8px"></div>
       </div>
-      <div class="tablewrap"><table><thead><tr><th>When</th><th>Games</th><th>Right first time</th><th>Hints</th><th>Breaks</th><th>Minutes</th></tr></thead><tbody id="histBody"></tbody></table></div>
+      <div class="tablewrap"><table><thead><tr><th>When</th><th>Games</th><th>Right first time</th><th>Helped</th><th>Hints</th><th>Breaks</th><th>Minutes</th></tr></thead><tbody id="histBody"></tbody></table></div>
       <div>
-        <h3>Take a copy</h3>
-        <div class="row start" style="margin-top:8px"><button class="small-btn" type="button" id="downloadBtn">Download this child's progress</button><button class="small-btn" type="button" id="copyBtn">Copy as text</button><span class="note" id="copyMsg"></span></div>
+        <h3>Share with school or a therapist</h3>
+        <div class="row start" style="margin-top:8px">
+          <button class="small-btn primary" type="button" id="csvBtn">Download spreadsheet (CSV)</button>
+          <button class="small-btn" type="button" id="copyBtn">Copy as text</button>
+          <button class="small-btn" type="button" id="downloadBtn">Download full backup (JSON)</button>
+        </div>
+        <p class="note" id="copyMsg" aria-live="polite" style="margin-top:8px">The spreadsheet has one row per game played. The child's nickname is included, so check before sending it on.</p>
         <textarea id="copyArea" hidden aria-label="Progress data" readonly></textarea>
       </div>
     </section>
 
+    <!-- TOOLS -->
+    <section data-pane="tools" hidden>
+      <p class="note" id="toolsMsg"></p>
+      <div>
+        <h3>First / Then board</h3>
+        <p class="note">Shows "First this, then that" full-size for your child. Pictures and words follow the game language.</p>
+        <p style="margin:10px 0 4px"><b>First</b></p>
+        <div class="chips" id="firstChips"></div>
+        <p style="margin:14px 0 4px"><b>Then</b></p>
+        <div class="chips" id="thenChips"></div>
+        <p style="margin:14px 0 4px"><b>Timer for "First"</b></p>
+        <div class="chips" id="boardTimerChips"></div>
+        <div class="row start" style="margin-top:14px"><button class="small-btn primary" type="button" id="showBoardBtn">Show board</button><span id="boardPreview"></span></div>
+      </div>
+      <div>
+        <h3>Visual timer</h3>
+        <p class="note">A coloured circle that shrinks as time passes, with a soft tone at the end. Numbers aren't needed to read it.</p>
+        <div class="chips" id="timerChips"></div>
+        <div class="row start" style="margin-top:14px"><button class="small-btn primary" type="button" id="startTimerBtn">Start timer</button></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
     <section data-pane="settings" hidden>
+      <div>
+        <h3>Language of the games</h3>
+        <div class="chips" id="langChips"></div>
+        <p class="note" id="langNote" style="margin-top:8px"></p>
+      </div>
       <div>
         <h3>Interest theme</h3>
         <p class="note">The same games, with pictures your child likes.</p>
         <div class="chips" id="themeChips"></div>
+      </div>
+      <div>
+        <h3>Photos</h3>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-photos"><span>Use photos instead of emoji<small>Add your own photos, for example your child's real bus or your dog. Photos are shrunk and kept on this device only. They are never uploaded, even with an account.</small></span></label>
+        <p class="note"><b id="photoThemeName"></b> theme. <span id="photoCount"></span></p>
+        <div class="pslots" id="photoSlots"></div>
+        <p class="note" id="photoMsg" aria-live="polite"></p>
       </div>
       <div>
         <h3>Senses</h3>
@@ -88,6 +138,19 @@
         </div>
         <div class="chips" id="rateChips" aria-label="Voice speed"></div>
       </div>
+      <div>
+        <h3>Rewards</h3>
+        <p class="note">Stickers after each game</p>
+        <div class="chips" id="stickerChips"></div>
+        <p class="note" style="margin-top:12px">Celebration when an answer is right</p>
+        <div class="chips" id="celebrateChips"></div>
+        <p class="note" style="margin-top:8px">Cheerful: bright words and a short tune. Gentle: a soft chime. Very calm: plain words like "That's right", one quiet tone, no tune between games.</p>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-errorless"><span>Errorless start<small>New skills begin with the right answer highlighted and the others greyed out. After 2 right answers the help drops to an outline, then goes away. If your child struggles, the outline comes back. Common in ABA teaching.</small></span></label>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules on the Progress tab.</small></span></label>
+      </div>
       <div class="grid2">
         <div><h3>Games per session</h3><div class="chips" id="blockChips"></div></div>
         <div><h3>Turns per game</h3><div class="chips" id="turnChips"></div></div>
@@ -100,12 +163,12 @@
           <label class="toggle"><input type="checkbox" id="g-seq"><span>Patterns<small>What comes next?</small></span></label>
           <label class="toggle"><input type="checkbox" id="g-count"><span>Count<small>How many pictures?</small></span></label>
           <label class="toggle"><input type="checkbox" id="g-pairs"><span>Pairs<small>Turn over cards to find matching pairs.</small></span></label>
+          <label class="toggle"><input type="checkbox" id="g-feel"><span>Feelings<small>Happy, sad, angry, scared, surprised, sleepy faces.</small></span></label>
         </div>
       </div>
       <div>
         <h3>Who picks the games</h3>
         <div class="chips" id="modeChips"></div>
-        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules on the Progress tab.</small></span></label>
       </div>
       <div>
         <h3>Grown-ups button</h3>
@@ -114,6 +177,7 @@
       </div>
     </section>
 
+    <!-- CHILDREN -->
     <section data-pane="child" hidden>
       <div>
         <h3>Who is playing</h3>
@@ -142,6 +206,7 @@
       </div>
     </section>
 
+    <!-- ACCOUNT -->
     <section data-pane="account" hidden>
       <div id="acctBox"></div>
       <div>
@@ -155,6 +220,7 @@
       </div>
     </section>
 
+    <!-- ENGINE LOG -->
     <section data-pane="engine" hidden>
       <p class="note">Every decision the engine makes on this visit, newest first.</p>
       <ul class="log" id="log"></ul>
@@ -171,8 +237,11 @@
 <script src="js/config.js"></script>
 <script src="js/common.js"></script>
 <script src="js/engine.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/store.js"></script>
+<script src="js/photos.js"></script>
 <script src="js/cloud.js"></script>
+<script src="js/tools.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
