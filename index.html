@@ -7,88 +7,54 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;600&display=swap">
 <style>
-/* Layout: one calm column. Header, then today's visual schedule, then one task card, then progress. Grown-ups panel sits above the card when open. */
+/* Layout: one calm column — a quiet header, one task card, one row of answers, progress below. Nothing moves unless it means something. */
 :root{
   --bg:#eef3f1; --surface:#ffffff; --ink:#1f2d2b; --muted:#5b6d69; --line:#cfdcd8;
-  --accent:#3f7c74; --accent-soft:#d7e9e5; --ok:#3d7f4f; --ok-soft:#dcefe0; --hint:#b07a1f; --hint-soft:#f6ead2; --dim:#e4ebe9; --warn:#a4553a;
+  --accent:#3f7c74; --accent-soft:#d7e9e5; --ok:#3d7f4f; --ok-soft:#dcefe0; --hint:#c08a2e; --dim:#e4ebe9;
   --display:"Lexend","Trebuchet MS",system-ui,sans-serif;
   --body:"Atkinson Hyperlegible",Verdana,system-ui,sans-serif;
-  --tile:clamp(84px,24vw,128px); --emoji:clamp(44px,13vw,68px); --seq:clamp(30px,8.5vw,54px);
+  --tile:clamp(84px,24vw,128px); --emoji:clamp(44px,13vw,68px);
   --speed:.25s;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#152120; --surface:#1d2b29; --ink:#e3ece9; --muted:#9fb3ae; --line:#2f4440;
-  --accent:#7fbfb5; --accent-soft:#25403c; --ok:#86c896; --ok-soft:#203a28; --hint:#e2b664; --hint-soft:#3a3120; --dim:#243432; --warn:#e39a7e; color-scheme:dark}}
+  --accent:#7fbfb5; --accent-soft:#25403c; --ok:#86c896; --ok-soft:#203a28; --hint:#e2b664; --dim:#243432; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#152120; --surface:#1d2b29; --ink:#e3ece9; --muted:#9fb3ae; --line:#2f4440;
-  --accent:#7fbfb5; --accent-soft:#25403c; --ok:#86c896; --ok-soft:#203a28; --hint:#e2b664; --hint-soft:#3a3120; --dim:#243432; --warn:#e39a7e; color-scheme:dark}
-body[data-contrast="high"]{--bg:#ffffff;--surface:#ffffff;--ink:#000000;--muted:#000000;--line:#000000;--accent:#003b8e;--accent-soft:#ffffff;--ok:#005a1c;--ok-soft:#ffffff;--hint:#8a4b00;--hint-soft:#ffffff;--dim:#ffffff;--warn:#8a1c00;color-scheme:light}
+  --accent:#7fbfb5; --accent-soft:#25403c; --ok:#86c896; --ok-soft:#203a28; --hint:#e2b664; --dim:#243432; color-scheme:dark}
+body[data-contrast="high"]{--bg:#ffffff;--surface:#ffffff;--ink:#000000;--muted:#000000;--line:#000000;--accent:#003b8e;--accent-soft:#ffffff;--ok:#005a1c;--ok-soft:#ffffff;--hint:#8a4b00;--dim:#ffffff}
 body[data-big="on"]{--tile:clamp(110px,40vw,170px);--emoji:clamp(60px,20vw,92px)}
 body[data-calm="on"]{--speed:0s}
 @media (prefers-reduced-motion:reduce){:root{--speed:0s}}
 
-[hidden]{display:none!important}
 html,body{min-height:100%}
-body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--body);padding-inline:16px;padding-block:12px 40px}
-.wrap{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--body);padding-inline:16px;padding-block:12px 32px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font:600 22px/1.2 var(--display);letter-spacing:.01em;display:flex;align-items:center;gap:10px}
+.brand i{width:14px;height:14px;border-radius:50%;background:var(--accent);display:inline-block}
 button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-h1,h2,h3,h4{margin:0}
 
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand{font:600 22px/1.2 var(--display);display:flex;align-items:center;gap:10px}
-.brand i{width:14px;height:14px;border-radius:50%;background:var(--accent);display:inline-block}
-.hright{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.who{font-size:15px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.who b{color:var(--ink);font-size:22px;line-height:1}
-.breakbtn{border:2px solid var(--accent);background:var(--surface);border-radius:999px;padding:8px 18px;font:600 16px/1 var(--display);color:var(--accent)}
 .grown{position:relative;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-size:14px;color:var(--muted);overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:none}
 .grown .fill{position:absolute;inset:0;background:var(--accent-soft);transform-origin:left;transform:scaleX(0)}
 .grown span{position:relative}
 
-/* visual schedule */
-.sched{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
-.step{display:flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:6px 12px;font:600 15px/1.2 var(--display);color:var(--muted)}
-.step .ic{font-size:22px;letter-spacing:-2px}
-.step.now{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
-.step.done{opacity:.55}
-.step.done .tick{color:var(--ok)}
-.sched .then{color:var(--muted);font-size:14px}
-
 .card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
-.say{font:600 clamp(22px,5.5vw,30px)/1.25 var(--display);text-wrap:balance}
+.say{font:600 clamp(22px,5.5vw,30px)/1.25 var(--display);text-wrap:balance;margin:0}
 .sub{color:var(--muted);margin:0;max-width:52ch}
-.label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 8px}
-.target{width:calc(var(--tile) * 1.15);height:calc(var(--tile) * 1.15);border-radius:24px;border:3px dashed var(--accent);display:grid;place-items:center;font-size:calc(var(--emoji) * 1.15);background:var(--accent-soft);margin:0 auto}
-.sz-big{font-size:calc(var(--emoji) * 1.25)}
-.sz-small{font-size:calc(var(--emoji) * .5)}
+.target{width:calc(var(--tile) * 1.15);height:calc(var(--tile) * 1.15);border-radius:24px;border:3px dashed var(--accent);display:grid;place-items:center;font-size:calc(var(--emoji) * 1.15);background:var(--accent-soft)}
+.label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
 
 .options{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
-.opt{width:var(--tile);height:var(--tile);border-radius:22px;border:2px solid var(--line);background:var(--surface);font-size:var(--emoji);display:grid;place-items:center;transition:opacity var(--speed),background var(--speed),border-color var(--speed);position:relative}
+.opt{width:var(--tile);height:var(--tile);border-radius:22px;border:2px solid var(--line);background:var(--surface);font-size:var(--emoji);display:grid;place-items:center;transition:opacity var(--speed),background var(--speed),border-color var(--speed)}
 .opt:hover{border-color:var(--accent)}
 .opt[disabled]{opacity:.3;cursor:default;background:var(--dim)}
 .opt.right{border-color:var(--ok);background:var(--ok-soft);opacity:1;border-width:4px}
-.opt.hint{border-color:var(--hint);border-width:4px;border-style:dashed;background:var(--hint-soft)}
-.opt .kn{position:absolute;top:6px;left:9px;font:600 12px/1 var(--body);color:var(--muted)}
-body:not([data-keys="on"]) .opt .kn{display:none}
-
-/* sort baskets */
-.opt.basket{width:calc(var(--tile) * 1.45);height:auto;min-height:calc(var(--tile) * 1.35);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:10px 8px;border-radius:18px 18px 28px 28px;border-width:3px}
-.basket .bicon{font-size:calc(var(--emoji) * .8);line-height:1.1}
-.basket .bicon .sz-big{font-size:calc(var(--emoji) * .95)}
-.basket .bicon .sz-small{font-size:calc(var(--emoji) * .45)}
-.basket .bname{font:600 15px/1.2 var(--display)}
-.basket .bgot{font-size:22px;line-height:1.2;min-height:26px;display:flex;flex-wrap:wrap;justify-content:center;gap:2px;border-top:2px solid var(--line);padding-top:6px;width:100%}
-
-/* pattern row */
-.seqrow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;font-size:var(--seq);padding:12px;border-radius:18px;background:var(--accent-soft)}
-.seqrow span{display:grid;place-items:center;width:calc(var(--seq) * 1.3);height:calc(var(--seq) * 1.3)}
-.seqrow .slot{border:3px dashed var(--accent);border-radius:14px;font:600 calc(var(--seq) * .7)/1 var(--display);color:var(--accent);background:var(--surface)}
-.seqrow .slot.filled{border-style:solid;border-color:var(--ok);font-size:var(--seq)}
+.opt.hint{border-color:var(--hint);border-width:4px;border-style:dashed}
 
 .feedback{min-height:1.6em;font-weight:700;margin:0}
 .feedback.ok{color:var(--ok)}
-.again{background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
 
 .progress{display:flex;flex-direction:column;align-items:center;gap:8px}
 .dots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
@@ -98,69 +64,25 @@ body:not([data-keys="on"]) .opt .kn{display:none}
 
 .big-btn{background:var(--accent);color:var(--bg);border:0;border-radius:16px;padding:16px 36px;font:600 20px/1 var(--display)}
 .ghost-btn{background:transparent;border:2px solid var(--line);border-radius:16px;padding:14px 28px;font:600 18px/1 var(--display)}
-.small-btn{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:8px 14px;font:600 15px/1.2 var(--display)}
-.small-btn.danger{border-color:var(--warn);color:var(--warn)}
-.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
-.bigicon{font-size:calc(var(--emoji) * 1.2);letter-spacing:-4px;line-height:1.1}
-.stickers{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;font-size:40px}
-.stickers span{width:64px;height:64px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);border:2px solid var(--accent)}
-.breath{width:150px;height:150px;border-radius:50%;background:var(--accent-soft);border:3px solid var(--accent);animation:breathe 8s ease-in-out infinite}
-@keyframes breathe{0%,100%{transform:scale(.65)}50%{transform:scale(1)}}
-body[data-calm="on"] .breath{animation:none}
-@media (prefers-reduced-motion:reduce){.breath{animation:none}}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.preview{display:flex;gap:10px;font-size:40px;justify-content:center;flex-wrap:wrap}
 
 /* Grown-ups panel */
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:18px}
-.panel h2{font:600 20px/1.2 var(--display)}
-.panel h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.panel section{display:flex;flex-direction:column;gap:16px}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-bottom:8px}
-.tab{background:transparent;border:0;border-radius:10px;padding:8px 12px;font:600 15px/1 var(--display);color:var(--muted)}
-.tab[aria-selected="true"]{background:var(--accent-soft);color:var(--ink)}
+.panel h2{font:600 20px/1.2 var(--display);margin:0}
+.panel h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 20px}
 .toggle{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
 .toggle input{width:22px;height:22px;accent-color:var(--accent);margin-top:2px;flex:none}
 .toggle small{display:block;color:var(--muted);font-size:14px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:15px}
 .chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
-.note{font-size:14px;color:var(--muted);margin:0}
-.field{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
-.field input[type=text]{font:inherit;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:8px 12px;min-width:0;flex:1 1 160px;max-width:260px}
-.log{list-style:none;margin:0;padding:0;font-size:14px;display:flex;flex-direction:column;gap:6px;max-height:320px;overflow:auto}
+.log{list-style:none;margin:0;padding:0;font-size:14px;display:flex;flex-direction:column;gap:6px;max-height:180px;overflow:auto}
 .log li{border-left:3px solid var(--accent);padding-left:10px;color:var(--muted)}
 .log li b{color:var(--ink)}
-.log li time{font-variant-numeric:tabular-nums;margin-right:6px}
-
-/* skill map */
-.smap{display:flex;flex-direction:column;gap:10px}
-.tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.track{display:flex;flex-direction:column;gap:6px;min-width:0}
-.track h4{font:600 14px/1.2 var(--display);color:var(--muted);text-align:center}
-.arrow{text-align:center;color:var(--muted);font-size:14px;line-height:1}
-.node{border:2px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
-.node.locked{border-style:dashed;opacity:.65}
-.node.learning{border-color:var(--accent)}
-.node.mastered{border-color:var(--ok)}
-.nh{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
-.nh b{font-size:15px}
-.pill{font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--dim);color:var(--muted)}
-.pill.learning,.pill.ready{background:var(--accent-soft);color:var(--accent)}
-.pill.mastered{background:var(--ok-soft);color:var(--ok)}
-.pill.step{background:var(--hint-soft);color:var(--hint)}
-.bar{position:relative;height:10px;border-radius:5px;background:var(--dim);overflow:hidden}
-.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:5px}
-.node.mastered .bar i{background:var(--ok)}
-.bar .mk{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.35}
-.nmeta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.plan{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
-.plan b{font-family:var(--display);font-weight:600}
-.tablewrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px;font-variant-numeric:tabular-nums}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.ex{font-size:12px;font-weight:700;color:var(--hint);background:var(--hint-soft);border-radius:6px;padding:1px 6px}
-textarea{width:100%;min-height:120px;font:13px/1.4 ui-monospace,Menlo,monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;box-sizing:border-box}
+.status{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted)}
+.note{font-size:14px;color:var(--muted);margin:0}
 </style>
 </head>
 <body>
@@ -168,119 +90,53 @@ textarea{width:100%;min-height:120px;font:13px/1.4 ui-monospace,Menlo,monospace;
 <div class="wrap">
   <header>
     <div class="brand"><i></i>Calm Match</div>
-    <div class="hright">
-      <span class="who" id="who"></span>
-      <button class="breakbtn" id="breakBtn" hidden>Break</button>
-      <button class="grown" id="grownBtn" aria-label="Grown-ups settings. Press and hold to open."><div class="fill" id="grownFill"></div><span>Grown-ups: hold</span></button>
-    </div>
+    <button class="grown" id="grownBtn" aria-label="Grown-ups settings. Press and hold to open."><div class="fill" id="grownFill"></div><span id="grownTxt">Grown-ups: hold</span></button>
   </header>
 
-  <nav class="sched" id="sched" aria-label="Today's plan"></nav>
-
-  <section class="panel" id="panel" hidden aria-label="Grown-ups area">
-    <div class="row" style="justify-content:space-between">
-      <h2>Grown-ups</h2>
+  <section class="panel" id="panel" hidden aria-label="Grown-ups settings">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <h2>Settings for grown-ups</h2>
       <button class="ghost-btn" id="closePanel">Done</button>
     </div>
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" data-tab="child">Child</button>
-      <button class="tab" role="tab" data-tab="settings">Settings</button>
-      <button class="tab" role="tab" data-tab="skills">Skills</button>
-      <button class="tab" role="tab" data-tab="history">History</button>
-      <button class="tab" role="tab" data-tab="engine">Engine log</button>
+
+    <div>
+      <h3>Interest theme</h3>
+      <div class="chips" id="themeChips" style="margin-top:10px"></div>
     </div>
 
-    <section data-pane="child">
-      <div>
-        <h3>Who is playing</h3>
-        <div class="chips" id="profileChips"></div>
-      </div>
-      <div>
-        <h3>Rename</h3>
-        <div class="field"><input type="text" id="renameInput" maxlength="20" aria-label="Nickname"><button class="small-btn" id="renameBtn">Save name</button></div>
-      </div>
-      <div>
-        <h3>Add a child</h3>
-        <div class="field"><input type="text" id="newName" maxlength="20" placeholder="Nickname" aria-label="New child nickname"><button class="small-btn" id="addBtn">Add</button></div>
-        <div class="chips" id="avatarChips"></div>
-        <p class="note" style="margin-top:8px">Use a nickname only. Don't enter a diagnosis, age or anything medical. Everything stays on this device.</p>
-      </div>
-      <div>
-        <h3>Sticker book</h3>
-        <div class="stickers" id="stickerBook" style="justify-content:flex-start;font-size:28px;margin-top:8px"></div>
-      </div>
-      <div class="row" style="justify-content:flex-start">
-        <button class="small-btn" id="exampleBtn">Add example child with progress</button>
-        <button class="small-btn danger" id="resetBtn">Reset this child's progress</button>
-        <button class="small-btn danger" id="deleteBtn">Remove this child</button>
-      </div>
-    </section>
-
-    <section data-pane="settings">
-      <div>
-        <h3>Interest theme</h3>
-        <div class="chips" id="themeChips"></div>
-      </div>
-      <div>
-        <h3>Senses</h3>
-        <div class="grid2">
-          <label class="toggle"><input type="checkbox" id="s-sound"><span>Soft sounds<small>A gentle chime for a match. Never a sound for a miss.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="s-speech"><span>Read aloud<small>Says each instruction and picture name.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="s-calm"><span>No motion<small>Turns off fades, transitions and the breathing animation.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="s-contrast"><span>High contrast<small>Black on white with strong outlines.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="s-big"><span>Bigger buttons<small>For less precise tapping.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="s-keys"><span>Number keys<small>Shows 1, 2, 3 on answers for keyboard or switch users.</small></span></label>
-        </div>
-        <div class="chips" id="rateChips" aria-label="Voice speed"></div>
-      </div>
+    <div>
+      <h3>Senses</h3>
       <div class="grid2">
-        <div><h3>Games per session</h3><div class="chips" id="blockChips"></div></div>
-        <div><h3>Turns per game</h3><div class="chips" id="turnChips"></div></div>
+        <label class="toggle"><input type="checkbox" id="s-sound"><span>Soft sounds<small>A gentle chime for a match. Never a sound for a miss.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-speech"><span>Read aloud<small>Says the instruction and the picture name.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-calm"><span>No motion<small>Turns off all fades and transitions.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-contrast"><span>High contrast<small>Black on white with strong outlines.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-big"><span>Bigger buttons<small>For less precise tapping.</small></span></label>
+        <label class="toggle"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Follows the rules below. Turn off to fix the level.</small></span></label>
       </div>
-      <div>
-        <h3>Which games</h3>
-        <div class="grid2">
-          <label class="toggle"><input type="checkbox" id="g-match"><span>Match<small>Find the same picture.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="g-sort"><span>Sort<small>Put each picture in the right basket.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="g-seq"><span>Patterns<small>What comes next?</small></span></label>
-        </div>
-      </div>
-      <div>
-        <h3>Who picks the games</h3>
-        <div class="chips" id="modeChips"></div>
-        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules on the Skills tab.</small></span></label>
-      </div>
-    </section>
+    </div>
 
-    <section data-pane="skills">
+    <div class="grid2">
       <div>
-        <h3>Next session plan</h3>
-        <ol class="plan" id="planPreview" style="margin-top:8px"></ol>
+        <h3>Pictures per session</h3>
+        <div class="chips" id="roundChips" style="margin-top:10px"></div>
       </div>
       <div>
-        <h3>Skill map</h3>
-        <p class="note" style="margin-top:6px">Each bar is how sure the engine is that the skill is learned. A skill opens once the one above it passes the first mark (60%). It counts as learned at the second mark (90%).</p>
-        <div class="smap" id="smap" style="margin-top:12px"></div>
+        <h3>Starting level</h3>
+        <div class="chips" id="levelChips" style="margin-top:10px"></div>
       </div>
-      <div>
-        <h3>Rules in use</h3>
-        <p class="note" style="margin-top:8px">Within a game: 3 first-try matches in a row adds an answer choice. 2 misses on one turn shows a dashed outline on the right answer and removes a choice next turn. Between sessions: a game where fewer than half the turns were right first time is flagged, and next time the engine practises the skill before it first. Every session starts with the strongest game and ends on something familiar. The plan is fixed once a session starts.</p>
-      </div>
-      <div>
-        <h3>Export</h3>
-        <div class="row" style="justify-content:flex-start;margin-top:8px"><button class="small-btn" id="copyBtn">Copy progress as JSON</button><span class="note" id="copyMsg"></span></div>
-        <textarea id="copyArea" hidden aria-label="Progress data" readonly></textarea>
-      </div>
-    </section>
+    </div>
 
-    <section data-pane="history">
-      <div class="tablewrap"><table><thead><tr><th>When</th><th>Games</th><th>Right first time</th><th>Hints</th><th>Breaks</th><th>Minutes</th></tr></thead><tbody id="histBody"></tbody></table></div>
-    </section>
+    <div>
+      <h3>Rules in use</h3>
+      <p class="note" style="margin-top:8px">3 matches in a row: one more picture to choose from. 2 misses in a row: one fewer picture next time, and the right answer gets a dashed outline now. Changes only happen between rounds, so the screen never rearranges mid-task.</p>
+    </div>
 
-    <section data-pane="engine">
-      <p class="note">Every decision the engine makes this visit, newest first.</p>
-      <ul class="log" id="log"><li>Nothing yet. Start a session to see each rule as it fires.</li></ul>
-    </section>
+    <div>
+      <h3>What the engine did <span class="status" id="status"></span></h3>
+      <ul class="log" id="log" style="margin-top:10px"><li>Nothing yet. Start a session to see each rule as it fires.</li></ul>
+    </div>
+    <p class="note">Settings stay on this device only. Nothing is sent anywhere.</p>
   </section>
 
   <main class="card" id="stage" aria-live="polite"></main>
@@ -292,546 +148,176 @@ textarea{width:100%;min-height:120px;font:13px/1.4 ui-monospace,Menlo,monospace;
 </div>
 
 <script>
-/* ================= content ================= */
 const THEMES={
-  vehicles:{label:"Vehicles",items:[["🚂","train"],["🚌","bus"],["🚗","car"],["🚲","bike"],["🚁","helicopter"],["🚜","tractor"],["⛵","boat"],["🚒","fire engine"]]},
+  vehicles:{label:"Trains & vehicles",items:[["🚂","train"],["🚌","bus"],["🚗","car"],["🚲","bike"],["🚁","helicopter"],["🚜","tractor"],["⛵","boat"],["🚒","fire engine"]]},
   animals:{label:"Animals",items:[["🐶","dog"],["🐱","cat"],["🐰","rabbit"],["🐸","frog"],["🐢","turtle"],["🐘","elephant"],["🦁","lion"],["🐧","penguin"]]},
   space:{label:"Space",items:[["🚀","rocket"],["🌙","moon"],["⭐","star"],["🪐","planet"],["☀️","sun"],["🛸","spaceship"],["🌍","Earth"],["👩‍🚀","astronaut"]]},
   dinos:{label:"Dinosaurs",items:[["🦕","long-neck dinosaur"],["🦖","T-rex"],["🥚","egg"],["🌋","volcano"],["🌴","palm tree"],["🦴","bone"],["🐊","crocodile"],["🦎","lizard"]]},
-  food:{label:"Food",items:[["🍎","apple"],["🍌","banana"],["🍓","strawberry"],["🥕","carrot"],["🍕","pizza"],["🧀","cheese"],["🍪","cookie"],["🥦","broccoli"]]},
   colours:{label:"Colours",items:[["🔴","red"],["🟢","green"],["🔵","blue"],["🟡","yellow"],["🟣","purple"],["🟠","orange"],["⚫","black"],["🟤","brown"]]}
 };
-const GAMES={
-  match:{label:"Match",does:"Find the picture that is the same."},
-  sort:{label:"Sort",does:"Put each picture in the right basket."},
-  seq:{label:"Patterns",does:"Look at the line of pictures. Find what comes next."}
-};
-const SKILLS=[
-  {id:"same",game:"match",name:"Same picture",pre:[]},
-  {id:"sortPic",game:"sort",name:"Sort by picture",pre:["same"],mode:"picture"},
-  {id:"sortSize",game:"sort",name:"Sort big and small",pre:["sortPic"],mode:"size"},
-  {id:"sortKind",game:"sort",name:"Sort by group",pre:["sortSize"],mode:"kind"},
-  {id:"seqAB",game:"seq",name:"Pattern A B",pre:["same"],pattern:"AB"},
-  {id:"seqAAB",game:"seq",name:"Pattern A A B",pre:["seqAB"],pattern:"AAB"},
-  {id:"seqABC",game:"seq",name:"Pattern A B C",pre:["seqAAB"],pattern:"ABC"}
-];
-const SK=Object.fromEntries(SKILLS.map(s=>[s.id,s]));
-const LV={match:[2,3,4,6],sort:[2,3],seq:[2,3,4]};
-const READY=.6, MASTER=.9, PRIOR=.15, P_TRANSIT=.2, P_SLIP=.1;
-const AVATARS=["🙂","🦊","🐻","🐼","🐯","🐨","🦉","🐳"];
+const LEVELS=[2,3,4,6];
+const KEY="calm-match-settings";
+const defaults={theme:"vehicles",sound:true,speech:false,calm:false,contrast:false,big:false,adaptive:true,rounds:8,startLevel:0};
+let S={...defaults};
+try{S={...defaults,...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 
-/* ================= storage ================= */
-const KEY="calm-match-v2";
-const DEFAULTS={theme:"vehicles",sound:true,speech:false,rate:.85,calm:false,contrast:false,big:false,keys:false,adaptive:true,blocks:3,turns:4,mode:"engine",games:{match:true,sort:true,seq:true}};
-const freshSkills=()=>Object.fromEntries(SKILLS.map(s=>[s.id,{p:PRIOR,turns:0,lvl:0,struggle:false}]));
-const newProfile=(name,avatar)=>({name,avatar,settings:structuredClone(DEFAULTS),skills:freshSkills(),history:[],stickers:[]});
-let DB=null;
-try{DB=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
-if(!DB||!DB.profiles){
-  DB={active:"p1",profiles:{p1:newProfile("Player 1","🙂")}};
-  try{const old=JSON.parse(localStorage.getItem("calm-match-settings")||"null");if(old)Object.assign(DB.profiles.p1.settings,{theme:old.theme||"vehicles",sound:old.sound!==false,speech:!!old.speech,calm:!!old.calm,contrast:!!old.contrast,big:!!old.big})}catch(e){}
-}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};
-const P=()=>DB.profiles[DB.active];
-const S=()=>{const s=P().settings;for(const k in DEFAULTS)if(s[k]===undefined)s[k]=structuredClone(DEFAULTS[k]);return s};
-
-/* ================= helpers ================= */
+let level=S.startLevel, okRun=0, missRun=0, round=0, hint=false, target=null, lastTarget=null, locked=false, playing=false;
 const $=id=>document.getElementById(id);
 const stage=$("stage");
-const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const pick1=a=>a[Math.floor(Math.random()*a.length)];
-const pct=p=>Math.round(p*100)+"%";
-const theme=()=>THEMES[S().theme]||THEMES.vehicles;
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function gameIcon(g){const it=theme().items;return g==="match"?it[0][0]+it[0][0]:g==="sort"?"🧺":it[0][0]+it[1][0]+it[0][0]}
 
-/* ================= senses ================= */
+/* ---------- senses ---------- */
 function applySenses(){
-  const s=S();
-  document.body.dataset.calm=s.calm?"on":"off";
-  document.body.dataset.contrast=s.contrast?"high":"normal";
-  document.body.dataset.big=s.big?"on":"off";
-  document.body.dataset.keys=s.keys?"on":"off";
+  document.body.dataset.calm=S.calm?"on":"off";
+  document.body.dataset.contrast=S.contrast?"high":"normal";
+  document.body.dataset.big=S.big?"on":"off";
 }
-let actx=null;
-function tones(freqs,gap=.16){
-  if(!S().sound)return;
+let ctx=null;
+function chime(){
+  if(!S.sound)return;
   try{
-    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
-    freqs.forEach((f,i)=>{
-      const o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+i*gap;
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    [523.25,659.25].forEach((f,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+i*.16;
       o.type="sine";o.frequency.value=f;
       g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+.6);
-      o.connect(g).connect(actx.destination);o.start(t);o.stop(t+.65);
+      o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+.65);
     });
   }catch(e){}
 }
-const chime=()=>tones([523.25,659.25]);
-const fanfare=()=>tones([523.25,659.25,783.99],.2);
 function say(text){
-  if(!S().speech||!("speechSynthesis" in window))return;
-  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=S().rate;speechSynthesis.speak(u)}catch(e){}
+  if(!S.speech||!("speechSynthesis" in window))return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=.85;u.pitch=1;speechSynthesis.speak(u)}catch(e){}
 }
 
-/* ================= engine: knowledge tracing ================= */
-const pp=s=>P().skills[s.id].p;
-function unlocked(s){return s.pre.every(q=>!S().games[SK[q].game]||pp(SK[q])>=READY)}
-function status(s){
-  const st=P().skills[s.id];
-  if(!unlocked(s))return"locked";
-  if(st.p>=MASTER)return"mastered";
-  return st.turns?"learning":"ready";
-}
-function bkt(s,correct,nOpts){
-  const st=P().skills[s.id],g=Math.min(.5,1/nOpts),p=st.p;
-  const post=correct?p*(1-P_SLIP)/(p*(1-P_SLIP)+(1-p)*g):p*P_SLIP/(p*P_SLIP+(1-p)*(1-g));
-  st.p=post+(1-post)*P_TRANSIT;
-}
-function pickSkill(game,commit){
-  const list=SKILLS.filter(s=>s.game===game);
-  const strug=list.find(s=>P().skills[s.id].struggle&&unlocked(s));
-  if(strug){
-    const pre=strug.pre.map(id=>SK[id]).find(p=>p.game===game);
-    if(pre){if(commit)P().skills[strug.id].struggle=false;return[pre,`Step back: ${strug.name} was hard last time, so practise ${pre.name} first`]}
-    return[strug,`${strug.name} again, with fewer choices`];
-  }
-  const un=list.filter(unlocked);
-  if(!un.length)return[list[0],`First look at ${list[0].name}`];
-  const learning=un.find(s=>pp(s)<MASTER);
-  if(learning)return[learning,`${learning.name} is ready to learn (${pct(pp(learning))} sure)`];
-  const top=un[un.length-1];
-  return[top,`Review: ${top.name} is already learned (${pct(pp(top))})`];
-}
-function planSession(){
-  const s=S(),N=s.blocks;
-  let games=Object.keys(GAMES).filter(g=>s.games[g]);if(!games.length)games=["match"];
-  const reasons=[];let plan=[];
-  if(s.mode==="fixed"){
-    plan=Array.from({length:N},(_,i)=>games[i%games.length]);
-    reasons.push("Fixed order chosen by a grown-up");
-  }else if(!P().history.length){
-    plan=Array.from({length:N},(_,i)=>games[i%games.length]);
-    reasons.push("First session: one short go at each game to see where to start");
-  }else{
-    const best=g=>Math.max(0,...SKILLS.filter(k=>k.game===g&&unlocked(k)).map(pp));
-    const canLearn=g=>SKILLS.some(k=>k.game===g&&unlocked(k)&&pp(k)<MASTER);
-    const strong=[...games].sort((a,b)=>best(b)-best(a));
-    plan.push(strong[0]);reasons.push(`Warm-up with ${GAMES[strong[0]].label}: strongest game (${pct(best(strong[0]))})`);
-    const flagged=g=>SKILLS.some(k=>k.game===g&&P().skills[k.id].struggle);
-    const learn=games.filter(canLearn).sort((a,b)=>(flagged(b)-flagged(a))||(best(b)-best(a)));
-    const pool=learn.length?learn:games;
-    const middle=N>=3?N-2:N-1;let k=0;
-    for(let i=0;i<middle;i++){
-      let g=pool[k%pool.length];
-      if(g===plan[plan.length-1]&&pool.length>1){k++;g=pool[k%pool.length]}
-      k++;plan.push(g);
-      reasons.push(flagged(g)?`${GAMES[g].label}: was hard last time, so it comes early with a step back`:learn.includes(g)?`${GAMES[g].label}: has a skill ready to learn`:`${GAMES[g].label}: everything learned, keeping it fresh`);
-    }
-    if(N>=3){
-      const g=strong.find(x=>x!==plan[plan.length-1]&&x!==plan[0])||strong.find(x=>x!==plan[plan.length-1])||strong[0];
-      plan.push(g);reasons.push(`Finish on ${GAMES[g].label}: something familiar`);
-    }
-  }
-  return{plan,reasons};
-}
-
-/* ================= engine log ================= */
-const LOG=[];
+/* ---------- engine log ---------- */
+const logEl=$("log");let logStarted=false;
 function log(rule,result){
-  const t=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-  LOG.unshift({t,rule,result});
-  if(!$("panel").hidden)renderLog();
+  if(!logStarted){logEl.innerHTML="";logStarted=true}
+  const li=document.createElement("li");
+  li.innerHTML=`<b>${rule}</b> → ${result}`;
+  logEl.prepend(li);
+  updateStatus();
 }
-function renderLog(){
-  $("log").innerHTML=LOG.length?LOG.map(l=>`<li><time>${l.t}</time><b>${esc(l.rule)}</b> → ${esc(l.result)}</li>`).join(""):"<li>Nothing yet. Start a session to see each rule as it fires.</li>";
-}
-
-/* ================= session state ================= */
-let session=null,blk=null,cur=null,locked=false,pendingAdvance=null,screenFn=null,lastTarget=null;
-
-function renderSched(){
-  const el=$("sched");
-  const plan=session?session.plan:planSession().plan;
-  el.innerHTML=plan.map((g,i)=>{
-    const st=!session?"later":i<session.i?"done":i===session.i?"now":"later";
-    return `${i?'<span class="then" aria-hidden="true">then</span>':""}<span class="step ${st}" ${st==="now"?'aria-current="step"':""}><span class="ic" aria-hidden="true">${gameIcon(g)}</span>${GAMES[g].label}${st==="done"?' <span class="tick" aria-label="done">✓</span>':""}</span>`;
-  }).join("")+`<span class="then" aria-hidden="true">then</span><span class="step ${session&&session.i>=plan.length?"now":"later"}"><span class="ic" aria-hidden="true">🏁</span>All done</span>`;
-}
-function renderWho(){const p=P();$("who").innerHTML=`<b aria-hidden="true">${p.avatar}</b>${esc(p.name)}`}
+function updateStatus(){$("status").textContent=`· level ${level+1} (${LEVELS[level]} pictures)`}
 
 /* ---------- screens ---------- */
-function show(fn){screenFn=fn;fn()}
+function theme(){return THEMES[S.theme]}
 function startScreen(){
-  session=null;blk=null;$("progress").hidden=true;$("breakBtn").hidden=true;
-  const {plan}=planSession();renderSched();renderWho();
+  playing=false;$("progress").hidden=true;
+  const t=theme();
   stage.innerHTML=`
-    <p class="label">Today, ${esc(P().name)}</p>
-    <h1 class="say">${plan.length} games, then all done</h1>
-    <p class="sub">${plan.map(g=>GAMES[g].label).join(", then ")}. Each game has ${S().turns} turns. You can tap Break any time.</p>
+    <p class="label">Today</p>
+    <h1 class="say">Match ${S.rounds} pictures</h1>
+    <div class="preview" aria-hidden="true">${t.items.slice(0,4).map(i=>`<span>${i[0]}</span>`).join("")}</div>
+    <p class="sub">You will see one picture at the top. Tap the one that is the same. There are ${S.rounds} turns, then we stop.</p>
     <button class="big-btn" id="startBtn">Start</button>`;
-  $("startBtn").onclick=startSession;
-  say(`Today: ${plan.map(g=>GAMES[g].label).join(", then ")}. Then all done.`);
+  $("startBtn").onclick=()=>{
+    level=S.startLevel;okRun=0;missRun=0;round=0;hint=false;
+    log("Session start",`${t.label}, ${LEVELS[level]} pictures to choose from`);
+    playing=true;nextRound();
+  };
 }
-function startSession(){
-  const {plan,reasons}=planSession();
-  session={plan,i:0,start:Date.now(),breaks:0,stickers:[],blocks:[]};
-  log("Session start",`${P().name}, theme ${theme().label}`);
-  reasons.forEach((r,i)=>log(`Plan step ${i+1}`,r));
-  $("breakBtn").hidden=false;
-  show(blockIntro);
+function pickTarget(){
+  const items=theme().items;let t;
+  do{t=items[Math.floor(Math.random()*items.length)]}while(lastTarget&&t[0]===lastTarget[0]);
+  return t;
 }
-function blockIntro(){
-  const g=session.plan[session.i];
-  renderSched();$("progress").hidden=true;
-  stage.innerHTML=`
-    <p class="label">Now</p>
-    <div class="bigicon" aria-hidden="true">${gameIcon(g)}</div>
-    <h1 class="say">${GAMES[g].label}</h1>
-    <p class="sub">${GAMES[g].does} ${S().turns} turns.</p>
-    <button class="big-btn" id="goBtn">Go</button>`;
-  $("goBtn").onclick=startBlock;
-  say(`Now: ${GAMES[g].label}. ${GAMES[g].does}`);
-}
-function startBlock(){
-  const g=session.plan[session.i];
-  const [skill,why]=pickSkill(g,true);
-  log(`${GAMES[g].label} starts`,why);
-  const st=P().skills[skill.id];
-  blk={game:g,skill,t:0,turns:S().turns,lvl:Math.min(st.lvl,LV[g].length-1),okRun:0,firstTry:0,hints:0};
-  if(g==="sort")setupSort();
-  log("Difficulty",describeLvl());
-  nextTurn();
-}
-function describeLvl(){
-  if(blk.game==="sort")return `${blk.baskets.length} baskets, sorting ${blk.skill.mode==="size"?"by size":blk.skill.mode==="kind"?"by group":"by picture"}`;
-  return `${LV[blk.game][blk.lvl]} pictures to choose from`;
-}
-function nextTurn(){
-  pendingAdvance=null;
-  if(blk.t>=blk.turns)return finishBlock();
-  cur=blk.game==="match"?genMatch():blk.game==="sort"?genSort():genSeq();
-  cur.first=true;cur.misses=0;cur.hint=false;cur.lowered=false;
-  show(renderTurn);
-  say(cur.speak);
-}
-function renderTurn(){
-  locked=false;renderSched();
-  stage.innerHTML=`
-    <h1 class="say">${cur.title}</h1>
-    <div>${cur.show}</div>
-    <div class="options" role="group" aria-label="Choose an answer">
-      ${cur.opts.map((o,i)=>`<button class="opt ${o.cls||""} ${cur.hint&&o.correct?"hint":""}" data-i="${i}" aria-label="${esc(o.label)}"><span class="kn" aria-hidden="true">${i+1}</span>${o.html}</button>`).join("")}
-    </div>
-    <p class="feedback" id="fb">${cur.hint?"Look for the dashed outline.":""}</p>
-    ${S().speech?'<button class="again" id="againBtn">Say it again</button>':""}`;
-  stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.i,b));
-  if($("againBtn"))$("againBtn").onclick=()=>say(cur.speak);
-  renderDots();
-}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function renderDots(){
   $("progress").hidden=false;
-  $("dots").innerHTML=Array.from({length:blk.turns},(_,i)=>`<span class="dot ${i<blk.t?"done":""}"></span>`).join("");
-  const left=blk.turns-blk.t,nextG=session.plan[session.i+1];
-  const then=nextG?GAMES[nextG].label:"all done";
-  $("next").textContent=left<=0?`Finished. Next: ${then}.`:left===1?`This is the last one. Then ${then}.`:`${left} more, then ${then}.`;
+  $("dots").innerHTML=Array.from({length:S.rounds},(_,i)=>`<span class="dot ${i<round?"done":""}"></span>`).join("");
+  const left=S.rounds-round;
+  $("next").textContent=left===1?"This is the last one. Then all done.":`${left} more, then all done.`;
 }
-
-/* ---------- game: match ---------- */
-function freshTarget(items){let t;do{t=pick1(items)}while(lastTarget&&items.length>1&&t[0]===lastTarget);lastTarget=t[0];return t}
-function genMatch(){
-  const items=theme().items,n=LV.match[blk.lvl],t=freshTarget(items);
-  const others=shuffle(items.filter(i=>i[0]!==t[0])).slice(0,n-1);
-  return{title:"Find the same one",
-    show:`<p class="label">Find this</p><div class="target" role="img" aria-label="${esc(t[1])}">${t[0]}</div>`,
-    opts:shuffle([t,...others]).map(o=>({html:o[0],label:o[1],correct:o[0]===t[0]})),
-    speak:`Find the ${t[1]}`,praise:`Yes! The ${t[1]}.`};
-}
-
-/* ---------- game: sort ---------- */
-function setupSort(){
-  const mode=blk.skill.mode,items=theme().items,T=blk.turns;
-  const nb=mode==="size"?2:LV.sort[blk.lvl];
-  let baskets=[],queue=[];
-  if(mode==="picture"){
-    const picks=shuffle(items.slice()).slice(0,nb);
-    baskets=picks.map(p=>({key:p[0],icon:p[0],name:p[1],got:[]}));
-    queue=Array.from({length:T},(_,i)=>{const p=picks[i%nb];return{emoji:p[0],name:p[1],key:p[0]}});
-  }else if(mode==="size"){
-    const e=pick1(items);
-    baskets=[{key:"big",icon:`<span class="sz-big">${e[0]}</span>`,name:"Big",got:[]},{key:"small",icon:`<span class="sz-small">${e[0]}</span>`,name:"Small",got:[]}];
-    queue=Array.from({length:T},(_,i)=>{const k=i%2?"small":"big";return{emoji:e[0],name:`${k} ${e[1]}`,key:k,size:k}});
-  }else{
-    const keys=[S().theme,...shuffle(Object.keys(THEMES).filter(k=>k!==S().theme&&k!=="colours"))].slice(0,nb);
-    baskets=keys.map(k=>({key:k,icon:THEMES[k].items[0][0],name:THEMES[k].label,got:[]}));
-    queue=Array.from({length:T},(_,i)=>{const k=keys[i%nb],it=pick1(THEMES[k].items.slice(1));return{emoji:it[0],name:it[1],key:k}});
-  }
-  blk.baskets=baskets;blk.queue=shuffle(queue);
-}
-function genSort(){
-  const item=blk.queue[blk.t],mode=blk.skill.mode;
-  const prompt=mode==="size"?"Big or small?":mode==="kind"?"Which group?":"Put it with the same one";
-  return{title:prompt,
-    show:`<p class="label">Where does it go?</p><div class="target" role="img" aria-label="${esc(item.name)}"><span class="${item.size?"sz-"+item.size:""}">${item.emoji}</span></div>`,
-    opts:blk.baskets.map(b=>({cls:"basket",label:b.name+" basket",correct:b.key===item.key,basket:b,
-      html:`<span class="bicon" aria-hidden="true">${b.icon}</span><span class="bname">${esc(b.name)}</span><span class="bgot" aria-hidden="true">${b.got.join("")}</span>`})),
-    speak:mode==="size"?`Is this ${item.name.split(" ").slice(1).join(" ")} big or small?`:mode==="kind"?`Which group does the ${item.name} go in?`:`Put the ${item.name} with the same picture`,
-    praise:mode==="size"?`Yes! A ${item.name}.`:`Yes! The ${item.name} goes there.`,
-    onRight:o=>{o.basket.got.push(item.emoji)}};
-}
-
-/* ---------- game: patterns ---------- */
-function genSeq(){
-  const pat=blk.skill.pattern,letters=[...new Set(pat)],items=theme().items;
-  const chosen=shuffle(items.slice()).slice(0,letters.length);
-  const map=Object.fromEntries(letters.map((l,i)=>[l,chosen[i]]));
-  const L=pat.length,shown=L*2+Math.floor(Math.random()*L);
-  const row=Array.from({length:shown},(_,i)=>map[pat[i%L]]);
-  const ans=map[pat[shown%L]];
-  const n=Math.max(LV.seq[blk.lvl],2);
-  const distract=[...chosen.filter(c=>c[0]!==ans[0]),...shuffle(items.filter(i=>!chosen.includes(i)))];
-  const opts=shuffle([ans,...distract.slice(0,n-1)]);
-  return{title:"What comes next?",
-    show:`<div class="seqrow" role="img" aria-label="${esc(row.map(r=>r[1]).join(", "))}, then what?">${row.map(r=>`<span>${r[0]}</span>`).join("")}<span class="slot" id="slot">?</span></div>`,
-    opts:opts.map(o=>({html:o[0],label:o[1],correct:o[0]===ans[0]})),
-    speak:`${row.map(r=>r[1]).join(", ")}. What comes next?`,praise:`Yes! The ${ans[1]} comes next.`,
-    onRight:()=>{const s=$("slot");if(s){s.textContent=ans[0];s.classList.add("filled")}}};
-}
-
-/* ---------- answering ---------- */
-function choose(i,btn){
-  if(locked||btn.disabled||!cur)return;
-  const o=cur.opts[i],fb=$("fb"),nOpts=cur.opts.length,maxL=LV[blk.game].length-1;
-  if(o.correct){
-    locked=true;btn.classList.remove("hint");btn.classList.add("right");
-    if(cur.first){bkt(blk.skill,true,nOpts);blk.firstTry++;blk.okRun++}else blk.okRun=0;
-    if(cur.onRight)cur.onRight(o);
-    if(o.basket){const g=btn.querySelector(".bgot");if(g)g.textContent=o.basket.got.join("")}
-    fb.className="feedback ok";fb.textContent=cur.praise;chime();say(cur.praise);
-    if(S().adaptive&&blk.okRun>=3&&blk.lvl<maxL){
-      blk.lvl++;blk.okRun=0;
-      log("3 right first time in a row",blk.game==="sort"?"more baskets next time Sort is played":`${LV[blk.game][blk.lvl]} pictures from the next turn`);
-    }
-    blk.t++;renderDots();
-    pendingAdvance=setTimeout(nextTurn,S().calm?1700:1400);
-  }else{
-    btn.disabled=true;
-    if(cur.first){bkt(blk.skill,false,nOpts);cur.first=false}
-    blk.okRun=0;cur.misses++;
-    fb.className="feedback";fb.textContent="Not that one. Look again.";say("Look again");
-    if(cur.misses>=2&&!cur.hint){
-      cur.hint=true;blk.hints++;
-      const r=[...stage.querySelectorAll(".opt")].find(b=>cur.opts[+b.dataset.i].correct);
-      if(r)r.classList.add("hint");
-      fb.textContent="Look for the dashed outline.";
-      log("2 misses on one turn","dashed outline on the right answer");
-      if(S().adaptive&&blk.lvl>0&&!cur.lowered){
-        cur.lowered=true;blk.lvl--;
-        log("2 misses on one turn",blk.game==="sort"?"fewer baskets next time Sort is played":`${LV[blk.game][blk.lvl]} pictures from the next turn`);
-      }
-    }
-  }
-}
-function finishBlock(){
-  const st=P().skills[blk.skill.id],rate=blk.firstTry/blk.turns;
-  st.turns+=blk.turns;st.lvl=blk.lvl;
-  if(rate<.5&&S().adaptive){st.struggle=true;log(`${blk.skill.name}: ${pct(rate)} right first time`,"flagged, next time the engine steps back")}
-  else if(rate>=.75)st.struggle=false;
-  log(`${GAMES[blk.game].label} finished`,`${blk.skill.name} now ${pct(st.p)} sure`);
-  session.blocks.push({skill:blk.skill.id,turns:blk.turns,first:blk.firstTry,hints:blk.hints});
-  const sticker=pick1(theme().items)[0];
-  session.stickers.push(sticker);P().stickers=[...P().stickers,sticker].slice(-80);
-  save();
-  session.i++;session.lastSticker=sticker;
-  fanfare();
-  show(blockDoneScreen);
-}
-function blockDoneScreen(){
-  renderSched();$("progress").hidden=true;
-  const nextG=session.plan[session.i],sticker=session.lastSticker;
+function nextRound(){
+  if(round>=S.rounds)return endScreen();
+  target=pickTarget();lastTarget=target;locked=false;
+  const n=LEVELS[level];
+  const others=shuffle(theme().items.filter(i=>i[0]!==target[0])).slice(0,n-1);
+  const opts=shuffle([target,...others]);
   stage.innerHTML=`
-    <p class="label">${GAMES[blk.game].label} finished</p>
-    <h1 class="say">You earned a sticker</h1>
-    <div class="stickers"><span>${sticker}</span></div>
-    <p class="sub">${nextG?`Next: ${GAMES[nextG].label}.`:"That was the last game."}</p>
-    <button class="big-btn" id="contBtn">${nextG?"Next":"Finish"}</button>`;
-  say(`${GAMES[blk.game].label} finished. You earned a sticker. ${nextG?"Next: "+GAMES[nextG].label:"That was the last game."}`);
-  $("contBtn").onclick=()=>nextG?show(blockIntro):show(sessionEnd);
+    <h1 class="say">Find the same one</h1>
+    <div><p class="label" style="margin:0 0 8px">Find this</p><div class="target" aria-label="${target[1]}">${target[0]}</div></div>
+    <div class="options" role="group" aria-label="Choose a picture">
+      ${opts.map(o=>`<button class="opt ${hint&&o[0]===target[0]?"hint":""}" data-e="${o[0]}" aria-label="${o[1]}">${o[0]}</button>`).join("")}
+    </div>
+    <p class="feedback" id="fb">${hint?"Look for the dashed outline.":""}</p>`;
+  stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(b));
+  renderDots();
+  say(`Find the ${target[1]}`);
 }
-function sessionEnd(){
-  const b=session.blocks,turns=b.reduce((a,x)=>a+x.turns,0),first=b.reduce((a,x)=>a+x.first,0),hints=b.reduce((a,x)=>a+x.hints,0);
-  P().history.unshift({at:Date.now(),blocks:b,turns,first,hints,breaks:session.breaks,mins:Math.max(1,Math.round((Date.now()-session.start)/60000)),theme:S().theme});
-  P().history=P().history.slice(0,60);save();
-  log("Session end",`${first} of ${turns} right first time, ${hints} hints, ${session.breaks} breaks`);
-  const stickers=session.stickers;session=null;blk=null;
-  $("breakBtn").hidden=true;$("progress").hidden=true;renderSched();
+function pick(btn){
+  if(locked||btn.disabled)return;
+  const fb=$("fb");
+  if(btn.dataset.e===target[0]){
+    locked=true;btn.classList.remove("hint");btn.classList.add("right");
+    fb.className="feedback ok";fb.textContent=`Yes! That is the ${target[1]}.`;
+    chime();say(`Yes! The ${target[1]}`);
+    okRun++;missRun=0;
+    if(hint){hint=false;log("Match after hint","hint switched off for next turn")}
+    if(S.adaptive&&okRun>=3&&level<LEVELS.length-1){
+      level++;okRun=0;log("3 matches in a row",`next turn has ${LEVELS[level]} pictures`);
+    }
+    round++;renderDots();
+    setTimeout(nextRound,S.calm?1600:1300);
+  }else{
+    btn.disabled=true;okRun=0;missRun++;
+    fb.className="feedback";fb.textContent="Not that one. Look again.";
+    say("Look again");
+    if(missRun>=2){
+      if(!hint){
+        hint=true;
+        const r=stage.querySelector(`.opt[data-e="${target[0]}"]`);if(r)r.classList.add("hint");
+        fb.textContent="Look for the dashed outline.";
+        log("2 misses in a row","dashed outline shown on the right answer");
+      }
+      if(S.adaptive&&level>0){level--;log("2 misses in a row",`next turn has ${LEVELS[level]} pictures`)}
+      missRun=0;
+    }
+  }
+}
+function endScreen(){
+  playing=false;
+  log("Session end",`${S.rounds} pictures matched`);
   stage.innerHTML=`
     <p class="label">All done</p>
-    <h1 class="say">Great work, ${esc(P().name)}</h1>
-    <div class="stickers">${stickers.map(s=>`<span>${s}</span>`).join("")}</div>
-    <p class="sub">You played ${b.length} games. Your sticker book has ${P().stickers.length} stickers.</p>
-    <div class="row"><button class="big-btn" id="againBtn2">Play again</button><button class="ghost-btn" id="restBtn">Stop for now</button></div>`;
-  say(`All done. Great work.`);
-  $("againBtn2").onclick=startScreen;
-  $("restBtn").onclick=()=>{stage.innerHTML=`<h1 class="say">See you next time</h1><p class="sub">Come back whenever you are ready.</p><button class="ghost-btn" id="backBtn">Back to start</button>`;$("backBtn").onclick=startScreen};
+    <h1 class="say">You matched ${S.rounds} pictures</h1>
+    <p class="sub">Good looking and good tapping. You can play again or take a break.</p>
+    <div class="row"><button class="big-btn" id="again">Play again</button><button class="ghost-btn" id="rest">Take a break</button></div>`;
+  say(`All done. You matched ${S.rounds} pictures`);
+  $("again").onclick=startScreen;
+  $("rest").onclick=()=>{$("progress").hidden=true;stage.innerHTML=`<h1 class="say">Break time</h1><p class="sub">Come back whenever you are ready.</p><button class="ghost-btn" id="back">I'm ready</button>`;$("back").onclick=startScreen};
 }
 
-/* ---------- break ---------- */
-let resumeFn=null;
-$("breakBtn").onclick=()=>{
-  if(!session)return;
-  if(pendingAdvance){clearTimeout(pendingAdvance);pendingAdvance=null;resumeFn=nextTurn}else resumeFn=screenFn;
-  session.breaks++;log("Break","child asked for a break");
-  try{speechSynthesis.cancel()}catch(e){}
-  $("breakBtn").hidden=true;$("progress").hidden=true;
-  stage.innerHTML=`
-    <p class="label">Break</p>
-    <div class="breath" aria-hidden="true"></div>
-    <h1 class="say">Breathe in. Breathe out.</h1>
-    <p class="sub">Take as long as you need. Your game will wait.</p>
-    <button class="big-btn" id="readyBtn">I'm ready</button>`;
-  $("readyBtn").onclick=()=>{$("breakBtn").hidden=false;const f=resumeFn;resumeFn=null;f===nextTurn?nextTurn():(f===renderTurn?(show(renderTurn),say(cur.speak)):show(f))};
-};
-
-/* ---------- keyboard ---------- */
-document.addEventListener("keydown",e=>{
-  if(!$("panel").hidden||e.target.tagName==="INPUT")return;
-  const n=parseInt(e.key,10);if(!n)return;
-  const b=stage.querySelector(`.opt[data-i="${n-1}"]`);if(b){e.preventDefault();b.click()}
-});
-
-/* ================= grown-ups gate ================= */
+/* ---------- grown-ups gate: press and hold ---------- */
 (function(){
-  const btn=$("grownBtn"),fill=$("grownFill");let start=0,raf=0;const HOLD=1500;
+  const btn=$("grownBtn"),fill=$("grownFill");let t=null,start=0,raf=0;const HOLD=1500;
   const step=()=>{const p=Math.min(1,(performance.now()-start)/HOLD);fill.style.transform=`scaleX(${p})`;if(p>=1){stop();openPanel()}else raf=requestAnimationFrame(step)};
   const begin=e=>{e.preventDefault();start=performance.now();raf=requestAnimationFrame(step)};
   const stop=()=>{cancelAnimationFrame(raf);fill.style.transform="scaleX(0)"};
   btn.addEventListener("pointerdown",begin);
   ["pointerup","pointerleave","pointercancel"].forEach(ev=>btn.addEventListener(ev,stop));
-  btn.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openPanel()}});
+  btn.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openPanel()}}); // keyboard users are almost always adults
   btn.addEventListener("contextmenu",e=>e.preventDefault());
 })();
-let tab="skills";
-function openPanel(){$("panel").hidden=false;$("grownBtn").hidden=true;renderPanel();$("closePanel").focus()}
-$("closePanel").onclick=()=>{$("panel").hidden=true;$("grownBtn").hidden=false;applySenses();if(!session)startScreen();else renderSched()};
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{tab=t.dataset.tab;renderPanel()});
+function openPanel(){$("panel").hidden=false;$("grownBtn").hidden=true;updateStatus();$("closePanel").focus()}
+$("closePanel").onclick=()=>{$("panel").hidden=true;$("grownBtn").hidden=false;if(!playing)startScreen()};
 
-function renderPanel(){
-  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.tab===tab));
-  document.querySelectorAll("[data-pane]").forEach(p=>p.hidden=p.dataset.pane!==tab);
-  renderChild();renderSettings();renderSkills();renderHistory();renderLog();
-}
-
-/* ---------- child tab ---------- */
-let newAvatar=AVATARS[1];
-const confirmState={};
-function twoTap(btn,key,label,fn){
-  btn.onclick=()=>{
-    if(confirmState[key]){confirmState[key]=false;fn();return}
-    confirmState[key]=true;btn.textContent=label;
-    setTimeout(()=>{confirmState[key]=false;renderChild()},4000);
-  };
-}
-function renderChild(){
-  $("profileChips").innerHTML=Object.entries(DB.profiles).map(([id,p])=>`<button class="chip" aria-pressed="${id===DB.active}" data-id="${id}">${p.avatar} ${esc(p.name)}${p.example?' <span class="ex">example</span>':""}</button>`).join("");
-  $("profileChips").querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
-    if(session){log("Switch blocked","finish or leave the current session first");return}
-    DB.active=c.dataset.id;save();applySenses();renderPanel();renderWho();log("Player changed",P().name);
-  });
-  $("renameInput").value=P().name;
-  $("avatarChips").innerHTML=AVATARS.map(a=>`<button class="chip" aria-pressed="${a===newAvatar}" data-a="${a}" aria-label="Avatar ${a}">${a}</button>`).join("");
-  $("avatarChips").querySelectorAll(".chip").forEach(c=>c.onclick=()=>{newAvatar=c.dataset.a;renderChild()});
-  $("stickerBook").innerHTML=P().stickers.length?P().stickers.map(s=>`<span style="width:40px;height:40px">${s}</span>`).join(""):'<span class="note" style="width:auto;height:auto;background:none;border:0">No stickers yet. One is earned for each game finished.</span>';
-  $("resetBtn").textContent="Reset this child's progress";
-  $("deleteBtn").textContent="Remove this child";
-  $("deleteBtn").disabled=Object.keys(DB.profiles).length<2;
-  twoTap($("resetBtn"),"reset","Tap again to reset",()=>{const p=P();p.skills=freshSkills();p.history=[];p.stickers=[];p.example=false;save();log("Progress reset",p.name);renderPanel()});
-  twoTap($("deleteBtn"),"del",`Tap again to remove ${P().name}`,()=>{
-    if(session||Object.keys(DB.profiles).length<2)return;
-    delete DB.profiles[DB.active];DB.active=Object.keys(DB.profiles)[0];save();applySenses();renderWho();renderPanel();
-  });
-}
-$("renameBtn").onclick=()=>{const v=$("renameInput").value.trim();if(v){P().name=v;save();renderWho();renderChild()}};
-$("addBtn").onclick=()=>{
-  const v=$("newName").value.trim();if(!v||session)return;
-  const id="p"+Date.now();DB.profiles[id]=newProfile(v,newAvatar);DB.profiles[id].settings=structuredClone(S());DB.active=id;
-  $("newName").value="";save();renderWho();renderPanel();log("Child added",`${v}, settings copied from the previous player`);
-};
-$("exampleBtn").onclick=()=>{
-  if(session)return;
-  const id="ex"+Date.now(),p=newProfile("Sam","🦊");p.example=true;
-  Object.assign(p.skills.same,{p:.97,turns:28,lvl:3});
-  Object.assign(p.skills.sortPic,{p:.92,turns:16,lvl:1});
-  Object.assign(p.skills.sortSize,{p:.66,turns:8,lvl:0});
-  Object.assign(p.skills.seqAB,{p:.81,turns:12,lvl:1});
-  Object.assign(p.skills.seqAAB,{p:.34,turns:4,lvl:0,struggle:true});
-  const day=864e5,now=Date.now();
-  p.history=[
-    {at:now-1*day,blocks:[{skill:"same",turns:4,first:4,hints:0},{skill:"seqAAB",turns:4,first:1,hints:2},{skill:"sortSize",turns:4,first:3,hints:0}],turns:12,first:8,hints:2,breaks:1,mins:9,theme:"vehicles"},
-    {at:now-3*day,blocks:[{skill:"sortPic",turns:4,first:4,hints:0},{skill:"seqAB",turns:4,first:3,hints:0},{skill:"same",turns:4,first:4,hints:0}],turns:12,first:11,hints:0,breaks:0,mins:7,theme:"vehicles"},
-    {at:now-5*day,blocks:[{skill:"same",turns:4,first:3,hints:0},{skill:"sortPic",turns:4,first:3,hints:1},{skill:"seqAB",turns:4,first:2,hints:1}],turns:12,first:8,hints:2,breaks:2,mins:12,theme:"animals"}
-  ];
-  p.stickers=["🚂","🚌","🚁","🐶","🚜","🚒","⛵","🚗","🐸"];
-  p.settings.theme="vehicles";
-  DB.profiles[id]=p;DB.active=id;save();applySenses();renderWho();renderPanel();
-  log("Example child added","Sam, with three past sessions. Look at Skills and History.");
-};
-
-/* ---------- settings tab ---------- */
+/* ---------- settings UI ---------- */
 function chipGroup(el,entries,current,onPick){
-  el.innerHTML=entries.map(([v,l])=>`<button class="chip" aria-pressed="${String(v)===String(current)}" data-v="${v}">${l}</button>`).join("");
-  el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{onPick(b.dataset.v);save();renderPanel()});
+  el.innerHTML=entries.map(([v,l])=>`<button class="chip" aria-pressed="${v===current}" data-v="${v}">${l}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{onPick(b.dataset.v);el.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b))});
 }
-function renderSettings(){
-  const s=S();
-  chipGroup($("themeChips"),Object.entries(THEMES).map(([k,v])=>[k,`${v.items[0][0]} ${v.label}`]),s.theme,v=>{s.theme=v;log("Theme changed",`${THEMES[v].label} from the next turn`)});
-  chipGroup($("rateChips"),[[.7,"Voice: slow"],[.85,"Voice: gentle"],[1,"Voice: normal"]],s.rate,v=>{s.rate=+v;say("This is how I will sound")});
-  chipGroup($("blockChips"),[[2,"2"],[3,"3"],[4,"4"]],s.blocks,v=>s.blocks=+v);
-  chipGroup($("turnChips"),[[3,"3"],[4,"4"],[6,"6"]],s.turns,v=>s.turns=+v);
-  chipGroup($("modeChips"),[["engine","Engine picks"],["fixed","Same order every time"]],s.mode,v=>s.mode=v);
-  ["sound","speech","calm","contrast","big","keys","adaptive"].forEach(k=>{
-    const c=$("s-"+k);c.checked=!!s[k];c.onchange=()=>{s[k]=c.checked;save();applySenses();if(k==="speech"&&c.checked)say("Read aloud is on")};
-  });
-  Object.keys(GAMES).forEach(g=>{
-    const c=$("g-"+g);c.checked=!!s.games[g];
-    c.onchange=()=>{s.games[g]=c.checked;if(!Object.values(s.games).some(Boolean)){s.games[g]=true;c.checked=true}save();renderSkills()};
-  });
-}
+chipGroup($("themeChips"),Object.entries(THEMES).map(([k,v])=>[k,`${v.items[0][0]} ${v.label}`]),S.theme,v=>{S.theme=v;save();log("Theme changed",`${THEMES[v].label} from the next turn`)});
+chipGroup($("roundChips"),[["5","5"],["8","8"],["10","10"]],String(S.rounds),v=>{S.rounds=+v;save()});
+chipGroup($("levelChips"),LEVELS.map((n,i)=>[String(i),`${n} pictures`]),String(S.startLevel),v=>{S.startLevel=+v;save()});
+["sound","speech","calm","contrast","big","adaptive"].forEach(k=>{
+  const c=$("s-"+k);c.checked=!!S[k];
+  c.onchange=()=>{S[k]=c.checked;save();applySenses()};
+});
 
-/* ---------- skills tab ---------- */
-function renderSkills(){
-  const node=s=>{
-    const st=P().skills[s.id],status_=status(s),p=st.p,off=!S().games[s.game];
-    const lbl={locked:"Not open yet",ready:"Ready",learning:"Learning",mastered:"Learned"}[status_];
-    return `<div class="node ${status_}"><div class="nh"><b>${s.name}</b><span>${st.struggle?'<span class="pill step">Step back next</span> ':""}<span class="pill ${status_}">${off?"Game off":lbl}</span></span></div>
-      <div class="bar" role="img" aria-label="${pct(p)} sure"><i style="width:${Math.round(p*100)}%"></i><span class="mk" style="left:60%"></span><span class="mk" style="left:90%"></span></div>
-      <div class="nmeta">${pct(p)} sure · ${st.turns} turns · ${LV[s.game][Math.min(st.lvl,LV[s.game].length-1)]} ${s.game==="sort"?"baskets":"choices"}</div></div>`;
-  };
-  const col=(g,title)=>`<div class="track"><h4>${title}</h4>${SKILLS.filter(s=>s.game===g).map(node).join('<div class="arrow" aria-hidden="true">↓</div>')}</div>`;
-  $("smap").innerHTML=`<div class="track" style="max-width:380px;margin:0 auto;width:100%"><h4>Start here</h4>${node(SK.same)}</div>
-    <div class="arrow" aria-hidden="true">↙ ↘</div>
-    <div class="tracks">${col("sort","Sorting")}${col("seq","Patterns")}</div>`;
-  const {plan,reasons}=planSession();
-  $("planPreview").innerHTML=plan.map((g,i)=>{const [sk,why]=pickSkill(g,false);return `<li><b>${GAMES[g].label}</b>: ${esc(reasons[i]||reasons[0])}. Skill: ${esc(sk.name)}. <span class="note">${esc(why)}.</span></li>`}).join("");
-}
-$("copyBtn").onclick=()=>{
-  const data=JSON.stringify({exported:new Date().toISOString(),child:P().name,skills:P().skills,history:P().history,settings:P().settings},null,2);
-  const area=$("copyArea");
-  const fallback=()=>{area.hidden=false;area.value=data;area.select();$("copyMsg").textContent="Select all and copy from the box."};
-  try{navigator.clipboard.writeText(data).then(()=>{$("copyMsg").textContent="Copied."},fallback)}catch(e){fallback()}
-};
-
-/* ---------- history tab ---------- */
-function renderHistory(){
-  const h=P().history;
-  $("histBody").innerHTML=h.length?h.map(r=>`<tr>
-    <td>${new Date(r.at).toLocaleDateString([], {day:"numeric",month:"short"})} ${new Date(r.at).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</td>
-    <td>${r.blocks.map(b=>`${esc(SK[b.skill].name)} <span class="note">${b.first}/${b.turns}</span>`).join("<br>")}</td>
-    <td>${r.first} of ${r.turns} (${pct(r.first/r.turns)})</td><td>${r.hints}</td><td>${r.breaks}</td><td>${r.mins}</td></tr>`).join("")
-    :`<tr><td colspan="6" class="note">No sessions yet for ${esc(P().name)}. Finish a session, or add the example child on the Child tab.</td></tr>`;
-}
-
-/* ================= boot ================= */
-applySenses();save();startScreen();
+applySenses();startScreen();
 </script>
 </body>
 </html>
