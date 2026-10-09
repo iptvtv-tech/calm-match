@@ -1,0 +1,19 @@
+/* Children's privacy page: big type, one idea per card. Colours come from the site tokens, so light, dark and high-contrast modes work. */
+.kids{max-width:820px}
+.k-grown{background:var(--hint-soft);border-radius:14px;padding:12px 16px;font-size:16px;margin:8px 0 20px}
+.k-hero{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:center;margin-bottom:24px}
+.k-hero-ill{width:100%;height:auto}
+@media (max-width:600px){.k-hero{grid-template-columns:1fr}.k-hero-ill{width:150px}}
+.k-hero h1{font-size:clamp(32px,6vw,46px);line-height:1.1;margin:0 0 10px}
+.k-hero .lede{font-size:21px;line-height:1.5;margin:0;max-width:34ch}
+.k-cards{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:k}
+.k-card{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px 20px}
+@media (max-width:480px){.k-card{grid-template-columns:64px minmax(0,1fr);gap:12px;padding:14px}}
+.k-ico{width:100%;height:auto}
+.k-card h2{font-size:clamp(21px,4vw,26px);margin:0 0 4px}
+.k-card p{margin:0;font-size:20px;line-height:1.5;max-width:44ch}
+.k-card-help{background:var(--accent-soft);border-color:transparent}
+.k-grown-foot{margin-top:28px;padding:16px 20px}
+.k-grown-foot h2{font-size:20px;margin:0 0 6px}
+.k-grown-foot ul{margin:0;padding-left:20px}
+.k-grown-foot li{margin:4px 0}

@@ -11,7 +11,7 @@ window.CM_CONFIG = {
   contactEmail: "hello@calmmatch.com",   // general questions, feedback, accessibility
   privacyEmail: "privacy@calmmatch.com",  // data requests: access, deletion, corrections, complaints
   siteUrl: "https://calmmatch.com",
-  policyDate: "8 October 2026",
+  policyDate: "9 October 2026",
 
   // Supabase (parent accounts and sync). Leave blank to run with no accounts:
   // the site then works fully on the device with nothing sent anywhere.

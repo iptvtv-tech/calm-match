@@ -92,7 +92,7 @@
     $("sched").hidden = false;
     $("sched").innerHTML = html + '<span class="then" aria-hidden="true">' + esc(t("then")) + '</span><span class="step ' + (endNow ? "now" : "later") + '"><span class="ic" aria-hidden="true">🏁</span>' + esc(t("allDone")) + "</span>";
   }
-  function renderWho() { var p = P(); $("who").innerHTML = '<b aria-hidden="true">' + p.avatar + "</b>" + esc(p.name); }
+  function renderWho() { var p = P(); $("who").innerHTML = '<b aria-hidden="true">' + esc(p.avatar) + "</b>" + esc(p.name); }
   function show(fn) { screenFn = fn; fn(); }
 
   /* ---------- screens ---------- */
@@ -530,7 +530,7 @@
   function renderChild() {
     var list = CM.store.list();
     $("profileChips").innerHTML = list.map(function (x) {
-      return '<button type="button" class="chip" aria-pressed="' + (x.id === CM.store.activeId()) + '" data-id="' + x.id + '">' + x.p.avatar + " " + esc(x.p.name) + (x.p.example ? ' <span class="ex">example</span>' : "") + "</button>";
+      return '<button type="button" class="chip" aria-pressed="' + (x.id === CM.store.activeId()) + '" data-id="' + esc(x.id) + '">' + esc(x.p.avatar) + " " + esc(x.p.name) + (x.p.example ? ' <span class="ex">example</span>' : "") + "</button>";
     }).join("");
     $("profileChips").querySelectorAll(".chip").forEach(function (c) {
       c.onclick = function () {
@@ -737,8 +737,8 @@
     $("histBody").innerHTML = h.length ? h.map(function (r) {
       var d = new Date(r.at), indep = r.turns - (r.prompted || 0);
       return "<tr><td>" + d.toLocaleDateString([], { day: "numeric", month: "short" }) + " " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + "</td><td>" +
-        r.blocks.map(function (b) { return esc(CM.SK[b.skill] ? CM.SK[b.skill].name : b.skill) + ' <span class="note">' + b.first + "/" + (b.turns - (b.prompted || 0)) + (b.prompted ? ", " + b.prompted + " helped" : "") + "</span>"; }).join("<br>") +
-        "</td><td>" + r.first + " of " + indep + " (" + CM.pct(indep ? r.first / indep : 0) + ")</td><td>" + (r.prompted || 0) + "</td><td>" + r.hints + "</td><td>" + r.breaks + "</td><td>" + r.mins + "</td></tr>";
+        r.blocks.map(function (b) { return esc(CM.SK[b.skill] ? CM.SK[b.skill].name : b.skill) +  ' <span class="note">' + (+b.first || 0) + "/" + ((+b.turns || 0) - (+b.prompted || 0)) + (b.prompted ? ", " + (+b.prompted || 0) + " helped" : "") + "</span>"; }).join("<br>") +
+        "</td><td>" + (+r.first || 0) + " of " + indep + " (" + CM.pct(indep ? r.first / indep : 0) + ")</td><td>" + (+r.prompted || 0) + "</td><td>" + (+r.hints || 0) + "</td><td>" + (+r.breaks || 0) + "</td><td>" + (+r.mins || 0) + "</td></tr>";
     }).join("") : '<tr><td colspan="7" class="note">No sessions yet for ' + esc(P().name) + ". Finish a session, or add the example child on the Children tab.</td></tr>";
   }
   function exportJSON() {
@@ -747,7 +747,13 @@
   }
   // One row per game played, ready for Excel, Google Sheets or Numbers.
   function exportCSV() {
-    var q = function (v) { v = v == null ? "" : String(v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    // Quote for CSV, and stop text that starts with = + - @ being run as a spreadsheet formula.
+    var q = function (v) {
+      if (typeof v === "number") return String(v);
+      v = v == null ? "" : String(v);
+      if (/^[=+\-@\t\r]/.test(v)) v = "'" + v;
+      return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+    };
     var rows = [["Date", "Time", "Child", "Game", "Skill", "Turns", "Turns with errorless help", "Independent turns", "Right first time", "Right first time %", "Hints", "Session breaks", "Session minutes", "Theme", "Language"]];
     P().history.slice().reverse().forEach(function (r) {
       var d = new Date(r.at), date = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");

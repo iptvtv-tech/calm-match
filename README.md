@@ -30,6 +30,9 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   fonts/README.txt     optional self-hosted fonts
   vendor/README.txt    optional self-hosted Supabase library
 supabase/schema.sql    database tables, privacy rules and delete-account function
+supabase/02-account-deletion-email.sql   confirmation email when a parent deletes their account
+supabase/03-inactive-account-cleanup.sql monthly job: warn after 23 months unused, delete after 24
+supabase/email-templates/                sign-up, sign-in, reset and change-email templates
 ```
 
 ## Run it on your computer
@@ -66,9 +69,10 @@ Everything in config.js is public. Never put the Supabase **service_role** key t
 1. Create a project in **West EU (Ireland)**.
 2. SQL Editor → run `supabase/schema.sql`.
 3. Optional but recommended: run `supabase/02-account-deletion-email.sql` (instructions inside) so parents get an email when they delete their account.
-4. Authentication → URL Configuration: set the Site URL to your address and add `https://YOUR-SITE/account.html` to Redirect URLs (for both the pages.dev address and any custom domain).
-5. Authentication → Emails: set up custom SMTP before launch (the built-in sender is for testing only).
-6. Project Settings → API: copy the Project URL and the anon/publishable key into config.js.
+4. Recommended: run `supabase/03-inactive-account-cleanup.sql`, enable the pg_cron extension, then schedule it (instructions inside). The privacy policy promises this 24-month clean-up.
+5. Authentication → URL Configuration: set the Site URL to your address and add `https://YOUR-SITE/account.html` to Redirect URLs (for both the pages.dev address and any custom domain).
+6. Authentication → Emails: set up custom SMTP before launch (the built-in sender is for testing only).
+7. Project Settings → API: copy the Project URL and the anon/publishable key into config.js.
 
 Don't switch on CAPTCHA in Supabase yet: the sign-up form doesn't send a CAPTCHA token, so sign-ups would fail.
 

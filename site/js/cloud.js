@@ -131,6 +131,26 @@
   }
   function syncable(p) { return !p.example; }
 
+  // Data from the account is checked before use: short plain avatar, numbers that are numbers.
+  var num = function (v, max) { v = +v; return isFinite(v) && v >= 0 ? Math.min(v, max) : 0; };
+  function cleanAvatar(a) { a = String(a || ""); return a && a.length <= 16 && !/[<>&"'`=\s]/.test(a) ? a : "🙂"; }
+  function cleanSkills(s) {
+    var out = {};
+    Object.keys(s || {}).forEach(function (k) {
+      if (!CM.SK[k]) return; var v = s[k] || {};
+      out[k] = { p: Math.min(0.995, num(v.p, 1)), turns: num(v.turns, 1e6), lvl: Math.floor(num(v.lvl, 10)), struggle: !!v.struggle, prompt: Math.floor(num(v.prompt, 2)), promptRun: Math.floor(num(v.promptRun, 10)) };
+    });
+    return out;
+  }
+  function cleanHistory(h) {
+    return (Array.isArray(h) ? h : []).slice(0, 60).map(function (r) {
+      return { at: num(r.at, 4e12), turns: num(r.turns, 1000), first: num(r.first, 1000), hints: num(r.hints, 1000), prompted: num(r.prompted, 1000), breaks: num(r.breaks, 1000), mins: num(r.mins, 1000),
+        theme: CM.THEMES[r.theme] ? r.theme : "vehicles", lang: r.lang === "ga" ? "ga" : "en",
+        blocks: (Array.isArray(r.blocks) ? r.blocks : []).slice(0, 10).filter(function (b) { return b && CM.SK[b.skill]; })
+          .map(function (b) { return { skill: b.skill, turns: num(b.turns, 100), first: num(b.first, 100), hints: num(b.hints, 100), prompted: num(b.prompted, 100) }; }) };
+    }).filter(function (r) { return r.at > 0; });
+  }
+
   function pushProfile(id) {
     var db = CM.store.db(), p = db.profiles[id];
     if (!user || !p || !syncable(p)) return Promise.resolve();
@@ -186,17 +206,17 @@
         }
         if (!lid) {
           lid = "c" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-          p = CM.store.newProfile(nextName(), r.avatar || "🙂", null);
+          p = CM.store.newProfile(nextName(), cleanAvatar(r.avatar), null);
           p.cloudId = r.id; p.cloudOwner = user.id; p.updatedAt = "1970-01-01T00:00:00Z";
           db.profiles[lid] = p;
         }
         p = db.profiles[lid];
         if (new Date(r.updated_at) > new Date(p.updatedAt || 0)) {
-          p.avatar = r.avatar || p.avatar;
+          p.avatar = cleanAvatar(r.avatar || p.avatar);
           p.settings = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS)), r.settings || {});
           p.settings.games = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS.games)), (r.settings || {}).games || {});
           if (r.progress && acct.sync_progress) {
-            var rs = r.progress.skills || {}, rh = Array.isArray(r.progress.history) ? r.progress.history : [];
+            var rs = cleanSkills(r.progress.skills), rh = cleanHistory(r.progress.history);
             if (merged[lid]) {
               // Combine: for each skill keep whichever side has played it more; join the session histories.
               Object.keys(rs).forEach(function (k) { if (!p.skills[k] || (rs[k].turns || 0) > (p.skills[k].turns || 0)) p.skills[k] = rs[k]; });
