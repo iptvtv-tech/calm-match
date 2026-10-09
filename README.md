@@ -65,9 +65,10 @@ Everything in config.js is public. Never put the Supabase **service_role** key t
 
 1. Create a project in **West EU (Ireland)**.
 2. SQL Editor → run `supabase/schema.sql`.
-3. Authentication → URL Configuration: set the Site URL to your address and add `https://YOUR-SITE/account.html` to Redirect URLs (for both the pages.dev address and any custom domain).
-4. Authentication → Emails: set up custom SMTP before launch (the built-in sender is for testing only).
-5. Project Settings → API: copy the Project URL and the anon/publishable key into config.js.
+3. Optional but recommended: run `supabase/02-account-deletion-email.sql` (instructions inside) so parents get an email when they delete their account.
+4. Authentication → URL Configuration: set the Site URL to your address and add `https://YOUR-SITE/account.html` to Redirect URLs (for both the pages.dev address and any custom domain).
+5. Authentication → Emails: set up custom SMTP before launch (the built-in sender is for testing only).
+6. Project Settings → API: copy the Project URL and the anon/publishable key into config.js.
 
 Don't switch on CAPTCHA in Supabase yet: the sign-up form doesn't send a CAPTCHA token, so sign-ups would fail.
 

@@ -51,16 +51,55 @@
         user = session ? session.user : null;
         if (!user) { acct = null; setState("signed-out"); }
         emit({ type: "auth", event: event });
-        if (user && user.id !== was && event !== "PASSWORD_RECOVERY") setTimeout(syncAll, 0);
+        if (user && user.id !== was && event === "SIGNED_IN") setTimeout(syncAll, 0);
       });
       return client.auth.getSession();
     }).then(function (r) {
       user = r && r.data && r.data.session ? r.data.session.user : null;
-      if (user) syncAll(); else setState("signed-out");
-      return user;
+      if (!user) { setState("signed-out"); return null; }
+      return validate().then(function (u) { if (u) syncAll(); return u; });
     }).catch(function (e) { setState("error", friendly(e)); return null; });
     return initP;
   }
+
+  // Every sync and upload runs one at a time. Without this, two syncs started together
+  // (e.g. page load + sign-in event) could both upload the same child and create a duplicate.
+  var chain = Promise.resolve();
+  function serial(fn) { var p = chain.then(fn, fn); chain = p.catch(function () {}); return p; }
+
+  // Ask the server whether this sign-in is still valid. A deleted account, or one signed out
+  // everywhere, is signed out here too, so no stale account details stay on screen.
+  var lastCheck = 0;
+  function validate() {
+    if (!client || !user) return Promise.resolve(user);
+    lastCheck = Date.now();
+    return client.auth.getUser().then(function (r) {
+      var e = r && r.error;
+      if (e) {
+        var st = e.status || 0, m = String(e.message || "") + " " + String(e.code || "");
+        if (st === 401 || st === 403 || st === 404 || /not.?found|does not exist|invalid|expired|session/i.test(m)) {
+          return signedOutRemotely();
+        }
+        return user; // offline or a temporary problem: keep the session for now
+      }
+      if (r.data && r.data.user) user = r.data.user;
+      return user;
+    }).catch(function () { return user; });
+  }
+  function signedOutRemotely() {
+    var gone = user && user.id, db = CM.store.db();
+    Object.keys(db.profiles).forEach(function (id) { var p = db.profiles[id]; if (p.cloudOwner === gone) { p.cloudId = null; p.cloudOwner = null; } });
+    CM.store.persist();
+    user = null; acct = null;
+    return client.auth.signOut({ scope: "local" }).catch(function () {}).then(function () {
+      setState("signed-out");
+      emit({ type: "gone", message: "You've been signed out because this account no longer exists or was signed out elsewhere. Games and progress on this device are still here." });
+      return null;
+    });
+  }
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden && user && Date.now() - lastCheck > 60000) validate();
+  });
 
   function need() { if (!client) throw new Error("Accounts aren't available right now."); }
   function wrap(p) { return p.then(function (r) { if (r && r.error) throw r.error; return r ? r.data : null; }); }
@@ -105,36 +144,49 @@
     });
   }
 
-  function syncAll(force) {
+  function syncAll(force) { return serial(function () { return doSync(force); }); }
+  function doSync(force) {
     if (!user || !client) return Promise.resolve();
     setState("syncing");
-    return getAccount().then(function () {
+    return validate().then(function (u) {
+      if (!u) throw { skip: true };
+      return getAccount();
+    }).then(function () {
       return wrap(client.from("child_settings").select("id, avatar, settings, progress, updated_at").order("updated_at"));
     }).then(function (rows) {
       applying = true;
-      var db = CM.store.db(), byCloud = {}, n = Object.keys(db.profiles).length;
+      var db = CM.store.db(), byCloud = {};
+      var nextName = function () {
+        var used = {}; Object.keys(db.profiles).forEach(function (k) { var m = /^Child (\d+)$/.exec(db.profiles[k].name); if (m) used[m[1]] = 1; });
+        for (var i = 1; ; i++) if (!used[i]) return "Child " + i;
+      };
       Object.keys(db.profiles).forEach(function (id) {
         var p = db.profiles[id];
         if (p.cloudId && p.cloudOwner && p.cloudOwner !== user.id) { p.cloudId = null; p.cloudOwner = null; } // belongs to another account
         if (p.cloudId) byCloud[p.cloudId] = id;
       });
       var remoteIds = {};
-      // A brand-new, untouched profile on this device adopts an existing child instead of becoming an extra one.
-      var pristine = Object.keys(db.profiles).filter(function (id) {
-        var p = db.profiles[id];
-        return !p.cloudId && !p.example && !p.history.length && Object.keys(p.skills).every(function (k) { return !p.skills[k].turns; });
-      });
+      // Children on this device that aren't linked to the account yet are matched to the account's
+      // children instead of being uploaded as extra ones. Untouched profiles are always matched.
+      // When this device is joining the account for the first time, every unlinked child is matched
+      // in order (most families have one child per device), and progress from both sides is combined.
+      var firstLink = !Object.keys(db.profiles).some(function (id) { return db.profiles[id].cloudOwner === user.id; });
+      var isPristine = function (p) { return !p.history.length && Object.keys(p.skills).every(function (k) { return !p.skills[k].turns; }); };
+      var unlinked = Object.keys(db.profiles).filter(function (id) { var p = db.profiles[id]; return !p.cloudId && !p.example; });
+      var adoptable = unlinked.filter(function (id) { return isPristine(db.profiles[id]); })
+        .concat(firstLink ? unlinked.filter(function (id) { return !isPristine(db.profiles[id]); }) : []);
+      var merged = {};
       rows.forEach(function (r) {
         remoteIds[r.id] = true;
         var lid = byCloud[r.id], p;
-        if (!lid && pristine.length) {
-          lid = pristine.shift(); p = db.profiles[lid];
+        if (!lid && adoptable.length) {
+          lid = adoptable.shift(); p = db.profiles[lid];
+          if (!isPristine(p)) merged[lid] = true;
           p.cloudId = r.id; p.cloudOwner = user.id; p.updatedAt = "1970-01-01T00:00:00Z";
         }
         if (!lid) {
-          n++;
           lid = "c" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-          p = CM.store.newProfile("Child " + n, r.avatar || "🙂", null);
+          p = CM.store.newProfile(nextName(), r.avatar || "🙂", null);
           p.cloudId = r.id; p.cloudOwner = user.id; p.updatedAt = "1970-01-01T00:00:00Z";
           db.profiles[lid] = p;
         }
@@ -144,10 +196,18 @@
           p.settings = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS)), r.settings || {});
           p.settings.games = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS.games)), (r.settings || {}).games || {});
           if (r.progress && acct.sync_progress) {
-            p.skills = Object.assign(CM.store.freshSkills(), r.progress.skills || {});
-            if (Array.isArray(r.progress.history) && r.progress.history.length >= p.history.length) p.history = r.progress.history;
+            var rs = r.progress.skills || {}, rh = Array.isArray(r.progress.history) ? r.progress.history : [];
+            if (merged[lid]) {
+              // Combine: for each skill keep whichever side has played it more; join the session histories.
+              Object.keys(rs).forEach(function (k) { if (!p.skills[k] || (rs[k].turns || 0) > (p.skills[k].turns || 0)) p.skills[k] = rs[k]; });
+              var seen = {}; p.history = p.history.concat(rh).filter(function (h) { if (seen[h.at]) return false; seen[h.at] = 1; return true; })
+                .sort(function (a, b) { return b.at - a.at; }).slice(0, 60);
+            } else {
+              p.skills = Object.assign(CM.store.freshSkills(), rs);
+              if (rh.length >= p.history.length) p.history = rh;
+            }
           }
-          p.updatedAt = r.updated_at;
+          p.updatedAt = merged[lid] ? new Date().toISOString() : r.updated_at;
         }
       });
       // A profile linked to a row that no longer exists gets re-uploaded.
@@ -162,12 +222,12 @@
       });
       return Promise.all(pushes.map(pushProfile));
     }).then(function () { setState("synced"); emit({ type: "synced" }); })
-      .catch(function (e) { applying = false; setState("error", friendly(e)); });
+      .catch(function (e) { applying = false; if (e && e.skip) return; setState("error", friendly(e)); });
   }
 
   function deleteRemoteChild(p) {
     if (!user || !client || !p || !p.cloudId || p.cloudOwner !== user.id) return Promise.resolve();
-    return wrap(client.from("child_settings").delete().eq("id", p.cloudId));
+    return serial(function () { return wrap(client.from("child_settings").delete().eq("id", p.cloudId)); });
   }
 
   // Push the changed profile a moment after each local save.
@@ -176,7 +236,7 @@
     clearTimeout(pushTimer);
     pushTimer = setTimeout(function () {
       setState("syncing");
-      pushProfile(id).then(function () { setState("synced"); }).catch(function (e) { setState("error", friendly(e)); });
+      serial(function () { return pushProfile(id); }).then(function () { setState("synced"); }).catch(function (e) { setState("error", friendly(e)); });
     }, 1500);
   });
 
@@ -189,6 +249,7 @@
     onChange: function (fn) { listeners.push(fn); },
     friendly: friendly,
     syncAll: syncAll,
+    validate: validate,
     setSyncProgress: setSyncProgress,
     deleteRemoteChild: deleteRemoteChild,
     signUp: function (email, password) { need(); return wrap(client.auth.signUp({ email: email, password: password, options: { emailRedirectTo: basePath() + "account.html" } })); },

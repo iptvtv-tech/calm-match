@@ -1,5 +1,5 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-09-6";
+var VERSION = "cm-2026-10-09-7";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css",

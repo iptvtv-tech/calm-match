@@ -132,7 +132,7 @@
     $("delConfirm").oninput = function (e) { $("deleteAcct").disabled = e.target.value.trim() !== "DELETE"; };
     $("deleteAcct").onclick = function () {
       $("deleteAcct").disabled = true; msg("Deleting your account…");
-      CM.cloud.deleteAccount().then(function () { $("delConfirm").value = ""; msg("Your account and everything stored with it have been deleted.", "ok"); render(); })
+      CM.cloud.deleteAccount().then(function () { $("delConfirm").value = ""; msg("Your account and everything stored with it have been deleted, and you've been signed out everywhere. A confirmation email is on its way.", "ok"); render(); })
         .catch(function (err) { msg(CM.cloud.friendly(err), "err"); $("deleteAcct").disabled = false; });
     };
   }
@@ -154,6 +154,7 @@
     bind();
     CM.cloud.onChange(function (ev) {
       if (ev.type === "auth" && ev.event === "PASSWORD_RECOVERY") recovering = true;
+      if (ev.type === "gone") { render(); msg(ev.message, "info"); return; }
       render();
     });
     CM.cloud.init().then(function () {

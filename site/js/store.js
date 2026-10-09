@@ -27,7 +27,7 @@
   if (!DB || !DB.profiles || !Object.keys(DB.profiles).length) {
     var id = newId();
     DB = { v: 3, active: id, profiles: {}, app: { gate: "hold" } };
-    DB.profiles[id] = newProfile("Player 1", "🙂");
+    DB.profiles[id] = newProfile("Child 1", "🙂");
   }
   if (!DB.app) DB.app = { gate: "hold" };
   if (!DB.profiles[DB.active]) DB.active = Object.keys(DB.profiles)[0];

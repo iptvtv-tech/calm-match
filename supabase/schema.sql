@@ -67,7 +67,8 @@ revoke all on public.child_settings  from anon;
 grant select, insert, update, delete on public.account_settings to authenticated;
 grant select, insert, update, delete on public.child_settings  to authenticated;
 
--- 4. "Delete my account" (right to erasure). Runs with elevated rights but only ever deletes the caller.
+-- 4. "Delete my account" (right to erasure).
+--    02-account-deletion-email.sql replaces this with a version that also emails a confirmation. Runs with elevated rights but only ever deletes the caller.
 create or replace function public.delete_my_account()
 returns void language plpgsql security definer set search_path = '' as $$
 begin
