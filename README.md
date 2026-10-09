@@ -51,6 +51,7 @@ When you change files, bump `VERSION` at the top of `site/sw.js` so devices that
 | Setting | What it does |
 |---|---|
 | `ownerName`, `contactEmail` | Shown in the privacy policy, terms and footer |
+| `privacyEmail` | Address for data requests (access, deletion, corrections), shown on the privacy, cookie, terms and account pages |
 | `siteUrl` | Your live address, no trailing slash |
 | `policyDate` | "Last updated" date on the policy pages |
 | `supabaseUrl`, `supabaseAnonKey` | Turn on parent accounts. Leave blank for device-only mode |

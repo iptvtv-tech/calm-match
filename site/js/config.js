@@ -8,7 +8,8 @@ window.CM_CONFIG = {
 
   // Who runs the site (shown in the privacy policy and terms).
   ownerName: "J.P Cunningham",
-  contactEmail: "hello@calmmatch.com",
+  contactEmail: "hello@calmmatch.com",   // general questions, feedback, accessibility
+  privacyEmail: "privacy@calmmatch.com",  // data requests: access, deletion, corrections, complaints
   siteUrl: "https://calmmatch.com",
   policyDate: "8 October 2026",
 
