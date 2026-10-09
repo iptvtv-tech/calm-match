@@ -15,8 +15,8 @@ window.CM_CONFIG = {
 
   // Supabase (parent accounts and sync). Leave blank to run with no accounts:
   // the site then works fully on the device with nothing sent anywhere.
-  supabaseUrl: "https://gchrttqakyisdmcucoid.supabase.co",          // e.g. "https://abcdefghijkl.supabase.co"
-  supabaseAnonKey: "sb_publishable_TMcAYKlZYIePzya2MqZKrQ_unV--JIs",      // the "anon" / "publishable" key, NOT the service_role key
+  supabaseUrl: "",          // e.g. "https://abcdefghijkl.supabase.co"
+  supabaseAnonKey: "",      // the "anon" / "publishable" key, NOT the service_role key
   supabaseRegion: "EU (Ireland, eu-west-1)", // match the region you pick when creating the project
 
   // Supabase JS library. The site first tries /vendor/supabase.js (self-hosted, best for privacy),

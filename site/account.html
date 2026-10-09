@@ -43,6 +43,7 @@
         <button class="tab" role="tab" type="button" data-form="signup">Create account</button>
         <button class="tab" role="tab" type="button" data-form="link">Email me a sign-in link</button>
         <button class="tab" role="tab" type="button" data-form="forgot">Forgot password</button>
+        <button class="tab" role="tab" type="button" data-form="resend">New confirmation link</button>
       </div>
 
       <form id="f-signin" class="box" style="max-width:560px;margin-top:12px" novalidate>
@@ -69,6 +70,12 @@
       <form id="f-forgot" class="box" style="max-width:560px;margin-top:12px" hidden novalidate>
         <div class="field"><label for="fp-email">Email</label><input id="fp-email" type="email" autocomplete="email" required></div>
         <button class="btn btn-primary" type="submit">Send reset link</button>
+      </form>
+
+      <form id="f-resend" class="box" style="max-width:560px;margin-top:12px" hidden novalidate>
+        <div class="field"><label for="rs-email">Email you signed up with</label><input id="rs-email" type="email" autocomplete="email" required></div>
+        <button class="btn btn-primary" type="submit">Send a new confirmation link</button>
+        <p class="meta" style="margin-top:12px">Each link works once and only the newest one is valid, so open the latest email. If you already confirmed, just sign in.</p>
       </form>
     </section>
 

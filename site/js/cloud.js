@@ -194,6 +194,7 @@
     signUp: function (email, password) { need(); return wrap(client.auth.signUp({ email: email, password: password, options: { emailRedirectTo: basePath() + "account.html" } })); },
     signIn: function (email, password) { need(); return wrap(client.auth.signInWithPassword({ email: email, password: password })); },
     magicLink: function (email) { need(); return wrap(client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: basePath() + "account.html", shouldCreateUser: false } })); },
+    resendConfirmation: function (email) { need(); return wrap(client.auth.resend({ type: "signup", email: email, options: { emailRedirectTo: basePath() + "account.html" } })); },
     resetPassword: function (email) { need(); return wrap(client.auth.resetPasswordForEmail(email, { redirectTo: basePath() + "account.html#reset" })); },
     updatePassword: function (pw) { need(); return wrap(client.auth.updateUser({ password: pw })); },
     updateEmail: function (email) { need(); return wrap(client.auth.updateUser({ email: email }, { emailRedirectTo: basePath() + "account.html" })); },

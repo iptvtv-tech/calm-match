@@ -11,7 +11,7 @@
 
   function showForm(name) {
     document.querySelectorAll("[data-form]").forEach(function (t) { t.setAttribute("aria-selected", t.dataset.form === name); });
-    ["signin", "signup", "link", "forgot"].forEach(function (f) { $("f-" + f).hidden = f !== name; });
+    ["signin", "signup", "link", "forgot", "resend"].forEach(function (f) { $("f-" + f).hidden = f !== name; });
     msg("");
   }
 
@@ -66,7 +66,7 @@
       busy(f, true); msg("Creating your account…");
       CM.cloud.signUp(em, pw).then(function (d) {
         if (d && d.session) { msg("Account created and signed in.", "ok"); render(); }
-        else msg("Nearly done. Check your email for a link to confirm your address, then sign in.", "ok");
+        else msg("Nearly done. Check your email for a link to confirm your address. Tap it once, on this device if you can. No email after a few minutes? Check spam, or use \u201cNew confirmation link\u201d.", "ok");
       }).catch(function (err) { msg(CM.cloud.friendly(err), "err"); }).then(function () { busy(f, false); });
     };
     $("f-link").onsubmit = function (e) {
@@ -92,6 +92,13 @@
       }).catch(function (err) { msg(CM.cloud.friendly(err), "err"); }).then(function () { busy(f, false); });
     };
 
+    $("f-resend").onsubmit = function (e) {
+      e.preventDefault(); var f = e.target, em = $("rs-email").value.trim();
+      if (!emailOk(em)) return msg("Enter a valid email address.", "err");
+      busy(f, true);
+      CM.cloud.resendConfirmation(em).then(function () { msg("If that address has an account waiting to be confirmed, a new link is on its way. Open the newest email.", "ok"); })
+        .catch(function (err) { msg(CM.cloud.friendly(err), "err"); }).then(function () { busy(f, false); });
+    };
     $("signOutBtn").onclick = function () { CM.cloud.signOut().then(function () { msg("Signed out. Games and progress stay on this device.", "ok"); render(); }); };
     $("syncNowBtn").onclick = function () { CM.cloud.syncAll(true).then(render); render(); };
     $("syncProgress").onchange = function (e) {
@@ -130,8 +137,20 @@
     };
   }
 
+  // Links from emails can come back with an error, e.g. when a link was already used or has expired.
+  function linkError() {
+    var raw = (location.hash || "").replace(/^#/, "") + "&" + (location.search || "").replace(/^\?/, "");
+    var q = new URLSearchParams(raw), code = q.get("error_code"), desc = q.get("error_description");
+    if (!code && !q.get("error")) return null;
+    try { history.replaceState(null, "", location.pathname); } catch (e) {}
+    if (code === "otp_expired") return { text: "That email link has expired or has already been used. If you already confirmed your email, just sign in below. Otherwise, ask for a new link.", form: "resend" };
+    return { text: "That email link didn't work" + (desc ? ": " + desc.replace(/\+/g, " ") : "") + ". Please try again or ask for a new link.", form: "resend" };
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     if (!CM.cloud.enabled) return;
+    var le = linkError();
+    if (le) recovering = false;
     bind();
     CM.cloud.onChange(function (ev) {
       if (ev.type === "auth" && ev.event === "PASSWORD_RECOVERY") recovering = true;
@@ -139,6 +158,7 @@
     });
     CM.cloud.init().then(function () {
       render();
+      if (le && !CM.cloud.user()) { showForm(le.form); msg(le.text, "err"); return; }
       if (CM.cloud.status().state === "error") msg(CM.cloud.status().error, "err");
     });
   });
