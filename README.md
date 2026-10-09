@@ -1,6 +1,6 @@
 # Calm Match
 
-Calm, predictable learning games designed with autistic children in mind: Match, Sort, Patterns, Count, Pairs and Feelings, themed with trains & vehicles, animals, space, dinosaurs, colours or the family's own photos. Games work in English or Irish (Gaeilge). Includes a visual timer and a First/Then board. A rule-based engine adjusts difficulty, opens new skills as earlier ones are learned, and explains every decision to parents.
+Calm, predictable learning games designed with neurodivergent children in mind: Match, Sort, Patterns, Count, Pairs and Feelings, themed with trains & vehicles, animals, space, dinosaurs, colours or the family's own photos. Games work in English or Irish (Gaeilge). Includes a visual timer and a First/Then board. A rule-based engine adjusts difficulty, opens new skills as earlier ones are learned, and explains every decision to parents.
 
 Plain HTML, CSS and JavaScript. No build step, no framework, no tracking.
 

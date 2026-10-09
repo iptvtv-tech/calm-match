@@ -1,7 +1,7 @@
 {
   "name": "Calm Match",
   "short_name": "Calm Match",
-  "description": "Calm, predictable learning games designed with autistic children in mind.",
+  "description": "Calm, predictable learning games designed with neurodivergent children in mind.",
   "start_url": "play.html",
   "scope": "./",
   "display": "standalone",

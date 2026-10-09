@@ -7,9 +7,9 @@ window.CM_CONFIG = {
   siteName: "Calm Match",
 
   // Who runs the site (shown in the privacy policy and terms).
-  ownerName: "",            // e.g. "Jane Murphy" or your business name
-  contactEmail: "",         // e.g. "hello@yourdomain.ie"
-  siteUrl: "",              // e.g. "https://calm-match.pages.dev" (no trailing slash)
+  ownerName: "J.P Cunningham",
+  contactEmail: "hello@calmmatch.com",
+  siteUrl: "https://calmmatch.com",
   policyDate: "8 October 2026",
 
   // Supabase (parent accounts and sync). Leave blank to run with no accounts:
