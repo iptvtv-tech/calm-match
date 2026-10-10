@@ -64,8 +64,9 @@
       ["s:tap", "Turn on the tap."], ["x:soap", "Put soap on your hands."], ["x:rub", "Rub your hands together: the fronts, the backs and between your fingers."],
       ["x:drip", "Rinse off the soap with water."], ["s:towel", "Dry your hands with the towel."], ["s:finished", "All clean!"] ] },
     { key: "teeth", kind: "howto", title: "Brushing teeth", pages: [
-      ["e:🪥", "Put a little toothpaste on your brush."], ["x:brush", "Brush your top teeth."], ["x:brush", "Brush your bottom teeth."],
-      ["s:teeth", "Brush the fronts and the backs."], ["e:🚰", "Spit out the toothpaste."], ["s:finished", "All done. Clean teeth!"] ] },
+      ["s:toothpaste", "Put a little toothpaste on your brush."], ["s:brushteeth", "Brush your top teeth."], ["s:brushteeth", "Brush your bottom teeth."],
+      ["s:mouth", "Brush the fronts and the backs."], ["s:sink", "Spit the toothpaste into the sink."], ["s:rinse", "Rinse your toothbrush under the tap."],
+      ["s:finished", "All done. Clean teeth!"] ] },
     { key: "dressed", kind: "howto", title: "Getting dressed", pages: [
       ["s:pants", "Put on your pants."], ["e:👕", "Put on your T-shirt."], ["e:👖", "Put on your trousers."],
       ["e:🧦", "Put on your socks."], ["s:trainers", "Put on your shoes."], ["s:finished", "I'm dressed!"] ] },
@@ -81,9 +82,28 @@
     var p = st.pages[i]; if (p && p.text) h.say(p.text);
   }
 
+  // The first "Brushing teeth" used emoji that some phones can't show, and a tap for "spit".
+  // Saved copies are switched to symbols, leaving any page a grown-up has rewritten alone.
+  function repairTeeth() {
+    var fix = { "e:🪥": "s:toothpaste", "x:brush": "s:brushteeth" }, changed = false;
+    CM.lib.stories("howto").forEach(function (st) {
+      if (!st.pages.some(function (p) { return fix[p.pic]; })) return;
+      st.pages.forEach(function (p) {
+        if (fix[p.pic]) p.pic = fix[p.pic];
+        if (p.pic === "s:teeth" && p.text === "Brush the fronts and the backs.") p.pic = "s:mouth";
+        if (p.pic === "e:🚰" && p.text === "Spit out the toothpaste.") { p.pic = "s:sink"; p.text = "Spit the toothpaste into the sink."; }
+      });
+      var last = st.pages[st.pages.length - 1];
+      if (last && last.pic === "s:finished" && !st.pages.some(function (p) { return p.pic === "s:rinse"; }) && st.title === "Brushing teeth")
+        st.pages.splice(st.pages.length - 1, 0, { pic: "s:rinse", text: "Rinse your toothbrush under the tap." });
+      CM.lib.saveStory(st); changed = true;
+    });
+    return changed;
+  }
+
   CM.stories = {
     TEMPLATES: TEMPLATES,
-    init: function (helpers) { h = helpers; },
+    init: function (helpers) { h = helpers; try { repairTeeth(); } catch (e) {} },
     fromTemplate: function (key) {
       var tp = TEMPLATES.find(function (x) { return x.key === key; }); if (!tp) return null;
       return CM.lib.saveStory({ title: tp.title, kind: tp.kind, lang: "en", pages: tp.pages.map(function (p) { return { pic: p[0], text: p[1] }; }) });
@@ -138,7 +158,7 @@
             '<button class="small-btn" type="button" data-print="' + st.id + '">Print</button><button class="small-btn danger" type="button" data-del="' + st.id + '">Delete</button></div></li>';
         };
         box.innerHTML =
-          '<div><h3>Stories and how-tos</h3><p class="note">Short picture stories read aloud, for things that are new or hard (the dentist, a new school), and step-by-step how-tos (washing hands). Your child finds them under "My stories" on the start screen, and a how-to can be added to a schedule step. Everything stays on this device.</p>' +
+          '<div><h3>Stories and how-tos</h3><p class="note">Short picture stories read aloud, for things that are new or hard (the dentist, a new school), and step-by-step how-tos (washing hands). Your child finds them under "My stories" on the start screen, and any story or how-to can be added to a schedule step. Everything stays on this device.</p>' +
           (all.length ? '<ul class="st-list">' + all.map(item).join("") + "</ul>" : '<p class="note">No stories yet. Start from one below.</p>') + "</div>" +
           '<div><h3>Start a story</h3><p class="note">Starter stories are in English. Change any words, including into Irish, and swap in names and your own photos.</p><div class="chips" id="tplStory"></div></div>' +
           '<div><h3>Start a how-to</h3><div class="chips" id="tplHow"></div></div>' +

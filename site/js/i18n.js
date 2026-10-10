@@ -40,7 +40,7 @@
       workingFor: "Working for", tokensLeft: "{n} more, then {reward}", earned: "You did it!", timeFor: "Time for: {reward}", myStickers: "My stickers", noStickers: "No stickers yet. You get one for each game you finish.",
       breakChoose: "What kind of break?", brBreathe: "Breathing", brBubbles: "Bubbles", brMusic: "Music", brQuiet: "Quiet", oneMinute: "1 minute, then back to the game.", breakOver: "Break time is over. Ready?", breakTime: "Time for a break",
       popBubbles: "Pop the bubbles", balloonIn: "Breathe in. The balloon gets bigger.", balloonOut: "Breathe out. The balloon gets smaller.", quietTime: "Quiet time. Rest your eyes.", calmCorner: "Calm corner", balloon: "Balloon breathing",
-      showMe: "Show me how", change: "Change", changeMsg: "Change: {new} instead of {old}", talk: "Talk", iWant: "I want", sayIWant: "I want {x}", words: "Words", myWords: "My words", clear: "Clear", sayIt: "Say it", close: "Close",
+      showMe: "Show me how", readStory: "Read our story", change: "Change", changeMsg: "Change: {new} instead of {old}", talk: "Talk", iWant: "I want", sayIWant: "I want {x}", words: "Words", myWords: "My words", clear: "Clear", sayIt: "Say it", close: "Close",
       theEnd: "The end", back: "Back", stepNofM: "Step {n} of {m}", whoPlaying: "Who is playing?", myStories: "My stories", pickStory: "Pick a story", howTo: "How to", allSteps: "All the steps"
     },
     ga: {
@@ -78,7 +78,7 @@
       workingFor: "Ag obair i gcomhair", tokensLeft: "{n} eile, ansin: {reward}", earned: "Rinne tú é!", timeFor: "Am do: {reward}", myStickers: "Mo ghreamáin", noStickers: "Níl greamán ar bith fós. Faigheann tú ceann i ndiaidh gach cluiche.",
       breakChoose: "Cén sórt sosa?", brBreathe: "Análú", brBubbles: "Boilgeoga", brMusic: "Ceol", brQuiet: "Ciúnas", oneMinute: "Nóiméad amháin, ansin ar ais go dtí an cluiche.", breakOver: "Tá an sos thart. An bhfuil tú réidh?", breakTime: "Am sosa",
       popBubbles: "Pléasc na boilgeoga", balloonIn: "Anáil isteach. Éiríonn an balún níos mó.", balloonOut: "Anáil amach. Éiríonn an balún níos lú.", quietTime: "Am ciúin. Lig do scíth.", calmCorner: "Cúinne ciúin", balloon: "Análú balúin",
-      showMe: "Taispeáin dom", change: "Athrú", changeMsg: "Athrú: {new} in áit {old}", talk: "Labhair", iWant: "Ba mhaith liom", sayIWant: "Ba mhaith liom {x}", words: "Focail", myWords: "Mo chuid focal", clear: "Glan", sayIt: "Abair é", close: "Dún",
+      showMe: "Taispeáin dom", readStory: "Léigh ár scéal", change: "Athrú", changeMsg: "Athrú: {new} in áit {old}", talk: "Labhair", iWant: "Ba mhaith liom", sayIWant: "Ba mhaith liom {x}", words: "Focail", myWords: "Mo chuid focal", clear: "Glan", sayIt: "Abair é", close: "Dún",
       theEnd: "Críoch", back: "Siar", stepNofM: "Céim {n} as {m}", whoPlaying: "Cé atá ag imirt?", myStories: "Mo scéalta", pickStory: "Roghnaigh scéal", howTo: "Conas", allSteps: "Na céimeanna ar fad"
     }
   };

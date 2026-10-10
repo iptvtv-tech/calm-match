@@ -983,7 +983,7 @@
   var DAYS = [[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"], [0, "Sun"]];
   function renderSchedEditor() {
     var box = $("schedBox"), list = CM.lib.schedules(), sc = CM.lib.activeSchedule(), steps = sc.steps, max = CM.lib.MAX_STEPS;
-    var howtos = CM.lib.stories("howto");
+    var howtos = CM.lib.stories("howto"), storyList = CM.lib.stories("story"), anyStories = howtos.length + storyList.length > 0;
     box.innerHTML = '<h3>Visual schedules</h3><p class="note">Up to ' + max + ' steps in order. Your child sees every step with "Now" and "Next" marked, and taps Done to move on. Keep several schedules (morning, school, bedtime) and set the days each one is for.</p>' +
       '<div class="chips" id="schedPick">' + list.map(function (x) { return '<button type="button" class="chip" data-s="' + esc(x.id) + '" aria-pressed="' + (x.id === sc.id) + '">' + esc(x.name) + " (" + x.steps.length + ")</button>"; }).join("") +
         (list.length < CM.lib.MAX_SCHED ? '<button type="button" class="chip" id="schedNew">+ New schedule</button>' : "") + "</div>" +
@@ -994,7 +994,9 @@
         var x = CM.ref(st.r);
         return '<li class="se-step"><span class="se-n">' + (k + 1) + '</span><span class="se-e">' + x.html + '</span><span class="se-name">' + esc(CM.cap(x.name)) + "</span>" +
           '<select data-min="' + k + '" aria-label="Timer for ' + esc(x.name) + '">' + [0, 1, 2, 5, 10, 15, 20, 30].map(function (m) { return '<option value="' + m + '"' + ((st.min || 0) === m ? " selected" : "") + ">" + (m ? m + " min timer" : "No timer") + "</option>"; }).join("") + "</select>" +
-          (howtos.length ? '<select data-how="' + k + '" aria-label="How-to for ' + esc(x.name) + '"><option value="">No how-to</option>' + howtos.map(function (hw) { return '<option value="' + esc(hw.id) + '"' + (st.howto === hw.id ? " selected" : "") + ">Show me how: " + esc(hw.title) + "</option>"; }).join("") + "</select>" : "") +
+          (anyStories ? '<select data-how="' + k + '" aria-label="How-to or story for ' + esc(x.name) + '"><option value="">No how-to or story</option>' +
+            (howtos.length ? '<optgroup label="How-tos">' + howtos.map(function (hw) { return '<option value="' + esc(hw.id) + '"' + (st.howto === hw.id ? " selected" : "") + ">Show me how: " + esc(hw.title) + "</option>"; }).join("") + "</optgroup>" : "") +
+            (storyList.length ? '<optgroup label="Stories">' + storyList.map(function (sy) { return '<option value="' + esc(sy.id) + '"' + (st.howto === sy.id ? " selected" : "") + ">Read: " + esc(sy.title) + "</option>"; }).join("") + "</optgroup>" : "") + "</select>" : "") +
           (CM.voice ? CM.voice.button(CM.voice.refKey(st.r)) : "") +
           '<button type="button" class="se-btn" data-mv="-1" data-k="' + k + '" aria-label="Move ' + esc(x.name) + ' earlier"' + (k === 0 ? " disabled" : "") + ">↑</button>" +
           '<button type="button" class="se-btn" data-mv="1" data-k="' + k + '" aria-label="Move ' + esc(x.name) + ' later"' + (k === steps.length - 1 ? " disabled" : "") + ">↓</button>" +

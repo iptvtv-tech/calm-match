@@ -115,7 +115,7 @@
           (finished ? '<p class="sc-end">' + esc(CM.t("dayDone")) + "</p>" : "") +
           '<div class="row">' + (finished ? '<button class="big-btn" type="button" id="scOk">' + esc(CM.t("ok")) + "</button>"
             : '<button class="big-btn" type="button" id="scDone">✓ ' + esc(CM.t("stepDone")) + "</button>" +
-              (cur.howto && CM.lib.story(cur.howto) ? '<button class="ghost-btn" type="button" id="scHow">' + esc(CM.t("showMe")) + "</button>" : "")) +
+              (cur.howto && CM.lib.story(cur.howto) ? '<button class="ghost-btn" type="button" id="scHow">' + esc(CM.lib.story(cur.howto).kind === "story" ? CM.t("readStory") : CM.t("showMe")) + "</button>" : "")) +
           (i > 0 ? '<button class="small-btn" type="button" id="scBack">Back a step</button>' : "") +
           (!finished ? '<button class="small-btn" type="button" id="scChange">' + esc(CM.t("change")) + "</button>" : "") +
           '<button class="small-btn" type="button" id="scClose">Close schedule</button></div><div id="scPick"></div>';
