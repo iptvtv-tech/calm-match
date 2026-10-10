@@ -22,6 +22,7 @@
     breakMin: 0,             // break timer in minutes (0 = no timer)
     breakEvery: 0,           // offer a break after every N games (0 = only when asked)
     talk: false,             // show the Talk button to the child
+    timerSound: "end",       // timers (schedule steps, First/Then, visual timer, breaks): off | end | warn (1 minute left + end) | minute (every minute + end)
     touchMode: "instant",    // instant | hold | release: how a touch chooses an answer (js/touch.js)
     holdMs: 800,             // hold mode: how long a finger rests before the answer is chosen
     cooldownMs: 500          // ignore further taps for this long after an answer (stops double taps)
@@ -42,6 +43,7 @@
     st.breakMin = [0, 1, 2, 3, 5].indexOf(+st.breakMin) >= 0 ? +st.breakMin : 0;
     st.breakEvery = [0, 1, 2, 3].indexOf(+st.breakEvery) >= 0 ? +st.breakEvery : 0;
     st.talk = !!st.talk;
+    if (["off", "end", "warn", "minute"].indexOf(st.timerSound) < 0) st.timerSound = "end";
     if (["instant", "hold", "release"].indexOf(st.touchMode) < 0) st.touchMode = "instant";
     st.holdMs = Math.min(3000, Math.max(300, Math.round(+st.holdMs) || 800));
     st.cooldownMs = Math.min(2000, Math.max(0, Math.round(+st.cooldownMs)));

@@ -115,10 +115,10 @@
       var draw = function () {
         var left = Math.max(0, Math.round((end - Date.now()) / 1000)), deg = Math.max(0, Math.min(360, left / total * 360));
         var w = $("brTimer"); if (w) w.innerHTML = '<div class="vt vt-small" role="timer" aria-label="' + esc(left > 60 ? t("minutesLeft", { n: Math.ceil(left / 60) }) : t("lessThanMin")) + '" style="--deg:' + deg.toFixed(1) + 'deg"><span class="vt-face"></span></div>';
-        if (left <= 60 && !warned && total > 60) { warned = true; var l = $("brLeft"); if (l) l.textContent = t("oneMinute"); h.say(t("oneMinute")); }
+        if (left <= 60 && !warned && total > 60) { warned = true; var l = $("brLeft"); if (l) l.textContent = t("oneMinute"); if (CM.timerSoundOn && CM.timerSoundOn()) { h.tones([587.33], 0, 0.08); h.say(t("oneMinute")); } }
         if (left <= 0) {
           stop(); document.body.classList.remove("dim");
-          var l2 = $("brLeft"); if (l2) l2.textContent = t("breakOver"); h.tones([659.25, 523.25], 0.45); h.say(t("breakOver"));
+          var l2 = $("brLeft"); if (l2) l2.textContent = t("breakOver"); if (!CM.timerSoundOn || CM.timerSoundOn()) { h.tones([659.25, 523.25], 0.45); h.say(t("breakOver")); }
           var r = $("brReady"); if (r) r.focus();
         }
       };

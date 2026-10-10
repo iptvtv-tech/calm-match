@@ -968,6 +968,7 @@
     $("boardPreview").innerHTML = '<span aria-hidden="true">' + CM.ACTIVITIES[b.first][0] + "</span> " + esc(CM.ACTIVITIES[b.first][1]) + ' <span class="note">then</span> <span aria-hidden="true">' + CM.ACTIVITIES[b.then][0] + "</span> " + esc(CM.ACTIVITIES[b.then][1]) + (b.minutes ? ' <span class="note">· ' + b.minutes + " min timer</span>" : "");
     renderSchedEditor();
     var tm = CM.store.db().app.timerMin || 5;
+    chipGroup($("timerSoundChips"), [["off", "Off"], ["end", "At the end"], ["warn", "1 minute left + end"], ["minute", "Every minute + end"]], S().timerSound, function (v) { S().timerSound = v; log("Timer sounds", { off: "off: timers are silent", end: "a tone when time is up", warn: "a reminder at 1 minute left, and a tone when time is up", minute: "a reminder every minute, and a tone when time is up" }[v]); }, renderTools);
     chipGroup($("timerChips"), [[1, "1 min"], [2, "2 min"], [3, "3 min"], [5, "5 min"], [10, "10 min"], [15, "15 min"], [20, "20 min"]], tm, function (v) { CM.store.db().app.timerMin = +v; CM.store.persist(); }, renderTools);
     $("toolsMsg").textContent = session ? "A game session is running. Finish it, or the board and timer will replace it." : "";
   }

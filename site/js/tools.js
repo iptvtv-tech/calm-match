@@ -28,12 +28,26 @@
       left: function () { return paused ? leftAtPause : Math.max(0, Math.round((end - Date.now()) / 1000)); }
     };
     draw(total);
+    var lastLeft = total;
     timerId = setInterval(function () {
       var left = state.left(); draw(left);
+      if (left !== lastLeft) { CM.timerAlert(lastLeft, left, total); lastLeft = left; }
       if (left <= 0) { stop(); done(); }
     }, 1000);
   }
+  function soundMode() { var s = CM.store.S(); return s.timerSound || "end"; }
+  // Reminders while a timer runs, as set in Grown-ups: a soft tone, and the time left read aloud if read-aloud is on.
+  // Fires once when the time left passes a minute mark, even if the screen was asleep for a moment.
+  CM.timerAlert = function (before, left, total) {
+    var mode = soundMode(), crossed = function (sec) { return before > sec && left <= sec && left > 0; };
+    if ((mode === "warn" || mode === "minute") && total > 60 && crossed(60)) { h.tones([587.33], 0, 0.08); h.say(CM.t("oneMinuteLeft")); return; }
+    if (mode === "minute") for (var m = Math.floor(before / 60); m >= 2; m--) {
+      if (m * 60 < total && crossed(m * 60)) { h.tones([587.33], 0, 0.08); h.say(CM.t("minutesLeftSay", { n: m })); return; }
+    }
+  };
+  CM.timerSoundOn = function () { return soundMode() !== "off"; };
   function ending() {
+    if (!CM.timerSoundOn()) return; // silent: the circle and "Time is up" still show
     h.tones([659.25, 523.25], 0.45);
     h.say(CM.t("timeUp"));
   }
