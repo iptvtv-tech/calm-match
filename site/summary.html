@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Progress summary · Calm Match</title>
+<meta name="description" content="A printable progress summary for school or a therapist, made on this device.">
+<meta name="theme-color" content="#356b64">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/summary.css">
+</head>
+<body class="summary-page">
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="sum-controls no-print">
+  <div class="sum-controls-in">
+    <a class="btn btn-ghost" href="play.html">← Back to the games</a>
+    <label>Child <select id="sumChild"></select></label>
+    <label>Period <select id="sumPeriod">
+      <option value="30">Last 30 days</option><option value="90">Last 3 months</option><option value="0">All time</option>
+    </select></label>
+    <label class="sum-check"><input type="checkbox" id="sumName" checked> Show nickname</label>
+    <button class="btn btn-primary" type="button" id="sumPrint">Print or save as PDF</button>
+  </div>
+  <p class="note">Made on this device from the progress saved here. Nothing is sent anywhere. To save a PDF, choose "Save as PDF" as the printer.</p>
+</div>
+
+<main id="main" class="sum">
+  <header class="sum-head">
+    <div>
+      <p class="sum-brand"><i></i>Calm Match</p>
+      <h1>Progress summary<span id="sumWho"></span></h1>
+      <p class="sum-meta" id="sumMeta"></p>
+    </div>
+    <div class="sum-avatar" id="sumAvatar" aria-hidden="true"></div>
+  </header>
+
+  <p class="sum-disclaimer">Results from calm practice games played at home or school. They show what was practised and how it went. They are not an assessment, diagnosis or report on development.</p>
+
+  <section class="sum-block">
+    <h2>At a glance</h2>
+    <div class="sum-tiles" id="sumTiles"></div>
+  </section>
+
+  <section class="sum-block">
+    <h2>Right first time, session by session</h2>
+    <p class="sum-note">Turns answered without help. Turns with errorless help are left out.</p>
+    <div id="sumChart"></div>
+  </section>
+
+  <section class="sum-block">
+    <h2>Skills</h2>
+    <p class="sum-note">"How sure" is the games' estimate that a skill is learned. A new skill opens at 60%, and a skill counts as learned at 90%.</p>
+    <div class="tablewrap"><table class="sum-table">
+      <thead><tr><th>Game</th><th>Skill</th><th>Status</th><th>How sure</th><th>In this period</th><th>Last practised</th></tr></thead>
+      <tbody id="sumSkills"></tbody>
+    </table></div>
+  </section>
+
+  <section class="sum-block sum-two">
+    <div>
+      <h2>In plain words</h2>
+      <ul class="sum-words" id="sumWords"></ul>
+    </div>
+    <div>
+      <h2>Settings used</h2>
+      <ul class="sum-settings" id="sumSettings"></ul>
+    </div>
+  </section>
+
+  <section class="sum-block sum-notes">
+    <h2>Notes</h2>
+    <p class="sum-note">For the parent, teacher or therapist to fill in.</p>
+    <div class="sum-lines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  </section>
+
+  <footer class="sum-foot">Calm Match · calmmatch.com · <span id="sumMade"></span></footer>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/common.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/store.js"></script>
+<script src="js/summary.js"></script>
+</body>
+</html>

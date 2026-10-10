@@ -104,6 +104,10 @@ Content (themes, feelings, games, skills, difficulty ladders) is in `js/engine.j
 
 All child-facing game text, picture names, feelings and the First/Then board are translated. The grown-ups area and the site pages stay in English. **Have a fluent Irish speaker check `js/i18n.js` and the Irish names in `js/engine.js` before launch.** Browsers rarely include an Irish voice, so read-aloud stays silent in Irish unless the device has one.
 
+## Printable summary
+
+Grown-ups → History → *Printable summary* opens `summary.html`: a one- or two-page summary for school or a therapist (sessions, right first time, a skills table, plain-words notes, settings used and space for notes). Choose the child and period, hide the nickname if you like, then print or save as PDF. It's built on the device from saved progress; nothing is sent anywhere.
+
 ## History export
 
 Grown-ups → History → *Download spreadsheet (CSV)* gives one row per game played (date, game, skill, turns, helped turns, right first time, hints, breaks, minutes, theme, language). It opens in Excel, Google Sheets or Numbers. It includes the child's nickname, so check before sending it on.
