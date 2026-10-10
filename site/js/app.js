@@ -44,10 +44,12 @@
   var voices = [];
   function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } }
   if ("speechSynthesis" in window) { loadVoices(); try { speechSynthesis.onvoiceschanged = loadVoices; } catch (e) {} }
-  CM.irishVoice = function () { return voices.find(function (v) { return /^ga/i.test(v.lang); }) || null; };
+  // Only on-device voices: some browsers offer online voices that send the spoken text to a cloud service.
+  function localVoice(re) { return voices.find(function (v) { return v.localService !== false && re.test(v.lang); }) || null; }
+  CM.irishVoice = function () { return localVoice(/^ga/i); };
   function say(text) {
     if (!S().speech || !("speechSynthesis" in window)) return;
-    var ga = CM.lang() === "ga", v = ga ? CM.irishVoice() : null;
+    var ga = CM.lang() === "ga", v = ga ? CM.irishVoice() : (localVoice(/^en-(IE|GB)/i) || localVoice(/^en/i));
     if (ga && !v) return; // no Irish voice on this device: an English voice would mispronounce Irish
     try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(text); u.rate = S().rate; u.lang = ga ? "ga-IE" : "en-IE"; if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {}
   }

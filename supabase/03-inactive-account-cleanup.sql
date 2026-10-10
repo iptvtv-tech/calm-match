@@ -23,6 +23,9 @@ create table if not exists public.retention_notices (
 );
 alter table public.retention_notices enable row level security;   -- no policies: the website can never read or change it
 revoke all on public.retention_notices from anon, authenticated;
+-- An explicit "nobody" policy: same effect as no policy, but documents the intent and clears the Security Advisor note.
+drop policy if exists "no website access" on public.retention_notices;
+create policy "no website access" on public.retention_notices for all to anon, authenticated using (false) with check (false);
 
 create or replace function public.account_last_used(uid uuid)
 returns timestamptz
