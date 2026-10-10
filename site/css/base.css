@@ -7,8 +7,8 @@
 
 :root{
   --bg:#eef3f1; --surface:#ffffff; --ink:#1f2d2b; --muted:#566864; --line:#cfdcd8;
-  --accent:#3f7c74; --accent-ink:#ffffff; --accent-soft:#d7e9e5; --ok:#3d7f4f; --ok-soft:#dcefe0;
-  --hint:#9a6a14; --hint-soft:#f6ead2; --dim:#e4ebe9; --warn:#a4553a; --warn-soft:#f7e3dc;
+  --accent:#356b64; --accent-ink:#ffffff; --accent-soft:#d7e9e5; --ok:#3d7f4f; --ok-soft:#dcefe0;
+  --hint:#9a6a14; --hint-soft:#f6ead2; --dim:#e4ebe9; --warn:#984b31; --warn-soft:#f7e3dc;
   --display:"Lexend","Trebuchet MS",system-ui,sans-serif;
   --body:"Atkinson Hyperlegible",Verdana,system-ui,sans-serif;
   --mono:ui-monospace,Menlo,Consolas,monospace;
@@ -49,7 +49,7 @@ h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;text-wrap:balanc
 .site-nav a.cta{background:var(--accent);color:var(--accent-ink)}
 .site-foot{max-width:980px;margin:48px auto 0;border-top:1px solid var(--line);padding-block:20px 32px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;font-size:14px;color:var(--muted)}
 .site-foot nav{display:flex;flex-wrap:wrap;gap:6px 16px}
-.site-foot a{color:var(--muted)}
+.site-foot a{color:var(--muted);display:inline-block;padding-block:3px}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:12px 22px;font:600 17px/1.1 var(--display);text-decoration:none;border:2px solid transparent}
@@ -92,3 +92,4 @@ code{font-family:var(--mono);font-size:.92em;background:var(--dim);padding:1px 5
 .msg.ok{background:var(--ok-soft);color:var(--ok)}
 .msg.err{background:var(--warn-soft);color:var(--warn)}
 .msg.info{background:var(--accent-soft);color:var(--ink)}
+.acct-page{min-height:80vh} /* room for the sign-in forms, so the footer does not jump when they appear */
