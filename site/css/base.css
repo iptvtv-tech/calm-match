@@ -3,7 +3,7 @@
 
 @font-face{font-family:"Atkinson Hyperlegible";src:url("../fonts/atkinson-hyperlegible-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Atkinson Hyperlegible";src:url("../fonts/atkinson-hyperlegible-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"Lexend";src:url("../fonts/lexend-variable.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Lexend";src:url("../fonts/lexend-variable.woff2") format("woff2"),url("../fonts/lexend-600.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap}
 
 :root{
   --bg:#eef3f1; --surface:#ffffff; --ink:#1f2d2b; --muted:#566864; --line:#cfdcd8;
