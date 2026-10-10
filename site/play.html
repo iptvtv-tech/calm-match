@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Play · Calm Match</title>
-<meta name="description" content="Calm, predictable learning games: match, sort, patterns, counting, pairs and feelings. In English or Irish.">
+<meta name="description" content="Calm, predictable learning games, visual schedules, a talk board and picture stories. In English or Irish.">
 <meta name="theme-color" content="#3f7c74">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -18,12 +18,14 @@
     <div class="brand"><i></i>Calm Match</div>
     <div class="hright">
       <span class="who" id="who"></span>
+      <button class="talkbtn" id="talkBtn" type="button" hidden><span aria-hidden="true">💬</span> <span id="talkTxt">Talk</span></button>
       <button class="breakbtn" id="breakBtn" type="button" hidden>Break</button>
       <button class="grown" id="grownBtn" type="button" aria-label="Grown-ups area"><span class="fill" id="grownFill"></span><span id="grownTxt">Grown-ups</span></button>
     </div>
   </header>
 
   <nav class="sched" id="sched" aria-label="Today's plan"></nav>
+  <div class="tokens" id="tokens" hidden></div>
 
   <section class="gate" id="gate" hidden aria-label="Grown-ups check"></section>
 
@@ -35,7 +37,10 @@
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" type="button" data-tab="skills">Progress</button>
       <button class="tab" role="tab" type="button" data-tab="history">History</button>
-      <button class="tab" role="tab" type="button" data-tab="tools">Timer &amp; board</button>
+      <button class="tab" role="tab" type="button" data-tab="tools">Schedules &amp; timer</button>
+      <button class="tab" role="tab" type="button" data-tab="talk">Talk</button>
+      <button class="tab" role="tab" type="button" data-tab="stories">Stories</button>
+      <button class="tab" role="tab" type="button" data-tab="pictures">Pictures</button>
       <button class="tab" role="tab" type="button" data-tab="settings">Settings</button>
       <button class="tab" role="tab" type="button" data-tab="child">Children</button>
       <button class="tab" role="tab" type="button" data-tab="account">Account</button>
@@ -91,7 +96,7 @@
       <p class="note" id="toolsMsg"></p>
       <div>
         <h3>First / Then board</h3>
-        <p class="note">Shows "First this, then that" full-size for your child. Pictures and words follow the game language.</p>
+        <p class="note">Shows "First this, then that" full-size for your child. Pictures and words follow the game language. For more steps, use a schedule below.</p>
         <p style="margin:10px 0 4px"><b>First</b></p>
         <div class="chips" id="firstChips"></div>
         <p style="margin:14px 0 4px"><b>Then</b></p>
@@ -100,14 +105,7 @@
         <div class="chips" id="boardTimerChips"></div>
         <div class="row start" style="margin-top:14px"><button class="small-btn primary" type="button" id="showBoardBtn">Show board</button><span id="boardPreview"></span></div>
       </div>
-      <div>
-        <h3>Visual schedule</h3>
-        <p class="note">Up to 8 steps in order, for a whole morning or afternoon. Your child sees every step, with "Now" and "Next" marked, and taps Done to move on.</p>
-        <ol class="sched-edit" id="schedList"></ol>
-        <p style="margin:12px 0 4px"><b>Add a step</b></p>
-        <div class="chips" id="schedAdd"></div>
-        <div class="row start" style="margin-top:14px"><button class="small-btn primary" type="button" id="showSchedBtn">Show schedule</button><button class="small-btn" type="button" id="clearSchedBtn">Clear all steps</button></div>
-      </div>
+      <div id="schedBox"></div>
       <div>
         <h3>Visual timer</h3>
         <p class="note">A coloured circle that shrinks as time passes, with a soft tone at the end. Numbers aren't needed to read it.</p>
@@ -164,6 +162,22 @@
         </div>
       </div>
       <div>
+        <h3>Token board</h3>
+        <p class="note">Your child earns a token for each game finished and each schedule step done. When the board is full, it shows the reward you picked. Tokens are never taken away.</p>
+        <div class="chips" id="tokenChips" aria-label="Tokens to earn the reward"></div>
+        <div class="chips" id="tokenIconChips" aria-label="Token picture"></div>
+        <div class="row start" style="margin-top:10px"><span id="rewardNow"></span><button class="small-btn" type="button" id="rewardPick">Choose the reward</button></div>
+        <div id="rewardPickBox"></div>
+      </div>
+      <div>
+        <h3>Breaks</h3>
+        <p class="note">The Break button offers breathing, bubbles, music or quiet. A break timer gives a 1-minute warning, then "Break time is over". Your child can always come back sooner.</p>
+        <p style="margin:10px 0 4px"><b>Break timer</b></p>
+        <div class="chips" id="breakMinChips"></div>
+        <p style="margin:14px 0 4px"><b>Offer a break</b></p>
+        <div class="chips" id="breakEveryChips"></div>
+      </div>
+      <div>
         <h3>Rewards</h3>
         <p class="note">Stickers after each game</p>
         <div class="chips" id="stickerChips"></div>
@@ -183,14 +197,8 @@
       </div>
       <div>
         <h3>Which games</h3>
-        <div class="grid2">
-          <label class="toggle"><input type="checkbox" id="g-match"><span>Match<small>Find the same picture.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="g-sort"><span>Sort<small>Put each picture in the right basket.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="g-seq"><span>Patterns<small>What comes next?</small></span></label>
-          <label class="toggle"><input type="checkbox" id="g-count"><span>Count<small>How many pictures?</small></span></label>
-          <label class="toggle"><input type="checkbox" id="g-pairs"><span>Pairs<small>Turn over cards to find matching pairs.</small></span></label>
-          <label class="toggle"><input type="checkbox" id="g-feel"><span>Feelings<small>Happy, sad, angry, scared, surprised, sleepy faces.</small></span></label>
-        </div>
+        <p class="note" id="newGamesNote" hidden></p>
+        <div id="gameToggles"></div>
       </div>
       <div>
         <h3>Who picks the games</h3>
@@ -224,6 +232,22 @@
         <h3>Sticker book</h3>
         <div class="stickers book" id="stickerBook" style="margin-top:8px"></div>
       </div>
+      <div>
+        <h3>Classroom mode</h3>
+        <label class="toggle" style="border:0"><input type="checkbox" id="classOn"><span>Use this tablet for a class<small>Each child taps their own avatar to start, and goes back to "Who is playing?" when they finish. Everything stays on this tablet. Use nicknames or first names only.</small></span></label>
+        <div id="classBox"></div>
+      </div>
+      <div>
+        <h3>Backup file</h3>
+        <p class="note">Save everything on this device to a file: children, progress, schedules, stories, pictures and recordings. Use it to move to a new tablet, or to take one child's set-up between home and school. The file holds nicknames and family photos, so keep it somewhere private.</p>
+        <div class="row start" style="margin-top:8px">
+          <button class="small-btn" type="button" id="bkAll">Save backup file</button>
+          <button class="small-btn" type="button" id="bkOne">Save this child only</button>
+          <label class="small-btn pbtn">Open a backup file<input type="file" accept=".json,application/json" id="bkFile" class="visually-hidden"></label>
+        </div>
+        <div id="bkChoice"></div>
+        <p class="note" id="bkMsg" aria-live="polite"></p>
+      </div>
       <div class="row start">
         <button class="small-btn" type="button" id="exampleBtn">Add example child with progress</button>
         <button class="small-btn danger" type="button" id="resetBtn">Reset this child's progress</button>
@@ -231,6 +255,15 @@
         <button class="small-btn danger" type="button" id="wipeBtn">Delete everything on this device</button>
       </div>
     </section>
+
+    <!-- TALK -->
+    <section data-pane="talk" hidden><div id="talkBox"></div></section>
+
+    <!-- STORIES -->
+    <section data-pane="stories" hidden><div id="storyBox"></div></section>
+
+    <!-- PICTURES -->
+    <section data-pane="pictures" hidden><div id="picBox"></div></section>
 
     <!-- ACCOUNT -->
     <section data-pane="account" hidden>
@@ -254,6 +287,7 @@
   </section>
 
   <main class="card" id="stage" aria-live="polite"></main>
+  <section class="card talk" id="talk" hidden aria-label="Talk board"></section>
 
   <div class="progress" id="progress" hidden>
     <div class="dots" id="dots"></div>
@@ -265,8 +299,19 @@
 <script src="js/engine.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/store.js"></script>
+<script src="js/media.js"></script>
 <script src="js/photos.js"></script>
+<script src="js/symbols.js"></script>
+<script src="js/library.js"></script>
 <script src="js/cloud.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/games.js"></script>
+<script src="js/rewards.js"></script>
+<script src="js/stories.js"></script>
+<script src="js/talk.js"></script>
+<script src="js/classroom.js"></script>
+<script src="js/backup.js"></script>
 <script src="js/tools.js"></script>
 <script src="js/touch.js"></script>
 <script src="js/app.js"></script>

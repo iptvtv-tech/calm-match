@@ -17,6 +17,9 @@
     document.documentElement.lang = s.lang === "ga" ? "ga" : "en";
     $("breakBtn").textContent = t("breakLabel");
     if (CM.touch) CM.touch.apply();
+    $("talkTxt").textContent = t("talk");
+    $("talkBtn").hidden = !s.talk;
+    if (CM.rewards) CM.rewards.renderStrip();
   }
   var actx = null;
   function tones(freqs, gap, vol) {
@@ -99,16 +102,34 @@
   function show(fn) { screenFn = fn; fn(); }
 
   /* ---------- screens ---------- */
+  var chosen = false; // classroom mode: has a child picked themselves on this visit?
   function startScreen() {
-    clearTimers(); CM.tools.stop(); session = null; blk = null; cur = null;
+    clearTimers(); CM.tools.stop(); CM.rewards.stop(); session = null; blk = null; cur = null;
+    document.body.classList.remove("dim");
     $("progress").hidden = true; $("breakBtn").hidden = true;
+    if (CM.classroom.on() && !chosen && CM.store.list().length > 1) {
+      $("sched").hidden = true; $("tokens").hidden = true; $("who").innerHTML = "";
+      return CM.classroom.picker(stage, say, function () { chosen = true; applySenses(); startScreen(); });
+    }
+    applySenses();
     var plan = CM.planSession().plan; renderSched(); renderWho();
+    var hasStories = CM.lib.stories().length > 0;
     stage.innerHTML =
       '<p class="label">' + esc(t("today", { name: P().name })) + "</p>" +
       '<h1 class="say">' + esc(t("gamesThenDone", { n: plan.length })) + "</h1>" +
       '<p class="sub">' + esc(plan.map(CM.gameName).join(", " + t("then") + " ")) + ". " + esc(t("tapBreak")) + "</p>" +
-      '<button class="big-btn" id="startBtn" type="button">' + esc(t("start")) + "</button>";
+      '<button class="big-btn" id="startBtn" type="button">' + esc(t("start")) + "</button>" +
+      '<div class="row extras">' +
+        '<button class="ghost-btn" id="stickBtn" type="button"><span aria-hidden="true">⭐</span> ' + esc(t("myStickers")) + "</button>" +
+        (hasStories ? '<button class="ghost-btn" id="storiesBtn" type="button"><span aria-hidden="true">📖</span> ' + esc(t("myStories")) + "</button>" : "") +
+        '<button class="ghost-btn" id="calmBtn" type="button"><span aria-hidden="true">🌙</span> ' + esc(t("calmCorner")) + "</button>" +
+        (CM.classroom.on() && CM.store.list().length > 1 ? '<button class="ghost-btn" id="whoBtn" type="button">' + esc(t("whoPlaying")) + "</button>" : "") +
+      "</div>";
     $("startBtn").onclick = startSession;
+    $("stickBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.stickerBook(function () { CM.tools.helpers().exit(); }); };
+    if ($("storiesBtn")) $("storiesBtn").onclick = function () { CM.stories.shelf(); };
+    $("calmBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.breakScreen({ label: t("calmCorner"), title: t("calmCorner"), onClose: function () { CM.tools.helpers().exit(); } }); };
+    if ($("whoBtn")) $("whoBtn").onclick = function () { chosen = false; startScreen(); };
   }
   function startSession() {
     var r = CM.planSession();
@@ -142,19 +163,24 @@
     log("Difficulty", CM.lvDesc(g, blk.lvl, skill) + (S().errorless && g !== "pairs" ? "; help: " + CM.PROMPT_NAMES[st.prompt] : ""));
     nextTurn();
   }
+  function genCtx() { return { skill: blk.skill, lvl: blk.lvl, n: CM.LV[blk.game][Math.min(blk.lvl, CM.LV[blk.game].length - 1)], theme: theme(), themeKey: S().theme }; }
   function nextTurn() {
     pendingAdvance = null;
     if (blk.t >= blk.turns) return finishBlock();
     var g = blk.game;
-    cur = g === "match" ? genMatch() : g === "sort" ? genSort() : g === "seq" ? genSeq() : g === "count" ? genCount() : g === "feel" ? genFeel() : genPairs();
+    cur = g === "match" ? genMatch() : g === "sort" ? genSort() : g === "seq" ? genSeq() : g === "count" ? genCount() : g === "feel" ? genFeel() : g === "pairs" ? genPairs()
+      : CM.GEN[g](genCtx());
     cur.first = true; cur.misses = 0; cur.hint = false; cur.lowered = false;
-    cur.prompt = cur.kind === "pairs" || !S().errorless ? 0 : P().skills[blk.skill.id].prompt || 0;
+    cur.prompt = cur.kind || !S().errorless ? 0 : P().skills[blk.skill.id].prompt || 0;
     if (cur.kind === "pairs" && cur.peek > 0) startPeek();
     show(renderTurn);
     say(cur.speak);
   }
   function renderTurn() {
     if (cur.kind === "pairs") return renderPairs();
+    if (cur.kind === "tap") return renderTap();
+    if (cur.kind === "trace") return renderTrace();
+    if (cur.pre && !cur.preDone) return renderPre();
     locked = false; renderSched();
     var fbText = cur.prompt === 2 ? t("lookHighlight") : (cur.prompt === 1 || cur.hint) ? t("lookOutline") : "";
     stage.innerHTML =
@@ -205,10 +231,14 @@
       var e = pick1(items);
       baskets = [{ key: "big", icon: '<span class="sz-big">' + pic(e) + "</span>", nameKey: "big", got: [] }, { key: "small", icon: '<span class="sz-small">' + pic(e) + "</span>", nameKey: "small", got: [] }];
       for (i = 0; i < T; i++) { var k = i % 2 ? "small" : "big"; queue.push({ item: e, key: k, size: k, html: pic(e) }); }
+    } else if (mode === "colour" || mode === "shape") {
+      var sets = (mode === "colour" ? SORT_COLOURS : SORT_SHAPES).slice(0, Math.max(2, nb));
+      baskets = sets.map(function (c) { return { key: c.key, icon: c.icon, lbl: c, got: [] }; });
+      for (i = 0; i < T; i++) { var cs = sets[i % sets.length], ce = pick1(cs.items); queue.push({ item: [ce, cs.en, cs.ga], key: cs.key, html: ce }); }
     } else {
-      var me = S().theme === "colours" ? "vehicles" : S().theme;
+      var me = CM.THEMES[S().theme].noKind ? "vehicles" : S().theme;
       var fam = function (k) { return CM.THEMES[k].family || k; }, keys = [me], fams = [fam(me)];
-      shuffle(Object.keys(CM.THEMES).filter(function (k) { return k !== me && k !== "colours"; })).forEach(function (k) {
+      shuffle(Object.keys(CM.THEMES).filter(function (k) { return k !== me && !CM.THEMES[k].noKind; })).forEach(function (k) {
         if (keys.length < nb && fams.indexOf(fam(k)) < 0) { keys.push(k); fams.push(fam(k)); }
       });
       baskets = keys.map(function (k) { return { key: k, icon: pic(CM.THEMES[k].items[0], k), group: k, got: [] }; });
@@ -216,17 +246,23 @@
     }
     blk.baskets = baskets; blk.queue = shuffle(queue);
   }
-  function basketName(b) { return b.nameKey ? t(b.nameKey) : b.group ? CM.groupName(b.group) : CM.cap(CM.nm(b.item)); }
+  function basketName(b) { return b.lbl ? (CM.lang() === "ga" ? b.lbl.ga : b.lbl.en) : b.nameKey ? t(b.nameKey) : b.group ? CM.groupName(b.group) : CM.cap(CM.nm(b.item)); }
+  var SORT_COLOURS = [
+    { key: "red", en: "Red", ga: "Dearg", icon: "🔴", items: ["🔴", "🟥", "❤️", "🍎", "🍓"] }, { key: "green", en: "Green", ga: "Glas", icon: "🟢", items: ["🟢", "🟩", "💚", "🥦", "🍏"] },
+    { key: "blue", en: "Blue", ga: "Gorm", icon: "🔵", items: ["🔵", "🟦", "💙", "👖", "🧢"] }, { key: "yellow", en: "Yellow", ga: "Buí", icon: "🟡", items: ["🟡", "🟨", "💛", "🍌", "🌻"] }];
+  var SORT_SHAPES = [
+    { key: "circle", en: "Circles", ga: "Ciorcail", icon: "⚪", items: ["🔴", "🟢", "🔵", "🟡", "🟣", "🟠"] }, { key: "square", en: "Squares", ga: "Cearnóga", icon: "⬜", items: ["🟥", "🟩", "🟦", "🟨", "🟪", "🟧"] },
+    { key: "heart", en: "Hearts", ga: "Croíthe", icon: "🤍", items: ["❤️", "💚", "💙", "💛", "💜", "🧡"] }];
   function genSort() {
     var q = blk.queue[blk.t], mode = blk.skill.mode, nm = CM.nm(q.item);
     return {
-      title: mode === "size" ? t("bigOrSmall") : mode === "kind" ? t("whichGroup") : t("putSame"),
+      title: mode === "size" ? t("bigOrSmall") : mode === "kind" || mode === "colour" || mode === "shape" ? t("whichGroup") : t("putSame"),
       show: '<p class="label">' + esc(t("whereGo")) + '</p><div class="target" role="img" aria-label="' + esc(nm) + '"><span class="' + (q.size ? "sz-" + q.size : "") + '">' + q.html + "</span></div>",
       opts: blk.baskets.map(function (b) {
         return { cls: "basket", label: basketName(b), correct: b.key === q.key, basket: b,
           html: '<span class="bicon" aria-hidden="true">' + b.icon + '</span><span class="bname">' + esc(basketName(b)) + '</span><span class="bgot" aria-hidden="true">' + b.got.join("") + "</span>" };
       }),
-      speak: mode === "size" ? t("sayBigSmall", { name: nm }) : mode === "kind" ? t("sayGroup", { name: nm }) : t("saySortPic", { name: nm }),
+      speak: mode === "size" ? t("sayBigSmall", { name: nm }) : mode === "kind" ? t("sayGroup", { name: nm }) : mode === "colour" || mode === "shape" ? t("whichGroup") : t("saySortPic", { name: nm }),
       praiseName: mode === "size" ? t(q.size) : nm,
       onRight: function (o) { o.basket.got.push(q.html); }
     };
@@ -275,6 +311,7 @@
 
   /* ---------- game: feelings ---------- */
   function genFeel() {
+    if (blk.skill.mode === "why") return CM.GEN.feelWhy(genCtx());
     var mode = blk.skill.mode, n = CM.LV.feel[blk.lvl], F = CM.feelings();
     var pool = mode === "other" ? F.filter(function (f) { return f.faces.length > 1; }) : F;
     var target; do { target = pick1(pool); } while (lastFeel && pool.length > 1 && target.id === lastFeel);
@@ -365,6 +402,93 @@
     pendingAdvance = setTimeout(nextTurn, S().calm ? 2000 : 1700);
   }
 
+  /* ---------- remember first (What's missing?) ---------- */
+  function renderPre() {
+    locked = true; renderSched(); renderDots();
+    stage.innerHTML = cur.pre.html + '<p class="sub">' + esc(t("remember")) + "</p>";
+    say(cur.pre.speak);
+    pairsTimer = setTimeout(function () { pairsTimer = null; cur.preDone = true; show(renderTurn); say(cur.speak); }, S().calm ? cur.pre.ms + 1000 : cur.pre.ms);
+  }
+
+  /* ---------- tap in order (steps, small to big) ---------- */
+  function renderTap() {
+    locked = false; renderSched();
+    cur.next = cur.next || 0;
+    var slots = ""; for (var i = 0; i < cur.n; i++) {
+      var placed = cur.cards.find(function (c) { return c.rank === i && c.placed; });
+      slots += '<span class="tslot' + (placed ? " filled" : "") + '"><span class="tn">' + (i + 1) + "</span>" + (placed ? placed.html : "") + '<span class="tl">' + esc(cur.slotLabel(i) || "") + "</span></span>";
+    }
+    stage.innerHTML = '<h1 class="say">' + esc(cur.title) + '</h1><div class="tslots" aria-hidden="true">' + slots + "</div>" +
+      '<div class="options" role="group" aria-label="' + esc(t("sayOrder")) + '">' + cur.cards.map(function (c, k) {
+        return '<button type="button" class="opt' + (c.placed ? " used" : "") + (cur.hint && c.rank === cur.next ? " hint" : "") + '" data-i="' + k + '"' + (c.placed ? " disabled" : "") + ' aria-label="' + esc(c.label) + '"><span class="kn" aria-hidden="true">' + (k + 1) + "</span>" + c.html + "</button>";
+      }).join("") + '</div><p class="feedback" id="fb"></p>' + againBtn();
+    stage.querySelectorAll(".opt").forEach(function (b) { b.onclick = function () { tapPick(+b.dataset.i, b); }; });
+    bindAgain(); renderDots();
+  }
+  function tapPick(k, btn) {
+    if (locked || btn.disabled) return;
+    var c = cur.cards[k], fb = $("fb");
+    if (c.rank === cur.next) {
+      c.placed = true; cur.next++; chime(); say(c.label);
+      if (cur.next >= cur.n) { locked = true; renderTap(); return customComplete(cur.misses === 0, $("fb")); }
+      renderTap();
+    } else {
+      cur.misses++; fb.className = "feedback"; fb.textContent = t("notYet"); say(t("lookAgain"));
+      if (cur.misses >= 2 && !cur.hint) { cur.hint = true; blk.hints++; log("2 misses on one turn", "dashed outline on the next picture"); renderTap(); $("fb").textContent = t("lookOutline"); }
+    }
+  }
+
+  /* ---------- trace a letter ---------- */
+  function renderTrace() {
+    locked = false; renderSched();
+    stage.innerHTML = '<h1 class="say">' + esc(cur.title) + '</h1><p class="sub">' + esc(t("traceHint")) + "</p>" +
+      '<div class="tracebox"><canvas id="traceCv" width="300" height="300" aria-label="' + esc(cur.title) + '" role="img"></canvas></div>' +
+      '<div class="row"><button class="small-btn" type="button" id="traceClear">' + esc(t("traceAgain")) + "</button></div>" +
+      '<p class="feedback" id="fb"></p>' + againBtn();
+    var cv = $("traceCv"), g = cv.getContext("2d"), W = cv.width, H = cv.height;
+    var guide = document.createElement("canvas"); guide.width = W; guide.height = H;
+    var gg = guide.getContext("2d"); gg.font = "bold 240px Arial, sans-serif"; gg.textAlign = "center"; gg.textBaseline = "middle"; gg.fillStyle = "#000"; gg.fillText(cur.letter, W / 2, H / 2 + 10);
+    var gd = gg.getImageData(0, 0, W, H).data, need = 0; for (var i = 3; i < gd.length; i += 4) if (gd[i] > 128) need++;
+    var ink = document.createElement("canvas"); ink.width = W; ink.height = H; var ig = ink.getContext("2d");
+    ig.lineWidth = 34; ig.lineCap = ig.lineJoin = "round"; ig.strokeStyle = "#000";
+    var drawing = false, lastPt = null, done = false;
+    function paint() {
+      g.clearRect(0, 0, W, H);
+      g.globalAlpha = 0.22; g.drawImage(guide, 0, 0); g.globalAlpha = 1;
+      g.globalCompositeOperation = "source-over"; g.drawImage(ink, 0, 0);
+    }
+    function check() {
+      var id = ig.getImageData(0, 0, W, H).data, hit = 0, stray = 0;
+      for (var j = 3; j < id.length; j += 4) { if (id[j] > 128) { if (gd[j] > 128) hit++; else stray++; } }
+      return { cover: hit / need, stray: stray / Math.max(1, hit + stray) };
+    }
+    function pt(e) { var r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * W / r.width, y: (e.clientY - r.top) * H / r.height }; }
+    cv.addEventListener("pointerdown", function (e) { if (done) return; drawing = true; lastPt = pt(e); cv.setPointerCapture(e.pointerId); ig.beginPath(); ig.moveTo(lastPt.x, lastPt.y); ig.lineTo(lastPt.x + 0.1, lastPt.y); ig.stroke(); paint(); e.preventDefault(); });
+    cv.addEventListener("pointermove", function (e) { if (!drawing) return; var q = pt(e); ig.beginPath(); ig.moveTo(lastPt.x, lastPt.y); ig.lineTo(q.x, q.y); ig.stroke(); lastPt = q; paint(); });
+    var up = function () {
+      if (!drawing) return; drawing = false;
+      var r = check();
+      if (r.cover >= 0.7) { done = true; locked = true; customComplete(r.stray < 0.45 && cur.misses === 0, $("fb")); }
+    };
+    cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+    $("traceClear").onclick = function () { if (done) return; ig.clearRect(0, 0, W, H); cur.misses++; paint(); };
+    paint(); bindAgain(); renderDots();
+    // Keyboard and switch users can't trace: they can mark it done, which counts as practice, not as learned.
+    if (S().keys) { var k = document.createElement("button"); k.className = "small-btn"; k.type = "button"; k.textContent = t("firstDone"); k.onclick = function () { if (done) return; done = true; locked = true; cur.misses++; customComplete(false, $("fb")); }; stage.querySelector(".row").appendChild(k); }
+  }
+
+  // End of a tap or trace turn: one learning step for the engine, then on to the next turn.
+  function customComplete(good, fb) {
+    var maxL = CM.LV[blk.game].length - 1;
+    CM.bkt(blk.skill, good, 3);
+    if (good) { blk.firstTry++; blk.okRun++; } else blk.okRun = 0;
+    if (S().adaptive && blk.okRun >= 3 && blk.lvl < maxL) { blk.lvl++; blk.okRun = 0; log("3 right first time in a row", CM.lvDesc(blk.game, blk.lvl, blk.skill)); }
+    var msg = praise(cur.praiseName);
+    if (fb) { fb.className = "feedback ok"; fb.textContent = msg; }
+    chime(); say(msg); blk.t++; renderDots();
+    pendingAdvance = setTimeout(nextTurn, S().calm ? 1900 : 1600);
+  }
+
   /* ---------- answering, with errorless prompt fading ---------- */
   function choose(i, btn) {
     if (locked || btn.disabled || !cur) return;
@@ -422,8 +546,9 @@
     session.lastUnlocks = opened;
     session.blocks.push({ skill: blk.skill.id, turns: blk.turns, first: blk.firstTry, hints: blk.hints, prompted: blk.prompted });
     var sticker = newSticker();
-    if (sticker) { session.stickers.push(sticker); P().stickers = P().stickers.concat([sticker]).slice(-80); }
+    if (sticker) { session.stickers.push(sticker); P().stickers = P().stickers.concat([sticker]).slice(-200); }
     session.lastSticker = sticker; session.lastGame = blk.game;
+    if (CM.rewards.earn("game")) session.rewardDue = true;
     CM.store.save();
     session.i++;
     fanfare();
@@ -440,7 +565,18 @@
       '<p class="sub">' + esc(nextG ? t("nextIs", { game: CM.gameName(nextG) }) : t("lastGame")) + "</p>" +
       '<button class="big-btn" id="contBtn" type="button">' + esc(nextG ? t("next") : t("finish")) + "</button>";
     say(t("finished", { game: gl }) + ". " + (nextG ? t("nextIs", { game: CM.gameName(nextG) }) : t("lastGame")));
-    $("contBtn").onclick = function () { nextG ? show(blockIntro) : show(sessionEnd); };
+    $("contBtn").onclick = function () {
+      var go = function () { nextG ? show(blockIntro) : show(sessionEnd); };
+      var maybeBreak = function () {
+        if (nextG && S().breakEvery && session.i % S().breakEvery === 0) {
+          session.breaks++; log("Break", "offered after " + session.i + " games (setting)"); $("breakBtn").hidden = true;
+          return CM.rewards.breakScreen({ title: t("breakTime"), timer: S().breakMin, onReady: function () { $("breakBtn").hidden = false; go(); } });
+        }
+        go();
+      };
+      if (session.rewardDue) { session.rewardDue = false; return CM.rewards.rewardScreen(maybeBreak); }
+      maybeBreak();
+    };
   }
   function sessionEnd() {
     var b = session.blocks, turns = 0, first = 0, hints = 0, prompted = 0;
@@ -457,6 +593,7 @@
       '<div class="row"><button class="big-btn" id="againBtn2" type="button">' + esc(t("playAgain")) + '</button><button class="ghost-btn" id="restBtn" type="button">' + esc(t("stopNow")) + "</button></div>";
     say(calm ? t("sayDoneCalm") : t("sayDone"));
     $("againBtn2").onclick = startScreen;
+    if (CM.classroom.on() && CM.store.list().length > 1) { $("restBtn").textContent = t("whoPlaying"); $("restBtn").onclick = function () { chosen = false; startScreen(); }; return; }
     $("restBtn").onclick = function () {
       stage.innerHTML = '<h1 class="say">' + esc(t("seeYou")) + '</h1><p class="sub">' + esc(t("comeBack")) + '</p><button class="ghost-btn" id="backBtn" type="button">' + esc(t("backStart")) + "</button>";
       $("backBtn").onclick = startScreen;
@@ -471,9 +608,7 @@
     if (pairsTimer) { clearTimeout(pairsTimer); pairsTimer = null; }
     session.breaks++; log("Break", "child asked for a break"); hush();
     $("breakBtn").hidden = true; $("progress").hidden = true;
-    stage.innerHTML = '<p class="label">' + esc(t("breakLabel")) + '</p><div class="breath" aria-hidden="true"></div><h1 class="say">' + esc(t("breathe")) + "</h1>" +
-      '<p class="sub">' + esc(t("takeTime")) + '</p><button class="big-btn" id="readyBtn" type="button">' + esc(t("ready")) + "</button>";
-    $("readyBtn").onclick = function () {
+    CM.rewards.breakScreen({ timer: S().breakMin, onReady: function () {
       $("breakBtn").hidden = false; var f = resumeFn; resumeFn = null;
       if (f === nextTurn) return nextTurn();
       if (f === renderTurn) {
@@ -481,7 +616,7 @@
         show(renderTurn); return say(cur.speak);
       }
       show(f);
-    };
+    } });
   }
 
   /* ================= grown-ups gate ================= */
@@ -519,7 +654,9 @@
   function renderPanel() {
     document.querySelectorAll(".tab").forEach(function (x) { x.setAttribute("aria-selected", x.dataset.tab === tab); });
     document.querySelectorAll("[data-pane]").forEach(function (p) { p.hidden = p.dataset.pane !== tab; });
-    ({ child: renderChild, settings: renderSettings, skills: renderProgress, history: renderHistory, engine: renderLog, account: renderAccount, tools: renderTools }[tab] || renderProgress)();
+    CM.ui.closePicker();
+    ({ child: renderChild, settings: renderSettings, skills: renderProgress, history: renderHistory, engine: renderLog, account: renderAccount, tools: renderTools,
+       talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures }[tab] || renderProgress)();
   }
 
   /* ---------- children tab ---------- */
@@ -549,17 +686,20 @@
     $("avatarChips").querySelectorAll(".chip").forEach(function (c) { c.onclick = function () { newAvatar = c.dataset.a; renderChild(); }; });
     $("stickerBook").innerHTML = P().stickers.length ? P().stickers.map(function (s) { return "<span>" + s + "</span>"; }).join("") : '<p class="note">No stickers yet. One is earned for each game finished.</p>';
     $("deleteBtn").disabled = list.length < 2;
+    $("classOn").checked = CM.classroom.on();
+    $("classOn").onchange = function () { CM.classroom.set($("classOn").checked); chosen = true; log("Classroom mode", $("classOn").checked ? "on: children pick their avatar to start" : "off"); renderChild(); };
+    if (CM.classroom.on()) CM.classroom.renderOverview($("classBox")); else $("classBox").innerHTML = "";
     twoTap($("resetBtn"), "reset", "Tap again to reset", "Reset this child's progress", function () {
       var p = P(); p.skills = CM.store.freshSkills(); p.history = []; p.stickers = []; CM.store.save(); log("Progress reset", p.name); renderChild();
     });
     twoTap($("deleteBtn"), "del", "Tap again to remove " + P().name, "Remove this child", function () {
       if (session || CM.store.list().length < 2) return;
-      var gone = CM.store.remove(CM.store.activeId());
+      var goneId = CM.store.activeId(), gone = CM.store.remove(goneId); try { CM.lib.forget(goneId); } catch (e) {}
       if (CM.cloud && CM.cloud.user()) CM.cloud.deleteRemoteChild(gone).catch(function () {});
       applySenses(); renderWho(); renderChild();
     });
     twoTap($("wipeBtn"), "wipe", "Tap again to delete everything", "Delete everything on this device", function () {
-      CM.store.wipeDevice(); CM.photos.removeAll(); location.reload();
+      CM.store.wipeDevice().then(function () { location.reload(); });
     });
   }
   function bindChildStatic() {
@@ -604,11 +744,6 @@
     var voiceNote = $("langNote");
     voiceNote.textContent = s.lang === "ga" ? (CM.irishVoice() ? "An Irish voice was found on this device, so read-aloud works in Irish." : "No Irish voice was found on this device, so read-aloud stays silent in Gaeilge rather than mispronounce words. Everything else is in Irish.") : "";
     chipGroup($("themeChips"), Object.keys(CM.THEMES).map(function (k) { return [k, CM.THEMES[k].items[0][0] + " " + CM.THEMES[k].label]; }), s.theme, function (v) { s.theme = v; log("Theme changed", CM.THEMES[v].label + " from the next turn"); });
-    chipGroup($("rateChips"), [[0.7, "Voice: slow"], [0.85, "Voice: gentle"], [1, "Voice: normal"]], s.rate, function (v) { s.rate = +v; say("This is how I will sound"); });
-    chipGroup($("blockChips"), [[2, "2"], [3, "3"], [4, "4"]], s.blocks, function (v) { s.blocks = +v; });
-    chipGroup($("turnChips"), [[3, "3"], [4, "4"], [6, "6"]], s.turns, function (v) { s.turns = +v; });
-    chipGroup($("modeChips"), [["engine", "Engine picks"], ["fixed", "Same order every time"]], s.mode, function (v) { s.mode = v; });
-    chipGroup($("stickerChips"), [["theme", CM.theme().items[0][0] + " Theme pictures"], ["stars", "⭐ Stars"], ["hearts", "💚 Hearts"], ["shapes", "🔷 Shapes"], ["none", "No stickers"]], s.stickerSet, function (v) { s.stickerSet = v; });
     chipGroup($("touchChips"), [["instant", "Tap"], ["hold", "Hold to choose"], ["release", "Slide and lift"]], s.touchMode, function (v) {
       s.touchMode = v; CM.touch.apply();
       log("Touch style", v === "hold" ? "hold to choose (" + (s.holdMs / 1000) + " s)" : v === "release" ? "slide and lift" : "tap: chosen the moment a finger lands");
@@ -620,6 +755,11 @@
     var tryBtn = $("touchTry"), tryN = 0;
     $("touchTryMsg").textContent = "";
     tryBtn.onclick = function () { tryN++; chime(); $("touchTryMsg").textContent = tryN === 1 ? "Chosen! That's how it will feel in the games." : "Chosen " + tryN + " times."; };
+    chipGroup($("rateChips"), [[0.7, "Voice: slow"], [0.85, "Voice: gentle"], [1, "Voice: normal"]], s.rate, function (v) { s.rate = +v; say("This is how I will sound"); });
+    chipGroup($("blockChips"), [[2, "2"], [3, "3"], [4, "4"]], s.blocks, function (v) { s.blocks = +v; });
+    chipGroup($("turnChips"), [[3, "3"], [4, "4"], [6, "6"]], s.turns, function (v) { s.turns = +v; });
+    chipGroup($("modeChips"), [["engine", "Engine picks"], ["fixed", "Same order every time"]], s.mode, function (v) { s.mode = v; });
+    chipGroup($("stickerChips"), [["theme", CM.theme().items[0][0] + " Theme pictures"], ["stars", "⭐ Stars"], ["hearts", "💚 Hearts"], ["shapes", "🔷 Shapes"], ["none", "No stickers"]], s.stickerSet, function (v) { s.stickerSet = v; });
     chipGroup($("celebrateChips"), [["cheerful", "Cheerful"], ["gentle", "Gentle"], ["calm", "Very calm"]], s.celebrate, function (v) { s.celebrate = v; chime(); });
     var app = CM.store.db().app;
     chipGroup($("gateChips"), [["hold", "Press and hold"], ["sum", "Answer a sum"]], app.gate, function (v) { app.gate = v; CM.store.persist(); gateLabel(); });
@@ -633,10 +773,26 @@
         if (k === "moreFeelings") log("More feelings", c.checked ? "on: calm, silly, worried and loving join the Feelings game" : "off: the six main feelings");
       };
     });
+    $("gameToggles").innerHTML = CM.GAME_CATS.map(function (c) {
+      return '<p style="margin:12px 0 4px"><b>' + esc(c[1]) + '</b></p><div class="grid2">' + CM.GAME_ORDER.filter(function (g) { return CM.GAMES[g].cat === c[0]; }).map(function (g) {
+        return '<label class="toggle"><input type="checkbox" id="g-' + g + '"><span>' + esc(CM.GAMES[g].label) + "<small>" + esc(CM.GAMES[g].does) + "</small></span></label>";
+      }).join("") + "</div>";
+    }).join("");
+    var nn = $("newGamesNote");
+    nn.hidden = !P().newGamesOff;
+    nn.innerHTML = 'New games have been added. They start switched off for ' + esc(P().name) + ' so the usual routine doesn\'t change. Switch on the ones you\'d like. <button type="button" class="small-btn" id="allGamesOn">Switch them all on</button>';
+    if ($("allGamesOn")) $("allGamesOn").onclick = function () { CM.NEW_GAMES.forEach(function (g) { s.games[g] = true; }); delete P().newGamesOff; CM.store.save(); renderSettings(); };
     CM.GAME_ORDER.forEach(function (g) {
       var c = $("g-" + g); c.checked = !!s.games[g];
       c.onchange = function () { s.games[g] = c.checked; if (!CM.GAME_ORDER.some(function (x) { return s.games[x]; })) { s.games[g] = true; c.checked = true; } CM.store.save(); };
     });
+    chipGroup($("tokenChips"), [[0, "Off"], [3, "3 tokens"], [5, "5 tokens"], [10, "10 tokens"]], s.tokens, function (v) { s.tokens = +v; applySenses(); log("Token board", +v ? v + " tokens for the reward" : "off"); });
+    chipGroup($("tokenIconChips"), [["star", "⭐ Stars"], ["theme", CM.theme().items[0][0] + " Theme picture"]], s.tokenIcon, function (v) { s.tokenIcon = v; applySenses(); });
+    var rw = CM.ref(CM.lib.kid().reward);
+    $("rewardNow").innerHTML = 'Reward: <span class="se-e">' + rw.html + "</span> <b>" + esc(rw.name) + "</b> ";
+    $("rewardPick").onclick = function () { CM.ui.pickRef($("rewardPickBox"), function (r) { CM.lib.kid().reward = r; CM.lib.save(); applySenses(); renderSettings(); }); };
+    chipGroup($("breakMinChips"), [[0, "No timer"], [1, "1 min"], [2, "2 min"], [3, "3 min"], [5, "5 min"]], s.breakMin, function (v) { s.breakMin = +v; });
+    chipGroup($("breakEveryChips"), [[0, "Only when asked"], [1, "After every game"], [2, "After every 2 games"], [3, "After every 3 games"]], s.breakEvery, function (v) { s.breakEvery = +v; });
     renderPhotos();
   }
   function renderPhotos() {
@@ -809,32 +965,128 @@
     grid($("firstChips"), b.first, "first"); grid($("thenChips"), b.then, "then");
     chipGroup($("boardTimerChips"), [[0, "No timer"], [1, "1 min"], [2, "2 min"], [5, "5 min"], [10, "10 min"], [15, "15 min"]], b.minutes, function (v) { b.minutes = +v; }, renderTools);
     $("boardPreview").innerHTML = '<span aria-hidden="true">' + CM.ACTIVITIES[b.first][0] + "</span> " + esc(CM.ACTIVITIES[b.first][1]) + ' <span class="note">then</span> <span aria-hidden="true">' + CM.ACTIVITIES[b.then][0] + "</span> " + esc(CM.ACTIVITIES[b.then][1]) + (b.minutes ? ' <span class="note">· ' + b.minutes + " min timer</span>" : "");
-    var sc = S().schedule;
-    $("schedList").innerHTML = sc.length ? sc.map(function (ai, k) {
-      var a = CM.ACTIVITIES[ai];
-      return '<li><span class="se-n">' + (k + 1) + '</span><span aria-hidden="true" class="se-e">' + a[0] + '</span><span class="se-name">' + esc(a[1]) + "</span>" +
-        '<button type="button" class="se-btn" data-mv="-1" data-k="' + k + '" aria-label="Move ' + esc(a[1]) + ' earlier"' + (k === 0 ? " disabled" : "") + ">↑</button>" +
-        '<button type="button" class="se-btn" data-mv="1" data-k="' + k + '" aria-label="Move ' + esc(a[1]) + ' later"' + (k === sc.length - 1 ? " disabled" : "") + ">↓</button>" +
-        '<button type="button" class="se-btn" data-rm="' + k + '" aria-label="Remove ' + esc(a[1]) + '">✕</button></li>';
-    }).join("") : '<li class="note se-empty">No steps yet. Add some below.</li>';
-    $("schedList").querySelectorAll("[data-mv]").forEach(function (b) { b.onclick = function () {
-      var k = +b.dataset.k, j = k + +b.dataset.mv; if (j < 0 || j >= sc.length) return;
-      var x = sc[k]; sc[k] = sc[j]; sc[j] = x; CM.store.save(); renderTools();
-      var again = $("schedList").querySelectorAll("li")[j]; if (again) { var f = again.querySelector('[data-mv="' + b.dataset.mv + '"]:not([disabled])') || again.querySelector("button"); if (f) f.focus(); }
-    }; });
-    $("schedList").querySelectorAll("[data-rm]").forEach(function (b) { b.onclick = function () { sc.splice(+b.dataset.rm, 1); CM.store.save(); renderTools(); }; });
-    $("schedAdd").innerHTML = CM.ACTIVITIES.map(function (a, i) { return '<button type="button" class="chip act" data-i="' + i + '"' + (sc.length >= 8 ? " disabled" : "") + '><span aria-hidden="true">' + a[0] + "</span> " + esc(a[1]) + "</button>"; }).join("");
-    $("schedAdd").querySelectorAll(".chip").forEach(function (c) { c.onclick = function () { if (sc.length >= 8) return; sc.push(+c.dataset.i); CM.store.save(); renderTools(); }; });
-    $("showSchedBtn").disabled = !sc.length; $("clearSchedBtn").disabled = !sc.length;
+    renderSchedEditor();
     var tm = CM.store.db().app.timerMin || 5;
     chipGroup($("timerChips"), [[1, "1 min"], [2, "2 min"], [3, "3 min"], [5, "5 min"], [10, "10 min"], [15, "15 min"], [20, "20 min"]], tm, function (v) { CM.store.db().app.timerMin = +v; CM.store.persist(); }, renderTools);
     $("toolsMsg").textContent = session ? "A game session is running. Finish it, or the board and timer will replace it." : "";
   }
   function bindToolsStatic() {
-    $("showBoardBtn").onclick = function () { session = null; $("panel").hidden = true; $("grownBtn").hidden = false; CM.tools.board(S().board); };
-    $("showSchedBtn").onclick = function () { if (!S().schedule.length) return; session = null; $("panel").hidden = true; $("grownBtn").hidden = false; CM.tools.schedule(S().schedule); };
-    $("clearSchedBtn").onclick = function () { S().schedule.length = 0; CM.store.save(); renderTools(); };
-    $("startTimerBtn").onclick = function () { session = null; $("panel").hidden = true; $("grownBtn").hidden = false; CM.tools.timer(CM.store.db().app.timerMin || 5); };
+    $("showBoardBtn").onclick = function () { showChild(function () { CM.tools.board(S().board); }); };
+    $("startTimerBtn").onclick = function () { showChild(function () { CM.tools.timer(CM.store.db().app.timerMin || 5); }); };
+  }
+  // Close the grown-ups area and show something full-size to the child.
+  function showChild(fn) { session = null; clearTimers(); $("panel").hidden = true; $("grownBtn").hidden = false; applySenses(); fn(); }
+  var panelHelpers = { showChild: showChild, refresh: function () { applySenses(); renderPanel(); } };
+
+  /* ---------- schedules (in the Schedules & timer tab) ---------- */
+  var DAYS = [[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"], [0, "Sun"]];
+  function renderSchedEditor() {
+    var box = $("schedBox"), list = CM.lib.schedules(), sc = CM.lib.activeSchedule(), steps = sc.steps, max = CM.lib.MAX_STEPS;
+    var howtos = CM.lib.stories("howto");
+    box.innerHTML = '<h3>Visual schedules</h3><p class="note">Up to ' + max + ' steps in order. Your child sees every step with "Now" and "Next" marked, and taps Done to move on. Keep several schedules (morning, school, bedtime) and set the days each one is for.</p>' +
+      '<div class="chips" id="schedPick">' + list.map(function (x) { return '<button type="button" class="chip" data-s="' + esc(x.id) + '" aria-pressed="' + (x.id === sc.id) + '">' + esc(x.name) + " (" + x.steps.length + ")</button>"; }).join("") +
+        (list.length < CM.lib.MAX_SCHED ? '<button type="button" class="chip" id="schedNew">+ New schedule</button>' : "") + "</div>" +
+      '<div class="inline-field" style="margin-top:10px"><input type="text" id="schedName" maxlength="30" aria-label="Schedule name" value="' + esc(sc.name) + '"><button class="small-btn" type="button" id="schedRename">Rename</button></div>' +
+      '<p style="margin:10px 0 4px"><b>Days</b> <span class="note">(optional: on these days, "Show today\'s schedule" picks this one)</span></p><div class="chips" id="schedDays">' +
+        DAYS.map(function (d) { return '<button type="button" class="chip" data-d="' + d[0] + '" aria-pressed="' + (sc.days.indexOf(d[0]) >= 0) + '">' + d[1] + "</button>"; }).join("") + "</div>" +
+      '<ol class="sched-edit" id="schedList">' + (steps.length ? steps.map(function (st, k) {
+        var x = CM.ref(st.r);
+        return '<li class="se-step"><span class="se-n">' + (k + 1) + '</span><span class="se-e">' + x.html + '</span><span class="se-name">' + esc(CM.cap(x.name)) + "</span>" +
+          '<select data-min="' + k + '" aria-label="Timer for ' + esc(x.name) + '">' + [0, 1, 2, 5, 10, 15, 20, 30].map(function (m) { return '<option value="' + m + '"' + ((st.min || 0) === m ? " selected" : "") + ">" + (m ? m + " min timer" : "No timer") + "</option>"; }).join("") + "</select>" +
+          (howtos.length ? '<select data-how="' + k + '" aria-label="How-to for ' + esc(x.name) + '"><option value="">No how-to</option>' + howtos.map(function (hw) { return '<option value="' + esc(hw.id) + '"' + (st.howto === hw.id ? " selected" : "") + ">Show me how: " + esc(hw.title) + "</option>"; }).join("") + "</select>" : "") +
+          (CM.voice ? CM.voice.button(CM.voice.refKey(st.r)) : "") +
+          '<button type="button" class="se-btn" data-mv="-1" data-k="' + k + '" aria-label="Move ' + esc(x.name) + ' earlier"' + (k === 0 ? " disabled" : "") + ">↑</button>" +
+          '<button type="button" class="se-btn" data-mv="1" data-k="' + k + '" aria-label="Move ' + esc(x.name) + ' later"' + (k === steps.length - 1 ? " disabled" : "") + ">↓</button>" +
+          '<button type="button" class="se-btn" data-rm="' + k + '" aria-label="Remove ' + esc(x.name) + '">✕</button></li>';
+      }).join("") : '<li class="note se-empty">No steps yet. Add some below.</li>') + "</ol>" +
+      '<p style="margin:12px 0 4px"><b>Add a step</b></p><div class="chips" id="schedAdd">' + CM.ACTIVITIES.map(function (a, i) { return '<button type="button" class="chip act" data-i="' + i + '"' + (steps.length >= max ? " disabled" : "") + '><span aria-hidden="true">' + a[0] + "</span> " + esc(a[1]) + "</button>"; }).join("") + "</div>" +
+      '<div class="row start" style="margin-top:8px"><button class="small-btn" type="button" id="schedMore"' + (steps.length >= max ? " disabled" : "") + '>More pictures: symbols, themes, my pictures</button></div><div id="schedPickBox"></div>' +
+      '<div class="row start" style="margin-top:14px"><button class="small-btn primary" type="button" id="showSchedBtn"' + (steps.length ? "" : " disabled") + '>Show this schedule</button>' +
+        '<button class="small-btn" type="button" id="todaySchedBtn">Show today\'s schedule</button>' +
+        '<button class="small-btn" type="button" id="printSchedBtn"' + (steps.length ? "" : " disabled") + '>Print as cards</button>' +
+        '<button class="small-btn" type="button" id="clearSchedBtn"' + (steps.length ? "" : " disabled") + '>Clear all steps</button>' +
+        (list.length > 1 ? '<button class="small-btn danger" type="button" id="delSchedBtn">Delete this schedule</button>' : "") + "</div>";
+    var save = function () { try { CM.lib.save(); } catch (e) { $("toolsMsg").textContent = e.message; } renderSchedEditor(); };
+    box.querySelectorAll("[data-s]").forEach(function (b) { b.onclick = function () { CM.lib.setActive(b.dataset.s); renderSchedEditor(); }; });
+    if ($("schedNew")) $("schedNew").onclick = function () { CM.lib.addSchedule("Schedule " + (list.length + 1)); renderSchedEditor(); $("schedName").focus(); $("schedName").select(); };
+    $("schedRename").onclick = function () { var v = $("schedName").value.trim(); if (v) { sc.name = v.slice(0, 30); save(); } };
+    box.querySelectorAll("[data-d]").forEach(function (b) { b.onclick = function () { var d = +b.dataset.d, i = sc.days.indexOf(d); if (i >= 0) sc.days.splice(i, 1); else sc.days.push(d); save(); }; });
+    box.querySelectorAll("[data-min]").forEach(function (sel) { sel.onchange = function () { steps[+sel.dataset.min].min = +sel.value; CM.lib.save(); }; });
+    box.querySelectorAll("[data-how]").forEach(function (sel) { sel.onchange = function () { var st = steps[+sel.dataset.how]; if (sel.value) st.howto = sel.value; else delete st.howto; CM.lib.save(); }; });
+    box.querySelectorAll("[data-mv]").forEach(function (b) { b.onclick = function () {
+      var k = +b.dataset.k, j = k + +b.dataset.mv; if (j < 0 || j >= steps.length) return;
+      var x = steps[k]; steps[k] = steps[j]; steps[j] = x; save();
+      var again = $("schedList").querySelectorAll("li")[j]; if (again) { var f = again.querySelector('[data-mv="' + b.dataset.mv + '"]:not([disabled])') || again.querySelector("button"); if (f) f.focus(); }
+    }; });
+    box.querySelectorAll("[data-rm]").forEach(function (b) { b.onclick = function () { steps.splice(+b.dataset.rm, 1); save(); }; });
+    box.querySelectorAll("#schedAdd .chip").forEach(function (c) { c.onclick = function () { if (steps.length >= max) return; steps.push({ r: "a:" + c.dataset.i }); save(); }; });
+    $("schedMore").onclick = function () { CM.ui.pickRef($("schedPickBox"), function (r) { if (steps.length < max) steps.push({ r: r }); save(); }, { start: "sym", group: "daily" }); };
+    $("showSchedBtn").onclick = function () { if (!steps.length) return; showChild(function () { CM.tools.schedule(sc); }); };
+    $("todaySchedBtn").onclick = function () { var ts = CM.lib.todaySchedule(); if (!ts.steps.length) { $("toolsMsg").textContent = "That schedule has no steps yet."; return; } showChild(function () { CM.tools.schedule(ts); }); };
+    $("printSchedBtn").onclick = function () {
+      CM.ui.print('<div class="pr-grid four">' + steps.map(function (st, k) { var x = CM.ref(st.r); return '<div class="pr-card"><span class="pr-n">' + (k + 1) + '</span><div class="pr-pic">' + x.html + "</div><b>" + esc(x.name) + "</b></div>"; }).join("") + "</div>", sc.name);
+    };
+    $("clearSchedBtn").onclick = function () { steps.length = 0; save(); };
+    if ($("delSchedBtn")) CM.ui.twoTap($("delSchedBtn"), "Delete this schedule", "Tap again to delete", function () { CM.lib.removeSchedule(sc.id); renderSchedEditor(); });
+    if (CM.voice) CM.voice.bind(box);
+  }
+
+  /* ---------- pictures tab: My pictures ---------- */
+  function renderPictures() {
+    var box = $("picBox"), items = CM.lib.items();
+    box.innerHTML = '<div><h3>My pictures</h3><p class="note">Your own pictures with a word or two: your child\'s school, their teacher, the swimming pool, a favourite snack. Use them in schedules, the Talk board and stories. Photos are shrunk and kept on this device only.</p>' +
+      '<ul class="mp-list">' + (items.length ? items.map(function (it) {
+        return '<li class="mp"><span class="mp-pic">' + CM.ref("i:" + it.id).html + '</span><div class="mp-body"><label class="field">Words<input type="text" maxlength="40" data-en="' + esc(it.id) + '" value="' + esc(it.en) + '"></label>' +
+          '<label class="field">In Irish (optional)<input type="text" maxlength="40" data-ga="' + esc(it.id) + '" value="' + esc(it.ga || "") + '"></label>' +
+          '<div class="row start"><label class="small-btn pbtn">' + (it.img ? "Change photo" : "Add photo") + '<input type="file" accept="image/*" data-ph="' + esc(it.id) + '" class="visually-hidden"></label>' +
+          '<button type="button" class="small-btn" data-sym="' + esc(it.id) + '">Use a symbol</button>' + (CM.voice ? CM.voice.button(CM.voice.refKey("i:" + it.id)) : "") +
+          '<button type="button" class="small-btn danger" data-del="' + esc(it.id) + '">Delete</button></div><div id="mpPick' + esc(it.id) + '"></div></div></li>';
+      }).join("") : '<li class="note">None yet.</li>') + "</ul>" +
+      '<h3 style="margin-top:14px">Add a picture</h3><div class="inline-field"><input type="text" id="mpNew" maxlength="40" placeholder="Words, for example Swimming pool" aria-label="Words for the new picture"><button class="small-btn primary" type="button" id="mpAdd">Add</button></div>' +
+      '<p class="note">Then add a photo or choose a symbol for it. Please don\'t use photos that show a child\'s full name or school uniform crest.</p><p class="note" id="mpMsg" aria-live="polite"></p></div>' +
+      '<div><h3>Recorded voices</h3><p class="note">' + (CM.voice && CM.voice.canRecord ? "Use the 🎙 Record buttons next to schedule steps, talk words, story pages and your pictures to record a word in your own voice (up to 8 seconds). It then plays instead of the device\'s voice, in the language the games are set to. Recordings stay on this device. The microphone is only on while you record." : "This browser can't record sound, so recorded voices aren't available here.") + "</p></div>" +
+      '<div><h3>Space used on this device</h3><p class="note" id="mpSpace">Checking…</p></div>';
+    $("mpAdd").onclick = function () { var v = $("mpNew").value.trim(); if (!v) { $("mpMsg").textContent = "Type the words first."; return; } try { CM.lib.addItem({ en: v, emoji: "🖼️" }); } catch (e) { $("mpMsg").textContent = e.message; return; } renderPictures(); };
+    box.querySelectorAll("[data-en]").forEach(function (inp) { inp.onchange = function () { CM.lib.updateItem(inp.dataset.en, { en: inp.value.trim().slice(0, 40) }); }; });
+    box.querySelectorAll("[data-ga]").forEach(function (inp) { inp.onchange = function () { CM.lib.updateItem(inp.dataset.ga, { ga: inp.value.trim().slice(0, 40) }); }; });
+    box.querySelectorAll("[data-ph]").forEach(function (inp) { inp.onchange = function () {
+      var id = inp.dataset.ph, f = inp.files && inp.files[0]; if (!f) return;
+      $("mpMsg").textContent = "Saving…";
+      CM.shrinkImage(f, 320).then(function (d) { var key = "item/" + id; return CM.media.put(key, d).then(function () { CM.lib.updateItem(id, { img: key, sym: null }); CM.media.keep(); renderPictures(); $("mpMsg").textContent = "Saved."; }); })
+        .catch(function (e) { $("mpMsg").textContent = e.message; });
+    }; });
+    box.querySelectorAll("[data-sym]").forEach(function (b) { b.onclick = function () { var id = b.dataset.sym; CM.ui.pickRef($("mpPick" + id), function (r) {
+      var m = r.match(/^s:(.+)$/); if (!m) { var x = CM.ref(r), e = (x.html.match(/class="emo"[^>]*>([^<]+)</) || [])[1]; if (e) CM.lib.updateItem(id, { emoji: e, sym: null }); }
+      else CM.lib.updateItem(id, { sym: m[1] });
+      var it = CM.lib.data().items[id]; if (it.img) { CM.media.del(it.img); CM.lib.updateItem(id, { img: null }); }
+      renderPictures();
+    }, { start: "sym" }); }; });
+    box.querySelectorAll("[data-del]").forEach(function (b) { CM.ui.twoTap(b, "Delete", "Tap again to delete", function () { CM.lib.removeItem(b.dataset.del); renderPictures(); }); });
+    if (CM.voice) CM.voice.bind(box);
+    CM.media.usage().then(function (u) {
+      var mb = function (n) { return (n / 1048576).toFixed(1) + " MB"; };
+      $("mpSpace").textContent = "Pictures, recordings and videos: " + mb(u.used) + "." + (u.quota ? " The browser allows this site about " + mb(u.quota) + "." : "") + (CM.media.saved() ? "" : " This browser isn't keeping files between visits (often a private window), so photos and recordings will be lost when it closes.");
+    });
+  }
+
+  /* ---------- backup file (Children tab) ---------- */
+  function bindBackup() {
+    var name = function (who) { var d = new Date(); return "calm-match-" + who + "-" + d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0") + ".json"; };
+    $("bkAll").onclick = function () { $("bkMsg").textContent = "Making the file…"; CM.backup.make().then(function (b) { CM.backup.download(b, name("backup")); $("bkMsg").textContent = "Saved. Keep it somewhere private."; }); };
+    $("bkOne").onclick = function () { $("bkMsg").textContent = "Making the file…"; CM.backup.make(CM.store.activeId()).then(function (b) { CM.backup.download(b, name(P().name.replace(/[^a-z0-9]+/gi, "-").toLowerCase() || "child")); $("bkMsg").textContent = "Saved. Open it on the other device with \"Open a backup file\"."; }); };
+    $("bkFile").onchange = function () {
+      var f = $("bkFile").files && $("bkFile").files[0]; $("bkFile").value = "";
+      if (!f) return;
+      if (session) { $("bkMsg").textContent = "Finish or leave the current session first."; return; }
+      CM.backup.read(f).then(function (o) {
+        $("bkChoice").innerHTML = '<p class="note">This file has: <b>' + esc(CM.backup.summary(o)) + "</b> (saved " + esc(new Date(o.saved).toLocaleDateString()) + ").</p>" +
+          '<div class="row start"><button class="small-btn primary" type="button" id="bkAdd">Add these children</button><button class="small-btn danger" type="button" id="bkReplace">Replace everything on this device</button><button class="small-btn" type="button" id="bkCancel">Cancel</button></div>';
+        var apply = function (mode) { $("bkMsg").textContent = "Opening…"; CM.backup.apply(o, mode).then(function (n) { $("bkMsg").textContent = "Done: " + n + " child" + (n === 1 ? "" : "ren") + ". Reloading…"; setTimeout(function () { location.reload(); }, 600); }, function (e) { $("bkMsg").textContent = e.message; }); };
+        $("bkAdd").onclick = function () { apply("add"); };
+        CM.ui.twoTap($("bkReplace"), "Replace everything on this device", "Tap again: this deletes what is here now", function () { apply("replace"); });
+        $("bkCancel").onclick = function () { $("bkChoice").innerHTML = ""; $("bkMsg").textContent = ""; };
+      }, function (e) { $("bkMsg").textContent = e.message; });
+    };
   }
 
   /* ---------- account tab ---------- */
@@ -858,7 +1110,7 @@
 
   /* ---------- keyboard ---------- */
   document.addEventListener("keydown", function (e) {
-    if (!$("panel").hidden || !$("gate").hidden || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if (!$("panel").hidden || !$("gate").hidden || CM.talk.isOpen() || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
     var n = parseInt(e.key, 10); if (!n) return;
     var b = stage.querySelector('.opt[data-i="' + (n - 1) + '"]'); if (b && !b.disabled) { e.preventDefault(); b.click(); }
   });
@@ -867,15 +1119,18 @@
   document.addEventListener("DOMContentLoaded", function () {
     stage = $("stage");
     CM.tools.init({
-      stage: stage, say: say, tones: function (f, g) { tones(f, g); },
+      stage: stage, say: say, tones: function (f, g, v) { tones(f, g, v); },
       enter: function () { clearTimers(); session = null; $("sched").hidden = true; $("progress").hidden = true; $("breakBtn").hidden = true; },
       exit: function () { startScreen(); }
     });
-    applySenses(); setupGate(); gateLabel(); bindChildStatic(); bindHistoryStatic(); bindToolsStatic();
+    var H = CM.tools.helpers(); CM.rewards.init(H); CM.stories.init(H); CM.talk.init(H);
+    applySenses(); setupGate(); gateLabel(); bindChildStatic(); bindHistoryStatic(); bindToolsStatic(); bindBackup();
     $("breakBtn").onclick = takeBreak;
+    $("talkBtn").onclick = function () { if (CM.talk.isOpen()) CM.talk.close(); else CM.talk.open(); };
     $("closePanel").onclick = closePanel;
     document.querySelectorAll(".tab").forEach(function (x) { x.onclick = function () { tab = x.dataset.tab; renderPanel(); }; });
-    startScreen();
+    stage.innerHTML = "";
+    CM.media.ready.then(function () { if (!session && !CM.tools.active()) startScreen(); });
     if (CM.cloud && CM.cloud.enabled) {
       CM.cloud.onChange(function (ev) {
         if (!$("panel").hidden && tab === "account") renderAccount();

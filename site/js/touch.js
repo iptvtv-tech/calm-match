@@ -14,8 +14,8 @@
   var CM = window.CM;
 
   // Buttons the child uses. The grown-ups button keeps its own press-and-hold gate.
-  var TARGETS = "#stage button, #breakBtn, .touch-try";
-  var AREA = "#stage, #breakBtn, .touch-try";
+  var TARGETS = "#stage button, #breakBtn, #talkBtn, #talk button, .touch-try";
+  var AREA = "#stage, #breakBtn, #talkBtn, #talk, .touch-try";
 
   CM.TOUCH_DEFAULTS = { touchMode: "instant", holdMs: 800, cooldownMs: 500 };
   CM.TOUCH_MODES = ["instant", "hold", "release"];

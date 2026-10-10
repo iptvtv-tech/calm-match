@@ -29,7 +29,19 @@
       playAgain: "Play again", stopNow: "Stop for now", seeYou: "See you next time", comeBack: "Come back whenever you are ready.", backStart: "Back to start",
       breakLabel: "Break", breathe: "Breathe in. Breathe out.", takeTime: "Take as long as you need. Your game will wait.", ready: "I'm ready",
       first: "First", thenWord: "Then", firstDone: "Done", timeUp: "Time is up", ok: "OK", minutesLeft: "{n} min", lessThanMin: "Less than a minute",
-      sayDone: "All done. Great work.", sayDoneCalm: "All done.", myDay: "My day", stepDone: "Done", dayDone: "All done for now"
+      sayDone: "All done. Great work.", sayDoneCalm: "All done.", myDay: "My day", stepDone: "Done", dayDone: "All done for now",
+      whoseShadow: "Whose shadow is this?", findShadow: "Find the shadow", thisShadow: "This shadow", aShadow: "A shadow", shadowOfN: "Shadow of {n}", sayFindShadow: "Find the shadow of the {name}",
+      findOdd: "Which one is different?", sayOdd: "Which one is different?", goesWith: "What goes with the {name}?", whatGoesWith: "What goes with this?",
+      whichMore: "Which has more?", nPictures: "{n} pictures", findGroup: "Find {n}", sizeN: "Size {n}", smallToBig: "Small to big",
+      saySmallToBig: "Tap the smallest first, then the next, up to the biggest.", smallest: "Smallest", biggest: "Biggest",
+      whatMissing: "What's missing?", remember: "Look and remember", finishPicture: "Which piece finishes the picture?", pieceOf: "Piece of {n}",
+      traceLetter: "Trace the letter {l}", firstLetter: "Which letter does it start with?", sayFirstLetter: "Which letter does {name} start with?", findSmallLetter: "Find the small letter",
+      sayOrder: "Tap the pictures in order.", lastWord: "Last", howFeel: "How do they feel?", notYet: "Not that one yet. Look again.", traceAgain: "Start again", traceHint: "Use your finger to go over the letter.",
+      workingFor: "Working for", tokensLeft: "{n} more, then {reward}", earned: "You did it!", timeFor: "Time for: {reward}", myStickers: "My stickers", noStickers: "No stickers yet. You get one for each game you finish.",
+      breakChoose: "What kind of break?", brBreathe: "Breathing", brBubbles: "Bubbles", brMusic: "Music", brQuiet: "Quiet", oneMinute: "1 minute, then back to the game.", breakOver: "Break time is over. Ready?", breakTime: "Time for a break",
+      popBubbles: "Pop the bubbles", balloonIn: "Breathe in. The balloon gets bigger.", balloonOut: "Breathe out. The balloon gets smaller.", quietTime: "Quiet time. Rest your eyes.", calmCorner: "Calm corner", balloon: "Balloon breathing",
+      showMe: "Show me how", change: "Change", changeMsg: "Change: {new} instead of {old}", talk: "Talk", iWant: "I want", sayIWant: "I want {x}", words: "Words", myWords: "My words", clear: "Clear", sayIt: "Say it", close: "Close",
+      theEnd: "The end", back: "Back", stepNofM: "Step {n} of {m}", whoPlaying: "Who is playing?", myStories: "My stories", pickStory: "Pick a story", howTo: "How to", allSteps: "All the steps"
     },
     ga: {
       today: "Inniu, {name}", gamesThenDone: "Cluichí inniu: {n}", tapBreak: "Is féidir leat Sos a bhrú am ar bith.",
@@ -55,7 +67,19 @@
       playAgain: "Imir arís", stopNow: "Stop anois", seeYou: "Feicfidh mé arís thú", comeBack: "Fill nuair a bheidh tú réidh.", backStart: "Ar ais go dtí an tús",
       breakLabel: "Sos", breathe: "Anáil isteach. Anáil amach.", takeTime: "Tóg do chuid ama. Fanfaidh do chluiche leat.", ready: "Táim réidh",
       first: "Ar dtús", thenWord: "Ansin", firstDone: "Déanta", timeUp: "Tá an t-am istigh", ok: "Ceart go leor", minutesLeft: "{n} nóim.", lessThanMin: "Níos lú ná nóiméad",
-      sayDone: "Críochnaithe. Obair iontach.", sayDoneCalm: "Críochnaithe.", myDay: "Mo lá", stepDone: "Déanta", dayDone: "Críochnaithe go fóill"
+      sayDone: "Críochnaithe. Obair iontach.", sayDoneCalm: "Críochnaithe.", myDay: "Mo lá", stepDone: "Déanta", dayDone: "Críochnaithe go fóill",
+      whoseShadow: "Cé leis an scáth seo?", findShadow: "Aimsigh an scáth", thisShadow: "An scáth seo", aShadow: "Scáth", shadowOfN: "Scáth: {n}", sayFindShadow: "Aimsigh an scáth: {name}",
+      findOdd: "Cé acu atá difriúil?", sayOdd: "Cé acu atá difriúil?", goesWith: "Cad a théann leis seo: {name}?", whatGoesWith: "Cad a théann leis seo?",
+      whichMore: "Cé acu a bhfuil níos mó ann?", nPictures: "Pictiúir: {n}", findGroup: "Aimsigh {n}", sizeN: "Méid {n}", smallToBig: "Ó bheag go mór",
+      saySmallToBig: "Brúigh an ceann is lú ar dtús, ansin an chéad cheann eile, suas go dtí an ceann is mó.", smallest: "Is lú", biggest: "Is mó",
+      whatMissing: "Cad atá in easnamh?", remember: "Féach agus cuimhnigh", finishPicture: "Cén píosa a chríochnaíonn an pictiúr?", pieceOf: "Píosa: {n}",
+      traceLetter: "Rianaigh an litir {l}", firstLetter: "Cén litir atá ar dtús?", sayFirstLetter: "Cén litir atá ar dtús? {name}", findSmallLetter: "Aimsigh an litir bheag",
+      sayOrder: "Brúigh na pictiúir in ord.", lastWord: "Ar deireadh", howFeel: "Conas a mhothaíonn siad?", notYet: "Ní hé sin fós. Féach arís.", traceAgain: "Tosaigh arís", traceHint: "Lean an litir le do mhéar.",
+      workingFor: "Ag obair i gcomhair", tokensLeft: "{n} eile, ansin: {reward}", earned: "Rinne tú é!", timeFor: "Am do: {reward}", myStickers: "Mo ghreamáin", noStickers: "Níl greamán ar bith fós. Faigheann tú ceann i ndiaidh gach cluiche.",
+      breakChoose: "Cén sórt sosa?", brBreathe: "Análú", brBubbles: "Boilgeoga", brMusic: "Ceol", brQuiet: "Ciúnas", oneMinute: "Nóiméad amháin, ansin ar ais go dtí an cluiche.", breakOver: "Tá an sos thart. An bhfuil tú réidh?", breakTime: "Am sosa",
+      popBubbles: "Pléasc na boilgeoga", balloonIn: "Anáil isteach. Éiríonn an balún níos mó.", balloonOut: "Anáil amach. Éiríonn an balún níos lú.", quietTime: "Am ciúin. Lig do scíth.", calmCorner: "Cúinne ciúin", balloon: "Análú balúin",
+      showMe: "Taispeáin dom", change: "Athrú", changeMsg: "Athrú: {new} in áit {old}", talk: "Labhair", iWant: "Ba mhaith liom", sayIWant: "Ba mhaith liom {x}", words: "Focail", myWords: "Mo chuid focal", clear: "Glan", sayIt: "Abair é", close: "Dún",
+      theEnd: "Críoch", back: "Siar", stepNofM: "Céim {n} as {m}", whoPlaying: "Cé atá ag imirt?", myStories: "Mo scéalta", pickStory: "Roghnaigh scéal", howTo: "Conas", allSteps: "Na céimeanna ar fad"
     }
   };
 

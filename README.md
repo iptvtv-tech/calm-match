@@ -11,15 +11,27 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   index.html           home page for parents
   play.html            the games and the Grown-ups area
   account.html         optional parent account (Supabase)
-  privacy.html cookies.html terms.html accessibility.html support.html 404.html
+  privacy.html cookies.html terms.html accessibility.html support.html credits.html 404.html
   css/                 base.css (shared), app.css (games), home.css
   js/config.js         ← YOUR SETTINGS: name, email, Supabase keys, donate link
   js/common.js         cookie notice, settings fill-in, offline support
   js/engine.js         themes, feelings, skill map, knowledge tracing, session planner
   js/i18n.js           child-facing words in English and Irish; First/Then activities
+  js/media.js          device file store (IndexedDB) for photos, recordings and videos
   js/photos.js         photo mode (parents' own photos, kept on the device; optional photo pack)
-  js/tools.js          visual timer and First/Then board
-  js/touch.js          touch handling for the games: Tap / Hold to choose / Slide and lift, cool-down, no long-press zoom or menus
+  js/symbols.js        list of symbols in symbols/ (made by tools/build-symbols.py)
+  js/library.js        device library: schedules, stories, My pictures, Talk board, token reward; picture references
+  js/games.js          the newer games (Find it, Shadows, Odd one out, Numbers, Shapes, Goes together,
+                       What's missing, Puzzle, Letters, Steps in order, "How do they feel?")
+  js/rewards.js        token board, sticker book, breaks and the calm corner
+  js/stories.js        My stories and how-tos, with starter stories
+  js/talk.js           Talk board ("I want", 36 core words, my words)
+  js/classroom.js      classroom mode for one shared tablet
+  js/backup.js         backup file (save and open)
+  js/voice.js          recorded voices and family videos
+  js/ui.js             picture picker and printing for the grown-ups area
+  js/tools.js          visual timer, First/Then board and visual schedules
+  js/touch.js          touch style: tap, hold to choose, slide and lift (game area and Talk board)
   js/store.js          on-device storage of children's profiles
   js/cloud.js          optional Supabase sign-in and sync
   js/app.js            the games and Grown-ups area
@@ -27,9 +39,13 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   sw.js                offline support (bump VERSION on each deploy)
   _headers             security headers for Cloudflare Pages
   manifest.webmanifest, icons/, robots.txt
+  symbols/             symbols for the Talk board, schedules and stories (Mulberry Symbols, CC BY-SA 4.0)
   photos/README.txt    optional built-in photo pack and licensing rules
   fonts/README.txt     optional self-hosted fonts
   vendor/supabase.js    the Supabase sign-in library (self-hosted; not in the zips, keep your copy)
+tools/build-symbols.py   copies chosen Mulberry symbols into site/symbols (and tools/symbols-own/)
+tools/archive-policies.py keeps dated copies of the policy pages
+docs/                  plans for class sync and app-store versions (not built)
 supabase/schema.sql    database tables, privacy rules and delete-account function
 supabase/02-account-deletion-email.sql   confirmation email when a parent deletes their account
 supabase/03-inactive-account-cleanup.sql monthly job: warn after 23 months unused, delete after 24
@@ -140,3 +156,22 @@ It saves the current versions in `site/policies/` (dated with `policyDate` from 
 - **Feelings:** `CM.FEELINGS` in `js/engine.js`. Ones marked `extra: true` only appear when "More feelings" is switched on.
 - **Activities** for the First/Then board and visual schedule: `CM.ACTIVITIES` in `js/i18n.js`. Always add new ones at the end; saved boards refer to them by position.
 - New Irish words (Farm, Sea creatures, Music, the four extra feelings and the new activities) should be checked by a fluent speaker.
+
+## What stays on the device (and never syncs)
+
+Accounts sync only each child's avatar and settings (and progress, if the parent opts in). Everything a parent makes for their child stays on the device: schedules, the Talk board, stories and how-tos, My pictures, the token reward, photos, recordings and videos. These live in local storage (`calm-match-library`) and IndexedDB (`calm-match-media`). The backup file in Grown-ups → Children is how families move them between devices or between home and school. *Delete everything on this device* clears all of it.
+
+Games added after a child was set up start switched off for that child, with a note in Settings, so a familiar routine doesn't change by surprise.
+
+## Symbols
+
+`tools/build-symbols.py` lists every symbol used, with its English and Irish word. To add one: find it in a Mulberry checkout (`git clone --depth 1 https://github.com/mulberrysymbols/mulberry-symbols.git`), add a line to the list, run `python3 tools/build-symbols.py path/to/mulberry-symbols`, and bump `VERSION` in `site/sw.js`. Never rename a symbol id: saved boards and schedules refer to them. Credit is on `credits.html` and printed boards.
+
+## Starter stories
+
+`TEMPLATES` in `js/stories.js`. Each page is a picture reference (`s:` symbol, `e:` emoji, `x:` small animation) and one or two sentences. Write from the child's point of view, describe what happens, and say what the child can do. Don't call them Social Stories (a trademark).
+
+## Recordings and videos
+
+Grown-ups can record a word, schedule step, story page or picture in their own voice (up to 8 seconds) and add short videos (up to 90 seconds, 40 MB) to story pages. The microphone permission is `microphone=(self)` in `_headers`, and media plays from `blob:` URLs (`media-src 'self' blob: data:`). Nothing is uploaded.
+

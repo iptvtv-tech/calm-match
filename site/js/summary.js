@@ -5,7 +5,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var DAY = 864e5;
   var STATUS = { locked: "Not open yet", ready: "Ready to try", learning: "Learning", mastered: "Learned" };
-  var GAME_NAME = { match: "Match", sort: "Sort", seq: "Patterns", count: "Count", pairs: "Pairs", feel: "Feelings" };
+  var GAME_NAME = {}; Object.keys(CM.GAMES).forEach(function (g) { GAME_NAME[g] = CM.GAMES[g].label; });
 
   function fmtDate(t, long) { return new Date(t).toLocaleDateString("en-IE", long ? { day: "numeric", month: "long", year: "numeric" } : { day: "numeric", month: "short" }); }
 

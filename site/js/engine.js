@@ -9,18 +9,34 @@
       items: [["🚂","train","traein"],["🚌","bus","bus"],["🚗","car","carr"],["🚲","bike","rothar"],["🚁","helicopter","héileacaptar"],["🚜","tractor","tarracóir"],["⛵","boat","bád"],["🚒","fire engine","inneall dóiteáin"]] },
     animals:  { label: "Animals", ga: "Ainmhithe", family: "creatures", group: { en: "Animals", ga: "Ainmhithe" },
       items: [["🐶","dog","madra"],["🐱","cat","cat"],["🐰","rabbit","coinín"],["🐸","frog","frog"],["🐢","turtle","turtar"],["🐘","elephant","eilifint"],["🦁","lion","leon"],["🐧","penguin","piongain"]] },
-    space:    { label: "Space", ga: "Spás", group: { en: "Space", ga: "Spás" },
+    space:    { label: "Space", ga: "Spás", family: "sky", group: { en: "Space", ga: "Spás" },
       items: [["🚀","rocket","roicéad"],["🌙","moon","gealach"],["⭐","star","réalta"],["🪐","planet","pláinéad"],["☀️","sun","grian"],["🛸","spaceship","spásárthach"],["🌍","Earth","an Domhan"],["👩‍🚀","astronaut","spásaire"]] },
     dinos:    { label: "Dinosaurs", ga: "Díneasáir", family: "creatures", group: { en: "Dinosaurs", ga: "Díneasáir" },
       items: [["🦕","long-neck dinosaur","díneasár"],["🦖","T-rex","T-rex"],["🥚","egg","ubh"],["🌋","volcano","bolcán"],["🌴","palm tree","crann pailme"],["🦴","bone","cnámh"],["🐊","crocodile","crogall"],["🦎","lizard","laghairt"]] },
-    colours:  { label: "Colours", ga: "Dathanna", group: { en: "Colours", ga: "Dathanna" },
+    colours:  { label: "Colours", ga: "Dathanna", noKind: true, group: { en: "Colours", ga: "Dathanna" },
       items: [["🔴","red","dearg"],["🟢","green","glas"],["🔵","blue","gorm"],["🟡","yellow","buí"],["🟣","purple","corcra"],["🟠","orange","oráiste"],["⚫","black","dubh"],["🟤","brown","donn"]] },
     farm:     { label: "Farm", ga: "Feirm", family: "creatures", group: { en: "Farm", ga: "Feirm" },
       items: [["🐄","cow","bó"],["🐖","pig","muc"],["🐑","sheep","caora"],["🐴","horse","capall"],["🐔","hen","cearc"],["🦆","duck","lacha"],["🐐","goat","gabhar"],["🌻","sunflower","lus na gréine"]] },
     sea:      { label: "Sea creatures", ga: "Créatúir mhara", family: "creatures", group: { en: "Sea", ga: "Farraige" },
       items: [["🐟","fish","iasc"],["🐙","octopus","ochtapas"],["🦀","crab","portán"],["🐳","whale","míol mór"],["🐬","dolphin","deilf"],["🦈","shark","siorc"],["🦭","seal","rón"],["🐚","shell","sliogán"]] },
     music:    { label: "Music", ga: "Ceol", group: { en: "Music", ga: "Ceol" },
-      items: [["🥁","drum","druma"],["🎸","guitar","giotár"],["🎹","piano","pianó"],["🎺","trumpet","trumpa"],["🎻","violin","veidhlín"],["🎷","saxophone","sacsafón"],["🔔","bell","clog"],["🎤","microphone","micreafón"]] }
+      items: [["🥁","drum","druma"],["🎸","guitar","giotár"],["🎹","piano","pianó"],["🎺","trumpet","trumpa"],["🎻","violin","veidhlín"],["🎷","saxophone","sacsafón"],["🔔","bell","clog"],["🎤","microphone","micreafón"]] },
+    food:     { label: "Food", ga: "Bia", group: { en: "Food", ga: "Bia" },
+      items: [["🍎","apple","úll"],["🍌","banana","banana"],["🍞","bread","arán"],["🧀","cheese","cáis"],["🥕","carrot","cairéad"],["🍕","pizza","píotsa"],["🍓","strawberry","sú talún"],["🥛","milk","bainne"]] },
+    clothes:  { label: "Clothes", ga: "Éadaí", group: { en: "Clothes", ga: "Éadaí" },
+      items: [["👕","T-shirt","T-léine"],["👖","trousers","bríste"],["🧦","socks","stocaí"],["👟","shoes","bróga"],["🧥","coat","cóta"],["🧢","cap","caipín"],["🧤","gloves","lámhainní"],["👗","dress","gúna"]] },
+    home:     { label: "At home", ga: "Sa bhaile", group: { en: "Home", ga: "Baile" },
+      items: [["🛏️","bed","leaba"],["🪑","chair","cathaoir"],["🚪","door","doras"],["🛁","bath","folcadán"],["🚽","toilet","leithreas"],["🪟","window","fuinneog"],["🛋️","sofa","tolg"],["💡","light","solas"]] },
+    toys:     { label: "Toys", ga: "Bréagáin", group: { en: "Toys", ga: "Bréagáin" },
+      items: [["🧸","teddy","teidí"],["⚽","ball","liathróid"],["🪁","kite","eitleog"],["🧩","jigsaw","míreanna mearaí"],["🎈","balloon","balún"],["🎲","dice","dísle"],["🪀","yo-yo","yó-yó"],["🛹","skateboard","clár scátála"]] },
+    body:     { label: "My body", ga: "Mo chorp", group: { en: "Body", ga: "Corp" },
+      items: [["👁️","eye","súil"],["👂","ear","cluas"],["👃","nose","srón"],["👄","mouth","béal"],["✋","hand","lámh"],["🦶","foot","troigh"],["🦷","tooth","fiacail"],["💪","arm","géag"]] },
+    weather:  { label: "Weather", ga: "Aimsir", family: "sky", group: { en: "Weather", ga: "Aimsir" },
+      items: [["🌧️","rain","báisteach"],["☀️","sun","grian"],["❄️","snow","sneachta"],["🌈","rainbow","tuar ceatha"],["☁️","cloud","scamall"],["⚡","lightning","tintreach"],["🌬️","wind","gaoth"],["☂️","umbrella","scáth fearthainne"]] },
+    school:   { label: "School", ga: "Scoil", group: { en: "School", ga: "Scoil" },
+      items: [["✏️","pencil","peann luaidhe"],["📚","books","leabhair"],["🎒","school bag","mála scoile"],["✂️","scissors","siosúr"],["📏","ruler","rialóir"],["🖍️","crayon","crián"],["🧮","abacus","fráma comhairimh"],["🏫","school","scoil"]] },
+    shapes:   { label: "Shapes", ga: "Cruthanna", noKind: true, group: { en: "Shapes", ga: "Cruthanna" },
+      items: [["🔴","circle","ciorcal"],["🟦","square","cearnóg"],["🔺","triangle","triantán"],["⭐","star","réalta"],["❤️","heart","croí"],["🔶","diamond","muileata"],["🌙","crescent","corrán"],["➕","cross","cros"]] }
   };
   // Themes in the same family (all creatures) are never sorted against each other: a cow is an animal too.
 
@@ -40,21 +56,38 @@
   ];
   CM.feelings = function () { var more = CM.store && CM.store.S && CM.store.S().moreFeelings; return CM.FEELINGS.filter(function (f) { return more || !f.extra; }); };
 
+  // cat: the group a game is listed under in the grown-ups area.
   CM.GAMES = {
-    match: { label: "Match",    ga: "Meaitseáil", does: "Find the picture that is the same.", doesGa: "Aimsigh an pictiúr atá mar an gcéanna." },
-    sort:  { label: "Sort",     ga: "Sórtáil",    does: "Put each picture in the right basket.", doesGa: "Cuir gach pictiúr sa chiseán ceart." },
-    seq:   { label: "Patterns", ga: "Patrúin",    does: "Look at the line of pictures. Find what comes next.", doesGa: "Féach ar líne na bpictiúr. Aimsigh cad a thagann ina dhiaidh." },
-    count: { label: "Count",    ga: "Comhair",    does: "Count the pictures. Tap the number.", doesGa: "Comhair na pictiúir. Brúigh an uimhir." },
-    pairs: { label: "Pairs",    ga: "Péirí",      does: "Turn over two cards. Find the ones that are the same.", doesGa: "Iompaigh dhá chárta. Aimsigh na cinn atá mar an gcéanna." },
-    feel:  { label: "Feelings", ga: "Mothúcháin", does: "Look at the faces. Find the feeling.", doesGa: "Féach ar na haghaidheanna. Aimsigh an mothúchán." }
+    match:    { cat: "look",  label: "Match",    ga: "Meaitseáil", does: "Find the picture that is the same.", doesGa: "Aimsigh an pictiúr atá mar an gcéanna." },
+    pairs:    { cat: "look",  label: "Pairs",    ga: "Péirí",      does: "Turn over two cards. Find the ones that are the same.", doesGa: "Iompaigh dhá chárta. Aimsigh na cinn atá mar an gcéanna." },
+    shadow:   { cat: "look",  label: "Shadows",  ga: "Scáthanna",  does: "Find the picture that makes this shadow.", doesGa: "Aimsigh an pictiúr a dhéanann an scáth seo." },
+    missing:  { cat: "look",  label: "What's missing?", ga: "Cad atá in easnamh?", does: "Look at the pictures. One goes away. Which one?", doesGa: "Féach ar na pictiúir. Imíonn ceann amháin. Cé acu?" },
+    puzzle:   { cat: "look",  label: "Puzzle",   ga: "Mír mhearaí", does: "Find the piece that finishes the picture.", doesGa: "Aimsigh an píosa a chríochnaíonn an pictiúr." },
+    find:     { cat: "words", label: "Find it",  ga: "Aimsigh é",  does: "Listen to the word. Find that picture.", doesGa: "Éist leis an bhfocal. Aimsigh an pictiúr sin." },
+    sort:     { cat: "think", label: "Sort",     ga: "Sórtáil",    does: "Put each picture in the right basket.", doesGa: "Cuir gach pictiúr sa chiseán ceart." },
+    odd:      { cat: "think", label: "Odd one out", ga: "An ceann corr", does: "Find the one that is different.", doesGa: "Aimsigh an ceann atá difriúil." },
+    together: { cat: "think", label: "Goes together", ga: "Le chéile", does: "Find what goes with this picture.", doesGa: "Aimsigh cad a théann leis an bpictiúr seo." },
+    count:    { cat: "num",   label: "Count",    ga: "Comhair",    does: "Count the pictures. Tap the number.", doesGa: "Comhair na pictiúir. Brúigh an uimhir." },
+    num:      { cat: "num",   label: "Numbers",  ga: "Uimhreacha", does: "Match numbers and groups. Find which has more.", doesGa: "Meaitseáil uimhreacha agus grúpaí. Aimsigh cé acu is mó." },
+    shapes:   { cat: "num",   label: "Shapes and sizes", ga: "Cruthanna agus méideanna", does: "Find the shape. Put pictures from small to big.", doesGa: "Aimsigh an cruth. Cuir na pictiúir ó bheag go mór." },
+    letters:  { cat: "letters", label: "Letters", ga: "Litreacha", does: "Match letters, find first sounds and trace letters.", doesGa: "Meaitseáil litreacha, aimsigh an chéad fhuaim agus rianaigh litreacha." },
+    seq:      { cat: "order", label: "Patterns", ga: "Patrúin",    does: "Look at the line of pictures. Find what comes next.", doesGa: "Féach ar líne na bpictiúr. Aimsigh cad a thagann ina dhiaidh." },
+    order:    { cat: "order", label: "Steps in order", ga: "Céimeanna in ord", does: "Tap the pictures in order: first, next, last.", doesGa: "Brúigh na pictiúir in ord: ar dtús, ansin, ar deireadh." },
+    feel:     { cat: "feel",  label: "Feelings", ga: "Mothúcháin", does: "Look at the faces. Find the feeling.", doesGa: "Féach ar na haghaidheanna. Aimsigh an mothúchán." }
   };
-  CM.GAME_ORDER = ["match", "sort", "seq", "count", "pairs", "feel"];
+  CM.GAME_CATS = [["look", "Matching and looking"], ["words", "Words and listening"], ["think", "Sorting and thinking"], ["num", "Numbers and shapes"],
+    ["letters", "Letters"], ["order", "Patterns and order"], ["feel", "Feelings"]];
+  // The original six keep their place, so saved sessions and settings read the same.
+  CM.GAME_ORDER = ["match", "sort", "seq", "count", "pairs", "feel", "find", "shadow", "odd", "num", "shapes", "together", "missing", "puzzle", "letters", "order"];
 
   // The skill map. Each skill opens when every skill in `pre` is at least READY.
+  // Ids are saved with progress: add new skills, never rename old ones.
   CM.SKILLS = [
     { id: "same",      game: "match", name: "Same picture",           pre: [] },
     { id: "sortPic",   game: "sort",  name: "Sort by picture",        pre: ["same"], mode: "picture" },
     { id: "sortSize",  game: "sort",  name: "Sort big and small",     pre: ["sortPic"], mode: "size" },
+    { id: "sortColour",game: "sort",  name: "Sort by colour",         pre: ["sortPic"], mode: "colour" },
+    { id: "sortShape", game: "sort",  name: "Sort by shape",          pre: ["sortColour"], mode: "shape" },
     { id: "sortKind",  game: "sort",  name: "Sort by group",          pre: ["sortSize"], mode: "kind" },
     { id: "seqAB",     game: "seq",   name: "Pattern A B",            pre: ["same"], pattern: "AB" },
     { id: "seqAAB",    game: "seq",   name: "Pattern A A B",          pre: ["seqAB"], pattern: "AAB" },
@@ -67,28 +100,52 @@
     { id: "pairs4",    game: "pairs", name: "Pairs: 4 pairs",         pre: ["pairs3"], n: 4 },
     { id: "feelSame",  game: "feel",  name: "Same face",              pre: ["same"], mode: "same" },
     { id: "feelName",  game: "feel",  name: "Name the feeling",       pre: ["feelSame"], mode: "name" },
-    { id: "feelOther", game: "feel",  name: "Same feeling, new face", pre: ["feelName"], mode: "other" }
+    { id: "feelOther", game: "feel",  name: "Same feeling, new face", pre: ["feelName"], mode: "other" },
+    { id: "feelWhy",   game: "feel",  name: "How do they feel?",      pre: ["feelName"], mode: "why" },
+    { id: "findPic",   game: "find",  name: "Find the one I say",     pre: ["same"], mode: "theme" },
+    { id: "findBody",  game: "find",  name: "Body parts",             pre: ["findPic"], mode: "body" },
+    { id: "findWhere", game: "find",  name: "In, on and under",       pre: ["findBody"], mode: "where" },
+    { id: "shadowPic", game: "shadow",name: "Shadow to picture",      pre: ["same"], mode: "toPic" },
+    { id: "shadowFind",game: "shadow",name: "Picture to shadow",      pre: ["shadowPic"], mode: "toShadow" },
+    { id: "oddPic",    game: "odd",   name: "One is different",       pre: ["sortPic"], mode: "pic" },
+    { id: "oddGroup",  game: "odd",   name: "Not in the group",       pre: ["oddPic"], mode: "group" },
+    { id: "together",  game: "together", name: "What goes together",  pre: ["sortPic"] },
+    { id: "numMatch3", game: "num",   name: "Number to group, to 3",  pre: ["count3"], mode: "match", max: 3 },
+    { id: "numMatch5", game: "num",   name: "Number to group, to 5",  pre: ["numMatch3", "count5"], mode: "match", max: 5 },
+    { id: "numMore",   game: "num",   name: "Which has more?",        pre: ["count3"], mode: "more" },
+    { id: "shapeName", game: "shapes",name: "Name the shape",         pre: ["same"], mode: "name" },
+    { id: "sizeOrder", game: "shapes",name: "Small to big",           pre: ["shapeName"], mode: "size" },
+    { id: "missing3",  game: "missing", name: "What's missing: 3",    pre: ["pairs2"], n: 3 },
+    { id: "missing4",  game: "missing", name: "What's missing: 4",    pre: ["missing3"], n: 4 },
+    { id: "puzzle2",   game: "puzzle",name: "Puzzle: half",           pre: ["same"], n: 2 },
+    { id: "puzzle4",   game: "puzzle",name: "Puzzle: quarter",        pre: ["puzzle2"], n: 4 },
+    { id: "letterSame",game: "letters", name: "Same letter",          pre: ["same"], mode: "same" },
+    { id: "letterCase",game: "letters", name: "Big and small letters",pre: ["letterSame"], mode: "case" },
+    { id: "letterFirst",game: "letters",name: "First sound",          pre: ["letterCase"], mode: "first" },
+    { id: "letterTrace",game: "letters",name: "Trace a letter",       pre: ["letterSame"], mode: "trace" },
+    { id: "order3",    game: "order", name: "3 steps in order",       pre: ["seqAB"], n: 3 },
+    { id: "order4",    game: "order", name: "4 steps in order",       pre: ["order3"], n: 4 }
   ];
   CM.SK = {}; CM.SKILLS.forEach(function (s) { CM.SK[s.id] = s; });
-  CM.TRACKS = [
-    { game: "sort", title: "Sorting" }, { game: "seq", title: "Patterns" }, { game: "count", title: "Counting" },
-    { game: "pairs", title: "Pairs" }, { game: "feel", title: "Feelings" }
-  ];
+  CM.TRACKS = CM.GAME_ORDER.filter(function (g) { return g !== "match"; }).map(function (g) { return { game: g, title: CM.GAMES[g].label }; });
 
-  // Difficulty ladders inside a game. Index 0 is easiest.
-  CM.LV = { match: [2, 3, 4, 6], sort: [2, 3], seq: [2, 3, 4], count: [2, 3, 4], pairs: [3, 1.5, 0], feel: [2, 3, 4] };
+  // Difficulty ladders inside a game. Index 0 is easiest. 0 means the game has no choices to add.
+  CM.LV = { match: [2, 3, 4, 6], sort: [2, 3], seq: [2, 3, 4], count: [2, 3, 4], pairs: [3, 1.5, 0], feel: [2, 3, 4],
+    find: [2, 3, 4], shadow: [2, 3, 4], odd: [0], num: [2, 3], shapes: [2, 3, 4], together: [2, 3, 4], missing: [2, 3, 4], puzzle: [2, 3], letters: [2, 3, 4], order: [0] };
   CM.lvDesc = function (game, i, skill) {
     var v = CM.LV[game][Math.min(i, CM.LV[game].length - 1)];
     if (game === "match") return v + " pictures to choose from";
     if (game === "feel") return v + " faces to choose from";
     if (game === "sort") return (skill && skill.mode === "size" ? 2 : v) + " baskets";
     if (game === "pairs") return v ? "cards shown for " + v + " seconds first" : "no peek at the start";
+    if (!v) return "the same every time";
     return v + " answers to choose from";
   };
   CM.lvShort = function (game, i) {
     var v = CM.LV[game][Math.min(i, CM.LV[game].length - 1)];
     if (game === "sort") return v + " baskets";
     if (game === "pairs") return v ? v + "s peek" : "no peek";
+    if (!v) return "–";
     return v + " choices";
   };
   CM.PROMPT_NAMES = ["no help", "outline on the answer", "answer highlighted"];
@@ -99,7 +156,9 @@
   CM.theme = function () { return CM.THEMES[CM.store.S().theme] || CM.THEMES.vehicles; };
   CM.gameIcon = function (g) {
     var it = CM.theme().items;
-    return { match: it[0][0] + it[0][0], sort: "🧺", seq: it[0][0] + it[1][0] + it[0][0], count: "1 2 3", pairs: "❔" + it[2][0], feel: "😊😢" }[g];
+    return { match: it[0][0] + it[0][0], sort: "🧺", seq: it[0][0] + it[1][0] + it[0][0], count: "1 2 3", pairs: "❔" + it[2][0], feel: "😊😢",
+      find: "👂" + it[1][0], shadow: "🔦", odd: it[0][0] + it[0][0] + "🔍", together: "🧦👟", num: "🔢", shapes: "🔺🟦",
+      missing: "🙈", puzzle: "🧩", letters: "A a", order: "🥚🐣🐥" }[g] || "🎲";
   };
 
   var skillState = function (s) { return CM.store.P().skills[s.id]; };

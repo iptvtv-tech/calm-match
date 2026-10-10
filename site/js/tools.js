@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var CM = window.CM, esc = CM.esc;
-  var h = null, timerId = null, state = null;
+  var h = null, timerId = null, state = null, on = false;
 
   function stop() { clearInterval(timerId); timerId = null; }
   function fmtLeft(sec) {
@@ -39,8 +39,13 @@
   }
 
   CM.tools = {
-    init: function (helpers) { h = helpers; },
-    active: function () { return !!state || !!h.stage.querySelector(".ft, .vt"); },
+    // enter/exit mark when a full-screen tool (board, timer, schedule, story, calm corner) is showing.
+    init: function (helpers) {
+      h = helpers; var en = h.enter, ex = h.exit;
+      h.enter = function () { on = true; en(); }; h.exit = function () { on = false; stop(); state = null; ex(); };
+    },
+    active: function () { return on; },
+    helpers: function () { return h; },
     stop: function () { stop(); state = null; },
 
     timer: function (minutes) {
@@ -90,36 +95,65 @@
     }
     ,
     // Visual schedule: every step in order, "Now" and "Next" marked, Done moves on.
-    schedule: function (list) {
-      var stage = h.stage, i = 0;
-      list = (list || []).slice(0, 8);
+    // sched: { name, steps: [{ r: picture reference, min: timer minutes, howto: story id }] }
+    schedule: function (sched) {
+      var stage = h.stage, i = 0, list = (sched.steps || []).slice(0, 20).map(function (x) { return Object.assign({}, x); });
       if (!list.length) return;
       h.enter();
+      var name = function (k) { return CM.cap(CM.refName(list[k].r)); };
+      var sayStep = function (k) { if (!(CM.voice && CM.voice.play(list[k].r))) h.say(CM.t("now") + ": " + name(k) + "."); };
       var render = function () {
-        var finished = i >= list.length;
-        stage.innerHTML = '<p class="label">' + esc(CM.t("myDay")) + "</p>" +
-          '<ol class="sched">' + list.map(function (ai, k) {
-            var a = act(ai), state = k < i ? " done" : k === i ? " now" : "";
+        stop();
+        var finished = i >= list.length, cur = list[i];
+        stage.innerHTML = '<p class="label">' + esc(sched.name || CM.t("myDay")) + "</p>" +
+          '<ol class="sched">' + list.map(function (st, k) {
+            var x = CM.ref(st.r), state = k < i ? " done" : k === i ? " now" : "";
             var tag = k < i ? '<span class="ftdone">✓ ' + esc(CM.t("stepDone")) + "</span>" : k === i ? '<span class="sc-tag">' + esc(CM.t("now")) + "</span>" : k === i + 1 ? '<span class="sc-tag next">' + esc(CM.t("next")) + "</span>" : "";
-            return '<li class="sc' + state + '"' + (k === i ? ' aria-current="step"' : "") + '><span class="sce" aria-hidden="true">' + a[0] + "</span><b>" + esc(CM.nm(a)) + "</b>" + tag + "</li>";
+            return '<li class="sc' + state + (st.changed ? " changed" : "") + '"' + (k === i ? ' aria-current="step"' : "") + '><span class="sce">' + x.html + "</span><b>" + esc(CM.cap(x.name)) + "</b>" + tag + "</li>";
           }).join("") + "</ol>" +
+          (!finished && cur.min ? '<div id="scTimer"></div><p class="vt-left" id="vtLeft"></p>' : "") +
           (finished ? '<p class="sc-end">' + esc(CM.t("dayDone")) + "</p>" : "") +
           '<div class="row">' + (finished ? '<button class="big-btn" type="button" id="scOk">' + esc(CM.t("ok")) + "</button>"
-            : '<button class="big-btn" type="button" id="scDone">✓ ' + esc(CM.t("stepDone")) + "</button>") +
+            : '<button class="big-btn" type="button" id="scDone">✓ ' + esc(CM.t("stepDone")) + "</button>" +
+              (cur.howto && CM.lib.story(cur.howto) ? '<button class="ghost-btn" type="button" id="scHow">' + esc(CM.t("showMe")) + "</button>" : "")) +
           (i > 0 ? '<button class="small-btn" type="button" id="scBack">Back a step</button>' : "") +
-          '<button class="small-btn" type="button" id="scClose">Close schedule</button></div>';
-        var cur = stage.querySelector(".sc.now"); if (cur && cur.scrollIntoView) try { cur.scrollIntoView({ block: "nearest", inline: "center" }); } catch (e) {}
+          (!finished ? '<button class="small-btn" type="button" id="scChange">' + esc(CM.t("change")) + "</button>" : "") +
+          '<button class="small-btn" type="button" id="scClose">Close schedule</button></div><div id="scPick"></div>';
+        var curEl = stage.querySelector(".sc.now"); if (curEl && curEl.scrollIntoView) try { curEl.scrollIntoView({ block: "nearest", inline: "center" }); } catch (e) {}
+        if (!finished && cur.min) {
+          var total = cur.min * 60;
+          countdown(total, function (left) {
+            var w = $("scTimer"); if (w) w.innerHTML = dial(total, left, true);
+            var l = $("vtLeft"); if (l) l.textContent = fmtLeft(left);
+          }, function () { ending(); var l = $("vtLeft"); if (l) l.textContent = CM.t("timeUp"); });
+        }
         if ($("scDone")) $("scDone").onclick = function () {
-          i++; render();
-          if (i < list.length) h.say(CM.t("now") + ": " + CM.nm(act(list[i])) + "."); else { h.tones([523.25, 659.25], 0.35); h.say(CM.t("dayDone")); }
+          i++;
+          var full = CM.rewards && CM.rewards.earn("step");
+          if (full) { stop(); return CM.rewards.rewardScreen(function () { render(); if (i < list.length) sayStep(i); }); }
+          render();
+          if (i < list.length) sayStep(i); else { h.tones([523.25, 659.25], 0.35); h.say(CM.t("dayDone")); }
           var b = $("scDone") || $("scOk"); if (b) b.focus();
         };
+        if ($("scHow")) $("scHow").onclick = function () { stop(); CM.stories.read(cur.howto, function () { h.enter(); render(); }); };
         if ($("scBack")) $("scBack").onclick = function () { i = Math.max(0, i - 1); render(); };
         if ($("scOk")) $("scOk").onclick = function () { h.exit(); };
+        // A change for today only: the saved schedule stays the same.
+        if ($("scChange")) $("scChange").onclick = function () {
+          CM.ui.pickRef($("scPick"), function (r) {
+            var old = name(i); list[i] = { r: r, changed: true };
+            stop();
+            stage.innerHTML = '<p class="label">' + esc(CM.t("change")) + '</p><div class="change-card"><span class="sce" aria-hidden="true">🔄</span><span class="sce">' + CM.ref(r).html + "</span></div>" +
+              '<h1 class="say">' + esc(CM.t("changeMsg", { "new": name(i), old: old })) + '</h1><button class="big-btn" type="button" id="scChOk">' + esc(CM.t("ok")) + "</button>";
+            h.say(CM.t("changeMsg", { "new": name(i), old: old }));
+            $("scChOk").onclick = function () { render(); };
+            $("scChOk").focus();
+          });
+        };
         $("scClose").onclick = function () { h.exit(); };
       };
       render();
-      h.say(CM.t("myDay") + ". " + CM.t("now") + ": " + CM.nm(act(list[0])) + ".");
+      if (!(CM.voice && CM.voice.play(list[0].r))) h.say((sched.name || CM.t("myDay")) + ". " + CM.t("now") + ": " + name(0) + ".");
     }
   };
   function $(id) { return document.getElementById(id); }
