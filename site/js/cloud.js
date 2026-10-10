@@ -24,7 +24,7 @@
     if (window.supabase && window.supabase.createClient) return Promise.resolve();
     return loadScript("vendor/supabase.js").then(function () {
       if (!(window.supabase && window.supabase.createClient)) throw new Error("no lib");
-    }).catch(function () { return loadScript(C.supabaseCdn); });
+    }).catch(function (e) { if (C.supabaseCdn) return loadScript(C.supabaseCdn); throw e; });
   }
   function basePath() { return location.origin + location.pathname.replace(/[^/]*$/, ""); }
 
@@ -215,6 +215,7 @@
           p.avatar = cleanAvatar(r.avatar || p.avatar);
           p.settings = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS)), r.settings || {});
           p.settings.games = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS.games)), (r.settings || {}).games || {});
+          CM.tidySettings(p.settings);
           if (r.progress && acct.sync_progress) {
             var rs = cleanSkills(r.progress.skills), rh = cleanHistory(r.progress.history);
             if (merged[lid]) {

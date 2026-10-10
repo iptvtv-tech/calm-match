@@ -206,7 +206,10 @@
       for (i = 0; i < T; i++) { var k = i % 2 ? "small" : "big"; queue.push({ item: e, key: k, size: k, html: pic(e) }); }
     } else {
       var me = S().theme === "colours" ? "vehicles" : S().theme;
-      var keys = [me].concat(shuffle(Object.keys(CM.THEMES).filter(function (k) { return k !== me && k !== "colours"; }))).slice(0, nb);
+      var fam = function (k) { return CM.THEMES[k].family || k; }, keys = [me], fams = [fam(me)];
+      shuffle(Object.keys(CM.THEMES).filter(function (k) { return k !== me && k !== "colours"; })).forEach(function (k) {
+        if (keys.length < nb && fams.indexOf(fam(k)) < 0) { keys.push(k); fams.push(fam(k)); }
+      });
       baskets = keys.map(function (k) { return { key: k, icon: pic(CM.THEMES[k].items[0], k), group: k, got: [] }; });
       for (i = 0; i < T; i++) { var kk = keys[i % nb], it = pick1(CM.THEMES[kk].items.slice(1)); queue.push({ item: it, key: kk, html: pic(it, kk) }); }
     }
@@ -271,7 +274,7 @@
 
   /* ---------- game: feelings ---------- */
   function genFeel() {
-    var mode = blk.skill.mode, n = CM.LV.feel[blk.lvl], F = CM.FEELINGS;
+    var mode = blk.skill.mode, n = CM.LV.feel[blk.lvl], F = CM.feelings();
     var pool = mode === "other" ? F.filter(function (f) { return f.faces.length > 1; }) : F;
     var target; do { target = pick1(pool); } while (lastFeel && pool.length > 1 && target.id === lastFeel);
     lastFeel = target.id;
@@ -608,13 +611,14 @@
     chipGroup($("celebrateChips"), [["cheerful", "Cheerful"], ["gentle", "Gentle"], ["calm", "Very calm"]], s.celebrate, function (v) { s.celebrate = v; chime(); });
     var app = CM.store.db().app;
     chipGroup($("gateChips"), [["hold", "Press and hold"], ["sum", "Answer a sum"]], app.gate, function (v) { app.gate = v; CM.store.persist(); gateLabel(); });
-    ["sound", "speech", "calm", "contrast", "big", "keys", "adaptive", "errorless", "photos"].forEach(function (k) {
+    ["sound", "speech", "calm", "contrast", "big", "keys", "adaptive", "errorless", "photos", "moreFeelings"].forEach(function (k) {
       var c = $("s-" + k); c.checked = !!s[k];
       c.onchange = function () {
         s[k] = c.checked; CM.store.save(); applySenses();
         if (k === "speech" && c.checked) say("Read aloud is on");
         if (k === "errorless") log("Errorless start", c.checked ? "on: new skills begin with the answer highlighted" : "off");
         if (k === "photos") renderPhotos();
+        if (k === "moreFeelings") log("More feelings", c.checked ? "on: calm, silly, worried and loving join the Feelings game" : "off: the six main feelings");
       };
     });
     CM.GAME_ORDER.forEach(function (g) {
@@ -793,12 +797,31 @@
     grid($("firstChips"), b.first, "first"); grid($("thenChips"), b.then, "then");
     chipGroup($("boardTimerChips"), [[0, "No timer"], [1, "1 min"], [2, "2 min"], [5, "5 min"], [10, "10 min"], [15, "15 min"]], b.minutes, function (v) { b.minutes = +v; }, renderTools);
     $("boardPreview").innerHTML = '<span aria-hidden="true">' + CM.ACTIVITIES[b.first][0] + "</span> " + esc(CM.ACTIVITIES[b.first][1]) + ' <span class="note">then</span> <span aria-hidden="true">' + CM.ACTIVITIES[b.then][0] + "</span> " + esc(CM.ACTIVITIES[b.then][1]) + (b.minutes ? ' <span class="note">· ' + b.minutes + " min timer</span>" : "");
+    var sc = S().schedule;
+    $("schedList").innerHTML = sc.length ? sc.map(function (ai, k) {
+      var a = CM.ACTIVITIES[ai];
+      return '<li><span class="se-n">' + (k + 1) + '</span><span aria-hidden="true" class="se-e">' + a[0] + '</span><span class="se-name">' + esc(a[1]) + "</span>" +
+        '<button type="button" class="se-btn" data-mv="-1" data-k="' + k + '" aria-label="Move ' + esc(a[1]) + ' earlier"' + (k === 0 ? " disabled" : "") + ">↑</button>" +
+        '<button type="button" class="se-btn" data-mv="1" data-k="' + k + '" aria-label="Move ' + esc(a[1]) + ' later"' + (k === sc.length - 1 ? " disabled" : "") + ">↓</button>" +
+        '<button type="button" class="se-btn" data-rm="' + k + '" aria-label="Remove ' + esc(a[1]) + '">✕</button></li>';
+    }).join("") : '<li class="note se-empty">No steps yet. Add some below.</li>';
+    $("schedList").querySelectorAll("[data-mv]").forEach(function (b) { b.onclick = function () {
+      var k = +b.dataset.k, j = k + +b.dataset.mv; if (j < 0 || j >= sc.length) return;
+      var x = sc[k]; sc[k] = sc[j]; sc[j] = x; CM.store.save(); renderTools();
+      var again = $("schedList").querySelectorAll("li")[j]; if (again) { var f = again.querySelector('[data-mv="' + b.dataset.mv + '"]:not([disabled])') || again.querySelector("button"); if (f) f.focus(); }
+    }; });
+    $("schedList").querySelectorAll("[data-rm]").forEach(function (b) { b.onclick = function () { sc.splice(+b.dataset.rm, 1); CM.store.save(); renderTools(); }; });
+    $("schedAdd").innerHTML = CM.ACTIVITIES.map(function (a, i) { return '<button type="button" class="chip act" data-i="' + i + '"' + (sc.length >= 8 ? " disabled" : "") + '><span aria-hidden="true">' + a[0] + "</span> " + esc(a[1]) + "</button>"; }).join("");
+    $("schedAdd").querySelectorAll(".chip").forEach(function (c) { c.onclick = function () { if (sc.length >= 8) return; sc.push(+c.dataset.i); CM.store.save(); renderTools(); }; });
+    $("showSchedBtn").disabled = !sc.length; $("clearSchedBtn").disabled = !sc.length;
     var tm = CM.store.db().app.timerMin || 5;
     chipGroup($("timerChips"), [[1, "1 min"], [2, "2 min"], [3, "3 min"], [5, "5 min"], [10, "10 min"], [15, "15 min"], [20, "20 min"]], tm, function (v) { CM.store.db().app.timerMin = +v; CM.store.persist(); }, renderTools);
     $("toolsMsg").textContent = session ? "A game session is running. Finish it, or the board and timer will replace it." : "";
   }
   function bindToolsStatic() {
     $("showBoardBtn").onclick = function () { session = null; $("panel").hidden = true; $("grownBtn").hidden = false; CM.tools.board(S().board); };
+    $("showSchedBtn").onclick = function () { if (!S().schedule.length) return; session = null; $("panel").hidden = true; $("grownBtn").hidden = false; CM.tools.schedule(S().schedule); };
+    $("clearSchedBtn").onclick = function () { S().schedule.length = 0; CM.store.save(); renderTools(); };
     $("startTimerBtn").onclick = function () { session = null; $("panel").hidden = true; $("grownBtn").hidden = false; CM.tools.timer(CM.store.db().app.timerMin || 5); };
   }
 

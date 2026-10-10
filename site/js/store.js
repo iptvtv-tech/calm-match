@@ -13,7 +13,21 @@
     stickerSet: "theme",     // theme | stars | hearts | shapes | none
     celebrate: "gentle",     // cheerful | gentle | calm
     photos: false,           // show photos instead of emoji, where photos exist for the theme
-    board: { first: 1, then: 0, minutes: 0 }
+    board: { first: 1, then: 0, minutes: 0 },
+    moreFeelings: false,     // add calm, silly, worried and loving to the Feelings game
+    schedule: []             // visual schedule: up to 8 activity numbers (CM.ACTIVITIES), in order
+  };
+  // Keep settings within what the app can show (also used for settings that come back from an account).
+  CM.tidySettings = function (st) {
+    var n = (CM.ACTIVITIES || []).length || 1, ok = function (v) { v = Math.floor(+v); return isFinite(v) && v >= 0 && v < n ? v : null; };
+    st.board = Object.assign(clone(CM.DEFAULTS.board), st.board || {});
+    st.board.first = ok(st.board.first) == null ? 1 : ok(st.board.first);
+    st.board.then = ok(st.board.then) == null ? 0 : ok(st.board.then);
+    st.board.minutes = Math.min(60, Math.max(0, Math.floor(+st.board.minutes) || 0));
+    st.schedule = (Array.isArray(st.schedule) ? st.schedule : []).map(ok).filter(function (v) { return v != null; }).slice(0, 8);
+    st.moreFeelings = !!st.moreFeelings;
+    if (!CM.THEMES || !CM.THEMES[st.theme]) st.theme = "vehicles";
+    return st;
   };
   var clone = function (o) { return JSON.parse(JSON.stringify(o)); };
   var freshSkills = function () { var o = {}; CM.SKILLS.forEach(function (s) { o[s.id] = { p: CM.PRIOR, turns: 0, lvl: 0, struggle: false, prompt: 2, promptRun: 0 }; }); return o; };
@@ -41,7 +55,7 @@
       if (st.prompt == null) { st.prompt = st.turns ? 0 : 2; st.promptRun = 0; }
     });
     p.skills = Object.assign(fresh, p.skills || {});
-    p.settings.board = Object.assign(clone(CM.DEFAULTS.board), p.settings.board || {});
+    CM.tidySettings(p.settings);
     p.history = p.history || []; p.stickers = p.stickers || [];
   });
 

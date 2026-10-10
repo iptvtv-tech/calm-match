@@ -88,6 +88,39 @@
         }, function () { ending(); var l = $("vtLeft"); if (l) l.textContent = CM.t("timeUp"); });
       }
     }
+    ,
+    // Visual schedule: every step in order, "Now" and "Next" marked, Done moves on.
+    schedule: function (list) {
+      var stage = h.stage, i = 0;
+      list = (list || []).slice(0, 8);
+      if (!list.length) return;
+      h.enter();
+      var render = function () {
+        var finished = i >= list.length;
+        stage.innerHTML = '<p class="label">' + esc(CM.t("myDay")) + "</p>" +
+          '<ol class="sched">' + list.map(function (ai, k) {
+            var a = act(ai), state = k < i ? " done" : k === i ? " now" : "";
+            var tag = k < i ? '<span class="ftdone">✓ ' + esc(CM.t("stepDone")) + "</span>" : k === i ? '<span class="sc-tag">' + esc(CM.t("now")) + "</span>" : k === i + 1 ? '<span class="sc-tag next">' + esc(CM.t("next")) + "</span>" : "";
+            return '<li class="sc' + state + '"' + (k === i ? ' aria-current="step"' : "") + '><span class="sce" aria-hidden="true">' + a[0] + "</span><b>" + esc(CM.nm(a)) + "</b>" + tag + "</li>";
+          }).join("") + "</ol>" +
+          (finished ? '<p class="sc-end">' + esc(CM.t("dayDone")) + "</p>" : "") +
+          '<div class="row">' + (finished ? '<button class="big-btn" type="button" id="scOk">' + esc(CM.t("ok")) + "</button>"
+            : '<button class="big-btn" type="button" id="scDone">✓ ' + esc(CM.t("stepDone")) + "</button>") +
+          (i > 0 ? '<button class="small-btn" type="button" id="scBack">Back a step</button>' : "") +
+          '<button class="small-btn" type="button" id="scClose">Close schedule</button></div>';
+        var cur = stage.querySelector(".sc.now"); if (cur && cur.scrollIntoView) try { cur.scrollIntoView({ block: "nearest", inline: "center" }); } catch (e) {}
+        if ($("scDone")) $("scDone").onclick = function () {
+          i++; render();
+          if (i < list.length) h.say(CM.t("now") + ": " + CM.nm(act(list[i])) + "."); else { h.tones([523.25, 659.25], 0.35); h.say(CM.t("dayDone")); }
+          var b = $("scDone") || $("scOk"); if (b) b.focus();
+        };
+        if ($("scBack")) $("scBack").onclick = function () { i = Math.max(0, i - 1); render(); };
+        if ($("scOk")) $("scOk").onclick = function () { h.exit(); };
+        $("scClose").onclick = function () { h.exit(); };
+      };
+      render();
+      h.say(CM.t("myDay") + ". " + CM.t("now") + ": " + CM.nm(act(list[0])) + ".");
+    }
   };
   function $(id) { return document.getElementById(id); }
 })();

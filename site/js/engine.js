@@ -7,15 +7,22 @@
   CM.THEMES = {
     vehicles: { label: "Trains & vehicles", ga: "Traenacha & feithiclí", group: { en: "Vehicles", ga: "Feithiclí" },
       items: [["🚂","train","traein"],["🚌","bus","bus"],["🚗","car","carr"],["🚲","bike","rothar"],["🚁","helicopter","héileacaptar"],["🚜","tractor","tarracóir"],["⛵","boat","bád"],["🚒","fire engine","inneall dóiteáin"]] },
-    animals:  { label: "Animals", ga: "Ainmhithe", group: { en: "Animals", ga: "Ainmhithe" },
+    animals:  { label: "Animals", ga: "Ainmhithe", family: "creatures", group: { en: "Animals", ga: "Ainmhithe" },
       items: [["🐶","dog","madra"],["🐱","cat","cat"],["🐰","rabbit","coinín"],["🐸","frog","frog"],["🐢","turtle","turtar"],["🐘","elephant","eilifint"],["🦁","lion","leon"],["🐧","penguin","piongain"]] },
     space:    { label: "Space", ga: "Spás", group: { en: "Space", ga: "Spás" },
       items: [["🚀","rocket","roicéad"],["🌙","moon","gealach"],["⭐","star","réalta"],["🪐","planet","pláinéad"],["☀️","sun","grian"],["🛸","spaceship","spásárthach"],["🌍","Earth","an Domhan"],["👩‍🚀","astronaut","spásaire"]] },
-    dinos:    { label: "Dinosaurs", ga: "Díneasáir", group: { en: "Dinosaurs", ga: "Díneasáir" },
+    dinos:    { label: "Dinosaurs", ga: "Díneasáir", family: "creatures", group: { en: "Dinosaurs", ga: "Díneasáir" },
       items: [["🦕","long-neck dinosaur","díneasár"],["🦖","T-rex","T-rex"],["🥚","egg","ubh"],["🌋","volcano","bolcán"],["🌴","palm tree","crann pailme"],["🦴","bone","cnámh"],["🐊","crocodile","crogall"],["🦎","lizard","laghairt"]] },
     colours:  { label: "Colours", ga: "Dathanna", group: { en: "Colours", ga: "Dathanna" },
-      items: [["🔴","red","dearg"],["🟢","green","glas"],["🔵","blue","gorm"],["🟡","yellow","buí"],["🟣","purple","corcra"],["🟠","orange","oráiste"],["⚫","black","dubh"],["🟤","brown","donn"]] }
+      items: [["🔴","red","dearg"],["🟢","green","glas"],["🔵","blue","gorm"],["🟡","yellow","buí"],["🟣","purple","corcra"],["🟠","orange","oráiste"],["⚫","black","dubh"],["🟤","brown","donn"]] },
+    farm:     { label: "Farm", ga: "Feirm", family: "creatures", group: { en: "Farm", ga: "Feirm" },
+      items: [["🐄","cow","bó"],["🐖","pig","muc"],["🐑","sheep","caora"],["🐴","horse","capall"],["🐔","hen","cearc"],["🦆","duck","lacha"],["🐐","goat","gabhar"],["🌻","sunflower","lus na gréine"]] },
+    sea:      { label: "Sea creatures", ga: "Créatúir mhara", family: "creatures", group: { en: "Sea", ga: "Farraige" },
+      items: [["🐟","fish","iasc"],["🐙","octopus","ochtapas"],["🦀","crab","portán"],["🐳","whale","míol mór"],["🐬","dolphin","deilf"],["🦈","shark","siorc"],["🦭","seal","rón"],["🐚","shell","sliogán"]] },
+    music:    { label: "Music", ga: "Ceol", group: { en: "Music", ga: "Ceol" },
+      items: [["🥁","drum","druma"],["🎸","guitar","giotár"],["🎹","piano","pianó"],["🎺","trumpet","trumpa"],["🎻","violin","veidhlín"],["🎷","saxophone","sacsafón"],["🔔","bell","clog"],["🎤","microphone","micreafón"]] }
   };
+  // Themes in the same family (all creatures) are never sorted against each other: a cow is an animal too.
 
   // Feelings for the Feelings game. Several faces per feeling, so children learn the feeling, not one picture.
   CM.FEELINGS = [
@@ -24,8 +31,14 @@
     { id: "angry",     en: "angry",     ga: "crosta",     faces: ["😠","😡"],          q: { en: "Which face is angry?",     ga: "Cén aghaidh atá crosta?" } },
     { id: "scared",    en: "scared",    ga: "scanraithe", faces: ["😨","😱","😰"],     q: { en: "Which face is scared?",    ga: "Cén aghaidh atá scanraithe?" } },
     { id: "surprised", en: "surprised", ga: "ionadh",     faces: ["😮","😲","😯"],     q: { en: "Which face is surprised?", ga: "Cén aghaidh a bhfuil ionadh uirthi?" } },
-    { id: "sleepy",    en: "sleepy",    ga: "tuirseach",  faces: ["😴","🥱","😪"],     q: { en: "Which face is sleepy?",    ga: "Cén aghaidh atá tuirseach?" } }
+    { id: "sleepy",    en: "sleepy",    ga: "tuirseach",  faces: ["😴","🥱","😪"],     q: { en: "Which face is sleepy?",    ga: "Cén aghaidh atá tuirseach?" } },
+    // "More feelings" (a setting, off by default): finer differences, for children who know the first six.
+    { id: "calm",      en: "calm",      ga: "socair",       extra: true, faces: ["😌"],           q: { en: "Which face is calm?",      ga: "Cén aghaidh atá socair?" } },
+    { id: "silly",     en: "silly",     ga: "seafóideach",  extra: true, faces: ["😜","🤪","😝"], q: { en: "Which face is silly?",     ga: "Cén aghaidh atá seafóideach?" } },
+    { id: "worried",   en: "worried",   ga: "buartha",      extra: true, faces: ["😟","😧"],      q: { en: "Which face is worried?",   ga: "Cén aghaidh atá buartha?" } },
+    { id: "loving",    en: "loving",    ga: "grámhar",      extra: true, faces: ["🥰","😍","😘"], q: { en: "Which face is loving?",    ga: "Cén aghaidh atá grámhar?" } }
   ];
+  CM.feelings = function () { var more = CM.store && CM.store.S && CM.store.S().moreFeelings; return CM.FEELINGS.filter(function (f) { return more || !f.extra; }); };
 
   CM.GAMES = {
     match: { label: "Match",    ga: "Meaitseáil", does: "Find the picture that is the same.", doesGa: "Aimsigh an pictiúr atá mar an gcéanna." },

@@ -11,7 +11,7 @@ window.CM_CONFIG = {
   contactEmail: "hello@calmmatch.com",   // general questions, feedback, accessibility
   privacyEmail: "privacy@calmmatch.com",  // data requests: access, deletion, corrections, complaints
   siteUrl: "https://calmmatch.com",
-  policyDate: "9 October 2026",
+  policyDate: "10 October 2026",
 
   // Supabase (parent accounts and sync). Leave blank to run with no accounts:
   // the site then works fully on the device with nothing sent anywhere.
@@ -19,9 +19,9 @@ window.CM_CONFIG = {
   supabaseAnonKey: "sb_publishable_TMcAYKlZYIePzya2MqZKrQ_unV--JIs",  // publishable key: safe to be public. NEVER the secret/service_role key
   supabaseRegion: "EU (Ireland, eu-west-1)", // match the region you pick when creating the project
 
-  // Supabase JS library. The site first tries /vendor/supabase.js (self-hosted, best for privacy),
-  // then falls back to this pinned CDN copy.
-  supabaseCdn: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js",
+  // Supabase JS library: self-hosted at site/vendor/supabase.js (version 2.45.4). Nothing loads from other sites.
+  // To update it, see site/vendor/README.txt. Leave supabaseCdn blank: the security rules in _headers block other sources.
+  supabaseCdn: "",
 
   // Donations. Leave blank to hide the button.
   donateUrl: "https://buy.stripe.com/4gMdR86ec8o42Q05j8bwk00",            // e.g. "https://ko-fi.com/yourname" or a Stripe payment link

@@ -1,6 +1,6 @@
 # Calm Match
 
-Calm, predictable learning games designed with neurodivergent children in mind: Match, Sort, Patterns, Count, Pairs and Feelings, themed with trains & vehicles, animals, space, dinosaurs, colours or the family's own photos. Games work in English or Irish (Gaeilge). Includes a visual timer and a First/Then board. A rule-based engine adjusts difficulty, opens new skills as earlier ones are learned, and explains every decision to parents.
+Calm, predictable learning games designed with neurodivergent children in mind: Match, Sort, Patterns, Count, Pairs and Feelings, themed with trains & vehicles, animals, farm, sea creatures, music, space, dinosaurs, colours or the family's own photos. Games work in English or Irish (Gaeilge). Includes a visual timer, a First/Then board and a visual schedule (up to 8 steps). A rule-based engine adjusts difficulty, opens new skills as earlier ones are learned, and explains every decision to parents.
 
 Plain HTML, CSS and JavaScript. No build step, no framework, no tracking.
 
@@ -28,7 +28,7 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   manifest.webmanifest, icons/, robots.txt
   photos/README.txt    optional built-in photo pack and licensing rules
   fonts/README.txt     optional self-hosted fonts
-  vendor/README.txt    optional self-hosted Supabase library
+  vendor/supabase.js    the Supabase sign-in library (self-hosted; not in the zips, keep your copy)
 supabase/schema.sql    database tables, privacy rules and delete-account function
 supabase/02-account-deletion-email.sql   confirmation email when a parent deletes their account
 supabase/03-inactive-account-cleanup.sql monthly job: warn after 23 months unused, delete after 24
@@ -107,3 +107,20 @@ All child-facing game text, picture names, feelings and the First/Then board are
 ## History export
 
 Grown-ups → History → *Download spreadsheet (CSV)* gives one row per game played (date, game, skill, turns, helped turns, right first time, hints, breaks, minutes, theme, language). It opens in Excel, Google Sheets or Numbers. It includes the child's nickname, so check before sending it on.
+
+## Keeping old policy versions
+
+Before you change the privacy policy, children's privacy page, cookie policy or terms, run:
+
+```
+python3 tools/archive-policies.py
+```
+
+It saves the current versions in `site/policies/` (dated with `policyDate` from config.js) and rebuilds the "Previous versions" page, which the policy pages link to. Then edit the policy, update `policyDate`, bump `VERSION` in `site/sw.js` and deploy. Running it twice on the same date is safe.
+
+## Adding content
+
+- **Themes:** add an entry to `CM.THEMES` in `js/engine.js` with 8 `[emoji, English, Irish]` items. Give creature themes `family: "creatures"` so the Sort game never asks children to separate, say, farm animals from animals.
+- **Feelings:** `CM.FEELINGS` in `js/engine.js`. Ones marked `extra: true` only appear when "More feelings" is switched on.
+- **Activities** for the First/Then board and visual schedule: `CM.ACTIVITIES` in `js/i18n.js`. Always add new ones at the end; saved boards refer to them by position.
+- New Irish words (Farm, Sea creatures, Music, the four extra feelings and the new activities) should be checked by a fluent speaker.

@@ -29,7 +29,7 @@
       playAgain: "Play again", stopNow: "Stop for now", seeYou: "See you next time", comeBack: "Come back whenever you are ready.", backStart: "Back to start",
       breakLabel: "Break", breathe: "Breathe in. Breathe out.", takeTime: "Take as long as you need. Your game will wait.", ready: "I'm ready",
       first: "First", thenWord: "Then", firstDone: "Done", timeUp: "Time is up", ok: "OK", minutesLeft: "{n} min", lessThanMin: "Less than a minute",
-      sayDone: "All done. Great work.", sayDoneCalm: "All done."
+      sayDone: "All done. Great work.", sayDoneCalm: "All done.", myDay: "My day", stepDone: "Done", dayDone: "All done for now"
     },
     ga: {
       today: "Inniu, {name}", gamesThenDone: "Cluichí inniu: {n}", tapBreak: "Is féidir leat Sos a bhrú am ar bith.",
@@ -55,7 +55,7 @@
       playAgain: "Imir arís", stopNow: "Stop anois", seeYou: "Feicfidh mé arís thú", comeBack: "Fill nuair a bheidh tú réidh.", backStart: "Ar ais go dtí an tús",
       breakLabel: "Sos", breathe: "Anáil isteach. Anáil amach.", takeTime: "Tóg do chuid ama. Fanfaidh do chluiche leat.", ready: "Táim réidh",
       first: "Ar dtús", thenWord: "Ansin", firstDone: "Déanta", timeUp: "Tá an t-am istigh", ok: "Ceart go leor", minutesLeft: "{n} nóim.", lessThanMin: "Níos lú ná nóiméad",
-      sayDone: "Críochnaithe. Obair iontach.", sayDoneCalm: "Críochnaithe."
+      sayDone: "Críochnaithe. Obair iontach.", sayDoneCalm: "Críochnaithe.", myDay: "Mo lá", stepDone: "Déanta", dayDone: "Críochnaithe go fóill"
     }
   };
 
@@ -80,6 +80,9 @@
     ["🍽️", "Dinner", "Dinnéar"], ["🍪", "Snack", "Sneaic"], ["🛁", "Bath", "Folcadh"], ["🛏️", "Bed", "Leaba"],
     ["📚", "Reading", "Léamh"], ["✏️", "Homework", "Obair bhaile"], ["🧸", "Play", "Súgradh"], ["🧩", "Puzzle", "Míreanna mearaí"],
     ["📺", "TV", "Teilifís"], ["🌳", "Park", "Páirc"], ["🚗", "Car", "Carr"], ["🏫", "School", "Scoil"],
-    ["🎵", "Music", "Ceol"], ["🚽", "Toilet", "Leithreas"], ["🧹", "Tidy up", "Glan suas"], ["🤗", "Hug", "Barróg"]
+    ["🎵", "Music", "Ceol"], ["🚽", "Toilet", "Leithreas"], ["🧹", "Tidy up", "Glan suas"], ["🤗", "Hug", "Barróg"],
+    // Added later: always add new activities at the end, so saved boards and schedules keep their pictures.
+    ["🥣", "Breakfast", "Bricfeasta"], ["🥪", "Lunch", "Lón"], ["👕", "Get dressed", "Éadaí ort"], ["🧼", "Wash hands", "Nigh do lámha"],
+    ["🚶", "Walk", "Siúlóid"], ["🎨", "Drawing", "Líníocht"], ["🧘", "Quiet time", "Am ciúin"], ["🚌", "Bus", "Bus"]
   ];
 })();

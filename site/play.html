@@ -100,6 +100,14 @@
         <div class="row start" style="margin-top:14px"><button class="small-btn primary" type="button" id="showBoardBtn">Show board</button><span id="boardPreview"></span></div>
       </div>
       <div>
+        <h3>Visual schedule</h3>
+        <p class="note">Up to 8 steps in order, for a whole morning or afternoon. Your child sees every step, with "Now" and "Next" marked, and taps Done to move on.</p>
+        <ol class="sched-edit" id="schedList"></ol>
+        <p style="margin:12px 0 4px"><b>Add a step</b></p>
+        <div class="chips" id="schedAdd"></div>
+        <div class="row start" style="margin-top:14px"><button class="small-btn primary" type="button" id="showSchedBtn">Show schedule</button><button class="small-btn" type="button" id="clearSchedBtn">Clear all steps</button></div>
+      </div>
+      <div>
         <h3>Visual timer</h3>
         <p class="note">A coloured circle that shrinks as time passes, with a soft tone at the end. Numbers aren't needed to read it.</p>
         <div class="chips" id="timerChips"></div>
@@ -149,6 +157,7 @@
       <div>
         <h3>Help</h3>
         <label class="toggle" style="border:0"><input type="checkbox" id="s-errorless"><span>Errorless start<small>New skills begin with the right answer highlighted and the others greyed out. After 2 right answers the help drops to an outline, then goes away. If your child struggles, the outline comes back. Common in ABA teaching.</small></span></label>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-moreFeelings"><span>More feelings<small>Adds calm, silly, worried and loving to the Feelings game. Best once your child knows happy, sad, angry, scared, surprised and sleepy.</small></span></label>
         <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules on the Progress tab.</small></span></label>
       </div>
       <div class="grid2">
