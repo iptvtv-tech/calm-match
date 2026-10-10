@@ -645,8 +645,9 @@
     $("gateCancel").onclick = function () { g.hidden = true; };
     g.querySelector(".sums button").focus();
   }
-  function openPanel() { $("gate").hidden = true; $("panel").hidden = false; $("grownBtn").hidden = true; renderPanel(); $("closePanel").focus(); }
+  function openPanel() { $("gate").hidden = true; $("panel").hidden = false; document.body.classList.add("grownups"); $("grownBtn").hidden = true; renderPanel(); $("closePanel").focus(); }
   function closePanel() {
+    document.body.classList.remove("grownups");
     $("panel").hidden = true; $("grownBtn").hidden = false; applySenses();
     if (CM.tools.active()) return;
     if (!session) startScreen(); else { renderSched(); renderWho(); }

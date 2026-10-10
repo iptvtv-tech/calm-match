@@ -49,8 +49,8 @@
   CM.talk = {
     CORE: CORE, QUICK: QUICK,
     init: function (helpers) { h = helpers; },
-    open: function () { var box = $("talk"); box.hidden = false; $("stage").hidden = true; strip = []; render(); var f = box.querySelector(".tab[aria-selected=true]"); if (f) f.focus(); },
-    close: function () { $("talk").hidden = true; $("stage").hidden = false; var b = $("talkBtn"); if (b) b.focus(); },
+    open: function () { var box = $("talk"); box.hidden = false; document.body.classList.add("talking"); $("stage").hidden = true; strip = []; render(); var f = box.querySelector(".tab[aria-selected=true]"); if (f) f.focus(); },
+    close: function () { $("talk").hidden = true; document.body.classList.remove("talking"); $("stage").hidden = false; var b = $("talkBtn"); if (b) b.focus(); },
     isOpen: function () { var b = $("talk"); return b && !b.hidden; },
 
     /* ---------- grown-ups: Talk tab ---------- */

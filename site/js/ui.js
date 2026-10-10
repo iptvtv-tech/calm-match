@@ -55,10 +55,18 @@
     if (!area) { area = document.createElement("div"); area.id = "printArea"; document.body.appendChild(area); }
     area.innerHTML = (title ? '<h1 class="pr-title">' + esc(title) + "</h1>" : "") + html + '<p class="pr-foot">Calm Match · calmmatch.com' + (/sym\b|symbols\//.test(html) ? " · Symbols: Mulberry Symbols by Steve Lee, CC BY-SA 4.0" : "") + "</p>";
     document.body.classList.add("printing");
-    var done = function () { document.body.classList.remove("printing"); window.removeEventListener("afterprint", done); };
+    // Phones open the print dialog without pausing the page, so the print-only view must stay switched on
+    // until the grown-up is back on the page. (It changes nothing on screen: it only applies when printing.)
+    var started = Date.now();
+    var done = function () {
+      if (Date.now() - started < 2000) return;
+      document.body.classList.remove("printing");
+      window.removeEventListener("afterprint", done); document.removeEventListener("pointerdown", done, true); document.removeEventListener("keydown", done, true);
+    };
     window.addEventListener("afterprint", done);
-    // Give pictures a moment to load before the dialog opens.
-    setTimeout(function () { try { window.print(); } catch (e) {} setTimeout(done, 1000); }, 300);
+    document.addEventListener("pointerdown", done, true); document.addEventListener("keydown", done, true);
+    // Called straight from the tap: some phone browsers refuse to print if it's delayed.
+    try { window.print(); } catch (e) {}
   };
 
   // A row of chips for small numbered choices in the grown-ups area.

@@ -198,7 +198,8 @@ textarea{width:100%;min-height:120px;font:13px/1.4 var(--mono);background:var(--
 @media (max-width:520px){.trow{grid-template-columns:1fr}}
 .tname{font:600 14px/1.2 var(--display);display:flex;gap:8px;align-items:center;color:var(--muted)}
 .tname span{font-size:18px;letter-spacing:-2px}
-.tnodes{display:flex;align-items:flex-start;gap:0;min-width:0}
+.tnodes{display:flex;flex-wrap:wrap;row-gap:6px;align-items:flex-start;gap:0;min-width:0}
+@media (max-width:520px){.node2{width:78px}.node2 .nlabel{font-size:11.5px}}
 .tline{flex:1 1 12px;height:3px;background:var(--line);margin-top:27px;min-width:8px;border-radius:2px}
 .node2{background:transparent;border:0;padding:4px 2px;display:flex;flex-direction:column;align-items:center;gap:4px;width:92px;flex:none;position:relative;border-radius:12px}
 .node2.sel{background:var(--accent-soft)}
@@ -484,3 +485,24 @@ body[data-calm="on"] .anim span{animation:none}
 .howstrip .anim .a2{display:none}
 .shelf-pic .anim .a2,.pg-pic .anim .a2,.st-pic .anim .a2,.pk-pic .anim .a2{display:none}
 .picker input[type=search]{font:inherit;font-size:16px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+
+/* ---------- phones: keep the game in view ---------- */
+body.grownups #tokens,body.talking #tokens,body.talking #sched,body.talking #progress{display:none!important}
+@media (max-width:560px){
+  .hright{flex-wrap:nowrap;gap:6px}
+  .who{font-size:0;gap:0}
+  .who b{font-size:24px}
+  .talkbtn,.breakbtn{padding:8px 12px;font-size:15px}
+  .grown{padding:8px 10px;font-size:12.5px;white-space:nowrap}
+  .tokens{flex-wrap:nowrap;gap:6px;padding:6px 10px}
+  .tok-label,.tok-arrow{display:none}
+  .tok-row{flex-wrap:wrap;justify-content:center;gap:4px}
+  .tok{width:24px;height:24px;font-size:15px;border-width:2px}
+  .tok-reward{font-size:22px;gap:4px;flex:none}
+  .tok-reward img{width:24px;height:24px}
+  .tok-reward b{font-size:13px}
+  .tslot{width:calc(var(--tile) * .72);height:calc(var(--tile) * .72);font-size:calc(var(--emoji) * .62)}
+  .tslot .tl{font-size:10px}
+  .tslots{gap:6px}
+}
+.mini{font-size:calc(var(--emoji) * .56)}
