@@ -19,6 +19,7 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   js/i18n.js           child-facing words in English and Irish; First/Then activities
   js/photos.js         photo mode (parents' own photos, kept on the device; optional photo pack)
   js/tools.js          visual timer and First/Then board
+  js/touch.js          touch handling for the games: Tap / Hold to choose / Slide and lift, cool-down, no long-press zoom or menus
   js/store.js          on-device storage of children's profiles
   js/cloud.js          optional Supabase sign-in and sync
   js/app.js            the games and Grown-ups area
@@ -103,6 +104,17 @@ Content (themes, feelings, games, skills, difficulty ladders) is in `js/engine.j
 ## Irish (Gaeilge)
 
 All child-facing game text, picture names, feelings and the First/Then board are translated. The grown-ups area and the site pages stay in English. **Have a fluent Irish speaker check `js/i18n.js` and the Irish names in `js/engine.js` before launch.** Browsers rarely include an Irish voice, so read-aloud stays silent in Irish unless the device has one.
+
+## Touch style
+
+Some children hold a finger on the screen, press with a whole hand, or slide across the pictures, and phones turn those into zoom, text selection or a "save image" menu instead of a tap. `js/touch.js` switches those gestures off on the game area and lets parents choose, per child, in Grown-ups → Settings → Touch style:
+
+- **Tap** (default): the answer is chosen the moment a finger lands. Holding still counts as one tap.
+- **Hold to choose:** a ring fills around the picture; 0.5, 0.8, 1.2 or 1.6 seconds.
+- **Slide and lift:** the picture under the finger when it lifts is chosen, even after sliding.
+- **Ignore extra taps** for 0 to 1.2 seconds after an answer, so a bouncing finger doesn't answer twice.
+
+There's a practice button under the settings. Keyboard, switch and screen-reader use is unchanged. The grown-ups area can still be zoomed.
 
 ## Printable summary
 

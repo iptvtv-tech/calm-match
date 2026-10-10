@@ -262,3 +262,22 @@ details.rules p{margin-top:8px}
 .se-btn{min-width:36px;min-height:36px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:16px;color:var(--ink)}
 .se-btn:disabled{opacity:.35}
 .chips .chip:disabled{opacity:.4}
+
+/* ---------- touch (js/touch.js) ---------- */
+/* No long-press menus, text selection, image dragging or double-tap zoom on anything the child touches. */
+#stage, #breakBtn, .touch-try{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+#stage img, .touch-try img{-webkit-user-drag:none;user-drag:none;pointer-events:none}
+#stage, #breakBtn, .touch-try{touch-action:pan-y}         /* scroll still works; pinch and double-tap zoom don't */
+#stage button, #breakBtn, .touch-try{touch-action:manipulation}
+body[data-touch="release"] #stage, body[data-touch="release"] #stage button{touch-action:none} /* sliding a finger chooses instead of scrolling */
+/* Hold to choose: a ring fills around the picture under the finger. Shown even with "No motion": it is information, not decoration. */
+.cm-holding{position:relative}
+.cm-holding::after{content:"";position:absolute;inset:-7px;border-radius:inherit;pointer-events:none;
+  background:conic-gradient(var(--accent) var(--hold,0%), transparent 0);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);padding:6px}
+/* Slide and lift: the picture that will be chosen gets a firm outline. */
+.cm-armed{border-color:var(--accent)!important;box-shadow:0 0 0 4px var(--surface),0 0 0 7px var(--accent)}
+.touch-test{display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap}
+.touch-test .opt{--tile:96px;font-size:48px}
+.touch-test .note{flex:1;min-width:160px;margin:0}

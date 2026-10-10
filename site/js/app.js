@@ -16,6 +16,7 @@
     b.calm = s.calm ? "on" : "off"; b.contrast = s.contrast ? "high" : "normal"; b.big = s.big ? "on" : "off"; b.keys = s.keys ? "on" : "off";
     document.documentElement.lang = s.lang === "ga" ? "ga" : "en";
     $("breakBtn").textContent = t("breakLabel");
+    if (CM.touch) CM.touch.apply();
   }
   var actx = null;
   function tones(freqs, gap, vol) {
@@ -608,6 +609,17 @@
     chipGroup($("turnChips"), [[3, "3"], [4, "4"], [6, "6"]], s.turns, function (v) { s.turns = +v; });
     chipGroup($("modeChips"), [["engine", "Engine picks"], ["fixed", "Same order every time"]], s.mode, function (v) { s.mode = v; });
     chipGroup($("stickerChips"), [["theme", CM.theme().items[0][0] + " Theme pictures"], ["stars", "⭐ Stars"], ["hearts", "💚 Hearts"], ["shapes", "🔷 Shapes"], ["none", "No stickers"]], s.stickerSet, function (v) { s.stickerSet = v; });
+    chipGroup($("touchChips"), [["instant", "Tap"], ["hold", "Hold to choose"], ["release", "Slide and lift"]], s.touchMode, function (v) {
+      s.touchMode = v; CM.touch.apply();
+      log("Touch style", v === "hold" ? "hold to choose (" + (s.holdMs / 1000) + " s)" : v === "release" ? "slide and lift" : "tap: chosen the moment a finger lands");
+    });
+    $("touchNote").textContent = CM.touch.describe(s.touchMode);
+    $("holdRow").hidden = s.touchMode !== "hold";
+    chipGroup($("holdChips"), CM.HOLD_CHOICES.map(function (ms) { return [ms, (ms / 1000) + " s"]; }), s.holdMs, function (v) { s.holdMs = +v; });
+    chipGroup($("cooldownChips"), CM.COOLDOWN_CHOICES.map(function (ms) { return [ms, ms ? (ms / 1000) + " s" : "Off"]; }), s.cooldownMs, function (v) { s.cooldownMs = +v; });
+    var tryBtn = $("touchTry"), tryN = 0;
+    $("touchTryMsg").textContent = "";
+    tryBtn.onclick = function () { tryN++; chime(); $("touchTryMsg").textContent = tryN === 1 ? "Chosen! That's how it will feel in the games." : "Chosen " + tryN + " times."; };
     chipGroup($("celebrateChips"), [["cheerful", "Cheerful"], ["gentle", "Gentle"], ["calm", "Very calm"]], s.celebrate, function (v) { s.celebrate = v; chime(); });
     var app = CM.store.db().app;
     chipGroup($("gateChips"), [["hold", "Press and hold"], ["sum", "Answer a sum"]], app.gate, function (v) { app.gate = v; CM.store.persist(); gateLabel(); });

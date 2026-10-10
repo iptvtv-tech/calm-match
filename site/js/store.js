@@ -15,6 +15,9 @@
     photos: false,           // show photos instead of emoji, where photos exist for the theme
     board: { first: 1, then: 0, minutes: 0 },
     moreFeelings: false,     // add calm, silly, worried and loving to the Feelings game
+    touchMode: "instant",    // instant | hold | release: how a touch chooses an answer (js/touch.js)
+    holdMs: 800,             // hold mode: how long a finger rests before the answer is chosen
+    cooldownMs: 500,         // ignore further taps for this long after an answer (stops double taps)
     schedule: []             // visual schedule: up to 8 activity numbers (CM.ACTIVITIES), in order
   };
   // Keep settings within what the app can show (also used for settings that come back from an account).
@@ -26,6 +29,10 @@
     st.board.minutes = Math.min(60, Math.max(0, Math.floor(+st.board.minutes) || 0));
     st.schedule = (Array.isArray(st.schedule) ? st.schedule : []).map(ok).filter(function (v) { return v != null; }).slice(0, 8);
     st.moreFeelings = !!st.moreFeelings;
+    if (["instant", "hold", "release"].indexOf(st.touchMode) < 0) st.touchMode = "instant";
+    st.holdMs = Math.min(3000, Math.max(300, Math.round(+st.holdMs) || 800));
+    st.cooldownMs = Math.min(2000, Math.max(0, Math.round(+st.cooldownMs)));
+    if (!isFinite(st.cooldownMs)) st.cooldownMs = 500;
     if (!CM.THEMES || !CM.THEMES[st.theme]) st.theme = "vehicles";
     return st;
   };
