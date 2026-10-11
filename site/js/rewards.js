@@ -78,7 +78,7 @@
       '<div class="row">' + (opts.onReady ? '<button class="big-btn" id="brReady" type="button">' + esc(t("ready")) + "</button>" : "") +
       '<button class="small-btn" id="brOther" type="button">' + esc(t("back")) + "</button>" + (opts.onClose ? '<button class="small-btn" id="brClose" type="button">' + esc(t("close")) + "</button>" : "") + "</div></div>";
     var body = "";
-    if (kind === "breathe") body = '<div class="balloon-wrap"><div class="balloon' + (calm() ? " still" : "") + '" id="balloon" aria-hidden="true"></div></div><h1 class="say" id="brSay">' + esc(t("balloonIn")) + "</h1>";
+    if (kind === "breathe") body = '<div class="balloon-wrap"><div class="balloon out' + (calm() ? " still" : "") + '" id="balloon" aria-hidden="true"><svg class="balloon-svg" viewBox="0 0 120 190" aria-hidden="true"><path d="M60 128 C58 145 66 152 58 166 C52 176 62 182 60 188" fill="none" stroke="#7a7a7a" stroke-width="2" stroke-linecap="round"/><g class="balloon-body"><path d="M60 6 C28 6 8 32 8 62 C8 96 36 120 56 124 L52 132 L68 132 L64 124 C84 120 112 96 112 62 C112 32 92 6 60 6 Z" fill="#e8737f" stroke="#b8505c" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="40" cy="40" rx="10" ry="17" fill="#fff" opacity=".45" transform="rotate(-25 40 40)"/></g></svg></div></div><h1 class="say" id="brSay">' + esc(t("balloonIn")) + "</h1>";
     if (kind === "bubbles") body = '<h1 class="say">' + esc(t("popBubbles")) + '</h1><div class="bubbles" id="bubbles" role="group" aria-label="' + esc(t("popBubbles")) + '"></div>';
     if (kind === "music") body = '<h1 class="say">' + esc(t("brMusic")) + '</h1><div class="notes' + (calm() ? " still" : "") + '" aria-hidden="true"><span>🎵</span><span>🎶</span><span>🎵</span></div>' + (S().sound ? "" : '<p class="sub">🔇</p>');
     if (kind === "quiet") body = '<div class="quiet-moon" aria-hidden="true">🌙</div><h1 class="say">' + esc(t("quietTime")) + "</h1>";
@@ -90,8 +90,16 @@
     if ($("brClose")) $("brClose").onclick = function () { leave(opts.onClose); };
 
     if (kind === "breathe") {
-      var inhale = true; h.say(t("balloonIn"));
-      every(function () { inhale = !inhale; var b = $("balloon"), s = $("brSay"); if (!b) return; b.classList.toggle("out", !inhale); s.textContent = inhale ? t("balloonIn") : t("balloonOut"); }, 4000);
+      // 5 seconds in, 5 seconds out. The full sentence is said the first time, then just "Breathe in" / "Breathe out".
+      var inhale = false, rounds = 0;
+      var phase = function () {
+        inhale = !inhale; rounds++;
+        var b = $("balloon"), s = $("brSay"); if (!b) return;
+        b.classList.toggle("out", !inhale);
+        s.textContent = inhale ? t("balloonIn") : t("balloonOut");
+        h.say(rounds <= 2 ? s.textContent : inhale ? t("inShort") : t("outShort"));
+      };
+      later(phase, 60); every(phase, 5000);
     }
     if (kind === "bubbles") {
       var area = $("bubbles"), n = 0;
