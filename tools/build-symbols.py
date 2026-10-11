@@ -63,7 +63,7 @@ LIST = {
   ],
   "places": [
     ("home", "home", "baile", "house.svg"), ("school", "school", "scoil", "school.svg"), ("classroom", "classroom", "seomra ranga", "class_room.svg"),
-    ("schoolbag", "school bag", "mála scoile", "school_bag.svg"), ("outside", "outside", "amuigh", "outside.svg"), ("park", "park", "páirc", "park_,_to.svg"),
+    ("schoolbag", "school bag", "mála scoile", "school_bag.svg"), ("outside", "outside", "amuigh", "outside.svg"), ("park", "park", "páirc", "park_,_to.svg"), ("garden", "garden", "gairdín", "back_garden.svg"),
     ("shop", "shop", "siopa", "shop.svg"), ("beach", "beach", "trá", "beach.svg"), ("car", "car", "carr", "car.svg"), ("bus", "bus", "bus", "bus.svg"),
     ("plane", "plane", "eitleán", "plane.svg"), ("fireengine", "fire engine", "inneall dóiteáin", "fire_engine.svg"),
   ],
@@ -109,7 +109,6 @@ LIST = {
   "comfort": [
     ("blanket", "blanket", "pluid", "blanket.svg"), ("headphones", "headphones", "cluasáin", "headphones.svg"), ("squeeze", "squeeze", "fáisc", "squeeze_,_to.svg"),
     ("tickle", "tickle", "cigilt", "tickle_,_to.svg"), ("rock", "rock", "luasc", "rock_chair_,_to.svg"), ("lightsoff", "lights off", "múch an solas", "turn_down_light_,_to.svg"),
-    ("garden", "garden", "gairdín", "back_garden.svg"),
   ],
 }
 
