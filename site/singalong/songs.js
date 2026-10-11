@@ -23,27 +23,27 @@
 window.CALM_SONGS = [
   {
     id: 'twinkle-twinkle',
-    title: { en: 'Twinkle Twinkle Little Star', ga: 'Bá Bá Caora Bhán' },
+    title: { en: 'Twinkle Twinkle Little Star', ga: 'Réaltín, Réaltín' },
     energy: 'calm',
     type: 'lullaby',
-    image: { en: 'twinkle.svg', ga: 'baa-baa.svg' },
+    image: 'twinkle.svg',
     alt: {
       en: 'A smiling yellow star shining in the night sky above quiet hills',
-      ga: 'Caora bhán ina codladh ar chnoc faoi na réaltaí'
+      ga: 'Réaltín buí ag soilsiú sa spéir os cionn na gcnoc'
     },
     bpm: 96,
     notes: [
-      // Twin-kle twin-kle lit-tle star / Bá bá bá, a chao-ra bhán
+      // Twin-kle twin-kle lit-tle star / Réal-tín réal-tín thuas sa spéir
       ['C4', 1], ['C4', 1], ['G4', 1], ['G4', 1], ['A4', 1], ['A4', 1], ['G4', 2],
-      // How I won-der what you are / An bhfuil o-lann a-gat? Tá!
+      // How I won-der what you are / Lon-raíonn tú go ciúin, go séimh
       ['F4', 1], ['F4', 1], ['E4', 1], ['E4', 1], ['D4', 1], ['D4', 1], ['C4', 2],
-      // Up a-bove the world so high / Tá mo mhá-la ol-la lán
+      // Up a-bove the world so high / Ard os cionn an domh-ain mhóir
       ['G4', 1], ['G4', 1], ['F4', 1], ['F4', 1], ['E4', 1], ['E4', 1], ['D4', 2],
-      // Like a dia-mond in the sky / Ceann don bhua-chaill beag sa ghleann
+      // Like a dia-mond in the sky / Mar sheoid bheag ar dhath an óir
       ['G4', 1], ['G4', 1], ['F4', 1], ['F4', 1], ['E4', 1], ['E4', 1], ['D4', 2],
-      // Twin-kle twin-kle lit-tle star / Bá bá bá, a chao-ra bhán
+      // Twin-kle twin-kle lit-tle star / Réal-tín réal-tín thuas sa spéir
       ['C4', 1], ['C4', 1], ['G4', 1], ['G4', 1], ['A4', 1], ['A4', 1], ['G4', 2],
-      // How I won-der what you are / Cod-ladh sámh a-nois go lá
+      // How I won-der what you are / Lon-raíonn tú go ciúin, go séimh
       ['F4', 1], ['F4', 1], ['E4', 1], ['E4', 1], ['D4', 1], ['D4', 1], ['C4', 2]
     ],
     lyrics: {
@@ -56,20 +56,20 @@ window.CALM_SONGS = [
         'Twin|kle, twin|kle, lit|tle star,',
         'How I won|der what you are!'
       ],
-      // Written for Calm Match (Oct 2026) to fit this melody — original, no third-party rights.
-      //   Bá, bá, bá, little white sheep,
-      //   Do you have wool? I do!
-      //   My bag of wool is full,
-      //   One for the little boy in the glen.
-      //   Bá, bá, bá, little white sheep,
-      //   Sleep soundly now until morning.
+      // Irish words for Twinkle, written for Calm Match (Oct 2026) — original, no third-party rights.
+      //   Little star, little star, up in the sky,
+      //   You shine quietly, gently.
+      //   High above the great world,
+      //   Like a little jewel the colour of gold.
+      //   Little star, little star, up in the sky,
+      //   You shine quietly, gently.
       ga: [
-        'Bá, bá, bá, a chao|ra bhán,',
-        'An bhfuil o|lann a|gat? Tá!',
-        'Tá mo mhá|la ol|la lán,',
-        'Ceann don bhua|chaill beag sa ghleann.',
-        'Bá, bá, bá, a chao|ra bhán,',
-        'Cod|ladh sámh a|nois go lá.'
+        'Réal|tín, réal|tín, thuas sa spéir,',
+        'Lon|raíonn tú go ciúin, go séimh.',
+        'Ard os cionn an domh|ain mhóir,',
+        'Mar sheoid bheag ar dhath an óir.',
+        'Réal|tín, réal|tín, thuas sa spéir,',
+        'Lon|raíonn tú go ciúin, go séimh.'
       ]
     }
   }
