@@ -38,7 +38,8 @@ LIST = {
   "feelings": [
     ("happy", "happy", "sásta", "happy_lady.svg"), ("sad", "sad", "brónach", "sad_lady.svg"), ("angry", "angry", "crosta", "angry_lady.svg"),
     ("worried", "worried", "buartha", "worried_lady.svg"), ("surprised", "surprised", "ionadh", "surprised_lady.svg"),
-    ("excited", "excited", "ar bís", "excited_lady.svg"), ("hungry", "hungry", "ocras", "hungry.svg"), ("hot", "hot", "te", "hot.svg"),
+    ("excited", "excited", "ar bís", "excited_lady.svg"), ("scared", "scared", "scanraithe", "afraid_man.svg"), ("tired", "tired", "tuirseach", "yawn_,_to.svg"),
+    ("thirsty", "thirsty", "tart", "thirsty.svg"), ("feel", "feel", "mothaigh", "own"), ("cold", "cold", "fuar", "own"), ("hurt", "hurt", "gortaithe", "own"), ("hungry", "hungry", "ocras", "hungry.svg"), ("hot", "hot", "te", "hot.svg"),
     ("quiet", "quiet", "ciúin", "quiet.svg"), ("loud", "loud", "glórach", "loud.svg"),
   ],
   "daily": [
@@ -70,7 +71,45 @@ LIST = {
     ("mum", "Mum", "Mam", "mum_parent.svg"), ("dad", "Dad", "Daid", "dad_parent.svg"), ("brother", "brother", "deartháir", "brother.svg"),
     ("sister", "sister", "deirfiúr", "sister.svg"), ("baby", "baby", "leanbh", "baby.svg"), ("teacher", "teacher", "múinteoir", "teacher_1a.svg"),
     ("doctor", "doctor", "dochtúir", "doctor_1a.svg"), ("dentist", "dentist", "fiaclóir", "dentist_1a.svg"), ("nurse", "nurse", "altra", "nurse_1a.svg"),
+    ("granny", "Granny", "Mamó", "own"), ("grandad", "Grandad", "Daideo", "own"), ("friend", "friend", "cara", "own"),
     ("haircut", "haircut", "bearradh gruaige", "haircut.svg"), ("dog", "dog", "madra", "dog.svg"), ("cat", "cat", "cat", "cat.svg"),
+  ],
+  "social": [
+    ("hello", "hello", "dia duit", "hello.svg"), ("goodbye", "goodbye", "slán", "own"), ("please", "please", "le do thoil", "own"),
+    ("thankyou", "thank you", "go raibh maith agat", "own"), ("sorry", "sorry", "tá brón orm", "own"), ("myturn", "my turn", "mo sheal", "own"),
+    ("yourturn", "your turn", "do sheal", "own"), ("again", "again", "arís", "own"), ("come", "come", "tar", "come_,_to.svg"),
+  ],
+  "describe": [
+    ("big", "big", "mór", "own"), ("little", "little", "beag", "little.svg"), ("wet", "wet", "fliuch", "wet.svg"), ("dirty", "dirty", "salach", "dirty.svg"),
+    ("broken", "broken", "briste", "broken.svg"), ("down", "down", "síos", "down.svg"), ("out", "out", "amach", "out.svg"), ("off", "off", "as", "off.svg"),
+    ("under", "under", "faoi", "under_1.svg"),
+  ],
+  "body": [
+    ("head", "head", "ceann", "head.svg"), ("ear", "ear", "cluas", "ear.svg"), ("eyes", "eyes", "súile", "eyes.svg"), ("tummy", "tummy", "bolg", "stomach_1.svg"),
+    ("arm", "arm", "lámh", "arm.svg"), ("leg", "leg", "cos", "leg.svg"), ("feet", "feet", "cosa", "feet.svg"), ("plaster", "plaster", "plástar", "plaster.svg"),
+  ],
+  "food": [
+    ("apple", "apple", "úll", "apple.svg"), ("banana", "banana", "banana", "banana.svg"), ("grapes", "grapes", "fíonchaora", "grapes.svg"),
+    ("strawberry", "strawberry", "sú talún", "strawberry.svg"), ("yogurt", "yogurt", "iógart", "yogurt.svg"), ("cheese", "cheese", "cáis", "cheese.svg"),
+    ("toast", "toast", "tósta", "toast.svg"), ("cereal", "cereal", "gránach", "cereal.svg"), ("sandwich", "sandwich", "ceapaire", "sandwich.svg"),
+    ("pasta", "pasta", "pasta", "pasta.svg"), ("pizza", "pizza", "píotsa", "pizza.svg"), ("chips", "chips", "sceallóga", "chips.svg"),
+    ("crisps", "crisps", "criospaí", "crisps.svg"), ("biscuit", "biscuit", "briosca", "biscuits.svg"), ("icecream", "ice cream", "uachtar reoite", "ice_cream.svg"),
+    ("chocolate", "chocolate", "seacláid", "chocolate.svg"), ("milk", "milk", "bainne", "milk.svg"), ("orangejuice", "orange juice", "sú oráiste", "orange_juice.svg"),
+    ("applejuice", "apple juice", "sú úll", "apple_juice.svg"), ("squash", "squash", "scuais", "squash.svg"), ("hotchocolate", "hot chocolate", "seacláid the", "hot_chocolate.svg"),
+  ],
+  "play": [
+    ("ball", "ball", "liathróid", "ball.svg"), ("bubbles", "bubbles", "boilgeoga", "bubbles.svg"), ("blocks", "blocks", "bloic", "bricks.svg"),
+    ("teddy", "teddy", "teidí", "teddy_bear.svg"), ("toycar", "toy car", "carr bréagáin", "car_toy.svg"), ("doll", "doll", "bábóg", "doll.svg"),
+    ("puzzle", "puzzle", "míreanna mearaí", "jigsaw_puzzle.svg"), ("crayons", "crayons", "criáin", "crayon.svg"), ("playdough", "play dough", "márla", "playdough.svg"),
+    ("paint", "paint", "péint", "paint.svg"), ("book", "book", "leabhar", "read_book_,_to.svg"), ("tv", "TV", "teilifís", "childrens_tv.svg"),
+    ("game", "computer game", "cluiche ríomhaire", "computer_game.svg"), ("trampoline", "trampoline", "trampailín", "trampoline.svg"),
+    ("swing", "swing", "luascán", "swing.svg"), ("slide", "slide", "sleamhnán", "slide.svg"), ("sandpit", "sandpit", "bosca gainimh", "sand_pit.svg"),
+    ("bike", "bike", "rothar", "bicycle.svg"),
+  ],
+  "comfort": [
+    ("blanket", "blanket", "pluid", "blanket.svg"), ("headphones", "headphones", "cluasáin", "headphones.svg"), ("squeeze", "squeeze", "fáisc", "squeeze_,_to.svg"),
+    ("tickle", "tickle", "cigilt", "tickle_,_to.svg"), ("rock", "rock", "luasc", "rock_chair_,_to.svg"), ("lightsoff", "lights off", "múch an solas", "turn_down_light_,_to.svg"),
+    ("garden", "garden", "gairdín", "back_garden.svg"),
   ],
 }
 

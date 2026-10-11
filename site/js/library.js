@@ -20,6 +20,7 @@
     k.talk = k.talk || {};
     k.talk.choices = Array.isArray(k.talk.choices) ? k.talk.choices : ["a:10", "a:5", "a:13", "a:0"];
     k.talk.words = Array.isArray(k.talk.words) ? k.talk.words : [];
+    k.talk.hide = Array.isArray(k.talk.hide) ? k.talk.hide : [];
     k.reward = k.reward || "a:10";
     k.tokens = Math.max(0, Math.floor(+k.tokens) || 0);
     // Earlier versions kept one schedule in the child's settings (activity numbers only): move it here once.
