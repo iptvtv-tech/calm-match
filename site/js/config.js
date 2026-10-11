@@ -24,7 +24,7 @@ window.CM_CONFIG = {
   supabaseCdn: "",
 
   // Donations. Leave blank to hide the button.
-  donateUrl: "https://buy.stripe.com/4gMdR86ec8o42Q05j8bwk00",            // e.g. "https://ko-fi.com/yourname" or a Stripe payment link
+  donateUrl: "https://buy.stripe.com/5kQcN47igfQwgGQ12Sbwk01",            // e.g. "https://ko-fi.com/yourname" or a Stripe payment link
   donateLabel: "Support the site",
 
   // Optional built-in photo packs (see photos/README.txt), e.g. ["vehicles"]. Parents can add their own photos either way.
