@@ -50,13 +50,35 @@
   function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } }
   if ("speechSynthesis" in window) { loadVoices(); try { speechSynthesis.onvoiceschanged = loadVoices; } catch (e) {} }
   // Only on-device voices: some browsers offer online voices that send the spoken text to a cloud service.
-  function localVoice(re) { return voices.find(function (v) { return v.localService !== false && re.test(v.lang); }) || null; }
+  // Prefers the clearest voices a device offers (often called Enhanced, Premium, Natural or Neural).
+  function localVoice(re) {
+    var list = voices.filter(function (v) { return v.localService !== false && re.test(v.lang); });
+    return list.find(function (v) { return /enhanced|premium|natural|neural/i.test(v.name); }) || list[0] || null;
+  }
   CM.irishVoice = function () { return localVoice(/^ga/i); };
+  // Clear speech (on by default): the words are said in short phrases with a small pause between them,
+  // and the picture name at the end of an instruction ("Find the … dog") is said on its own.
+  function phrases(text) {
+    var parts = String(text).replace(/([.!?:;,])\s+/g, "$1\n").split("\n").filter(function (p) { return p.trim(); });
+    if (parts.length === 1 && S().clearSpeech !== false) {
+      var m = parts[0].match(/^(.+?\b(?:the|an|a)|Aimsigh:?) (.+)$/i);
+      if (m && m[2].split(" ").length <= 3) parts = [m[1], m[2]];
+    }
+    return parts;
+  }
   function say(text) {
     if (!S().speech || !("speechSynthesis" in window)) return;
     var ga = CM.lang() === "ga", v = ga ? CM.irishVoice() : (localVoice(/^en-(IE|GB)/i) || localVoice(/^en/i));
     if (ga && !v) return; // no Irish voice on this device: an English voice would mispronounce Irish
-    try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(text); u.rate = S().rate; u.lang = ga ? "ga-IE" : "en-IE"; if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {}
+    try {
+      speechSynthesis.cancel();
+      var clear = S().clearSpeech !== false, list = clear ? phrases(text) : [text];
+      list.forEach(function (p, i) {
+        var u = new SpeechSynthesisUtterance(p);
+        u.rate = clear ? Math.max(0.5, S().rate * 0.92) : S().rate; u.pitch = 1; u.lang = ga ? "ga-IE" : "en-IE"; if (v) u.voice = v;
+        speechSynthesis.speak(u);
+      });
+    } catch (e) {}
   }
   function hush() { try { speechSynthesis.cancel(); } catch (e) {} }
   function praise(name) {
@@ -757,7 +779,7 @@
     var tryBtn = $("touchTry"), tryN = 0;
     $("touchTryMsg").textContent = "";
     tryBtn.onclick = function () { tryN++; chime(); $("touchTryMsg").textContent = tryN === 1 ? "Chosen! That's how it will feel in the games." : "Chosen " + tryN + " times."; };
-    chipGroup($("rateChips"), [[0.7, "Voice: slow"], [0.85, "Voice: gentle"], [1, "Voice: normal"]], s.rate, function (v) { s.rate = +v; say("This is how I will sound"); });
+    chipGroup($("rateChips"), [[0.6, "Voice: very slow"], [0.7, "Voice: slow"], [0.85, "Voice: gentle"], [1, "Voice: normal"]], s.rate, function (v) { s.rate = +v; say("This is how I will sound. Find the dog."); });
     chipGroup($("blockChips"), [[2, "2"], [3, "3"], [4, "4"]], s.blocks, function (v) { s.blocks = +v; });
     chipGroup($("turnChips"), [[3, "3"], [4, "4"], [6, "6"]], s.turns, function (v) { s.turns = +v; });
     chipGroup($("modeChips"), [["engine", "Engine picks"], ["fixed", "Same order every time"]], s.mode, function (v) { s.mode = v; });
@@ -765,11 +787,12 @@
     chipGroup($("celebrateChips"), [["cheerful", "Cheerful"], ["gentle", "Gentle"], ["calm", "Very calm"]], s.celebrate, function (v) { s.celebrate = v; chime(); });
     var app = CM.store.db().app;
     chipGroup($("gateChips"), [["hold", "Press and hold"], ["sum", "Answer a sum"]], app.gate, function (v) { app.gate = v; CM.store.persist(); gateLabel(); });
-    ["sound", "speech", "calm", "contrast", "big", "keys", "adaptive", "errorless", "photos", "moreFeelings"].forEach(function (k) {
+    ["sound", "speech", "clearSpeech", "calm", "contrast", "big", "keys", "adaptive", "errorless", "photos", "moreFeelings"].forEach(function (k) {
       var c = $("s-" + k); c.checked = !!s[k];
       c.onchange = function () {
         s[k] = c.checked; CM.store.save(); applySenses();
         if (k === "speech" && c.checked) say("Read aloud is on");
+        if (k === "clearSpeech" && S().speech) say("This is how I will sound. Find the dog.");
         if (k === "errorless") log("Errorless start", c.checked ? "on: new skills begin with the answer highlighted" : "off");
         if (k === "photos") renderPhotos();
         if (k === "moreFeelings") log("More feelings", c.checked ? "on: calm, silly, worried and loving join the Feelings game" : "off: the six main feelings");

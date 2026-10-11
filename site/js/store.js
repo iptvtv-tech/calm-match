@@ -5,7 +5,7 @@
   var KEY = "calm-match-data";
 
   CM.DEFAULTS = {
-    theme: "vehicles", sound: true, speech: false, rate: 0.85, calm: false, contrast: false, big: false, keys: false,
+    theme: "vehicles", sound: true, speech: false, rate: 0.75, clearSpeech: true, calm: false, contrast: false, big: false, keys: false,
     adaptive: true, blocks: 3, turns: 4, mode: "engine",
     games: { match: true, sort: true, seq: true, count: true, pairs: true, feel: true, find: true, shadow: true, odd: true, num: true, shapes: true,
       together: true, missing: true, puzzle: true, letters: true, order: true },
@@ -43,6 +43,8 @@
     st.breakMin = [0, 1, 2, 3, 5].indexOf(+st.breakMin) >= 0 ? +st.breakMin : 0;
     st.breakEvery = [0, 1, 2, 3].indexOf(+st.breakEvery) >= 0 ? +st.breakEvery : 0;
     st.talk = !!st.talk;
+    st.rate = Math.min(1, Math.max(0.5, +st.rate || 0.75));
+    st.clearSpeech = st.clearSpeech !== false;
     if (["off", "end", "warn", "minute"].indexOf(st.timerSound) < 0) st.timerSound = "end";
     if (["instant", "hold", "release"].indexOf(st.touchMode) < 0) st.touchMode = "instant";
     st.holdMs = Math.min(3000, Math.max(300, Math.round(+st.holdMs) || 800));
