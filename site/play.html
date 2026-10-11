@@ -38,6 +38,7 @@
       <button class="tab" role="tab" type="button" data-tab="skills">Progress</button>
       <button class="tab" role="tab" type="button" data-tab="history">History</button>
       <button class="tab" role="tab" type="button" data-tab="tools">Schedules &amp; timer</button>
+      <button class="tab" role="tab" type="button" data-tab="sing">Sing along</button>
       <button class="tab" role="tab" type="button" data-tab="talk">Talk</button>
       <button class="tab" role="tab" type="button" data-tab="stories">Stories</button>
       <button class="tab" role="tab" type="button" data-tab="pictures">Pictures</button>
@@ -95,11 +96,6 @@
     <section data-pane="tools" hidden>
       <p class="note" id="toolsMsg"></p>
       <div>
-        <h3>Sing along</h3>
-        <p class="note">16 songs with a gentle tune and words that light up as it plays. They start in the language the games are set to. Use the back arrow in the browser to come back here.</p>
-        <div class="row start" style="margin-top:14px"><a class="small-btn primary" href="singalong/">Open Sing along</a></div>
-      </div>
-      <div>
         <h3>First / Then board</h3>
         <p class="note">Shows "First this, then that" full-size for your child. Pictures and words follow the game language. For more steps, use a schedule below.</p>
         <p style="margin:10px 0 4px"><b>First</b></p>
@@ -121,6 +117,17 @@
         <h3>Timer sounds</h3>
         <p class="note">For every timer: schedule steps, the First/Then board, the visual timer and breaks. Reminders are a soft tone, and the time left is read aloud if read-aloud is on. With "Off", timers are silent and only the circle shows the time.</p>
         <div class="chips" id="timerSoundChips"></div>
+      </div>
+    </section>
+
+    <!-- SING ALONG -->
+    <section data-pane="sing" hidden>
+      <div>
+        <h3>Sing along</h3>
+        <p class="note">16 songs, from Twinkle Twinkle to Old MacDonald. A gentle tune plays and the words light up as it goes, so your child can join in at their own pace. The speed slider slows a song down, and the repeat button plays it again and again.</p>
+        <p class="note" id="singLang"></p>
+        <div class="row start" style="margin-top:14px"><a class="small-btn primary" href="singalong/">Open Sing along</a></div>
+        <p class="note" style="margin-top:14px">Nothing is recorded and the microphone is never used. Use your browser's back button to come back here.</p>
       </div>
     </section>
 

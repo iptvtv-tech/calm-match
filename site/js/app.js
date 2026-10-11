@@ -680,7 +680,14 @@
     document.querySelectorAll("[data-pane]").forEach(function (p) { p.hidden = p.dataset.pane !== tab; });
     CM.ui.closePicker();
     ({ child: renderChild, settings: renderSettings, skills: renderProgress, history: renderHistory, engine: renderLog, account: renderAccount, tools: renderTools,
-       talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures }[tab] || renderProgress)();
+       talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures, sing: renderSing }[tab] || renderProgress)();
+  }
+
+  /* ---------- sing along tab ---------- */
+  function renderSing() {
+    $("singLang").textContent = CM.lang() === "ga"
+      ? "Songs start in Irish, because the games are set to Irish for this child. You can switch to English on the song page."
+      : "Songs start in English, because the games are set to English for this child. You can switch to Irish on the song page.";
   }
 
   /* ---------- children tab ---------- */
