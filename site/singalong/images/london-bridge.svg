@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A stone bridge with arches over a blue river</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe1ee"/>
+      <stop offset="1" stop-color="#eaf5f3"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <circle cx="340" cy="54" r="24" fill="#ffd66b"/>
+  <g fill="#ffffff" opacity=".9"><ellipse cx="90" cy="54" rx="34" ry="12"/><ellipse cx="110" cy="46" rx="20" ry="12"/></g>
+  <!-- far banks -->
+  <path d="M0 160 Q 60 140 120 156 V200 H0 Z" fill="#9ccc8a"/>
+  <path d="M280 156 Q 340 140 400 160 V200 H280 Z" fill="#9ccc8a"/>
+  <!-- river -->
+  <rect y="170" width="400" height="130" fill="#6fa6c8"/>
+  <g stroke="#cfe5f0" stroke-width="3" stroke-linecap="round" opacity=".7" fill="none">
+    <path d="M30 250 q12 -6 24 0"/><path d="M340 262 q12 -6 24 0"/><path d="M180 280 q12 -6 24 0"/>
+  </g>
+  <!-- bridge -->
+  <path d="M0 150 H400 V178 H0 Z" fill="#c9b796"/>
+  <path d="M0 140 H400 V152 H0 Z" fill="#b19e7c"/>
+  <g fill="#c9b796">
+    <path d="M0 176 H400 V214 H366 Q 366 182 334 182 Q 302 182 302 214 H266 Q 266 176 200 176 Q 134 176 134 214 H98 Q 98 182 66 182 Q 34 182 34 214 H0 Z"/>
+  </g>
+  <!-- arch reflections -->
+  <g fill="#5d93b6" opacity=".55">
+    <path d="M34 214 Q 34 246 66 246 Q 98 246 98 214 Z"/><path d="M134 214 Q 134 252 200 252 Q 266 252 266 214 Z"/><path d="M302 214 Q 302 246 334 246 Q 366 246 366 214 Z"/>
+  </g>
+  <g stroke="#ad9a78" stroke-width="2.4" fill="none">
+    <path d="M0 164 H400"/><path d="M60 152 v24 M120 152 v24 M180 152 v24 M240 152 v24 M300 152 v24 M360 152 v24"/>
+  </g>
+  <!-- lamps -->
+  <g fill="#5c4a38"><rect x="78" y="104" width="6" height="36"/><rect x="316" y="104" width="6" height="36"/></g>
+  <g fill="#ffd66b"><circle cx="81" cy="100" r="8"/><circle cx="319" cy="100" r="8"/></g>
+</svg>

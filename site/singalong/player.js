@@ -6,68 +6,40 @@
 (function () {
   'use strict';
 
-  // Calm Match keeps each child's settings in one record (js/store.js). The games'
-  // language is profiles[active].settings.lang, set in the Grown-ups area.
-  var STORE_KEY = 'calm-match-data';
-  var LANGS = ['en', 'ga'];
-
-  var UI = {
-    en: { play: 'Play', pause: 'Pause', restart: 'Start again', loop: 'Repeat',
-          speed: 'Speed', slower: 'Slower', faster: 'Faster', back: 'Back to the games',
-          missing: 'Song not found.' },
-    ga: { play: 'Seinn', pause: 'Sos', restart: 'Tosaigh arís', loop: 'Arís is arís',
-          speed: 'Luas', slower: 'Níos moille', faster: 'Níos tapúla', back: 'Ar ais chuig na cluichí',
-          missing: 'Níor aimsíodh an t-amhrán.' }
-  };
-
+  var SA = window.SA, UI = SA.UI;
   function $(id) { return document.getElementById(id); }
+
+  SA.applySettings();
 
   var params = new URLSearchParams(location.search);
   var songs = window.CALM_SONGS || [];
   var wanted = params.get('song');
   var song = songs.filter(function (s) { return s.id === wanted; })[0] || (wanted ? null : songs[0]);
+  var lang = SA.readLang();
 
-  var lang = readLang();
   if (!song) {
     $('main').innerHTML = '<p class="missing">' + UI[lang].missing + '</p>';
     $('title').textContent = '';
     return;
   }
 
-  // ---- lyrics: split "Twin|kle twin|kle" into words and syllables ----
-  var parsed = {};
-  LANGS.forEach(function (l) {
-    if (!song.lyrics[l]) return;
-    parsed[l] = parseLyrics(song.lyrics[l]);
-    if (parsed[l].syl.length !== song.notes.length) {
-      console.warn('[Sing Along] "' + song.id + '" (' + l + ') has ' + parsed[l].syl.length +
-        ' syllables but ' + song.notes.length + ' notes — the highlight will drift.');
-    }
+  var built = SA.build(song);
+  var parsed = built.parsed;
+  var linesPerVerse = {};   // lang -> how many lyric lines make one verse
+  SA.LANGS.forEach(function (l) {
+    if (parsed[l]) linesPerVerse[l] = parsed[l].lines.length / built.verses;
   });
   if (!parsed[lang]) lang = 'en';
 
-  function parseLyrics(lines) {
-    var syl = [];
-    var model = lines.map(function (line, li) {
-      return line.split(/\s+/).filter(Boolean).map(function (word, wi) {
-        var parts = word.split('|');
-        parts.forEach(function () { syl.push({ line: li, word: wi }); });
-        return { text: parts.join('') };
-      });
-    });
-    return { lines: model, syl: syl };
-  }
-
-  // ---- engine ----
   var engine = new SingAlongEngine({
     bpm: song.bpm,
     onNote: onNote,
     onEnd: onEnd,
     onStateChange: renderState
   });
-  engine.load(song.notes);
+  engine.load(built.notes);
 
-  var cur = -1;        // index of the note sounding now (-1 = idle)
+  var cur = -1;        // note sounding now (-1 = idle)
   var shownLine = -1;
 
   function onNote(i) {
@@ -105,6 +77,8 @@
     fillLine($('lineNow'), li);
     var next = li + 1 < total ? li + 1 : (engine.loop ? 0 : -1);
     if (next >= 0) fillLine($('lineNext'), next); else $('lineNext').textContent = '';
+    var per = linesPerVerse[lang];
+    $('verse').textContent = built.verses > 1 && per ? UI[lang].verse + ' ' + (Math.floor(li / per) + 1) + ' / ' + built.verses : '';
   }
 
   function mark(i) {
@@ -116,17 +90,17 @@
     }
   }
 
-  function pick(v) { return typeof v === 'string' ? v : (v[lang] || v.en); }
-
   function applyLanguage() {
     var t = UI[lang];
     document.documentElement.lang = lang;
-    $('title').textContent = pick(song.title);
-    document.title = pick(song.title) + ' · Calm Match';
-    var art = $('art'), src = 'images/' + pick(song.image);
+    $('title').textContent = SA.pick(song.title, lang);
+    document.title = SA.pick(song.title, lang) + ' · Calm Match';
+    var art = $('art'), src = 'images/' + SA.pick(song.image, lang);
     if (art.getAttribute('src') !== src) art.setAttribute('src', src);
-    art.alt = song.alt ? pick(song.alt) : '';
-    $('back').setAttribute('aria-label', t.back);
+    art.alt = SA.pick(song.alt, lang);
+    var back = $('back');
+    back.setAttribute('aria-label', t.back);
+    back.setAttribute('href', './?lang=' + lang);
     $('restart').setAttribute('aria-label', t.restart);
     $('loop').setAttribute('aria-label', t.loop);
     $('speedLabel').textContent = t.speed;
@@ -149,26 +123,10 @@
     if (!parsed[l] || l === lang) return;
     lang = l;
     applyLanguage();
-    // Same melody, same syllable count: keep playing and re-show the current spot.
+    // Same melody, same syllable count: keep playing and show the same spot.
     var s = cur >= 0 ? parsed[lang].syl[cur] : null;
     showLine(s ? s.line : 0);
     mark(cur);
-  }
-
-  function readLang() {
-    var p = params.get('lang');
-    if (LANGS.indexOf(p) > -1) return p;
-    return storedLang() || 'en';
-  }
-
-  // Read-only: the player never writes to the child's profile.
-  function storedLang(raw) {
-    try {
-      var db = JSON.parse(raw != null ? raw : localStorage.getItem(STORE_KEY) || 'null');
-      var prof = db && db.profiles && db.profiles[db.active];
-      var l = prof && prof.settings && prof.settings.lang;
-      return LANGS.indexOf(l) > -1 ? l : null;
-    } catch (e) { return null; }   // storage blocked or unreadable: fall back to English
   }
 
   // ---- controls ----
@@ -185,7 +143,7 @@
     var on = !engine.loop;
     engine.setLoop(on);
     this.setAttribute('aria-pressed', String(on));
-    if (shownLine >= 0) { showLine(shownLine); mark(cur); }   // refresh "next line" preview
+    if (shownLine >= 0) { showLine(shownLine); mark(cur); }   // refresh the "next line" preview
   });
 
   $('tempo').addEventListener('input', function () {
@@ -201,8 +159,8 @@
 
   // Follow the Grown-ups language setting if it changes in another tab.
   window.addEventListener('storage', function (e) {
-    if (e.key !== STORE_KEY) return;
-    var l = storedLang(e.newValue || 'null');
+    if (e.key !== SA.STORE_KEY) return;
+    var l = SA.storedLang(e.newValue || 'null');
     if (l) setLang(l);
   });
 
@@ -219,11 +177,8 @@
     }
   });
 
-  // Preload both languages' illustrations so switching makes no request mid-song.
-  LANGS.forEach(function (l) {
-    var img = typeof song.image === 'string' ? song.image : song.image[l];
-    if (img) new Image().src = 'images/' + img;
-  });
+  // Load both languages' illustrations now, so switching makes no request mid-song.
+  SA.LANGS.forEach(function (l) { new Image().src = 'images/' + SA.pick(song.image, l); });
 
   applyLanguage();
   showLine(0);

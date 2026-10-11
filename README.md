@@ -36,6 +36,10 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   js/cloud.js          optional Supabase sign-in and sync
   js/app.js            the games and Grown-ups area
   js/account.js        account page
+  singalong/           Sing along: song picker (index.html), player, songs.js (the song library),
+                       audio-engine.js (plays the tune on the device), images/ (one picture per song).
+                       Add a song: one object in songs.js + one SVG + the SVG's path in sw.js,
+                       then run `node tools/singalong.js check`
   sw.js                offline support (bump VERSION on each deploy)
   _headers             security headers for Cloudflare Pages
   manifest.webmanifest, icons/, robots.txt

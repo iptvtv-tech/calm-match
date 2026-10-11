@@ -1,5 +1,5 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-11-9";
+var VERSION = "cm-2026-10-11-10";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html", "privacy-kids.html", "summary.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css", "css/kids.css", "css/summary.css",
@@ -9,11 +9,21 @@ var CORE = [
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png"
 ];
 
+// Sing along (singalong/): pages, songs and pictures, so songs play offline. Add new song pictures here.
+var SINGALONG = [
+  "singalong/", "singalong/index.html", "singalong/player.html", "singalong/songs.js",
+  "singalong/shared.js", "singalong/audio-engine.js", "singalong/player.js", "singalong/picker.js",
+  "singalong/images/are-you-sleeping.svg", "singalong/images/baa-baa.svg", "singalong/images/happy-birthday.svg", "singalong/images/hickory-dickory.svg",
+  "singalong/images/hot-cross-buns.svg", "singalong/images/incy-wincy.svg", "singalong/images/jack-and-jill.svg", "singalong/images/jingle-bells.svg",
+  "singalong/images/london-bridge.svg", "singalong/images/mary-lamb.svg", "singalong/images/old-macdonald.svg", "singalong/images/rain-rain.svg",
+  "singalong/images/row-boat.svg", "singalong/images/this-old-man.svg", "singalong/images/twinkle.svg", "singalong/images/yankee-doodle.svg"
+];
+
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) {
     // Symbols for the talk board and schedules, listed by tools/build-symbols.py.
     var syms = fetch("symbols/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
-    return syms.then(function (ids) { return CORE.concat(ids.map(function (id) { return "symbols/" + id + ".svg"; })); });
+    return syms.then(function (ids) { return CORE.concat(SINGALONG, ids.map(function (id) { return "symbols/" + id + ".svg"; })); });
   }).then(function (all) {
     return caches.open(VERSION).then(function (c) {
     // Add one by one so a single missing file (or a redirect) doesn't break install.

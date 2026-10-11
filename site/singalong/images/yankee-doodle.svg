@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A small brown pony and a hat with a feather in it</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe1ee"/>
+      <stop offset="1" stop-color="#eaf5f3"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <circle cx="344" cy="52" r="24" fill="#ffd66b"/>
+  <!-- town in the distance -->
+  <g fill="#c9d8e2">
+    <rect x="24" y="130" width="34" height="50"/><path d="M20 132 l21 -20 l21 20z"/>
+    <rect x="66" y="118" width="26" height="62"/><path d="M62 120 l17 -18 l17 18z"/>
+    <rect x="98" y="138" width="30" height="42"/><path d="M94 140 l19 -16 l19 16z"/>
+  </g>
+  <path d="M0 176 Q 120 156 240 172 T 400 166 V300 H0 Z" fill="#a8d394"/>
+  <path d="M0 236 Q 150 218 280 232 T 400 228 V300 H0 Z" fill="#8cc27c"/>
+  <!-- pony -->
+  <ellipse cx="220" cy="262" rx="80" ry="8" fill="#6ea862" opacity=".5"/>
+  <g fill="#a86d43">
+    <rect x="166" y="210" width="14" height="50" rx="7"/><rect x="186" y="214" width="14" height="46" rx="7"/>
+    <rect x="240" y="214" width="14" height="46" rx="7"/><rect x="260" y="210" width="14" height="50" rx="7"/>
+    <ellipse cx="220" cy="204" rx="66" ry="34"/>
+    <path d="M264 194 q22 -30 18 -64 l26 -6 q12 40 -14 78z"/>
+    <ellipse cx="300" cy="130" rx="28" ry="20" transform="rotate(30 300 130)"/>
+  </g>
+  <g fill="#6b4428">
+    <rect x="166" y="254" width="14" height="8" rx="3"/><rect x="186" y="254" width="14" height="8" rx="3"/>
+    <rect x="240" y="254" width="14" height="8" rx="3"/><rect x="260" y="254" width="14" height="8" rx="3"/>
+    <path d="M154 196 q-24 10 -22 46 q14 -14 26 -30z"/>
+    <path d="M276 116 q-14 20 -12 48 q12 -6 14 -20 q2 -16 10 -30z"/>
+  </g>
+  <ellipse cx="316" cy="142" rx="12" ry="9" transform="rotate(30 316 142)" fill="#c08a5e"/>
+  <circle cx="320" cy="144" r="2" fill="#5c4029"/>
+  <circle cx="300" cy="124" r="3.4" fill="#2c2d35"/>
+  <path d="M290 108 l2 -14 l10 10z" fill="#a86d43"/>
+  <!-- hat with feather -->
+  <path d="M276 104 q24 -16 46 0 q-10 6 -23 6 q-13 0 -23 -6z" fill="#3b4d6e"/>
+  <path d="M284 102 q15 -26 30 0z" fill="#3b4d6e"/>
+  <path d="M308 90 q22 -30 50 -30 q-18 10 -24 22 q-10 10 -26 8z" fill="#d9534f"/>
+  <path d="M310 90 q20 -16 42 -26" fill="none" stroke="#b5413d" stroke-width="2"/>
+</svg>

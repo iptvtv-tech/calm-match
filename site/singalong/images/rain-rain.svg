@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A grey rain cloud over a yellow umbrella and puddles</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b8c8d8"/>
+      <stop offset="1" stop-color="#e3ebf1"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <path d="M0 236 Q 120 214 240 232 T 400 226 V300 H0 Z" fill="#8fb886"/>
+  <!-- puddles -->
+  <ellipse cx="90" cy="262" rx="44" ry="9" fill="#9fc3dc"/>
+  <ellipse cx="318" cy="272" rx="52" ry="10" fill="#9fc3dc"/>
+  <g fill="none" stroke="#d7e8f2" stroke-width="2.4"><ellipse cx="90" cy="262" rx="18" ry="4"/><ellipse cx="318" cy="272" rx="22" ry="4.5"/></g>
+  <!-- cloud -->
+  <g fill="#8e9cad">
+    <ellipse cx="200" cy="78" rx="96" ry="34"/>
+    <circle cx="160" cy="62" r="34"/><circle cx="214" cy="48" r="42"/><circle cx="256" cy="70" r="30"/>
+  </g>
+  <g fill="#a3b0bf"><circle cx="206" cy="44" r="22"/><circle cx="160" cy="58" r="16"/></g>
+  <path d="M184 86 q8 6 16 0 M214 86 q8 6 16 0" fill="none" stroke="#5f6c7c" stroke-width="3" stroke-linecap="round"/>
+  <!-- raindrops -->
+  <g fill="#5e93c4">
+    <path d="M130 130 q6 10 0 14 q-6 -4 0 -14z"/><path d="M170 150 q6 10 0 14 q-6 -4 0 -14z"/>
+    <path d="M232 140 q6 10 0 14 q-6 -4 0 -14z"/><path d="M276 126 q6 10 0 14 q-6 -4 0 -14z"/>
+    <path d="M110 176 q6 10 0 14 q-6 -4 0 -14z"/><path d="M300 170 q6 10 0 14 q-6 -4 0 -14z"/>
+    <path d="M60 140 q6 10 0 14 q-6 -4 0 -14z"/><path d="M344 136 q6 10 0 14 q-6 -4 0 -14z"/>
+  </g>
+  <!-- umbrella -->
+  <path d="M136 188 q64 -116 128 0 q-16 -10 -32 0 q-16 -10 -32 0 q-16 -10 -32 0 q-16 -10 -32 0 z" fill="#f6c844"/>
+  <path d="M200 132 q-22 30 -32 56 M200 132 q22 30 32 56" fill="none" stroke="#e0ad2c" stroke-width="3"/>
+  <circle cx="200" cy="130" r="5" fill="#d29a24"/>
+  <path d="M200 188 v54 q0 12 -12 12 q-10 0 -10 -10" fill="none" stroke="#7a5638" stroke-width="6" stroke-linecap="round"/>
+</svg>

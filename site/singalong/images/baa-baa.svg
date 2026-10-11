@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A black sheep in a green field beside three bags of wool</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe1ee"/>
+      <stop offset="1" stop-color="#e9f5f2"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <circle cx="62" cy="58" r="28" fill="#ffd66b"/>
+  <g fill="#ffffff" opacity=".9">
+    <ellipse cx="290" cy="56" rx="34" ry="13"/><ellipse cx="312" cy="48" rx="22" ry="14"/>
+  </g>
+  <path d="M0 200 Q 110 168 220 192 T 400 186 V300 H0 Z" fill="#9ccc8a"/>
+  <path d="M0 240 Q 140 214 270 236 T 400 232 V300 H0 Z" fill="#82b871"/>
+
+  <!-- three bags of wool -->
+  <g>
+    <path d="M262 236 q-6 -34 8 -48 h32 q14 14 8 48 z" fill="#d8bf98"/>
+    <path d="M306 238 q-6 -40 9 -56 h34 q15 16 9 56 z" fill="#cfb38a"/>
+    <path d="M346 240 q-5 -30 7 -42 h26 q12 12 7 42 z" fill="#d8bf98"/>
+    <g fill="#ffffff">
+      <circle cx="279" cy="186" r="9"/><circle cx="292" cy="184" r="9"/>
+      <circle cx="324" cy="180" r="10"/><circle cx="339" cy="179" r="10"/>
+      <circle cx="360" cy="196" r="8"/><circle cx="371" cy="195" r="8"/>
+    </g>
+    <g stroke="#a88a5f" stroke-width="3" stroke-linecap="round">
+      <path d="M268 194 h36"/><path d="M313 188 h40"/><path d="M352 203 h30"/>
+    </g>
+  </g>
+
+  <!-- black sheep -->
+  <ellipse cx="150" cy="246" rx="66" ry="8" fill="#5f9658" opacity=".6"/>
+  <g fill="#3b3d47">
+    <rect x="112" y="210" width="12" height="34" rx="6"/>
+    <rect x="134" y="214" width="12" height="32" rx="6"/>
+    <rect x="160" y="214" width="12" height="32" rx="6"/>
+    <rect x="182" y="210" width="12" height="34" rx="6"/>
+  </g>
+  <g fill="#4a4d59">
+    <circle cx="112" cy="196" r="24"/><circle cx="136" cy="180" r="27"/>
+    <circle cx="166" cy="180" r="27"/><circle cx="190" cy="196" r="24"/>
+    <circle cx="150" cy="208" r="28"/><circle cx="122" cy="214" r="20"/><circle cx="180" cy="214" r="20"/>
+  </g>
+  <ellipse cx="88" cy="190" rx="21" ry="24" fill="#2c2d35"/>
+  <ellipse cx="72" cy="176" rx="11" ry="5.5" transform="rotate(-30 72 176)" fill="#2c2d35"/>
+  <circle cx="90" cy="168" r="10" fill="#4a4d59"/>
+  <circle cx="81" cy="188" r="3.4" fill="#ffffff"/><circle cx="96" cy="188" r="3.4" fill="#ffffff"/>
+  <circle cx="81.6" cy="188.6" r="1.6" fill="#22232a"/><circle cx="96.6" cy="188.6" r="1.6" fill="#22232a"/>
+  <path d="M83 201 q5 5 10 0" fill="none" stroke="#e8e4ef" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="76" cy="198" r="3.4" fill="#f2a07a" opacity=".55"/><circle cx="101" cy="198" r="3.4" fill="#f2a07a" opacity=".55"/>
+</svg>

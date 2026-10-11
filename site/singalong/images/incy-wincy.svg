@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A small friendly spider on a drainpipe with raindrops and a smiling sun</title>
+  <rect width="400" height="300" fill="#efe3cf"/>
+  <!-- wall bricks -->
+  <g fill="none" stroke="#e0cfb4" stroke-width="3">
+    <path d="M0 40 H400 M0 80 H400 M0 120 H400 M0 160 H400 M0 200 H400 M0 240 H400"/>
+    <path d="M60 0 v40 M180 0 v40 M300 0 v40 M120 40 v40 M240 40 v40 M360 40 v40 M60 80 v40 M300 80 v40 M120 120 v40 M360 120 v40 M60 160 v40 M300 160 v40 M120 200 v40 M360 200 v40 M60 240 v60 M300 240 v60"/>
+  </g>
+  <rect y="266" width="400" height="34" fill="#a8d394"/>
+  <!-- drainpipe -->
+  <rect x="176" y="0" width="48" height="276" fill="#9aa7b4"/>
+  <rect x="186" y="0" width="10" height="276" fill="#b9c4ce"/>
+  <rect x="168" y="70" width="64" height="14" rx="4" fill="#87939f"/>
+  <rect x="168" y="190" width="64" height="14" rx="4" fill="#87939f"/>
+  <path d="M176 262 q0 14 -24 14 h-30 v-10 h28 q8 0 8 -6 z" fill="#9aa7b4"/>
+  <!-- rain on the left -->
+  <g fill="#6aa2d0">
+    <path d="M60 60 q6 10 0 14 q-6 -4 0 -14z"/><path d="M100 110 q6 10 0 14 q-6 -4 0 -14z"/>
+    <path d="M40 150 q6 10 0 14 q-6 -4 0 -14z"/><path d="M120 190 q6 10 0 14 q-6 -4 0 -14z"/><path d="M70 226 q6 10 0 14 q-6 -4 0 -14z"/>
+  </g>
+  <!-- sun on the right -->
+  <g>
+    <g stroke="#f2b33d" stroke-width="5" stroke-linecap="round">
+      <path d="M330 30 v-14 M330 112 v14 M290 71 h-14 M370 71 h14 M302 43 l-10 -10 M358 99 l10 10 M302 99 l-10 10 M358 43 l10 -10"/>
+    </g>
+    <circle cx="330" cy="71" r="30" fill="#ffd66b"/>
+    <path d="M318 66 q4 -4 8 0 M334 66 q4 -4 8 0" fill="none" stroke="#b5862a" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M320 78 q10 8 20 0" fill="none" stroke="#b5862a" stroke-width="2.6" stroke-linecap="round"/>
+  </g>
+  <!-- spider -->
+  <path d="M200 0 V128" stroke="#ffffff" stroke-width="2"/>
+  <g stroke="#3b3446" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M186 140 q-20 -12 -26 -28"/><path d="M184 150 q-24 -2 -32 -12"/><path d="M184 160 q-24 8 -30 20"/><path d="M188 168 q-16 14 -18 30"/>
+    <path d="M214 140 q20 -12 26 -28"/><path d="M216 150 q24 -2 32 -12"/><path d="M216 160 q24 8 30 20"/><path d="M212 168 q16 14 18 30"/>
+  </g>
+  <ellipse cx="200" cy="154" rx="22" ry="24" fill="#4a4258"/>
+  <circle cx="200" cy="128" r="16" fill="#4a4258"/>
+  <circle cx="194" cy="126" r="4.6" fill="#ffffff"/><circle cx="206" cy="126" r="4.6" fill="#ffffff"/>
+  <circle cx="195" cy="127" r="2.2" fill="#2a2433"/><circle cx="207" cy="127" r="2.2" fill="#2a2433"/>
+  <path d="M195 135 q5 4 10 0" fill="none" stroke="#f3d6e0" stroke-width="2.2" stroke-linecap="round"/>
+</svg>

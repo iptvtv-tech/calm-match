@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A happy dog with a bone next to a little drum</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d7ecd9"/>
+      <stop offset="1" stop-color="#f3f8ec"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <!-- little house: rolling home -->
+  <path d="M38 132 l40 -32 l40 32 v58 h-80 z" fill="#f2d7a6"/>
+  <path d="M30 136 l48 -40 l48 40" fill="none" stroke="#c46a4a" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="66" y="150" width="24" height="40" rx="4" fill="#9b6b43"/>
+  <path d="M0 190 H400 V300 H0 Z" fill="#a8d394"/>
+  <path d="M0 236 Q 150 220 280 234 T 400 230 V300 H0 Z" fill="#8cc27c"/>
+  <!-- drum -->
+  <g>
+    <rect x="262" y="176" width="96" height="64" fill="#d9534f"/>
+    <path d="M262 184 l16 48 l16 -48 l16 48 l16 -48 l16 48 l14 -48" fill="none" stroke="#fff3e0" stroke-width="4" stroke-linejoin="round"/>
+    <ellipse cx="310" cy="176" rx="48" ry="12" fill="#f6ecd8" stroke="#b5413d" stroke-width="4"/>
+    <ellipse cx="310" cy="240" rx="48" ry="12" fill="#b5413d"/>
+    <path d="M286 146 l18 26 M342 142 l-18 30" stroke="#9b6b43" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="284" cy="143" r="7" fill="#f2d7a6"/><circle cx="344" cy="139" r="7" fill="#f2d7a6"/>
+  </g>
+  <!-- dog -->
+  <ellipse cx="170" cy="254" rx="70" ry="8" fill="#6ea862" opacity=".5"/>
+  <g fill="#d39b5c">
+    <ellipse cx="174" cy="216" rx="46" ry="38"/>
+    <rect x="138" y="230" width="18" height="24" rx="9"/><rect x="190" y="230" width="18" height="24" rx="9"/>
+    <path d="M218 206 q26 -18 22 -40" fill="none" stroke="#d39b5c" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="150" cy="158" r="34"/>
+  </g>
+  <ellipse cx="174" cy="226" rx="24" ry="22" fill="#f1d3a8"/>
+  <ellipse cx="120" cy="150" rx="12" ry="26" transform="rotate(20 120 150)" fill="#9b6b43"/>
+  <ellipse cx="180" cy="150" rx="12" ry="26" transform="rotate(-20 180 150)" fill="#9b6b43"/>
+  <ellipse cx="150" cy="172" rx="18" ry="13" fill="#f1d3a8"/>
+  <ellipse cx="150" cy="166" rx="7" ry="5" fill="#3a3340"/>
+  <circle cx="138" cy="150" r="4" fill="#3a3340"/><circle cx="162" cy="150" r="4" fill="#3a3340"/>
+  <circle cx="139.4" cy="148.6" r="1.4" fill="#ffffff"/><circle cx="163.4" cy="148.6" r="1.4" fill="#ffffff"/>
+  <!-- bone in mouth -->
+  <g fill="#fbf3e2">
+    <rect x="122" y="178" width="56" height="10" rx="5"/>
+    <circle cx="121" cy="177" r="6"/><circle cx="121" cy="189" r="6"/><circle cx="179" cy="177" r="6"/><circle cx="179" cy="189" r="6"/>
+  </g>
+</svg>

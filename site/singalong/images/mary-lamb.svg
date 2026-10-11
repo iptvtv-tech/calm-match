@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A little white lamb with a red bow among daisies</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cde8f2"/>
+      <stop offset="1" stop-color="#f1f8ef"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <circle cx="338" cy="56" r="26" fill="#ffd66b"/>
+  <path d="M0 196 Q 120 170 240 190 T 400 182 V300 H0 Z" fill="#a8d394"/>
+  <path d="M0 236 Q 150 216 280 234 T 400 230 V300 H0 Z" fill="#8cc27c"/>
+
+  <!-- daisies -->
+  <g>
+    <g transform="translate(60 250)"><g fill="#ffffff"><circle cx="0" cy="-8" r="5"/><circle cx="8" cy="0" r="5"/><circle cx="0" cy="8" r="5"/><circle cx="-8" cy="0" r="5"/><circle cx="6" cy="-6" r="4.5"/><circle cx="6" cy="6" r="4.5"/><circle cx="-6" cy="6" r="4.5"/><circle cx="-6" cy="-6" r="4.5"/></g><circle r="4.5" fill="#f5c542"/></g>
+    <g transform="translate(330 258)"><g fill="#ffffff"><circle cx="0" cy="-8" r="5"/><circle cx="8" cy="0" r="5"/><circle cx="0" cy="8" r="5"/><circle cx="-8" cy="0" r="5"/><circle cx="6" cy="-6" r="4.5"/><circle cx="6" cy="6" r="4.5"/><circle cx="-6" cy="6" r="4.5"/><circle cx="-6" cy="-6" r="4.5"/></g><circle r="4.5" fill="#f5c542"/></g>
+    <g transform="translate(290 214) scale(.7)"><g fill="#ffffff"><circle cx="0" cy="-8" r="5"/><circle cx="8" cy="0" r="5"/><circle cx="0" cy="8" r="5"/><circle cx="-8" cy="0" r="5"/><circle cx="6" cy="-6" r="4.5"/><circle cx="6" cy="6" r="4.5"/><circle cx="-6" cy="6" r="4.5"/><circle cx="-6" cy="-6" r="4.5"/></g><circle r="4.5" fill="#f5c542"/></g>
+    <g transform="translate(100 210) scale(.7)"><g fill="#ffffff"><circle cx="0" cy="-8" r="5"/><circle cx="8" cy="0" r="5"/><circle cx="0" cy="8" r="5"/><circle cx="-8" cy="0" r="5"/><circle cx="6" cy="-6" r="4.5"/><circle cx="6" cy="6" r="4.5"/><circle cx="-6" cy="6" r="4.5"/><circle cx="-6" cy="-6" r="4.5"/></g><circle r="4.5" fill="#f5c542"/></g>
+  </g>
+
+  <!-- lamb -->
+  <ellipse cx="200" cy="250" rx="64" ry="8" fill="#6ea862" opacity=".5"/>
+  <g fill="#e9c9b4">
+    <rect x="164" y="214" width="12" height="34" rx="6"/><rect x="184" y="218" width="12" height="30" rx="6"/>
+    <rect x="208" y="218" width="12" height="30" rx="6"/><rect x="228" y="214" width="12" height="34" rx="6"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="170" cy="196" r="24"/><circle cx="194" cy="180" r="27"/><circle cx="222" cy="182" r="26"/>
+    <circle cx="242" cy="198" r="22"/><circle cx="206" cy="210" r="28"/><circle cx="178" cy="214" r="20"/><circle cx="234" cy="214" r="18"/>
+  </g>
+  <ellipse cx="146" cy="182" rx="20" ry="23" fill="#f3dccb"/>
+  <ellipse cx="128" cy="172" rx="11" ry="5.5" transform="rotate(-25 128 172)" fill="#efcbb4"/>
+  <ellipse cx="164" cy="170" rx="11" ry="5.5" transform="rotate(25 164 170)" fill="#efcbb4"/>
+  <circle cx="146" cy="160" r="11" fill="#ffffff"/><circle cx="137" cy="164" r="7" fill="#ffffff"/><circle cx="155" cy="164" r="7" fill="#ffffff"/>
+  <circle cx="139" cy="182" r="3.2" fill="#3a3340"/><circle cx="153" cy="182" r="3.2" fill="#3a3340"/>
+  <path d="M141 193 q5 5 10 0" fill="none" stroke="#8a5a4a" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="134" cy="190" r="3.4" fill="#f2a07a" opacity=".55"/><circle cx="158" cy="190" r="3.4" fill="#f2a07a" opacity=".55"/>
+  <!-- red bow -->
+  <path d="M154 204 l-14 -9 v18 z M154 204 l14 -9 v18 z" fill="#d9534f"/>
+  <circle cx="154" cy="204" r="5" fill="#b93f3b"/>
+</svg>

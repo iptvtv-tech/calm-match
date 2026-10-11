@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A birthday cake with three candles and colourful bunting</title>
+  <rect width="400" height="300" fill="#fbeaf0"/>
+  <rect y="232" width="400" height="68" fill="#e9c9a8"/>
+  <!-- bunting -->
+  <path d="M0 26 Q 200 70 400 26" fill="none" stroke="#b58aa0" stroke-width="2.4"/>
+  <g>
+    <path d="M28 33 l26 6 l-17 22 z" fill="#f2a5a0"/>
+    <path d="M84 45 l26 4 l-15 24 z" fill="#f6d06b"/>
+    <path d="M142 53 l26 2 l-12 25 z" fill="#8fc8a8"/>
+    <path d="M200 56 l26 0 l-13 25 z" fill="#8fb7e0"/>
+    <path d="M256 54 l26 -2 l-13 25 z" fill="#f2a5a0"/>
+    <path d="M312 47 l26 -4 l-11 24 z" fill="#f6d06b"/>
+    <path d="M364 36 l24 -6 l-8 24 z" fill="#8fc8a8"/>
+  </g>
+  <!-- cake stand -->
+  <ellipse cx="200" cy="240" rx="120" ry="14" fill="#ffffff"/>
+  <rect x="190" y="240" width="20" height="18" fill="#ffffff"/>
+  <ellipse cx="200" cy="260" rx="40" ry="7" fill="#f1e6ea"/>
+  <!-- cake -->
+  <rect x="104" y="176" width="192" height="62" rx="12" fill="#f4b6c2"/>
+  <path d="M104 190 q16 14 32 0 q16 14 32 0 q16 14 32 0 q16 14 32 0 q16 14 32 0 q16 14 32 0 v-6 a12 12 0 0 0 -12 -8 h-168 a12 12 0 0 0 -12 8 z" fill="#fff7ef"/>
+  <rect x="132" y="128" width="136" height="52" rx="10" fill="#fbd3a4"/>
+  <path d="M132 140 q11 10 22 0 q11 10 22 0 q11 10 22 0 q11 10 22 0 q11 10 22 0 q12 10 24 0 v-4 a10 10 0 0 0 -10 -8 h-116 a10 10 0 0 0 -10 8 z" fill="#fff7ef"/>
+  <g fill="#e2667a"><circle cx="150" cy="212" r="5"/><circle cx="200" cy="216" r="5"/><circle cx="250" cy="212" r="5"/></g>
+  <g fill="#8fc8a8"><circle cx="175" cy="222" r="4"/><circle cx="225" cy="222" r="4"/></g>
+  <!-- candles -->
+  <g>
+    <rect x="164" y="96" width="10" height="34" rx="3" fill="#8fb7e0"/>
+    <rect x="195" y="90" width="10" height="40" rx="3" fill="#f2a5a0"/>
+    <rect x="226" y="96" width="10" height="34" rx="3" fill="#8fc8a8"/>
+    <g fill="#ffcf4d"><path d="M169 94 q-8 -10 0 -22 q8 12 0 22z"/><path d="M200 88 q-8 -10 0 -22 q8 12 0 22z"/><path d="M231 94 q-8 -10 0 -22 q8 12 0 22z"/></g>
+    <g fill="#fff3c4"><path d="M169 92 q-3 -5 0 -10 q3 5 0 10z"/><path d="M200 86 q-3 -5 0 -10 q3 5 0 10z"/><path d="M231 92 q-3 -5 0 -10 q3 5 0 10z"/></g>
+  </g>
+</svg>

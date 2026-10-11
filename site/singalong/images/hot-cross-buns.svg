@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">Three warm buns with crosses on a blue plate</title>
+  <rect width="400" height="300" fill="#f5ead9"/>
+  <rect y="190" width="400" height="110" fill="#d9b48c"/>
+  <g stroke="#c9a17a" stroke-width="3"><path d="M0 222 h400"/><path d="M0 258 h400"/></g>
+  <!-- window -->
+  <rect x="270" y="30" width="96" height="96" rx="10" fill="#cfe7f1" stroke="#e8d6bd" stroke-width="8"/>
+  <path d="M318 30 v96 M270 78 h96" stroke="#e8d6bd" stroke-width="6"/>
+  <!-- plate -->
+  <ellipse cx="190" cy="226" rx="140" ry="34" fill="#4f7fb6"/>
+  <ellipse cx="190" cy="220" rx="122" ry="26" fill="#6e9bcd"/>
+  <ellipse cx="190" cy="220" rx="100" ry="19" fill="#86b0dc"/>
+  <!-- buns -->
+  <g>
+    <ellipse cx="120" cy="196" rx="44" ry="30" fill="#c98742"/>
+    <ellipse cx="114" cy="186" rx="26" ry="12" fill="#dda15a" opacity=".7"/>
+    <path d="M90 194 q30 -10 60 0 M120 168 q4 26 0 54" stroke="#fbf1de" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <ellipse cx="260" cy="196" rx="44" ry="30" fill="#c98742"/>
+    <ellipse cx="254" cy="186" rx="26" ry="12" fill="#dda15a" opacity=".7"/>
+    <path d="M230 194 q30 -10 60 0 M260 168 q4 26 0 54" stroke="#fbf1de" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <ellipse cx="190" cy="170" rx="46" ry="32" fill="#cf8d47"/>
+    <ellipse cx="184" cy="158" rx="28" ry="13" fill="#e2a862" opacity=".7"/>
+    <path d="M158 168 q32 -10 64 0 M190 140 q4 28 0 58" stroke="#fbf1de" stroke-width="7" stroke-linecap="round" fill="none"/>
+  </g>
+  <!-- steam -->
+  <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".85">
+    <path d="M170 120 q-10 -12 0 -24 q10 -12 0 -24"/>
+    <path d="M200 116 q-10 -12 0 -24 q10 -12 0 -24"/>
+    <path d="M230 120 q-10 -12 0 -24 q10 -12 0 -24"/>
+  </g>
+</svg>

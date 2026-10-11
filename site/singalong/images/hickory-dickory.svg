@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A tall wooden clock with a little grey mouse climbing up it</title>
+  <rect width="400" height="300" fill="#f2e5d0"/>
+  <rect y="250" width="400" height="50" fill="#c9a17a"/>
+  <g stroke="#b8906a" stroke-width="3"><path d="M0 268 h400 M0 286 h400"/></g>
+  <!-- wallpaper dots -->
+  <g fill="#e6d4b8"><circle cx="40" cy="40" r="4"/><circle cx="90" cy="90" r="4"/><circle cx="40" cy="140" r="4"/><circle cx="90" cy="190" r="4"/><circle cx="320" cy="40" r="4"/><circle cx="370" cy="90" r="4"/><circle cx="320" cy="140" r="4"/><circle cx="370" cy="190" r="4"/></g>
+  <!-- clock -->
+  <path d="M152 70 q48 -50 96 0 v12 h-96 z" fill="#8a5c38"/>
+  <rect x="152" y="80" width="96" height="100" rx="6" fill="#a8714a"/>
+  <rect x="166" y="180" width="68" height="70" fill="#9a6640"/>
+  <rect x="176" y="190" width="48" height="50" rx="6" fill="#6e4a2e"/>
+  <path d="M200 192 v28" stroke="#e2b85a" stroke-width="3"/>
+  <circle cx="200" cy="226" r="9" fill="#e2b85a"/>
+  <rect x="146" y="244" width="108" height="10" rx="4" fill="#8a5c38"/>
+  <circle cx="200" cy="128" r="38" fill="#fbf3e2" stroke="#e2b85a" stroke-width="5"/>
+  <g stroke="#6e4a2e" stroke-width="3" stroke-linecap="round">
+    <path d="M200 96 v6 M200 154 v6 M168 128 h6 M226 128 h6"/>
+    <path d="M200 128 v-24" stroke-width="4"/><path d="M200 128 l14 8" stroke-width="4"/>
+  </g>
+  <circle cx="200" cy="128" r="3.4" fill="#6e4a2e"/>
+  <!-- mouse climbing the right side -->
+  <g transform="rotate(-70 262 150)">
+    <ellipse cx="262" cy="150" rx="24" ry="14" fill="#9aa1ab"/>
+    <circle cx="286" cy="146" r="11" fill="#9aa1ab"/>
+    <circle cx="282" cy="136" r="7" fill="#c7ccd3"/><circle cx="282" cy="136" r="4" fill="#efb6be"/>
+    <circle cx="296" cy="148" r="2.4" fill="#e58a96"/>
+    <circle cx="289" cy="143" r="2" fill="#2c2d35"/>
+    <path d="M238 152 q-20 6 -24 22" fill="none" stroke="#9aa1ab" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

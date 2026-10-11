@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A sleepy moon and a little bell ringing at sunrise</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#36437a"/>
+      <stop offset=".6" stop-color="#9a86b0"/>
+      <stop offset="1" stop-color="#f6c08f"/>
+    </linearGradient>
+    <mask id="cut"><rect width="400" height="300" fill="#fff"/><circle cx="92" cy="58" r="26" fill="#000"/></mask>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <g fill="#f3ead2"><circle cx="300" cy="40" r="2"/><circle cx="350" cy="80" r="1.6"/><circle cx="240" cy="28" r="1.8"/><circle cx="160" cy="34" r="1.6"/></g>
+  <!-- sleepy moon -->
+  <circle cx="76" cy="72" r="30" fill="#f3ead2" mask="url(#cut)"/>
+  <path d="M60 78 q5 4 10 0" fill="none" stroke="#9a8a60" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- sunrise -->
+  <circle cx="320" cy="262" r="50" fill="#ffd27a"/>
+  <path d="M0 250 Q 100 228 200 246 T 400 240 V300 H0 Z" fill="#6f8a6a"/>
+  <!-- bell frame -->
+  <g fill="#7a5638">
+    <rect x="148" y="70" width="12" height="176" rx="4"/>
+    <rect x="240" y="70" width="12" height="176" rx="4"/>
+    <rect x="136" y="60" width="128" height="16" rx="6"/>
+  </g>
+  <path d="M136 60 l64 -26 l64 26 z" fill="#9a6c46"/>
+  <rect x="196" y="76" width="8" height="18" fill="#5c4029"/>
+  <!-- bell -->
+  <g transform="rotate(-10 200 92)">
+    <path d="M170 168 q0 -66 30 -72 q30 6 30 72 l10 14 h-80 z" fill="#f2c14e"/>
+    <path d="M182 166 q0 -52 18 -60" fill="none" stroke="#fbe29a" stroke-width="6" stroke-linecap="round"/>
+    <rect x="160" y="178" width="80" height="10" rx="5" fill="#d9a43a"/>
+    <circle cx="200" cy="196" r="9" fill="#b7862e"/>
+  </g>
+  <!-- ding arcs -->
+  <g fill="none" stroke="#fff6dc" stroke-width="4" stroke-linecap="round" opacity=".9">
+    <path d="M262 132 q14 14 0 30"/><path d="M276 120 q22 26 0 54"/>
+    <path d="M128 140 q-14 14 0 30"/><path d="M114 128 q-22 26 0 54"/>
+  </g>
+</svg>

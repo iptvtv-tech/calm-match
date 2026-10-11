@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A green hill with a well and a wooden bucket at the top</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe1ee"/>
+      <stop offset="1" stop-color="#eaf5f3"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <circle cx="60" cy="56" r="24" fill="#ffd66b"/>
+  <g fill="#ffffff" opacity=".9"><ellipse cx="320" cy="44" rx="34" ry="12"/><ellipse cx="340" cy="36" rx="20" ry="12"/></g>
+  <!-- hill -->
+  <path d="M0 300 V250 Q 110 230 170 150 Q 200 118 230 150 Q 290 230 400 250 V300 Z" fill="#9ccc8a"/>
+  <path d="M0 300 V276 Q 200 252 400 276 V300 Z" fill="#82b871"/>
+  <!-- path up the hill -->
+  <path d="M120 300 Q 150 240 186 160" fill="none" stroke="#e3d2a8" stroke-width="10" stroke-linecap="round" opacity=".9"/>
+  <!-- well -->
+  <g>
+    <rect x="176" y="60" width="8" height="64" fill="#7a5638"/><rect x="236" y="60" width="8" height="64" fill="#7a5638"/>
+    <path d="M166 66 l44 -26 l44 26 z" fill="#c24a3e"/>
+    <path d="M184 80 h52" stroke="#7a5638" stroke-width="5"/>
+    <path d="M210 80 v26" stroke="#5c4029" stroke-width="2"/>
+    <path d="M202 106 h16 l-2 12 h-12 z" fill="#a8714a"/>
+    <rect x="170" y="118" width="80" height="34" rx="6" fill="#b9b2a6"/>
+    <g fill="none" stroke="#9e978b" stroke-width="2.4"><path d="M170 130 h80 M190 118 v12 M230 118 v12 M210 130 v22 M180 130 v22 M240 130 v22"/></g>
+  </g>
+  <!-- bucket rolling down -->
+  <g transform="rotate(-30 112 236)">
+    <path d="M96 222 h34 l-4 30 h-26 z" fill="#a8714a"/>
+    <path d="M96 222 h34" stroke="#7a5638" stroke-width="4" stroke-linecap="round"/>
+    <path d="M98 238 h30" stroke="#7a5638" stroke-width="3"/>
+    <path d="M100 222 q13 -18 26 0" fill="none" stroke="#5c4029" stroke-width="3"/>
+  </g>
+  <g fill="#6aa2d0"><path d="M140 246 q5 8 0 11 q-5 -3 0 -11z"/><path d="M150 236 q4 7 0 9 q-4 -2 0 -9z"/></g>
+</svg>

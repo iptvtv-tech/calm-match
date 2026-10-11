@@ -2,94 +2,77 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sing Along · Calm Match</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sing along · Calm Match</title>
+<meta name="theme-color" content="#3f7c74">
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/base.css">
 <style>
-  /* Same reading font as the rest of Calm Match */
-  @font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-  @font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
-  :root {
-    --bg: #f6f3ee;
-    --card: #ffffff;
-    --ink: #22303e;
-    --muted: #59636f;
-    --line: #e3ddd3;
-    --accent: #3b5a8c;
-    --accent-ink: #ffffff;
-    --accent-soft: #e2eaf6;
-    --hl: #ffd96e;
-    --hl-ink: #22303e;
-    --sung: #6c7684;
-    --focus: #e08a00;
-    --radius: 20px;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-  body { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
-  :focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+  :root { --hl: #ffd96e; --hl-ink: #1f2d2b; --radius: 20px; }
+  body { padding: 0; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
 
   .top { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 720px;
     margin: 0 auto; padding: 12px 16px; }
   .back { flex: none; display: inline-flex; align-items: center; justify-content: center;
-    width: 56px; height: 56px; border-radius: 16px; background: var(--card);
+    width: 56px; height: 56px; border-radius: 16px; background: var(--surface);
     border: 2px solid var(--line); color: var(--ink); text-decoration: none; }
   .back svg { width: 28px; height: 28px; }
-  h1 { flex: 1; margin: 0; text-align: center; line-height: 1.2;
-    font-size: clamp(1.1rem, 4.6vw, 1.5rem); }
+  .top h1 { flex: 1; text-align: center; font-size: clamp(1.1rem, 4.6vw, 1.5rem); }
   .lang { flex: none; display: flex; border: 2px solid var(--line); border-radius: 16px;
-    overflow: hidden; background: var(--card); }
+    overflow: hidden; background: var(--surface); }
   .lang button { min-width: 52px; height: 52px; border: 0; background: transparent;
-    font: inherit; font-weight: 700; color: var(--muted); cursor: pointer; }
+    font-weight: 700; color: var(--muted); }
   .lang button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
 
   main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 0 16px 24px;
     display: flex; flex-direction: column; gap: 16px; }
 
-  .art { margin: 0; border-radius: var(--radius); overflow: hidden; background: #1d2748;
+  .art { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--dim);
     aspect-ratio: 4 / 3; max-height: 40vh; width: 100%; }
   .art img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-  .lyrics { background: var(--card); border: 2px solid var(--line); border-radius: var(--radius);
+  .lyrics { background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius);
     padding: 20px 16px; min-height: 9rem; text-align: center;
     display: flex; flex-direction: column; justify-content: center; gap: 10px; }
   .now { margin: 0; font-weight: 700; line-height: 1.35; font-size: clamp(1.6rem, 7vw, 2.6rem); }
   .next { margin: 0; min-height: 1.4em; color: var(--muted); font-size: clamp(1.05rem, 4vw, 1.35rem); }
+  .verse { margin: 0; color: var(--muted); font-size: .95rem; min-height: 1.3em; }
   .w { display: inline-block; padding: 0 .14em; border-radius: .28em;
-    transition: background-color .15s ease, color .15s ease; }
-  .w.sung { color: var(--sung); }
+    transition: background-color var(--speed) ease, color var(--speed) ease; }
+  .w.sung { color: var(--muted); }
   .w.on { background: var(--hl); color: var(--hl-ink); }
+  body[data-contrast="high"] .w.on { background: #000; color: #fff; }
 
   .controls { display: flex; align-items: center; justify-content: center; gap: 24px; }
-  .btn { flex: none; display: inline-flex; align-items: center; justify-content: center;
+  .btn-r { flex: none; display: inline-flex; align-items: center; justify-content: center;
     width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--line);
-    background: var(--card); color: var(--ink); cursor: pointer; padding: 0; }
-  .btn svg { width: 28px; height: 28px; }
-  .btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
-  .btn.play { width: 92px; height: 92px; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-  .btn.play svg { width: 40px; height: 40px; }
-  .btn.play .i-pause, .btn.play.is-playing .i-play { display: none; }
-  .btn.play.is-playing .i-pause { display: block; }
+    background: var(--surface); color: var(--ink); padding: 0; }
+  .btn-r svg { width: 28px; height: 28px; }
+  .btn-r[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .btn-r.play { width: 92px; height: 92px; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn-r.play svg { width: 40px; height: 40px; }
+  .btn-r.play .i-pause, .btn-r.play.is-playing .i-play { display: none; }
+  .btn-r.play.is-playing .i-pause { display: block; }
+  body[data-big="on"] .btn-r { width: 76px; height: 76px; }
+  body[data-big="on"] .btn-r.play { width: 108px; height: 108px; }
 
-  .speed { background: var(--card); border: 2px solid var(--line); border-radius: var(--radius);
+  .speed { background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius);
     padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 4px 12px; }
   .speed label { grid-column: 1 / -1; font-weight: 700; }
   .speed span { color: var(--muted); font-size: .95rem; }
   .speed input { width: 100%; height: 44px; margin: 0; accent-color: var(--accent); cursor: pointer; }
 
   .missing { text-align: center; padding: 48px 16px; font-size: 1.25rem; }
-
-  @media (prefers-reduced-motion: reduce) { .w { transition: none; } }
   @media (min-width: 700px) { .art { max-height: 46vh; } }
 </style>
 </head>
 <body>
   <header class="top">
-    <a class="back" id="back" href="../play.html" aria-label="Back to the games">
+    <a class="back" id="back" href="./" aria-label="All songs">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
     </a>
-    <h1 id="title">Sing Along</h1>
-    <!-- Test toggle (not saved): the player starts in the language set in the Grown-ups area. -->
+    <h1 id="title">Sing along</h1>
+    <!-- Starts in the child's games language; this switch is for the moment only and isn't saved. -->
     <div class="lang" role="group" aria-label="Language / Teanga">
       <button type="button" data-lang="en" aria-pressed="true">EN</button>
       <button type="button" data-lang="ga" aria-pressed="false">GA</button>
@@ -100,19 +83,20 @@
     <figure class="art"><img id="art" alt="" width="400" height="300"></figure>
 
     <section class="lyrics" aria-label="Lyrics">
+      <p class="verse" id="verse"></p>
       <p class="now" id="lineNow"></p>
       <p class="next" id="lineNext"></p>
     </section>
 
     <div class="controls">
-      <button class="btn" id="restart" type="button" aria-label="Start again">
+      <button class="btn-r" id="restart" type="button" aria-label="Start again">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg>
       </button>
-      <button class="btn play" id="play" type="button" aria-label="Play">
+      <button class="btn-r play" id="play" type="button" aria-label="Play">
         <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
         <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4.5" height="14" rx="1.5"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.5"/></svg>
       </button>
-      <button class="btn" id="loop" type="button" aria-pressed="false" aria-label="Repeat">
+      <button class="btn-r" id="loop" type="button" aria-pressed="false" aria-label="Repeat">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 0 1 4-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 0 1-4 4H4"/></svg>
       </button>
     </div>
@@ -126,6 +110,7 @@
   </main>
 
   <script src="songs.js"></script>
+  <script src="shared.js"></script>
   <script src="audio-engine.js"></script>
   <script src="player.js"></script>
 </body>

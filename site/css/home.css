@@ -20,3 +20,10 @@
 .features div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
 .features h2{font-size:18px;margin-bottom:6px}
 .features p{margin:0;color:var(--muted);font-size:16px}
+
+/* Sing along feature band */
+.sing-band{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:24px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px;margin-bottom:24px}
+.sing-band h2{font-size:24px;margin-bottom:8px}
+.sing-band p{color:var(--muted)}
+.sing-art img{display:block;width:100%;height:auto;border-radius:12px}
+@media (max-width:640px){.sing-band{grid-template-columns:1fr}}
