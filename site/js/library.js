@@ -66,8 +66,9 @@
     story: function (id) { return L.stories[id] ? Object.assign({ id: id }, L.stories[id]) : null; },
     saveStory: function (st) {
       var id = st.id || CM.uid("st"), copy = clone(st); delete copy.id; copy.at = Date.now();
-      copy.pages = (copy.pages || []).slice(0, 30).map(function (p) { return { pic: p.pic || "", text: String(p.text || "").slice(0, 300), video: p.video || null }; });
+      copy.pages = (copy.pages || []).slice(0, 30).map(function (p) { return { pic: p.pic || "", text: String(p.text || "").slice(0, 300), textGa: String(p.textGa || "").slice(0, 300), video: p.video || null }; });
       copy.title = String(copy.title || "My story").slice(0, 60);
+      copy.titleGa = String(copy.titleGa || "").slice(0, 60);
       L.stories[id] = copy; persist(); return id;
     },
     removeStory: function (id) {

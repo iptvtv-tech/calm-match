@@ -18,6 +18,7 @@
     $("breakBtn").textContent = t("breakLabel");
     if (CM.touch) CM.touch.apply();
     $("talkTxt").textContent = t("talk");
+    $("talk").setAttribute("aria-label", t("talk"));
     $("talkBtn").hidden = !s.talk;
     if (CM.rewards) CM.rewards.renderStrip();
   }
@@ -185,7 +186,7 @@
     var fbText = cur.prompt === 2 ? t("lookHighlight") : (cur.prompt === 1 || cur.hint) ? t("lookOutline") : "";
     stage.innerHTML =
       '<h1 class="say">' + esc(cur.title) + "</h1><div>" + cur.show + "</div>" +
-      '<div class="options" role="group" aria-label="Choose an answer">' +
+      '<div class="options" role="group" aria-label="' + esc(t("chooseAnswer")) + '">' +
       cur.opts.map(function (o, i) {
         var cls = "opt " + (o.cls || "");
         var dis = false;
@@ -353,7 +354,7 @@
     var cols = cur.n === 2 ? 2 : cur.n === 3 ? 3 : 4;
     stage.innerHTML = '<h1 class="say">' + esc(cur.title) + "</h1>" +
       '<p class="sub" id="pairsSub">' + esc(cur.peeking ? t("peekNote") : t("tapCard")) + "</p>" +
-      '<div class="pairs cols' + cols + '" id="pairsGrid" role="group" aria-label="Cards"></div><p class="feedback" id="fb"></p>' + againBtn();
+      '<div class="pairs cols' + cols + '" id="pairsGrid" role="group" aria-label="' + esc(t("cardsLabel")) + '"></div><p class="feedback" id="fb"></p>' + againBtn();
     renderPairsGrid(); bindAgain(); renderDots();
   }
   function partnerHint(i) {

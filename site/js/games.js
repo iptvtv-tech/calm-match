@@ -57,7 +57,8 @@
     { id: "under", en: "under", ga: "faoin mbosca", sayEn: "Find the ball under the box", sayGa: "Aimsigh an liathróid faoin mbosca" },
     { id: "next", en: "next to", ga: "in aice leis an mbosca", sayEn: "Find the ball next to the box", sayGa: "Aimsigh an liathróid in aice leis an mbosca" }
   ];
-  var LETTERS = "ABCDEFGHIJKLMNOPRSTUW".split(""); // letters every child meets early, in English and Irish
+  var LETTERS_EN = "ABCDEFGHIJKLMNOPRSTUW".split(""), LETTERS_GA = "ABCDEFGHILMNOPRSTU".split(""); // the Irish alphabet has 18 letters
+  var LETTERS = LETTERS_EN;
   var TRACE = ["L", "T", "I", "O", "C", "U", "V", "H", "E", "A", "S", "M"];
 
   /* ---------- small pictures ---------- */
@@ -187,7 +188,7 @@
     },
 
     letters: function (c) {
-      var mode = c.skill.mode;
+      var mode = c.skill.mode; LETTERS = CM.lang() === "ga" ? LETTERS_GA : LETTERS_EN;
       if (mode === "trace") { var tl = fresh("trace", TRACE, String); return { kind: "trace", letter: tl, title: t("traceLetter", { l: tl }), speak: t("traceLetter", { l: tl }) }; }
       if (mode === "first") {
         var pool = [];

@@ -18,10 +18,10 @@
   function render() {
     var k = CM.lib.kid(), box = $("talk");
     var grid = "";
-    if (tab === "want") grid = '<div class="tk-grid want">' + (k.talk.choices.length ? k.talk.choices.map(function (r) { return cell(r, " big"); }).join("") : '<p class="note">' + esc("A grown-up can add choices in the grown-ups area: Talk.") + "</p>") + "</div>" +
+    if (tab === "want") grid = '<div class="tk-grid want">' + (k.talk.choices.length ? k.talk.choices.map(function (r) { return cell(r, " big"); }).join("") : '<p class="note">' + esc(t("talkEmptyWant")) + "</p>") + "</div>" +
       '<div class="tk-grid quick">' + QUICK.map(function (id) { return cell("s:" + id); }).join("") + "</div>";
     if (tab === "words") grid = '<div class="tk-grid core">' + CORE.map(function (id) { return cell("s:" + id); }).join("") + "</div>";
-    if (tab === "mine") grid = '<div class="tk-grid mine">' + (k.talk.words.length ? k.talk.words.map(function (r) { return cell(r); }).join("") : '<p class="note">' + esc("A grown-up can add words in the grown-ups area: Talk.") + "</p>") + "</div>";
+    if (tab === "mine") grid = '<div class="tk-grid mine">' + (k.talk.words.length ? k.talk.words.map(function (r) { return cell(r); }).join("") : '<p class="note">' + esc(t("talkEmptyWords")) + "</p>") + "</div>";
     box.innerHTML =
       '<div class="tk-top"><div class="tk-strip" aria-live="polite" aria-label="' + esc(t("sayIt")) + '">' + strip.map(function (r) { return '<span class="tk-s">' + CM.ref(r.r).html + "<b>" + esc(r.text) + "</b></span>"; }).join("") + "</div>" +
       '<div class="tk-acts"><button type="button" class="small-btn primary" id="tkSay">🔊 ' + esc(t("sayIt")) + '</button><button type="button" class="small-btn" id="tkClear">' + esc(t("clear")) + '</button><button type="button" class="small-btn" id="tkClose">' + esc(t("close")) + "</button></div></div>" +

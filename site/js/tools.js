@@ -66,7 +66,7 @@
       var total = Math.round(minutes * 60), stage = h.stage;
       h.enter();
       stage.innerHTML = '<p class="label">' + esc(CM.t("now")) + '</p><div id="vtWrap"></div><p class="vt-left" id="vtLeft"></p>' +
-        '<div class="row"><button class="small-btn" type="button" id="vtPause">Pause</button><button class="small-btn" type="button" id="vtStop">Close timer</button></div>';
+        '<div class="row"><button class="small-btn" type="button" id="vtPause">' + esc(CM.t("pause")) + '</button><button class="small-btn" type="button" id="vtStop">' + esc(CM.t("closeTimer")) + '</button></div>';
       var draw = function (left) { $("vtWrap").innerHTML = dial(total, left); $("vtLeft").textContent = fmtLeft(left); };
       countdown(total, draw, function () {
         ending();
@@ -74,7 +74,7 @@
         $("vtPause").hidden = true; $("vtStop").textContent = CM.t("ok");
       });
       $("vtPause").onclick = function () {
-        if (state.paused()) { state.resume(); this.textContent = "Pause"; } else { state.pause(); this.textContent = "Resume"; }
+        if (state.paused()) { state.resume(); this.textContent = CM.t("pause"); } else { state.pause(); this.textContent = CM.t("resume"); }
       };
       $("vtStop").onclick = function () { CM.tools.stop(); h.exit(); };
     },
@@ -92,7 +92,7 @@
           "</div>" +
           '<div class="row">' + (firstDone ? (cfg.then === 0 ? '<button class="big-btn" type="button" id="ftPlay">' + esc(CM.t("start")) + "</button>" : "")
             : '<button class="big-btn" type="button" id="ftDone">✓ ' + esc(CM.t("firstDone")) + "</button>") +
-          '<button class="small-btn" type="button" id="ftClose">Close board</button></div>';
+          '<button class="small-btn" type="button" id="ftClose">' + esc(CM.t("closeBoard")) + '</button></div>';
         if ($("ftDone")) $("ftDone").onclick = function () { firstDone = true; CM.tools.stop(); render(); h.say(CM.t("thenWord") + ": " + CM.nm(Tn)); };
         if ($("ftPlay")) $("ftPlay").onclick = function () { CM.tools.stop(); h.exit(); };
         $("ftClose").onclick = function () { CM.tools.stop(); h.exit(); };
@@ -119,7 +119,7 @@
       var render = function () {
         stop();
         var finished = i >= list.length, cur = list[i];
-        stage.innerHTML = '<p class="label">' + esc(sched.name || CM.t("myDay")) + "</p>" +
+        stage.innerHTML = '<p class="label">' + esc((sched.name && sched.name !== "My day" ? sched.name : CM.t("myDay"))) + "</p>" +
           '<ol class="sched">' + list.map(function (st, k) {
             var x = CM.ref(st.r), state = k < i ? " done" : k === i ? " now" : "";
             var tag = k < i ? '<span class="ftdone">✓ ' + esc(CM.t("stepDone")) + "</span>" : k === i ? '<span class="sc-tag">' + esc(CM.t("now")) + "</span>" : k === i + 1 ? '<span class="sc-tag next">' + esc(CM.t("next")) + "</span>" : "";
@@ -130,9 +130,9 @@
           '<div class="row">' + (finished ? '<button class="big-btn" type="button" id="scOk">' + esc(CM.t("ok")) + "</button>"
             : '<button class="big-btn" type="button" id="scDone">✓ ' + esc(CM.t("stepDone")) + "</button>" +
               (cur.howto && CM.lib.story(cur.howto) ? '<button class="ghost-btn" type="button" id="scHow">' + esc(CM.lib.story(cur.howto).kind === "story" ? CM.t("readStory") : CM.t("showMe")) + "</button>" : "")) +
-          (i > 0 ? '<button class="small-btn" type="button" id="scBack">Back a step</button>' : "") +
+          (i > 0 ? '<button class="small-btn" type="button" id="scBack">' + esc(CM.t("stepBack")) + '</button>' : "") +
           (!finished ? '<button class="small-btn" type="button" id="scChange">' + esc(CM.t("change")) + "</button>" : "") +
-          '<button class="small-btn" type="button" id="scClose">Close schedule</button></div><div id="scPick"></div>';
+          '<button class="small-btn" type="button" id="scClose">' + esc(CM.t("closeSched")) + '</button></div><div id="scPick"></div>';
         var curEl = stage.querySelector(".sc.now"); if (curEl && curEl.scrollIntoView) try { curEl.scrollIntoView({ block: "nearest", inline: "center" }); } catch (e) {}
         if (!finished && cur.min) {
           var total = cur.min * 60;
@@ -167,7 +167,7 @@
         $("scClose").onclick = function () { h.exit(); };
       };
       render();
-      if (!(CM.voice && CM.voice.play(list[0].r))) h.say((sched.name || CM.t("myDay")) + ". " + CM.t("now") + ": " + name(0) + ".");
+      if (!(CM.voice && CM.voice.play(list[0].r))) h.say(((sched.name && sched.name !== "My day" ? sched.name : CM.t("myDay"))) + ". " + CM.t("now") + ": " + name(0) + ".");
     }
   };
   function $(id) { return document.getElementById(id); }
