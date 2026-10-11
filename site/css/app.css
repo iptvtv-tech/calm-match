@@ -77,6 +77,7 @@ body:not([data-keys="on"]) .opt .kn{display:none}
 
 .big-btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:16px;padding:16px 36px;font:600 20px/1 var(--display)}
 .ghost-btn{background:transparent;border:2px solid var(--line);border-radius:16px;padding:14px 28px;font:600 18px/1 var(--display)}
+a.ghost-btn{display:inline-block;color:var(--ink);text-decoration:none}
 .small-btn{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:8px 14px;font:600 15px/1.2 var(--display);text-decoration:none;color:var(--ink);display:inline-block}
 .small-btn.danger{border-color:var(--warn);color:var(--warn)}
 .small-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
