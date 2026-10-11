@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A smiling yellow star shining in the night sky above quiet hills</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d2748"/>
+      <stop offset="1" stop-color="#3d4c7a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffe7a0" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="moonCut">
+      <rect width="400" height="300" fill="#fff"/>
+      <circle cx="356" cy="50" r="22" fill="#000"/>
+    </mask>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#sky)"/>
+
+  <g fill="#f3ead2">
+    <circle cx="42" cy="38" r="2.4" opacity=".9"/>
+    <circle cx="88" cy="82" r="1.8" opacity=".7"/>
+    <circle cx="130" cy="30" r="2" opacity=".8"/>
+    <circle cx="62" cy="140" r="1.6" opacity=".6"/>
+    <circle cx="300" cy="120" r="2" opacity=".8"/>
+    <circle cx="270" cy="34" r="1.8" opacity=".7"/>
+    <circle cx="350" cy="150" r="1.6" opacity=".6"/>
+    <circle cx="105" cy="190" r="1.6" opacity=".5"/>
+    <circle cx="320" cy="200" r="1.8" opacity=".5"/>
+  </g>
+
+  <circle cx="340" cy="62" r="24" fill="#f3ead2" mask="url(#moonCut)"/>
+
+  <circle cx="200" cy="128" r="115" fill="url(#glow)"/>
+
+  <polygon points="200,60 217.6,105.7 266.6,108.4 228.5,139.3 241.1,186.6 200,160 158.9,186.6 171.5,139.3 133.4,108.4 182.4,105.7"
+           fill="#ffd25e" stroke="#ffd25e" stroke-width="16" stroke-linejoin="round"/>
+  <g fill="none" stroke="#8a5a14" stroke-width="3.2" stroke-linecap="round">
+    <path d="M182 128 q6 -6 12 0"/>
+    <path d="M206 128 q6 -6 12 0"/>
+    <path d="M191 141 q9 8 18 0"/>
+  </g>
+  <circle cx="179" cy="140" r="5" fill="#f2a07a" opacity=".45"/>
+  <circle cx="221" cy="140" r="5" fill="#f2a07a" opacity=".45"/>
+
+  <path d="M0 236 Q 100 204 200 232 T 400 222 V300 H0 Z" fill="#2c4a5c"/>
+  <path d="M0 264 Q 120 238 240 260 T 400 256 V300 H0 Z" fill="#22404e"/>
+</svg>
