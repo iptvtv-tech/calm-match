@@ -51,20 +51,24 @@
   }
   function voiceFor(l) { return l === "ga" ? localVoice(/^ga/i) : (localVoice(/^en-(IE|GB)/i) || localVoice(/^en/i)); }
   var playing = null;
-  function hush() { try { speechSynthesis.cancel(); } catch (e) {} if (playing) { try { playing.pause(); } catch (e) {} playing = null; } }
-  // Say short phrases one after another, slowly, like "clear speech" in the games.
-  function say(parts) {
+  function busy() { try { return speechSynthesis.speaking || speechSynthesis.pending; } catch (e) { return false; } }
+  function hush() { try { if (busy()) speechSynthesis.cancel(); } catch (e) {} if (playing) { try { playing.pause(); } catch (e) {} playing = null; } }
+  // Say a short phrase slowly, like "clear speech" in the games.
+  // Some browsers (Chrome, Safari) silently drop speech started straight after stopping other speech,
+  // so it only stops speech that is actually playing, and then waits a moment before speaking.
+  var current = null; // kept so the browser doesn't throw the phrase away half-way (a Chrome bug)
+  function say(text) {
     if (!("speechSynthesis" in window)) return;
+    if (!voices.length) loadVoices();
     var v = voiceFor(lang);
-    if (lang === "ga" && !v) return; // an English voice would mispronounce Irish
-    var rate = Math.min(1, Math.max(0.5, +S.rate || 0.75)) * 0.92;
-    try {
-      speechSynthesis.cancel();
-      parts.forEach(function (p) {
-        var u = new SpeechSynthesisUtterance(p); u.rate = rate; u.pitch = 1; u.lang = lang === "ga" ? "ga-IE" : "en-IE"; if (v) u.voice = v;
-        speechSynthesis.speak(u);
-      });
-    } catch (e) {}
+    if (lang === "ga" && !v) { renderVoice(); return; } // an English voice would mispronounce Irish
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = Math.min(1, Math.max(0.5, +S.rate || 0.75)) * 0.92; u.pitch = 1;
+    // Match the voice's own language: asking for en-IE with no Irish-English voice makes some browsers say nothing.
+    if (v) { u.voice = v; u.lang = v.lang; } else u.lang = lang === "ga" ? "ga-IE" : "en-GB";
+    current = u;
+    var go = function () { try { speechSynthesis.resume(); speechSynthesis.speak(u); } catch (e) {} };
+    if (busy()) { try { speechSynthesis.cancel(); } catch (e) {} setTimeout(go, 120); } else go();
   }
   function speakWord(e) {
     if (!voiceOn) return;
@@ -73,7 +77,7 @@
     var rk = CM.alpha.recKey(e);
     if (CM.media.has(rk)) { try { playing = new Audio(CM.media.url(rk)); playing.play().catch(function () {}); return; } catch (x) {} }
     var t = UI[lang];
-    say(e.end ? [fill(t.endSay, { w: e.word, l: e.letter.toLowerCase() })] : [e.letter, e.word]);
+    say(e.end ? fill(t.endSay, { w: e.word, l: e.letter.toLowerCase() }) : e.letter + ". " + e.word + ".");
   }
 
   /* ---------- drawing ---------- */
