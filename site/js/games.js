@@ -19,7 +19,7 @@
 
   /* ---------- content ---------- */
   var TOGETHER = [
-    [["🧦", "socks", "stocaí"], ["👟", "shoes", "bróga"]], [["🪥", "toothbrush", "scuab fiacla"], ["🦷", "tooth", "fiacail"]],
+    [["🧦", "socks", "stocaí"], ["👟", "shoes", "bróga"]], [["🍞", "bread", "arán"], ["🧈", "butter", "im"]],
     [["🔑", "key", "eochair"], ["🚪", "door", "doras"]], [["☂️", "umbrella", "scáth fearthainne"], ["🌧️", "rain", "báisteach"]],
     [["🥣", "bowl", "babhla"], ["🥄", "spoon", "spúnóg"]], [["✏️", "pencil", "peann luaidhe"], ["📄", "paper", "páipéar"]],
     [["🐝", "bee", "beach"], ["🌻", "flower", "bláth"]], [["🐶", "dog", "madra"], ["🦴", "bone", "cnámh"]],
@@ -35,7 +35,7 @@
     { id: "plant", en: "A seed grows", ga: "Fásann síol", steps: [["🌰", "seed", "síol"], ["🌱", "shoot", "péacán"], ["🌿", "plant", "planda"], ["🌻", "flower", "bláth"]] },
     { id: "day", en: "My day", ga: "Mo lá", steps: [["🌅", "morning", "maidin"], ["☀️", "daytime", "lá"], ["🌇", "evening", "tráthnóna"], ["🌙", "night", "oíche"]] },
     { id: "snow", en: "Snowman", ga: "Fear sneachta", steps: [["❄️", "snow falls", "titeann sneachta"], ["⛄", "make a snowman", "déan fear sneachta"], ["☀️", "the sun comes out", "tagann an ghrian amach"], ["💧", "it melts", "leánn sé"]] },
-    { id: "teeth", en: "Brushing teeth", ga: "Fiacla a scuabadh", steps: [["🪥", "toothpaste on the brush", "taos fiacla ar an scuab"], ["😁", "brush your teeth", "scuab do chuid fiacla"], ["🚰", "rinse", "sruthlaigh"]] },
+    { id: "teeth", en: "Brushing teeth", ga: "Fiacla a scuabadh", steps: [["🧴", "toothpaste on the brush", "taos fiacla ar an scuab"], ["😁", "brush your teeth", "scuab do chuid fiacla"], ["🚰", "rinse", "sruthlaigh"]] },
     { id: "sandwich", en: "Making a sandwich", ga: "Ceapaire a dhéanamh", steps: [["🍞", "bread", "arán"], ["🧈", "butter", "im"], ["🥪", "sandwich", "ceapaire"]] },
     { id: "bug", en: "Caterpillar", ga: "Bolb", steps: [["🥚", "egg", "ubh"], ["🐛", "caterpillar", "bolb"], ["🦋", "butterfly", "féileacán"]] }
   ];

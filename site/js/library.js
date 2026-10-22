@@ -90,7 +90,7 @@
        e:<emoji>      a plain emoji
        m:<key>        a photo saved in the media store (stories) */
   // Small moving pictures for how-tos. They stay still in calm mode.
-  var ANIM = { rub: '<span class="a1">🙌</span><span class="a2">💦</span>', brush: '<span class="a1">🪥</span><span class="a2">😁</span>', drip: '<span class="a1">🚰</span><span class="a2">💧</span>', soap: '<span class="a1">🧼</span><span class="a2">🙌</span>' };
+  var ANIM = { rub: '<span class="a1">🙌</span><span class="a2">💦</span>', brush: '<span class="a1">🦷</span><span class="a2">😁</span>', drip: '<span class="a1">🚰</span><span class="a2">💧</span>', soap: '<span class="a1">🧼</span><span class="a2">🙌</span>' };
   function emojiHtml(e) { return '<span class="emo" aria-hidden="true">' + CM.esc(e) + "</span>"; }
   function img(src, fb) { return '<img class="ph" src="' + CM.esc(src) + '" alt=""' + (fb ? ' data-fb="' + CM.esc(fb) + '"' : "") + ">"; }
   CM.symHtml = function (id) { return CM.SYMBOLS && CM.SYMBOLS[id] ? '<img class="sym" src="symbols/' + id + '.svg" alt="">' : ""; };

@@ -10,7 +10,7 @@
    - Irish: the plain dictionary form (bó, not an bhó), and broad S and T (solas, traein), because a slender
      S or T sounds like "sh" or "ch" (sicín, tíogar).
    An item is [emoji, word] or [emoji, word, "end"]: "end" means the letter is at the end (fox, box), for X.
-   Emoji are all Unicode 13 or older so they show on older tablets.
+   Emoji are all version 12 or older: version 13 ones (seal, olive, window, worm) show as blanks on some devices.
 
    Family words and photos stay on this device (js/media.js and the device library, js/library.js),
    and are included in the backup file. They are never uploaded. */
@@ -38,15 +38,15 @@
       L: [["🦁", "lion"], ["🍋", "lemon"], ["🍃", "leaf"], ["🐞", "ladybird"], ["💡", "light"]],
       M: [["🐒", "monkey"], ["🌙", "moon"], ["🥛", "milk"], ["🐭", "mouse"], ["🍄", "mushroom"]],
       N: [["👃", "nose"], ["🥜", "nuts"], ["🥅", "net"], ["9️⃣", "nine"]],
-      O: [["🐙", "octopus"], ["🍊", "orange"], ["🦦", "otter"], ["🫒", "olive"]],
+      O: [["🐙", "octopus"], ["🍊", "orange"], ["🦦", "otter"], ["🐂", "ox"]],
       P: [["🐷", "pig"], ["🍕", "pizza"], ["🐧", "penguin"], ["🐼", "panda"], ["🍐", "pear"], ["✏️", "pencil"]],
       Q: [["👸", "queen"], ["❓", "question"], ["🤫", "quiet"]],
       R: [["🐰", "rabbit"], ["🌈", "rainbow"], ["🚀", "rocket"], ["🤖", "robot"], ["💍", "ring"]],
-      S: [["☀️", "sun"], ["🐍", "snake"], ["🧦", "socks"], ["⭐", "star"], ["🦭", "seal"]],
+      S: [["☀️", "sun"], ["🐍", "snake"], ["🧦", "socks"], ["⭐", "star"], ["🥪", "sandwich"]],
       T: [["🐯", "tiger"], ["🚂", "train"], ["🍅", "tomato"], ["🐢", "turtle"], ["🦷", "tooth"]],
       U: [["☂️", "umbrella"], ["⬆️", "up"], ["🦄", "unicorn"]],
       V: [["🚐", "van"], ["🎻", "violin"], ["🌋", "volcano"], ["🥦", "vegetables"]],
-      W: [["🍉", "watermelon"], ["⌚", "watch"], ["🪟", "window"], ["🪱", "worm"], ["🌊", "wave"]],
+      W: [["🍉", "watermelon"], ["⌚", "watch"], ["🧙", "wizard"], ["🌬️", "wind"], ["🌊", "wave"]],
       X: [["🦊", "fox", "end"], ["📦", "box", "end"], ["6️⃣", "six", "end"]],
       Y: [["🪀", "yo-yo"], ["💛", "yellow"], ["⛵", "yacht"], ["🥱", "yawn"]],
       Z: [["🦓", "zebra"], ["0️⃣", "zero"], ["🤐", "zip"]]
@@ -59,7 +59,7 @@
       C: [["🐱", "cat"], ["🚗", "carr"], ["🧀", "cáis"], ["🐴", "capall"], ["☕", "cupán"]],
       D: [["🚪", "doras"], ["🐬", "deilf"], ["🥁", "druma"], ["🦕", "díneasár"]],
       E: [["🐘", "eilifint"], ["✈️", "eitleán"], ["🪁", "eitleog"], ["🐦", "éan"]],
-      F: [["🐸", "frog"], ["🪟", "fuinneog"], ["💍", "fáinne"], ["🦷", "fiacail"]],
+      F: [["🐸", "frog"], ["🦋", "féileacán"], ["💍", "fáinne"], ["🦷", "fiacail"]],
       G: [["🐐", "gabhar"], ["🌙", "gealach"], ["🎸", "giotár"], ["👗", "gúna"], ["☀️", "grian"]],
       H: [["🎩", "hata"], ["🚁", "héileacaptar"], ["🍔", "hamburgar"]],
       I: [["🐟", "iasc"], ["🌭", "ispín"], ["🧈", "im"], ["🦅", "iolar"]],
@@ -68,7 +68,7 @@
       N: [["🐍", "nathair"], ["9️⃣", "naoi"], ["🌼", "nóinín"], ["📰", "nuachtán"]],
       O: [["🍊", "oráiste"], ["🐙", "ochtapas"], ["🚑", "otharcharr"], ["🏥", "ospidéal"]],
       P: [["🐧", "piongain"], ["🍕", "píotsa"], ["🍐", "piorra"], ["🐛", "péist"]],
-      R: [["🚲", "rothar"], ["🚀", "roicéad"], ["🦭", "rón"], ["⭐", "réalta"]],
+      R: [["🚲", "rothar"], ["🚀", "roicéad"], ["🌹", "rós"], ["⭐", "réalta"]],
       S: [["💡", "solas"], ["🧦", "stocaí"], ["🎷", "sacsafón"], ["🍓", "sú talún"]],
       T: [["🚂", "traein"], ["🚜", "tarracóir"], ["🐢", "turtar"], ["🛋️", "tolg"]],
       U: [["🍎", "úll"], ["🥚", "ubh"], ["💧", "uisce"], ["🦉", "ulchabhán"]]
