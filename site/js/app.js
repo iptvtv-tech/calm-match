@@ -71,15 +71,30 @@
     var ga = CM.lang() === "ga", v = ga ? CM.irishVoice() : (localVoice(/^en-(IE|GB)/i) || localVoice(/^en/i));
     if (ga && !v) return; // no Irish voice on this device: an English voice would mispronounce Irish
     try {
-      speechSynthesis.cancel();
       var clear = S().clearSpeech !== false, list = clear ? phrases(text) : [text];
-      list.forEach(function (p, i) {
+      var us = list.map(function (p) {
         var u = new SpeechSynthesisUtterance(p);
-        u.rate = clear ? Math.max(0.5, S().rate * 0.92) : S().rate; u.pitch = 1; u.lang = ga ? "ga-IE" : "en-IE"; if (v) u.voice = v;
-        speechSynthesis.speak(u);
+        u.rate = clear ? Math.max(0.5, S().rate * 0.92) : S().rate; u.pitch = 1;
+        // Match the voice's own language: asking for en-IE with no Irish-English voice makes some browsers say nothing.
+        if (v) { u.voice = v; u.lang = v.lang; } else u.lang = ga ? "ga-IE" : "en-GB";
+        return u;
       });
+      if (us[0] && CM.speech) CM.speech.watch(us[0]); // notices a device with no working voice (js/speech.js)
+      spoken = us;
+      var go = function () { try { speechSynthesis.resume(); } catch (e) {} us.forEach(function (u) { speechSynthesis.speak(u); }); };
+      // Some browsers drop speech started straight after stopping other speech, so wait a moment if something was playing.
+      var busy = speechSynthesis.speaking || speechSynthesis.pending;
+      if (busy) { speechSynthesis.cancel(); setTimeout(go, 120); } else go();
     } catch (e) {}
   }
+  var spoken = []; // kept so the browser doesn't throw phrases away half-way (a Chrome bug)
+  // Grown-ups settings: a note when this device has no voice that can read aloud.
+  function speechNote() {
+    var el = $("speechNote"); if (!el || !CM.speech) return;
+    el.hidden = !(S().speech && CM.speech.status() === "none");
+    el.textContent = CM.speech.help.en;
+  }
+  if (CM.speech) CM.speech.onChange(speechNote);
   function hush() { try { speechSynthesis.cancel(); } catch (e) {} }
   function praise(name) {
     var k = { cheerful: "praiseCheer", gentle: "praiseGentle", calm: "praiseCalm" }[S().celebrate] || "praiseGentle";
@@ -772,6 +787,7 @@
   function renderSettings() {
     var s = S();
     chipGroup($("langChips"), [["en", "English"], ["ga", "Gaeilge"]], s.lang, function (v) { s.lang = v; applySenses(); log("Language", v === "ga" ? "games in Irish" : "games in English"); });
+    speechNote();
     var voiceNote = $("langNote");
     voiceNote.textContent = s.lang === "ga" ? (CM.irishVoice() ? "An Irish voice was found on this device, so read-aloud works in Irish." : "No Irish voice was found on this device, so read-aloud stays silent in Gaeilge rather than mispronounce words. Everything else is in Irish.") : "";
     chipGroup($("themeChips"), Object.keys(CM.THEMES).map(function (k) { return [k, CM.THEMES[k].items[0][0] + " " + CM.THEMES[k].label]; }), s.theme, function (v) { s.theme = v; log("Theme changed", CM.THEMES[v].label + " from the next turn"); });
@@ -798,7 +814,7 @@
       var c = $("s-" + k); c.checked = !!s[k];
       c.onchange = function () {
         s[k] = c.checked; CM.store.save(); applySenses();
-        if (k === "speech" && c.checked) say("Read aloud is on");
+        if (k === "speech") { if (c.checked) say("Read aloud is on"); speechNote(); }
         if (k === "clearSpeech" && S().speech) say("This is how I will sound. Find the dog.");
         if (k === "errorless") log("Errorless start", c.checked ? "on: new skills begin with the answer highlighted" : "off");
         if (k === "photos") renderPhotos();

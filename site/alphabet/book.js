@@ -19,7 +19,7 @@
       letterOf: "Letter {l}", word: "{w}" },
     ga: { title: "Aibítir", lede: "Roghnaigh litir. Brúigh ar phictiúr chun an focal a chloisteáil.", letters: "Litreacha", back: "Siar", next: "Ar aghaidh",
       voiceOn: "🔊 Léigh os ard: ar siúl", voiceOff: "🔈 Léigh os ard: múchta", end: "", endSay: "{w}.",
-      noVoice: "Níl guth Gaeilge ar an ngléas seo, mar sin ní léitear na focail os ard as Gaeilge.",
+      noVoice: "Níl guth Gaeilge ar an ngléas seo, mar sin ní léitear na focail os ard as Gaeilge. Is féidir le duine fásta focail a thaifeadadh ina ghuth féin sa chuid do dhaoine fásta.",
       grown: "Daoine fásta: is féidir libh bhur bhfocail agus bhur ngrianghraif féin a chur leis. Oscail <a href=\"../play.html\">Súgradh</a>, ansin an chuid do dhaoine fásta, ansin an cluaisín Aibítir. Fanann grianghraif ar an ngléas seo.",
       letterOf: "Litir {l}", word: "{w}" }
   };
@@ -66,7 +66,7 @@
     u.rate = Math.min(1, Math.max(0.5, +S.rate || 0.75)) * 0.92; u.pitch = 1;
     // Match the voice's own language: asking for en-IE with no Irish-English voice makes some browsers say nothing.
     if (v) { u.voice = v; u.lang = v.lang; } else u.lang = lang === "ga" ? "ga-IE" : "en-GB";
-    current = u;
+    current = u; if (CM.speech) CM.speech.watch(u);
     var go = function () { try { speechSynthesis.resume(); speechSynthesis.speak(u); } catch (e) {} };
     if (busy()) { try { speechSynthesis.cancel(); } catch (e) {} setTimeout(go, 120); } else go();
   }
@@ -127,9 +127,10 @@
     var t = UI[lang];
     $("voice").textContent = voiceOn ? t.voiceOn : t.voiceOff;
     $("voice").setAttribute("aria-pressed", String(voiceOn));
-    var missing = lang === "ga" && !voiceFor("ga");
-    $("voiceNote").hidden = !(voiceOn && missing);
-    $("voiceNote").textContent = t.noVoice;
+    // No voice at all on this device: say how to add one. In Irish with only English voices: say so.
+    var none = CM.speech && CM.speech.status() === "none", noIrish = lang === "ga" && !voiceFor("ga");
+    $("voiceNote").hidden = !(voiceOn && (none || noIrish));
+    $("voiceNote").textContent = none ? CM.speech.help[lang] : t.noVoice;
   }
   function go(L, focusPicker) { if (!CM.alpha.hasLetter(lang, L) || L === letter) return; hush(); letter = L; render(focusPicker); }
   function step(d) { var ls = CM.alpha.letters(lang), i = ls.indexOf(letter) + d; if (ls[i]) go(ls[i]); }
@@ -158,6 +159,7 @@
   window.addEventListener("pagehide", hush);
   try { $("year").textContent = new Date().getFullYear(); } catch (e) {}
 
+  if (CM.speech) CM.speech.onChange(renderVoice);
   render();
   // Family photos load from the device a moment later.
   CM.media.ready.then(function () { render(); });
