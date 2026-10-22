@@ -680,7 +680,7 @@
     document.querySelectorAll("[data-pane]").forEach(function (p) { p.hidden = p.dataset.pane !== tab; });
     CM.ui.closePicker();
     ({ child: renderChild, settings: renderSettings, skills: renderProgress, history: renderHistory, engine: renderLog, account: renderAccount, tools: renderTools,
-       talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures, sing: renderSing }[tab] || renderProgress)();
+       talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures, sing: renderSing, alpha: function () { CM.alpha.renderTab($("alphaBox")); } }[tab] || renderProgress)();
   }
 
   /* ---------- sing along tab ---------- */

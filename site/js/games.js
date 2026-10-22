@@ -57,7 +57,8 @@
     { id: "under", en: "under", ga: "faoin mbosca", sayEn: "Find the ball under the box", sayGa: "Aimsigh an liathróid faoin mbosca" },
     { id: "next", en: "next to", ga: "in aice leis an mbosca", sayEn: "Find the ball next to the box", sayGa: "Aimsigh an liathróid in aice leis an mbosca" }
   ];
-  var LETTERS_EN = "ABCDEFGHIJKLMNOPRSTUW".split(""), LETTERS_GA = "ABCDEFGHILMNOPRSTU".split(""); // the Irish alphabet has 18 letters
+  // Every letter has pictures now (js/alphabet.js), so Q, V, X, Y and Z are in the English games too.
+  var LETTERS_EN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""), LETTERS_GA = "ABCDEFGHILMNOPRSTU".split(""); // the Irish alphabet has 18 letters
   var LETTERS = LETTERS_EN;
   var TRACE = ["L", "T", "I", "O", "C", "U", "V", "H", "E", "A", "S", "M"];
 
@@ -191,13 +192,28 @@
       var mode = c.skill.mode; LETTERS = CM.lang() === "ga" ? LETTERS_GA : LETTERS_EN;
       if (mode === "trace") { var tl = fresh("trace", TRACE, String); return { kind: "trace", letter: tl, title: t("traceLetter", { l: tl }), speak: t("traceLetter", { l: tl }) }; }
       if (mode === "first") {
-        var pool = [];
-        Object.keys(CM.THEMES).forEach(function (k) { if (CM.THEMES[k].noKind) return; CM.THEMES[k].items.forEach(function (it) { var nm = nmx(it); if (!/\s/.test(nm) && letterFirst(nm)) pool.push({ it: it, tk: k, l: letterFirst(nm) }); }); });
-        var tg = fresh("first", pool, function (x) { return x.it[0]; });
+        // Words from the alphabet (chosen by first sound, plus the family's own words and photos),
+        // and theme words whose first sound is the usual sound of their letter (not cheese, shoes or giraffe).
+        var pool = [], seen = {}, lg = CM.lang() === "ga" ? "ga" : "en";
+        if (CM.alpha) CM.alpha.hiddenWords(lg).forEach(function (w) { seen[w] = 1; });
+        if (CM.alpha) CM.alpha.all(lg).forEach(function (e) {
+          seen[e.word.toLowerCase()] = 1;
+          pool.push({ id: e.id, name: e.word, l: e.letter, html: function () { return CM.alpha.picHtml(e); } });
+        });
+        Object.keys(CM.THEMES).forEach(function (k) {
+          if (CM.THEMES[k].noKind) return;
+          CM.THEMES[k].items.forEach(function (it) {
+            var nm = nmx(it), l = letterFirst(nm);
+            if (!l || LETTERS.indexOf(l) < 0 || seen[nm.toLowerCase()] || (CM.alpha && !CM.alpha.clearStart(nm, lg)) || /\s/.test(nm)) return;
+            seen[nm.toLowerCase()] = 1;
+            pool.push({ id: k + ":" + it[0], name: nm, l: l, html: function () { return pic(it, k); } });
+          });
+        });
+        var tg = fresh("first", pool, function (x) { return x.id; });
         var ls = shuffle(LETTERS.filter(function (l) { return l !== tg.l; })).slice(0, c.n - 1);
-        return { title: t("firstLetter"), show: '<div class="target" role="img" aria-label="' + esc(nmx(tg.it)) + '">' + pic(tg.it, tg.tk) + '</div><p class="sub">' + esc(nmx(tg.it)) + "</p>",
+        return { title: t("firstLetter"), show: '<div class="target" role="img" aria-label="' + esc(tg.name) + '">' + tg.html() + '</div><p class="sub">' + esc(tg.name) + "</p>",
           opts: shuffle([tg.l].concat(ls)).map(function (l) { return { html: '<span class="letter">' + l + "</span>", label: l, correct: l === tg.l }; }),
-          speak: t("sayFirstLetter", { name: nmx(tg.it) }), praiseName: tg.l + ", " + nmx(tg.it) };
+          speak: t("sayFirstLetter", { name: tg.name }), praiseName: tg.l + ", " + tg.name };
       }
       var L1 = fresh("letter", LETTERS, String), lo = shuffle(LETTERS.filter(function (l) { return l !== L1; })).slice(0, c.n - 1);
       var lower = mode === "case";

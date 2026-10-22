@@ -8,7 +8,7 @@
   var L = null;
   try { L = JSON.parse(CM.safeGet(KEY) || "null"); } catch (e) { L = null; }
   if (!L || typeof L !== "object") L = {};
-  L.v = 1; L.items = L.items || {}; L.stories = L.stories || {}; L.kids = L.kids || {};
+  L.v = 1; L.items = L.items || {}; L.stories = L.stories || {}; L.kids = L.kids || {}; L.alpha = L.alpha || {}; // alpha: own alphabet words (js/alphabet.js)
 
   var MAX_STEPS = 20, MAX_SCHED = 12;
   function persist() { if (!CM.safeSet(KEY, JSON.stringify(L))) throw new Error("This device is out of space."); }
@@ -41,8 +41,8 @@
     save: persist,
     kid: kid,
     forget: function (id) { delete L.kids[id]; persist(); },
-    replace: function (data) { L = data && typeof data === "object" ? data : {}; L.v = 1; L.items = L.items || {}; L.stories = L.stories || {}; L.kids = L.kids || {}; persist(); },
-    wipe: function () { L = { v: 1, items: {}, stories: {}, kids: {} }; try { localStorage.removeItem(KEY); } catch (e) {} },
+    replace: function (data) { L = data && typeof data === "object" ? data : {}; L.v = 1; L.items = L.items || {}; L.stories = L.stories || {}; L.kids = L.kids || {}; L.alpha = L.alpha || {}; persist(); },
+    wipe: function () { L = { v: 1, items: {}, stories: {}, kids: {}, alpha: {} }; try { localStorage.removeItem(KEY); } catch (e) {} },
 
     /* own pictures ("My pictures"): a word or two, with a photo, a symbol or an emoji */
     items: function () { return Object.keys(L.items).map(function (id) { return Object.assign({ id: id }, L.items[id]); }); },

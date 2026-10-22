@@ -64,13 +64,27 @@
       var db, newLib;
       if (mode === "replace") {
         db = { v: 3, active: idMap[o.db.active] || Object.keys(profiles)[0], profiles: profiles, app: o.db.app || cur.app };
-        newLib = { items: inLib.items || {}, stories: inLib.stories || {}, kids: {} };
+        newLib = { items: inLib.items || {}, stories: inLib.stories || {}, kids: {}, alpha: inLib.alpha || {} };
         Object.keys(inLib.kids || {}).forEach(function (id) { if (idMap[id]) newLib.kids[idMap[id]] = inLib.kids[id]; });
       } else {
         db = cur; Object.keys(profiles).forEach(function (id) { db.profiles[id] = profiles[id]; });
         newLib = JSON.parse(JSON.stringify(lib));
         ["items", "stories"].forEach(function (k) { Object.keys(inLib[k] || {}).forEach(function (id) { if (!newLib[k][id]) newLib[k][id] = inLib[k][id]; }); });
         Object.keys(inLib.kids || {}).forEach(function (id) { if (idMap[id]) newLib.kids[idMap[id]] = inLib.kids[id]; });
+        // Own alphabet words: add the file's words to each letter, skipping any already here.
+        var inA = inLib.alpha || {}, a = newLib.alpha = newLib.alpha || {};
+        a.own = a.own || {}; a.hide = a.hide || {};
+        Object.keys(inA.own || {}).forEach(function (l) {
+          a.own[l] = a.own[l] || {};
+          Object.keys(inA.own[l] || {}).forEach(function (L) {
+            var here = a.own[l][L] = a.own[l][L] || [];
+            (inA.own[l][L] || []).forEach(function (o) { if (o && !here.some(function (x) { return x.id === o.id; })) here.push(o); });
+          });
+        });
+        Object.keys(inA.hide || {}).forEach(function (l) {
+          a.hide[l] = a.hide[l] || [];
+          (inA.hide[l] || []).forEach(function (id) { if (a.hide[l].indexOf(id) < 0) a.hide[l].push(id); });
+        });
       }
       var media = o.media || {}, start = mode === "replace" ? CM.media.clear() : Promise.resolve();
       return start.then(function () {

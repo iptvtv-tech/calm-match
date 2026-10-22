@@ -1,9 +1,10 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-11-13";
+var VERSION = "cm-2026-10-22-1";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html", "privacy-kids.html", "summary.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css", "css/kids.css", "css/summary.css",
   "js/config.js", "js/common.js", "js/engine.js", "js/i18n.js", "js/store.js", "js/media.js", "js/photos.js", "js/symbols.js", "js/library.js", "js/cloud.js",
+  "js/alphabet.js", "js/alphabet-tab.js",
   "js/ui.js", "js/voice.js", "js/games.js", "js/rewards.js", "js/stories.js", "js/talk.js", "js/classroom.js", "js/backup.js", "js/tools.js", "js/touch.js", "js/app.js", "js/summary.js",
   "credits.html",
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png"
@@ -19,11 +20,14 @@ var SINGALONG = [
   "singalong/images/row-boat.svg", "singalong/images/this-old-man.svg", "singalong/images/twinkle.svg", "singalong/images/yankee-doodle.svg"
 ];
 
+// Alphabet book (alphabet/). Pictures are emoji, so only the page and its script are needed.
+var ALPHABET = ["alphabet/", "alphabet/index.html", "alphabet/book.js"];
+
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) {
     // Symbols for the talk board and schedules, listed by tools/build-symbols.py.
     var syms = fetch("symbols/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
-    return syms.then(function (ids) { return CORE.concat(SINGALONG, ids.map(function (id) { return "symbols/" + id + ".svg"; })); });
+    return syms.then(function (ids) { return CORE.concat(SINGALONG, ALPHABET, ids.map(function (id) { return "symbols/" + id + ".svg"; })); });
   }).then(function (all) {
     return caches.open(VERSION).then(function (c) {
     // Add one by one so a single missing file (or a redirect) doesn't break install.
