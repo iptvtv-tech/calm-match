@@ -39,7 +39,7 @@
       M: [["🐒", "monkey"], ["🌙", "moon"], ["🥛", "milk"], ["🐭", "mouse"], ["🍄", "mushroom"]],
       N: [["👃", "nose"], ["🥜", "nuts"], ["🥅", "net"], ["9️⃣", "nine"]],
       O: [["🐙", "octopus"], ["🍊", "orange"], ["🦦", "otter"], ["🫒", "olive"]],
-      P: [["🐷", "pig"], ["🍕", "pizza"], ["🐧", "penguin"], ["🍐", "pear"], ["✏️", "pencil"]],
+      P: [["🐷", "pig"], ["🍕", "pizza"], ["🐧", "penguin"], ["🐼", "panda"], ["🍐", "pear"], ["✏️", "pencil"]],
       Q: [["👸", "queen"], ["❓", "question"], ["🤫", "quiet"]],
       R: [["🐰", "rabbit"], ["🌈", "rainbow"], ["🚀", "rocket"], ["🤖", "robot"], ["💍", "ring"]],
       S: [["☀️", "sun"], ["🐍", "snake"], ["🧦", "socks"], ["⭐", "star"], ["🦭", "seal"]],
