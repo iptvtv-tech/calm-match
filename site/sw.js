@@ -1,5 +1,5 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-22-5";
+var VERSION = "cm-2026-10-22-6";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html", "privacy-kids.html", "summary.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css", "css/kids.css", "css/summary.css",
@@ -27,7 +27,11 @@ self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) {
     // Symbols for the talk board and schedules, listed by tools/build-symbols.py.
     var syms = fetch("symbols/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
-    return syms.then(function (ids) { return CORE.concat(SINGALONG, ALPHABET, ids.map(function (id) { return "symbols/" + id + ".svg"; })); });
+    // Built-in recordings for the Alphabet book, listed by tools/audio/build.py (about 1.2 MB in English).
+    var clips = fetch("audio/manifest.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : { files: [] }; }).catch(function () { return { files: [] }; });
+    return Promise.all([syms, clips]).then(function (x) {
+      return CORE.concat(SINGALONG, ALPHABET, ["audio/manifest.json"], x[0].map(function (id) { return "symbols/" + id + ".svg"; }), (x[1].files || []).map(function (f) { return "audio/" + f; }));
+    });
   }).then(function (all) {
     return caches.open(VERSION).then(function (c) {
     // Add one by one so a single missing file (or a redirect) doesn't break install.
@@ -59,6 +63,21 @@ self.addEventListener("fetch", function (e) {
       return caches.match(req, { ignoreSearch: true })
         .then(function (hit) { return hit || caches.match(alt); })
         .then(function (hit) { return hit || caches.match("play.html"); });
+    }));
+    return;
+  }
+  // Recordings: Safari asks for sound in byte ranges and won't play a whole file in reply, so answer ranges from the cache.
+  if (url.pathname.indexOf("/audio/") !== -1 && req.headers.get("range")) {
+    e.respondWith(caches.match(url.origin + url.pathname, { ignoreSearch: true }).then(function (hit) {
+      if (!hit) return fetch(req);
+      return hit.arrayBuffer().then(function (buf) {
+        var m = /bytes=(\d*)-(\d*)/.exec(req.headers.get("range")) || [], size = buf.byteLength;
+        var start = m[1] ? +m[1] : 0, end = m[2] ? Math.min(+m[2], size - 1) : size - 1;
+        if (!m[1] && m[2]) { start = Math.max(0, size - +m[2]); end = size - 1; }
+        return new Response(buf.slice(start, end + 1), { status: 206, headers: {
+          "Content-Type": hit.headers.get("Content-Type") || "audio/mpeg", "Content-Length": String(end - start + 1),
+          "Content-Range": "bytes " + start + "-" + end + "/" + size, "Accept-Ranges": "bytes" } });
+      });
     }));
     return;
   }

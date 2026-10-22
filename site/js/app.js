@@ -95,7 +95,16 @@
     el.textContent = CM.speech.help.en;
   }
   if (CM.speech) CM.speech.onChange(speechNote);
-  function hush() { try { speechSynthesis.cancel(); } catch (e) {} }
+  var stopClips = null;
+  function hush() { try { speechSynthesis.cancel(); } catch (e) {} if (stopClips) { stopClips(); stopClips = null; } }
+  // Say a turn's instruction. On a device that can't speak this language, play the turn's built-in
+  // recording instead, if it has one (the Letters game's first-sound words: js/alphabet.js).
+  function sayTurn() {
+    if (!cur) return;
+    var ga = CM.lang() === "ga", cant = (CM.speech && CM.speech.status() === "none") || (ga && !CM.irishVoice());
+    if (cur.audio && S().speech && cant && CM.alpha) { if (stopClips) stopClips(); stopClips = CM.alpha.playClips(cur.audio); return; }
+    say(cur.speak);
+  }
   function praise(name) {
     var k = { cheerful: "praiseCheer", gentle: "praiseGentle", calm: "praiseCalm" }[S().celebrate] || "praiseGentle";
     return name != null && name !== "" ? t(k, { name: CM.cap(name) }) : t(k + "Plain");
@@ -212,7 +221,7 @@
     cur.prompt = cur.kind || !S().errorless ? 0 : P().skills[blk.skill.id].prompt || 0;
     if (cur.kind === "pairs" && cur.peek > 0) startPeek();
     show(renderTurn);
-    say(cur.speak);
+    sayTurn();
   }
   function renderTurn() {
     if (cur.kind === "pairs") return renderPairs();
@@ -236,7 +245,7 @@
     bindAgain(); renderDots();
   }
   function againBtn() { return S().speech && !(CM.lang() === "ga" && !CM.irishVoice()) ? '<button class="again" id="againBtn" type="button">' + esc(t("sayAgain")) + "</button>" : ""; }
-  function bindAgain() { var a = $("againBtn"); if (a) a.onclick = function () { say(cur.speak); }; }
+  function bindAgain() { var a = $("againBtn"); if (a) a.onclick = function () { sayTurn(); }; }
   function renderDots() {
     $("progress").hidden = false;
     var d = ""; for (var i = 0; i < blk.turns; i++) d += '<span class="dot ' + (i < blk.t ? "done" : "") + '"></span>';
@@ -445,7 +454,7 @@
     locked = true; renderSched(); renderDots();
     stage.innerHTML = cur.pre.html + '<p class="sub">' + esc(t("remember")) + "</p>";
     say(cur.pre.speak);
-    pairsTimer = setTimeout(function () { pairsTimer = null; cur.preDone = true; show(renderTurn); say(cur.speak); }, S().calm ? cur.pre.ms + 1000 : cur.pre.ms);
+    pairsTimer = setTimeout(function () { pairsTimer = null; cur.preDone = true; show(renderTurn); sayTurn(); }, S().calm ? cur.pre.ms + 1000 : cur.pre.ms);
   }
 
   /* ---------- tap in order (steps, small to big) ---------- */
@@ -651,7 +660,7 @@
       if (f === nextTurn) return nextTurn();
       if (f === renderTurn) {
         if (cur && cur.kind === "pairs") { cur.open = []; cur.busy = false; cur.peeking = false; }
-        show(renderTurn); return say(cur.speak);
+        show(renderTurn); return sayTurn();
       }
       show(f);
     } });
@@ -1182,6 +1191,7 @@
     document.querySelectorAll(".tab").forEach(function (x) { x.onclick = function () { tab = x.dataset.tab; renderPanel(); }; });
     stage.innerHTML = "";
     CM.media.ready.then(function () { if (!session && !CM.tools.active()) startScreen(); });
+    if (CM.alpha) CM.alpha.loadAudio("");
     if (CM.cloud && CM.cloud.enabled) {
       CM.cloud.onChange(function (ev) {
         if (!$("panel").hidden && tab === "account") renderAccount();

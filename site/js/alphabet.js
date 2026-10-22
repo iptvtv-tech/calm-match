@@ -113,8 +113,46 @@
       photoKey: o.img || null, recRef: "al:" + L + ":o-" + o.id };
   }
 
+  /* ---------- built-in recordings (site/audio, made with tools/audio/build.py) ---------- */
+  // Which clips exist. A word without a clip falls back to the device's voice.
+  var clips = null, audioBase = "", audioReady = null;
+  function clipUrl(path) { return clips && clips[path] ? audioBase + "audio/" + path : null; }
+
   CM.alpha = {
     MAX_OWN: MAX_OWN,
+    // Read the list of built-in recordings once. base is the path to the site root ("" or "../").
+    loadAudio: function (base) {
+      if (audioReady) return audioReady;
+      audioBase = base || "";
+      audioReady = fetch(audioBase + "audio/manifest.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : { files: [] }; })
+        .catch(function () { return { files: [] }; })
+        .then(function (m) { clips = {}; (m.files || []).forEach(function (f) { clips[f] = 1; }); return clips; });
+      return audioReady;
+    },
+    hasClips: function (lang) { return !!clips && Object.keys(clips).some(function (k) { return k.indexOf(lang + "/") === 0; }); },
+    letterClip: function (lang, L) { return clipUrl(lang + "/letters/" + String(L).toLowerCase() + ".mp3"); },
+    wordClip: function (lang, word) { return clipUrl(lang + "/words/" + slug(word) + ".mp3"); },
+    // What to play for a ready-made word: "b … bee", or "fox … ends with x". Null if the word has no clip.
+    clipsFor: function (e) {
+      if (e.kind !== "preset") return null;
+      var w = this.wordClip(e.lang, e.word); if (!w) return null;
+      if (e.end) { var ph = clipUrl(e.lang + "/phrases/ends-with-" + e.letter.toLowerCase() + ".mp3"); return ph ? [w, ph] : [w]; }
+      var l = this.letterClip(e.lang, e.letter);
+      return l ? [l, w] : [w];
+    },
+    // Play clips one after another with a short pause. Returns a stop function. onFail runs if a clip can't play.
+    playClips: function (urls, onFail, gapMs) {
+      var i = 0, cur = null, timer = null, stopped = false;
+      function next() {
+        if (stopped || i >= urls.length) return;
+        cur = new Audio(urls[i++]); cur.volume = 0.9;
+        cur.onended = function () { timer = setTimeout(next, gapMs == null ? 350 : gapMs); };
+        cur.onerror = function () { if (!stopped && i === 1 && onFail) onFail(); };
+        var p = cur.play(); if (p && p.catch) p.catch(function () { if (!stopped && i === 1 && onFail) onFail(); });
+      }
+      next();
+      return function () { stopped = true; clearTimeout(timer); if (cur) { try { cur.pause(); } catch (e) {} } };
+    },
     WORDS: WORDS,
     slug: slug,
     firstLetter: firstLetter,

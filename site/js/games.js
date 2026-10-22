@@ -198,7 +198,7 @@
         if (CM.alpha) CM.alpha.hiddenWords(lg).forEach(function (w) { seen[w] = 1; });
         if (CM.alpha) CM.alpha.all(lg).forEach(function (e) {
           seen[e.word.toLowerCase()] = 1;
-          pool.push({ id: e.id, name: e.word, l: e.letter, html: function () { return CM.alpha.picHtml(e); } });
+          pool.push({ id: e.id, name: e.word, l: e.letter, html: function () { return CM.alpha.picHtml(e); }, audio: e.kind === "preset" ? CM.alpha.wordClip(lg, e.word) : null });
         });
         Object.keys(CM.THEMES).forEach(function (k) {
           if (CM.THEMES[k].noKind) return;
@@ -213,7 +213,8 @@
         var ls = shuffle(LETTERS.filter(function (l) { return l !== tg.l; })).slice(0, c.n - 1);
         return { title: t("firstLetter"), show: '<div class="target" role="img" aria-label="' + esc(tg.name) + '">' + tg.html() + '</div><p class="sub">' + esc(tg.name) + "</p>",
           opts: shuffle([tg.l].concat(ls)).map(function (l) { return { html: '<span class="letter">' + l + "</span>", label: l, correct: l === tg.l }; }),
-          speak: t("sayFirstLetter", { name: tg.name }), praiseName: tg.l + ", " + tg.name };
+          speak: t("sayFirstLetter", { name: tg.name }), praiseName: tg.l + ", " + tg.name,
+          audio: tg.audio ? [tg.audio] : null }; // the word on its own, for devices with no voice (js/alphabet.js)
       }
       var L1 = fresh("letter", LETTERS, String), lo = shuffle(LETTERS.filter(function (l) { return l !== L1; })).slice(0, c.n - 1);
       var lower = mode === "case";

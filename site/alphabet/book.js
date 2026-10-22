@@ -52,7 +52,12 @@
   function voiceFor(l) { return l === "ga" ? localVoice(/^ga/i) : (localVoice(/^en-(IE|GB)/i) || localVoice(/^en/i)); }
   var playing = null;
   function busy() { try { return speechSynthesis.speaking || speechSynthesis.pending; } catch (e) { return false; } }
-  function hush() { try { if (busy()) speechSynthesis.cancel(); } catch (e) {} if (playing) { try { playing.pause(); } catch (e) {} playing = null; } }
+  var stopClips = null;
+  function hush() {
+    try { if (busy()) speechSynthesis.cancel(); } catch (e) {}
+    if (playing) { try { playing.pause(); } catch (e) {} playing = null; }
+    if (stopClips) { stopClips(); stopClips = null; }
+  }
   // Say a short phrase slowly, like "clear speech" in the games.
   // Some browsers (Chrome, Safari) silently drop speech started straight after stopping other speech,
   // so it only stops speech that is actually playing, and then waits a moment before speaking.
@@ -76,8 +81,11 @@
     // A grown-up's own recording of this word plays instead of the device voice.
     var rk = CM.alpha.recKey(e);
     if (CM.media.has(rk)) { try { playing = new Audio(CM.media.url(rk)); playing.play().catch(function () {}); return; } catch (x) {} }
-    var t = UI[lang];
-    say(e.end ? fill(t.endSay, { w: e.word, l: e.letter.toLowerCase() }) : e.letter + ". " + e.word + ".");
+    var t = UI[lang], spoken = e.end ? fill(t.endSay, { w: e.word, l: e.letter.toLowerCase() }) : e.letter + ". " + e.word + ".";
+    // Then the built-in recording, then the device's voice.
+    var urls = CM.alpha.clipsFor(e);
+    if (urls) { stopClips = CM.alpha.playClips(urls, function () { stopClips = null; say(spoken); }); return; }
+    say(spoken);
   }
 
   /* ---------- drawing ---------- */
@@ -128,7 +136,9 @@
     $("voice").textContent = voiceOn ? t.voiceOn : t.voiceOff;
     $("voice").setAttribute("aria-pressed", String(voiceOn));
     // No voice at all on this device: say how to add one. In Irish with only English voices: say so.
-    var none = CM.speech && CM.speech.status() === "none", noIrish = lang === "ga" && !voiceFor("ga");
+    // Built-in recordings cover the ready-made words, so no note is needed when this language has them.
+    var clips = CM.alpha.hasClips(lang);
+    var none = !clips && CM.speech && CM.speech.status() === "none", noIrish = !clips && lang === "ga" && !voiceFor("ga");
     $("voiceNote").hidden = !(voiceOn && (none || noIrish));
     $("voiceNote").textContent = none ? CM.speech.help[lang] : t.noVoice;
   }
@@ -163,4 +173,5 @@
   render();
   // Family photos load from the device a moment later.
   CM.media.ready.then(function () { render(); });
+  CM.alpha.loadAudio("../").then(renderVoice);
 })();
