@@ -35,7 +35,7 @@
       box.innerHTML = '<div class="row" style="justify-content:space-between"><b>Choose a picture</b><button type="button" class="small-btn" data-close>Close</button></div>' +
         '<div class="chips">' + sources.map(function (s) { return '<button type="button" class="chip" data-src="' + s[0] + '" aria-pressed="' + (s[0] === src) + '">' + s[1] + "</button>"; }).join("") + "</div>" + extra +
         '<div class="pk-grid">' + (items.length ? items.map(function (r) { var x = CM.ref(r); return '<button type="button" class="pk" data-r="' + esc(r) + '"><span class="pk-pic">' + x.html + '</span><span class="pk-name">' + esc(x.en || "") + "</span></button>"; }).join("")
-          : '<p class="note">' + (src === "mine" ? "No pictures of your own yet. Add them on the Pictures tab." : "Nothing here.") + "</p>") + "</div>" +
+          : '<p class="note">' + (src === "mine" ? "No pictures of your own yet. Add them in Make > Pictures." : "Nothing here.") + "</p>") + "</div>" +
         (CM.SYMBOLS ? '<p class="note small">Symbols: Mulberry Symbols by Steve Lee, CC BY-SA 4.0.</p>' : "");
       box.querySelector("[data-close]").onclick = CM.ui.closePicker;
       box.querySelectorAll("[data-src]").forEach(function (b) { b.onclick = function () { src = b.dataset.src; render(); }; });

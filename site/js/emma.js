@@ -9,7 +9,7 @@
    2. If every piece has a recording, play them in order. If any piece is missing (words a grown-up typed,
       for example), Emma says nothing and the device's voice says the whole sentence instead, so the two
       voices are never mixed inside one sentence.
-   3. The child's own name: a grown-up can record it (Children tab). Until then Emma leaves it out
+   3. The child's own name: a grown-up can record it (Children and device > Children). Until then Emma leaves it out
       ("Great work!" instead of "Great work, Sam").
 
    This file also runs in node (tools/audio/harvest.js), so it must not touch the page when loaded. */

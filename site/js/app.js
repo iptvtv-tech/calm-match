@@ -187,17 +187,26 @@
       '<h1 class="say">' + esc(t("gamesThenDone", { n: plan.length })) + "</h1>" +
       '<p class="sub">' + esc(plan.map(CM.gameName).join(", " + t("then") + " ")) + ". " + esc(t("tapBreak")) + "</p>" +
       '<button class="big-btn" id="startBtn" type="button">' + esc(t("start")) + "</button>" +
-      '<div class="row extras">' +
-        '<button class="ghost-btn" id="stickBtn" type="button"><span aria-hidden="true">⭐</span> ' + esc(t("myStickers")) + "</button>" +
-        (hasStories ? '<button class="ghost-btn" id="storiesBtn" type="button"><span aria-hidden="true">📖</span> ' + esc(t("myStories")) + "</button>" : "") +
-        '<button class="ghost-btn" id="calmBtn" type="button"><span aria-hidden="true">🌙</span> ' + esc(t("calmCorner")) + "</button>" +
-        (CM.classroom.on() && CM.store.list().length > 1 ? '<button class="ghost-btn" id="whoBtn" type="button">' + esc(t("whoPlaying")) + "</button>" : "") +
-      "</div>";
+      doorsHtml(hasStories) +
+      (CM.classroom.on() && CM.store.list().length > 1 ? '<div class="row extras"><button class="ghost-btn" id="whoBtn" type="button">' + esc(t("whoPlaying")) + "</button></div>" : "");
     $("startBtn").onclick = startSession;
-    $("stickBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.stickerBook(function () { CM.tools.helpers().exit(); }); };
+    if ($("stickBtn")) $("stickBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.stickerBook(function () { CM.tools.helpers().exit(); }); };
     if ($("storiesBtn")) $("storiesBtn").onclick = function () { CM.stories.shelf(); };
-    $("calmBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.breakScreen({ label: t("calmCorner"), title: t("calmCorner"), onClose: function () { CM.tools.helpers().exit(); } }); };
+    if ($("calmBtn")) $("calmBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.breakScreen({ label: t("calmCorner"), title: t("calmCorner"), onClose: function () { CM.tools.helpers().exit(); } }); };
     if ($("whoBtn")) $("whoBtn").onclick = function () { chosen = false; startScreen(); };
+  }
+  // Picture doors under the Start button. Grown-ups choose which show (Settings > Home screen).
+  function doorOn(k) { var d = S().doors || {}; return d[k] !== false; }
+  function doorsHtml(hasStories) {
+    var q = "?from=play&lang=" + (S().lang === "ga" ? "ga" : "en");
+    var list = [
+      doorOn("sing") && '<a class="door" href="singalong/' + q + '"><span class="door-i" aria-hidden="true">🎵</span>' + esc(t("singAlong")) + "</a>",
+      doorOn("alpha") && '<a class="door" href="alphabet/' + q + '"><span class="door-i" aria-hidden="true">🔤</span>' + esc(t("alphabet")) + "</a>",
+      doorOn("stories") && hasStories && '<button class="door" id="storiesBtn" type="button"><span class="door-i" aria-hidden="true">📖</span>' + esc(t("myStories")) + "</button>",
+      doorOn("stickers") && '<button class="door" id="stickBtn" type="button"><span class="door-i" aria-hidden="true">⭐</span>' + esc(t("myStickers")) + "</button>",
+      doorOn("calm") && '<button class="door" id="calmBtn" type="button"><span class="door-i" aria-hidden="true">🌙</span>' + esc(t("calmCorner")) + "</button>"
+    ].filter(Boolean);
+    return list.length ? '<nav class="doors" aria-label="' + esc(t("moreToDo")) + '">' + list.join("") + "</nav>" : "";
   }
   function startSession() {
     var r = CM.planSession();
@@ -720,11 +729,41 @@
     if (CM.tools.active()) return;
     if (!session) startScreen(); else { renderSched(); renderWho(); }
   }
+  // Grown-ups area: four sections, each with a few pages. Ids are the data-pane names in play.html.
+  var GROUPS = [
+    { id: "progress", icon: "📈", label: "Progress", tabs: [["skills", "Summary"], ["history", "History"], ["engine", "Why it chose"]] },
+    { id: "make", icon: "✏️", label: "Make", tabs: [["tools", "Schedules and timer"], ["talk", "Talk"], ["stories", "Stories"], ["pictures", "Pictures"], ["alpha", "Alphabet"], ["sing", "Sing along"]] },
+    { id: "settings", icon: "⚙️", label: "Settings", tabs: [["set-senses", "Senses and voice"], ["set-games", "Games"], ["set-home", "Home screen"], ["set-rewards", "Rewards and breaks"]] },
+    { id: "people", icon: "👥", label: "Children and device", tabs: [["child", "Children"], ["class", "Classroom"], ["backup", "Backup"], ["account", "Account"], ["device", "This device"]] }
+  ];
+  var lastTab = {};
+  function groupOf(id) { for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].tabs.some(function (x) { return x[0] === id; })) return GROUPS[i]; return GROUPS[0]; }
+  function renderNav() {
+    var g = groupOf(tab); lastTab[g.id] = tab;
+    $("ggroups").innerHTML = GROUPS.map(function (x) {
+      return '<button class="gbtn" role="tab" type="button" data-group="' + x.id + '" aria-selected="' + (x === g) + '" tabindex="' + (x === g ? 0 : -1) + '"><span aria-hidden="true">' + x.icon + "</span> " + esc(x.label) + "</button>";
+    }).join("");
+    $("gtabs").innerHTML = g.tabs.length > 1 ? g.tabs.map(function (x) {
+      return '<button class="tab" role="tab" type="button" data-tab="' + x[0] + '" aria-selected="' + (x[0] === tab) + '" tabindex="' + (x[0] === tab ? 0 : -1) + '">' + esc(x[1]) + "</button>";
+    }).join("") : "";
+    $("ggroups").querySelectorAll(".gbtn").forEach(function (b) { b.onclick = function () { var x = GROUPS.filter(function (y) { return y.id === b.dataset.group; })[0]; tab = lastTab[x.id] || x.tabs[0][0]; renderPanel(); focusNav("ggroups", ".gbtn"); }; });
+    $("gtabs").querySelectorAll(".tab").forEach(function (b) { b.onclick = function () { tab = b.dataset.tab; renderPanel(); focusNav("gtabs", ".tab"); }; });
+    arrowKeys($("ggroups"), ".gbtn"); arrowKeys($("gtabs"), ".tab");
+  }
+  function focusNav(id, sel) { var b = $(id).querySelector(sel + '[aria-selected="true"]'); if (b) b.focus(); }
+  function arrowKeys(box, sel) {
+    box.onkeydown = function (e) {
+      var keys = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }, d = keys[e.key]; if (!d) return;
+      var list = [].slice.call(box.querySelectorAll(sel)), i = list.indexOf(document.activeElement); if (i < 0) return;
+      e.preventDefault(); list[(i + d + list.length) % list.length].click();
+    };
+  }
   function renderPanel() {
-    document.querySelectorAll(".tab").forEach(function (x) { x.setAttribute("aria-selected", x.dataset.tab === tab); });
-    document.querySelectorAll("[data-pane]").forEach(function (p) { p.hidden = p.dataset.pane !== tab; });
+    renderNav();
+    document.querySelectorAll("#panel [data-pane]").forEach(function (p) { p.hidden = p.dataset.pane !== tab; });
     CM.ui.closePicker();
-    ({ child: renderChild, settings: renderSettings, skills: renderProgress, history: renderHistory, engine: renderLog, account: renderAccount, tools: renderTools,
+    ({ child: renderChild, class: renderChild, backup: renderChild, device: function () { renderSettings(); renderChild(); },
+       "set-senses": renderSettings, "set-games": renderSettings, "set-home": renderSettings, "set-rewards": renderSettings, skills: renderProgress, history: renderHistory, engine: renderLog, account: renderAccount, tools: renderTools,
        talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures, sing: renderSing, alpha: function () { CM.alpha.renderTab($("alphaBox")); } }[tab] || renderProgress)();
   }
 
@@ -874,7 +913,21 @@
     $("rewardPick").onclick = function () { CM.ui.pickRef($("rewardPickBox"), function (r) { CM.lib.kid().reward = r; CM.lib.save(); applySenses(); renderSettings(); }); };
     chipGroup($("breakMinChips"), [[0, "No timer"], [1, "1 min"], [2, "2 min"], [3, "3 min"], [5, "5 min"]], s.breakMin, function (v) { s.breakMin = +v; });
     chipGroup($("breakEveryChips"), [[0, "Only when asked"], [1, "After every game"], [2, "After every 2 games"], [3, "After every 3 games"]], s.breakEvery, function (v) { s.breakEvery = +v; });
+    renderDoorToggles();
     renderPhotos();
+  }
+  var DOOR_LIST = [["sing", "🎵", "Sing along", "Opens the songs."], ["alpha", "🔤", "Alphabet book", "Opens the picture book, one letter at a time."],
+    ["stories", "📖", "My stories", "Shows only once you've made a story in Make > Stories."], ["stickers", "⭐", "My stickers", "The sticker book."],
+    ["calm", "🌙", "Calm corner", "Breathing, bubbles, music or quiet."]];
+  function renderDoorToggles() {
+    var s = S(); s.doors = s.doors || {};
+    $("doorToggles").innerHTML = '<div class="grid2">' + DOOR_LIST.map(function (d) {
+      return '<label class="toggle"><input type="checkbox" id="door-' + d[0] + '"><span><span aria-hidden="true">' + d[1] + "</span> " + esc(d[2]) + "<small>" + esc(d[3]) + "</small></span></label>";
+    }).join("") + "</div>";
+    DOOR_LIST.forEach(function (d) {
+      var c = $("door-" + d[0]); c.checked = s.doors[d[0]] !== false;
+      c.onchange = function () { s.doors[d[0]] = c.checked; CM.store.save(); log("Home screen", d[2] + (c.checked ? " shown" : " hidden")); };
+    });
   }
   function renderPhotos() {
     var s = S(), tk = s.theme, th = CM.THEMES[tk];
@@ -994,7 +1047,7 @@
       return "<tr><td>" + d.toLocaleDateString([], { day: "numeric", month: "short" }) + " " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + "</td><td>" +
         r.blocks.map(function (b) { return esc(CM.SK[b.skill] ? CM.SK[b.skill].name : b.skill) +  ' <span class="note">' + (+b.first || 0) + "/" + ((+b.turns || 0) - (+b.prompted || 0)) + (b.prompted ? ", " + (+b.prompted || 0) + " helped" : "") + "</span>"; }).join("<br>") +
         "</td><td>" + (+r.first || 0) + " of " + indep + " (" + CM.pct(indep ? r.first / indep : 0) + ")</td><td>" + (+r.prompted || 0) + "</td><td>" + (+r.hints || 0) + "</td><td>" + (+r.breaks || 0) + "</td><td>" + (+r.mins || 0) + "</td></tr>";
-    }).join("") : '<tr><td colspan="7" class="note">No sessions yet for ' + esc(P().name) + ". Finish a session, or add the example child on the Children tab.</td></tr>";
+    }).join("") : '<tr><td colspan="7" class="note">No sessions yet for ' + esc(P().name) + ". Finish a session, or add the example child in Children and device > This device.</td></tr>";
   }
   function exportJSON() {
     var p = P();
@@ -1212,11 +1265,10 @@
     $("breakBtn").onclick = takeBreak;
     $("talkBtn").onclick = function () { if (CM.talk.isOpen()) CM.talk.close(); else CM.talk.open(); };
     $("closePanel").onclick = closePanel;
-    document.querySelectorAll(".tab").forEach(function (x) { x.onclick = function () { tab = x.dataset.tab; renderPanel(); }; });
     stage.innerHTML = "";
     CM.media.ready.then(function () { if (!session && !CM.tools.active()) startScreen(); });
     if (CM.alpha) CM.alpha.loadAudio("");
-    if (CM.emma) CM.emma.load("").then(function () { if (!$("panel").hidden && tab === "settings") speechNote(); });
+    if (CM.emma) CM.emma.load("").then(function () { if (!$("panel").hidden && tab === "set-senses") speechNote(); });
     if (CM.cloud && CM.cloud.enabled) {
       CM.cloud.onChange(function (ev) {
         if (!$("panel").hidden && tab === "account") renderAccount();

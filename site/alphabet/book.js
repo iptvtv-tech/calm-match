@@ -15,12 +15,12 @@
     en: { title: "Alphabet", lede: "Pick a letter. Tap a picture to hear its word.", letters: "Letters", back: "Back", next: "Next",
       voiceOn: "🔊 Read aloud: on", voiceOff: "🔈 Read aloud: off", end: "ends with {l}", endSay: "{w}. {w} ends with {l}.",
       noVoice: "This device has no Irish voice, so words aren't read aloud in Irish.",
-      grown: "Grown-ups: you can add your own words and photos, like your child's dog or their favourite cup. Open <a href=\"../play.html\">Play</a>, then the Grown-ups area, then the Alphabet tab. Photos stay on this device.",
+      grown: "Grown-ups: you can add your own words and photos, like your child's dog or their favourite cup. Open <a href=\"../play.html\">Play</a>, then Grown-ups, then Make > Alphabet. Photos stay on this device.",
       letterOf: "Letter {l}", word: "{w}" },
     ga: { title: "Aibítir", lede: "Roghnaigh litir. Brúigh ar phictiúr chun an focal a chloisteáil.", letters: "Litreacha", back: "Siar", next: "Ar aghaidh",
       voiceOn: "🔊 Léigh os ard: ar siúl", voiceOff: "🔈 Léigh os ard: múchta", end: "", endSay: "{w}.",
       noVoice: "Níl guth Gaeilge ar an ngléas seo, mar sin ní léitear na focail os ard as Gaeilge. Is féidir le duine fásta focail a thaifeadadh ina ghuth féin sa chuid do dhaoine fásta.",
-      grown: "Daoine fásta: is féidir libh bhur bhfocail agus bhur ngrianghraif féin a chur leis. Oscail <a href=\"../play.html\">Súgradh</a>, ansin an chuid do dhaoine fásta, ansin an cluaisín Aibítir. Fanann grianghraif ar an ngléas seo.",
+      grown: "Daoine fásta: is féidir libh bhur bhfocail agus bhur ngrianghraif féin a chur leis. Oscail <a href=\"../play.html\">Súgradh</a>, ansin an chuid do dhaoine fásta (Make > Alphabet). Fanann grianghraif ar an ngléas seo.",
       letterOf: "Litir {l}", word: "{w}" }
   };
   var fill = function (s, v) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return v[k] != null ? v[k] : m; }); };
@@ -84,7 +84,7 @@
     // English says "A for apple". Irish says the letter then the word, because "mar" ("for") changes the word after it (B mar bhó).
     var t = UI[lang], spoken = e.end ? fill(t.endSay, { w: e.word, l: e.letter.toLowerCase() }) : lang === "en" ? e.letter + ", for " + e.word + "." : e.letter + ". " + e.word + ".";
     // Then the built-in recording, then the device's voice.
-    // A grown-up can choose the device's voice instead of Emma (Grown-ups > Settings > Voice).
+    // A grown-up can choose the device's voice instead of Emma (Grown-ups > Settings > Senses and voice).
     var useDevice = S.voice === "device" && voiceFor(lang) && !(CM.speech && CM.speech.status() === "none");
     var urls = useDevice ? null : CM.alpha.clipsFor(e);
     // The voice speed setting slows or speeds Emma too, without changing her pitch (80% to 125%).

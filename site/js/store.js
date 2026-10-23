@@ -25,7 +25,8 @@
     timerSound: "end",       // timers (schedule steps, First/Then, visual timer, breaks): off | end | warn (1 minute left + end) | minute (every minute + end)
     touchMode: "instant",    // instant | hold | release: how a touch chooses an answer (js/touch.js)
     holdMs: 800,             // hold mode: how long a finger rests before the answer is chosen
-    cooldownMs: 500          // ignore further taps for this long after an answer (stops double taps)
+    cooldownMs: 500,         // ignore further taps for this long after an answer (stops double taps)
+    doors: { sing: true, alpha: true, stories: true, stickers: true, calm: true } // picture doors on the child's home screen
   };
   // Games added after a child was set up start switched off, so a familiar routine doesn't change by surprise.
   CM.NEW_GAMES = ["find", "shadow", "odd", "num", "shapes", "together", "missing", "puzzle", "letters", "order"];
@@ -77,6 +78,7 @@
     p.settings = Object.assign(clone(CM.DEFAULTS), p.settings || {});
     if (hadGames) CM.NEW_GAMES.forEach(function (g) { if (!(g in hadGames)) { hadGames[g] = false; p.newGamesOff = true; } });
     p.settings.games = Object.assign(clone(CM.DEFAULTS.games), p.settings.games || {});
+    p.settings.doors = Object.assign(clone(CM.DEFAULTS.doors), p.settings.doors || {});
     Object.keys(p.skills || {}).forEach(function (id) {
       var st = p.skills[id];
       if (st.prompt == null) { st.prompt = st.turns ? 0 : 2; st.promptRun = 0; }

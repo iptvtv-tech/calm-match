@@ -93,3 +93,9 @@ code{font-family:var(--mono);font-size:.92em;background:var(--dim);padding:1px 5
 .msg.err{background:var(--warn-soft);color:var(--warn)}
 .msg.info{background:var(--accent-soft);color:var(--ink)}
 .acct-page{min-height:80vh} /* room for the sign-in forms, so the footer does not jump when they appear */
+
+/* Child mode on Sing along and the Alphabet book (opened from Play): a Home bar instead of the site menu. */
+.child-bar{max-width:980px;margin:0 auto 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.child-home{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 20px;font:600 18px/1 var(--display);color:var(--ink);text-decoration:none}
+.child-home:hover{border-color:var(--accent)}
+body.childmode .site-head,body.childmode .site-foot,body.childmode #grownNote{display:none}

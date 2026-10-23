@@ -215,6 +215,7 @@
           p.avatar = cleanAvatar(r.avatar || p.avatar);
           p.settings = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS)), r.settings || {});
           p.settings.games = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS.games)), (r.settings || {}).games || {});
+          p.settings.doors = Object.assign(JSON.parse(JSON.stringify(CM.DEFAULTS.doors)), (r.settings || {}).doors || {});
           CM.tidySettings(p.settings);
           if (r.progress && acct.sync_progress) {
             var rs = cleanSkills(r.progress.skills), rh = cleanHistory(r.progress.history);

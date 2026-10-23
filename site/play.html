@@ -37,20 +37,10 @@
         <button class="ghost-btn" id="closePanel" type="button">Back to the game</button>
       </div>
     </div>
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" type="button" data-tab="skills">Progress</button>
-      <button class="tab" role="tab" type="button" data-tab="history">History</button>
-      <button class="tab" role="tab" type="button" data-tab="tools">Schedules &amp; timer</button>
-      <button class="tab" role="tab" type="button" data-tab="sing">Sing along</button>
-      <button class="tab" role="tab" type="button" data-tab="alpha">Alphabet</button>
-      <button class="tab" role="tab" type="button" data-tab="talk">Talk</button>
-      <button class="tab" role="tab" type="button" data-tab="stories">Stories</button>
-      <button class="tab" role="tab" type="button" data-tab="pictures">Pictures</button>
-      <button class="tab" role="tab" type="button" data-tab="settings">Settings</button>
-      <button class="tab" role="tab" type="button" data-tab="child">Children</button>
-      <button class="tab" role="tab" type="button" data-tab="account">Account</button>
-      <button class="tab" role="tab" type="button" data-tab="engine">Engine log</button>
-    </div>
+    <div class="gwrap">
+    <div class="ggroups" id="ggroups" role="tablist" aria-label="Grown-ups sections" aria-orientation="vertical"></div>
+    <div class="gmain">
+    <div class="tabs" id="gtabs" role="tablist" aria-label="Pages in this section"></div>
 
     <!-- PROGRESS -->
     <section data-pane="skills">
@@ -139,24 +129,7 @@
     <section data-pane="alpha" hidden><div id="alphaBox" style="display:flex;flex-direction:column;gap:18px"></div></section>
 
     <!-- SETTINGS -->
-    <section data-pane="settings" hidden>
-      <div>
-        <h3>Language of the games</h3>
-        <div class="chips" id="langChips"></div>
-        <p class="note" id="langNote" style="margin-top:8px"></p>
-      </div>
-      <div>
-        <h3>Interest theme</h3>
-        <p class="note">The same games, with pictures your child likes.</p>
-        <div class="chips" id="themeChips"></div>
-      </div>
-      <div>
-        <h3>Photos</h3>
-        <label class="toggle" style="border:0"><input type="checkbox" id="s-photos"><span>Use photos instead of emoji<small>Add your own photos, for example your child's real bus or your dog. Photos are shrunk and kept on this device only. They are never uploaded, even with an account.</small></span></label>
-        <p class="note"><b id="photoThemeName"></b> theme. <span id="photoCount"></span></p>
-        <div class="pslots" id="photoSlots"></div>
-        <p class="note" id="photoMsg" aria-live="polite"></p>
-      </div>
+    <section data-pane="set-senses" hidden>
       <div>
         <h3>Senses</h3>
         <div class="grid2">
@@ -190,6 +163,53 @@
           <p class="note" id="touchTryMsg" aria-live="polite">Try it here, or hand the device to your child.</p>
         </div>
       </div>
+    </section>
+    <section data-pane="set-games" hidden>
+      <div>
+        <h3>Language of the games</h3>
+        <div class="chips" id="langChips"></div>
+        <p class="note" id="langNote" style="margin-top:8px"></p>
+      </div>
+      <div>
+        <h3>Interest theme</h3>
+        <p class="note">The same games, with pictures your child likes.</p>
+        <div class="chips" id="themeChips"></div>
+      </div>
+      <div>
+        <h3>Photos</h3>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-photos"><span>Use photos instead of emoji<small>Add your own photos, for example your child's real bus or your dog. Photos are shrunk and kept on this device only. They are never uploaded, even with an account.</small></span></label>
+        <p class="note"><b id="photoThemeName"></b> theme. <span id="photoCount"></span></p>
+        <div class="pslots" id="photoSlots"></div>
+        <p class="note" id="photoMsg" aria-live="polite"></p>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-errorless"><span>Errorless start<small>New skills begin with the right answer highlighted and the others greyed out. After 2 right answers the help drops to an outline, then goes away. If your child struggles, the outline comes back.</small></span></label>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-moreFeelings"><span>More feelings<small>Adds calm, silly, worried and loving to the Feelings game. Best once your child knows happy, sad, angry, scared, surprised and sleepy.</small></span></label>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules in Progress > Summary.</small></span></label>
+      </div>
+      <div class="grid2">
+        <div><h3>Games per session</h3><div class="chips" id="blockChips"></div></div>
+        <div><h3>Turns per game</h3><div class="chips" id="turnChips"></div></div>
+      </div>
+      <div>
+        <h3>Which games</h3>
+        <p class="note" id="newGamesNote" hidden></p>
+        <div id="gameToggles"></div>
+      </div>
+      <div>
+        <h3>Who picks the games</h3>
+        <div class="chips" id="modeChips"></div>
+      </div>
+    </section>
+    <section data-pane="set-home" hidden>
+      <div>
+        <h3>Home screen</h3>
+        <p class="note">Picture doors your child sees under the Start button. Turn off any your child doesn't need. With all of them off, the home screen shows only Start. Each child has their own choice.</p>
+        <div id="doorToggles"></div>
+      </div>
+    </section>
+    <section data-pane="set-rewards" hidden>
       <div>
         <h3>Token board</h3>
         <p class="note">Your child earns a token for each game finished and each schedule step done. When the board is full, it shows the reward you picked. Tokens are never taken away.</p>
@@ -213,30 +233,6 @@
         <p class="note" style="margin-top:12px">Celebration when an answer is right</p>
         <div class="chips" id="celebrateChips"></div>
         <p class="note" style="margin-top:8px">Cheerful: bright words and a short tune. Gentle: a soft chime. Very calm: plain words like "That's right", one quiet tone, no tune between games.</p>
-      </div>
-      <div>
-        <h3>Help</h3>
-        <label class="toggle" style="border:0"><input type="checkbox" id="s-errorless"><span>Errorless start<small>New skills begin with the right answer highlighted and the others greyed out. After 2 right answers the help drops to an outline, then goes away. If your child struggles, the outline comes back.</small></span></label>
-        <label class="toggle" style="border:0"><input type="checkbox" id="s-moreFeelings"><span>More feelings<small>Adds calm, silly, worried and loving to the Feelings game. Best once your child knows happy, sad, angry, scared, surprised and sleepy.</small></span></label>
-        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules on the Progress tab.</small></span></label>
-      </div>
-      <div class="grid2">
-        <div><h3>Games per session</h3><div class="chips" id="blockChips"></div></div>
-        <div><h3>Turns per game</h3><div class="chips" id="turnChips"></div></div>
-      </div>
-      <div>
-        <h3>Which games</h3>
-        <p class="note" id="newGamesNote" hidden></p>
-        <div id="gameToggles"></div>
-      </div>
-      <div>
-        <h3>Who picks the games</h3>
-        <div class="chips" id="modeChips"></div>
-      </div>
-      <div>
-        <h3>Grown-ups button</h3>
-        <p class="note">How to open this area. Applies to everyone on this device.</p>
-        <div class="chips" id="gateChips"></div>
       </div>
     </section>
 
@@ -263,11 +259,15 @@
         <h3>Sticker book</h3>
         <div class="stickers book" id="stickerBook" style="margin-top:8px"></div>
       </div>
+    </section>
+    <section data-pane="class" hidden>
       <div>
         <h3>Classroom mode</h3>
         <label class="toggle" style="border:0"><input type="checkbox" id="classOn"><span>Use this tablet for a class<small>Each child taps their own avatar to start, and goes back to "Who is playing?" when they finish. Everything stays on this tablet. Use nicknames or first names only.</small></span></label>
         <div id="classBox"></div>
       </div>
+    </section>
+    <section data-pane="backup" hidden>
       <div>
         <h3>Backup file</h3>
         <p class="note">Save everything on this device to a file: children, progress, schedules, stories, pictures and recordings. Use it to move to a new tablet, or to take one child's set-up between home and school. The file holds nicknames and family photos, so keep it somewhere private.</p>
@@ -279,11 +279,26 @@
         <div id="bkChoice"></div>
         <p class="note" id="bkMsg" aria-live="polite"></p>
       </div>
-      <div class="row start">
-        <button class="small-btn" type="button" id="exampleBtn">Add example child with progress</button>
-        <button class="small-btn danger" type="button" id="resetBtn">Reset this child's progress</button>
-        <button class="small-btn danger" type="button" id="deleteBtn">Remove this child</button>
-        <button class="small-btn danger" type="button" id="wipeBtn">Delete everything on this device</button>
+    </section>
+    <section data-pane="device" hidden>
+      <div>
+        <h3>Grown-ups button</h3>
+        <p class="note">How to open this area. Applies to everyone on this device.</p>
+        <div class="chips" id="gateChips"></div>
+      </div>
+      <div>
+        <h3>Try it out</h3>
+        <p class="note">Adds a pretend child with some progress, so you can see how the Progress pages look.</p>
+        <div class="row start" style="margin-top:8px"><button class="small-btn" type="button" id="exampleBtn">Add example child with progress</button></div>
+      </div>
+      <div class="danger-zone">
+        <h3>Reset and delete</h3>
+        <p class="note">These can't be undone. Save a backup file first if you might want things back.</p>
+        <div class="row start" style="margin-top:8px">
+          <button class="small-btn danger" type="button" id="resetBtn">Reset this child's progress</button>
+          <button class="small-btn danger" type="button" id="deleteBtn">Remove this child</button>
+          <button class="small-btn danger" type="button" id="wipeBtn">Delete everything on this device</button>
+        </div>
       </div>
     </section>
 
@@ -315,6 +330,8 @@
       <p class="note">Every decision the engine makes on this visit, newest first.</p>
       <ul class="log" id="log"></ul>
     </section>
+    </div>
+    </div>
   </section>
 
   <main class="card" id="stage" aria-live="polite"></main>

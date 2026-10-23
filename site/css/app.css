@@ -516,3 +516,25 @@ body.grownups #tokens,body.talking #tokens,body.talking #sched,body.talking #pro
   .tslots{gap:6px}
 }
 .mini{font-size:calc(var(--emoji) * .56)}
+
+/* Child home: picture doors under the Start button. Calm: no motion, colour change only on hover. */
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(128px,40%),1fr));gap:12px;width:100%;max-width:640px;margin-top:6px}
+.door{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:112px;padding:14px 8px;background:var(--surface);border:2px solid var(--line);border-radius:18px;font:600 17px/1.2 var(--display);color:var(--ink);text-decoration:none;text-align:center}
+.door:hover{border-color:var(--accent)}
+.door-i{font-size:40px;line-height:1}
+body[data-big="on"] .door{min-height:140px;font-size:19px}
+body[data-big="on"] .door-i{font-size:52px}
+
+/* Grown-ups: sections on the left (top on phones), pages in each section as tabs. */
+.gwrap{display:grid;grid-template-columns:1fr;gap:16px}
+.gmain{display:flex;flex-direction:column;gap:18px;min-width:0}
+.ggroups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gbtn{display:flex;align-items:center;gap:8px;background:transparent;border:2px solid var(--line);border-radius:12px;padding:12px;font:600 15px/1.2 var(--display);color:var(--muted);text-align:left}
+.gbtn[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+.gmain .tabs:empty{display:none}
+@media (min-width:760px){
+  .gwrap{grid-template-columns:200px minmax(0,1fr);align-items:start}
+  .ggroups{grid-template-columns:1fr;position:sticky;top:12px}
+}
+.danger-zone{border:2px solid var(--warn);border-radius:14px;padding:16px}
+#panel > .row .ghost-btn{padding:10px 16px;font-size:16px}
