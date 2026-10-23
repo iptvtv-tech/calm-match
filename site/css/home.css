@@ -33,3 +33,23 @@
 .ab-art-l{font:600 clamp(64px,10vw,96px)/1 var(--display)}
 .ab-art-l span{color:var(--accent)}
 .ab-art-p{font-size:clamp(32px,5vw,44px);letter-spacing:.1em}
+
+/* Three ways in */
+.paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px;margin:8px 0 40px}
+.path{display:flex;flex-direction:column;gap:6px;padding:20px;background:var(--surface);border:2px solid var(--line);border-radius:18px;color:var(--ink);text-decoration:none}
+.path:hover{border-color:var(--accent)}
+.path b{font:600 20px/1.2 var(--display)}
+.path span:last-child{color:var(--muted);font-size:16px}
+.path.primary{border-color:var(--accent);background:var(--accent-soft)}
+.path-i{font-size:30px;line-height:1}
+
+/* What's inside: short list instead of big feature bands */
+.inside{list-style:none;padding:0;margin:12px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:14px 24px}
+.inside li{display:flex;gap:12px;align-items:flex-start}
+.inside li>span{font-size:28px;line-height:1.2}
+.inside p{margin:4px 0 0;color:var(--muted)}
+.note-line{color:var(--muted);margin-top:14px}
+.schools{margin:40px 0}
+details.more summary{cursor:pointer;list-style:revert}
+details.more summary h2{display:inline;margin:0}
+details.more{margin-bottom:24px}

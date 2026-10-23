@@ -179,6 +179,10 @@
       $("sched").hidden = true; $("tokens").hidden = true; $("who").innerHTML = "";
       return CM.classroom.picker(stage, say, function () { chosen = true; applySenses(); startScreen(); });
     }
+    if (CM.setup && CM.setup.needed()) {
+      $("sched").hidden = true; $("tokens").hidden = true; $("who").innerHTML = "";
+      return CM.setup.run(stage, function () { applySenses(); startScreen(); });
+    }
     applySenses();
     var plan = CM.planSession().plan; renderSched(); renderWho();
     var hasStories = CM.lib.stories().length > 0;
@@ -192,6 +196,7 @@
     $("startBtn").onclick = startSession;
     if ($("stickBtn")) $("stickBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.stickerBook(function () { CM.tools.helpers().exit(); }); };
     if ($("storiesBtn")) $("storiesBtn").onclick = function () { CM.stories.shelf(); };
+    if ($("dayBtn")) $("dayBtn").onclick = function () { CM.tools.schedule(CM.lib.todaySchedule()); };
     if ($("calmBtn")) $("calmBtn").onclick = function () { CM.tools.helpers().enter(); CM.rewards.breakScreen({ label: t("calmCorner"), title: t("calmCorner"), onClose: function () { CM.tools.helpers().exit(); } }); };
     if ($("whoBtn")) $("whoBtn").onclick = function () { chosen = false; startScreen(); };
   }
@@ -199,7 +204,9 @@
   function doorOn(k) { var d = S().doors || {}; return d[k] !== false; }
   function doorsHtml(hasStories) {
     var q = "?from=play&lang=" + (S().lang === "ga" ? "ga" : "en");
+    var day = CM.lib.todaySchedule();
     var list = [
+      doorOn("day") && day && day.steps && day.steps.length && '<button class="door" id="dayBtn" type="button"><span class="door-i" aria-hidden="true">📅</span>' + esc(t("myDay")) + "</button>",
       doorOn("sing") && '<a class="door" href="singalong/' + q + '"><span class="door-i" aria-hidden="true">🎵</span>' + esc(t("singAlong")) + "</a>",
       doorOn("alpha") && '<a class="door" href="alphabet/' + q + '"><span class="door-i" aria-hidden="true">🔤</span>' + esc(t("alphabet")) + "</a>",
       doorOn("stories") && hasStories && '<button class="door" id="storiesBtn" type="button"><span class="door-i" aria-hidden="true">📖</span>' + esc(t("myStories")) + "</button>",
@@ -758,7 +765,13 @@
       e.preventDefault(); list[(i + d + list.length) % list.length].click();
     };
   }
+  function renderGrownLang() {
+    var app = CM.store.db().app;
+    chipGroup($("grownLangChips"), [["en", "English"], ["ga", "Gaeilge"]], app.grownLang === "ga" ? "ga" : "en", function (v) { app.grownLang = v; CM.store.persist(); }, function () { renderPanel(); gateLabel(); });
+    $("grownLangNote").hidden = app.grownLang !== "ga";
+  }
   function renderPanel() {
+    renderGrownLang();
     renderNav();
     document.querySelectorAll("#panel [data-pane]").forEach(function (p) { p.hidden = p.dataset.pane !== tab; });
     CM.ui.closePicker();
@@ -857,6 +870,11 @@
   }
   function renderSettings() {
     var s = S();
+    var pr = CM.presetOf(s);
+    chipGroup($("presetChips"), CM.PRESETS.map(function (p) { return [p.id, p.label]; }), pr, function (v) {
+      var p = CM.PRESETS.filter(function (x) { return x.id === v; })[0]; Object.assign(s, p.set); applySenses(); log("Quick set-up", p.label);
+    });
+    $("presetNote").textContent = pr === "custom" ? "Your own mix of settings. Choose one above to start again from a set-up." : CM.PRESETS.filter(function (x) { return x.id === pr; })[0].does;
     chipGroup($("langChips"), [["en", "English"], ["ga", "Gaeilge"]], s.lang, function (v) { s.lang = v; applySenses(); log("Language", v === "ga" ? "games in Irish" : "games in English"); });
     speechNote();
     var voiceNote = $("langNote");
@@ -916,7 +934,7 @@
     renderDoorToggles();
     renderPhotos();
   }
-  var DOOR_LIST = [["sing", "🎵", "Sing along", "Opens the songs."], ["alpha", "🔤", "Alphabet book", "Opens the picture book, one letter at a time."],
+  var DOOR_LIST = [["day", "📅", "My day", "Today's schedule. Shows only on days with a schedule (Make > Schedules and timer)."], ["sing", "🎵", "Sing along", "Opens the songs."], ["alpha", "🔤", "Alphabet book", "Opens the picture book, one letter at a time."],
     ["stories", "📖", "My stories", "Shows only once you've made a story in Make > Stories."], ["stickers", "⭐", "My stickers", "The sticker book."],
     ["calm", "🌙", "Calm corner", "Breathing, bubbles, music or quiet."]];
   function renderDoorToggles() {
@@ -1261,6 +1279,7 @@
       exit: function () { startScreen(); }
     });
     var H = CM.tools.helpers(); CM.rewards.init(H); CM.stories.init(H); CM.talk.init(H);
+    if (CM.grownLang) CM.grownLang.start();
     applySenses(); setupGate(); gateLabel(); bindChildStatic(); bindHistoryStatic(); bindToolsStatic(); bindBackup();
     $("breakBtn").onclick = takeBreak;
     $("talkBtn").onclick = function () { if (CM.talk.isOpen()) CM.talk.close(); else CM.talk.open(); };

@@ -1,11 +1,11 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-23-3";
+var VERSION = "cm-2026-10-23-4";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html", "privacy-kids.html", "summary.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css", "css/kids.css", "css/summary.css",
   "js/config.js", "js/common.js", "js/speech.js", "js/emma.js", "js/engine.js", "js/i18n.js", "js/store.js", "js/media.js", "js/photos.js", "js/symbols.js", "js/library.js", "js/cloud.js",
   "js/alphabet.js", "js/alphabet-tab.js",
-  "js/ui.js", "js/voice.js", "js/games.js", "js/rewards.js", "js/stories.js", "js/talk.js", "js/classroom.js", "js/backup.js", "js/tools.js", "js/touch.js", "js/app.js", "js/summary.js", "js/childbar.js",
+  "js/ui.js", "js/voice.js", "js/games.js", "js/rewards.js", "js/stories.js", "js/talk.js", "js/classroom.js", "js/backup.js", "js/tools.js", "js/touch.js", "js/app.js", "js/summary.js", "js/childbar.js", "js/setup.js", "js/grown-ga.js",
   "credits.html",
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png"
 ];

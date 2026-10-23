@@ -26,7 +26,20 @@
     touchMode: "instant",    // instant | hold | release: how a touch chooses an answer (js/touch.js)
     holdMs: 800,             // hold mode: how long a finger rests before the answer is chosen
     cooldownMs: 500,         // ignore further taps for this long after an answer (stops double taps)
-    doors: { sing: true, alpha: true, stories: true, stickers: true, calm: true } // picture doors on the child's home screen
+    doors: { day: true, sing: true, alpha: true, stories: true, stickers: true, calm: true } // picture doors on the child's home screen
+  };
+  // Quick set-up: each preset sets only these senses settings (Settings > Senses and voice, and first-time setup).
+  CM.PRESETS = [
+    { id: "calm", label: "Very calm", does: "No motion, plain words and one quiet tone when an answer is right.",
+      set: { sound: true, calm: true, contrast: false, big: false, celebrate: "calm", clearSpeech: true } },
+    { id: "standard", label: "Standard", does: "Soft sounds, gentle fades and a soft chime for a right answer.",
+      set: { sound: true, calm: false, contrast: false, big: false, celebrate: "gentle", clearSpeech: true } },
+    { id: "clear", label: "Bigger and clearer", does: "Bigger buttons, high contrast and words read aloud in short, clear phrases.",
+      set: { sound: true, calm: false, contrast: true, big: true, celebrate: "gentle", clearSpeech: true, speech: true } }
+  ];
+  CM.presetOf = function (st) {
+    var hit = CM.PRESETS.filter(function (p) { return Object.keys(p.set).every(function (k) { return st[k] === p.set[k]; }); })[0];
+    return hit ? hit.id : "custom";
   };
   // Games added after a child was set up start switched off, so a familiar routine doesn't change by surprise.
   CM.NEW_GAMES = ["find", "shadow", "odd", "num", "shapes", "together", "missing", "puzzle", "letters", "order"];

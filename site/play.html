@@ -37,6 +37,11 @@
         <button class="ghost-btn" id="closePanel" type="button">Back to the game</button>
       </div>
     </div>
+    <div class="glang">
+      <span class="note">Grown-ups language</span>
+      <div class="chips" id="grownLangChips" aria-label="Grown-ups language"></div>
+      <p class="note" id="grownLangNote" hidden>The Irish in this area still needs checking by a fluent speaker. Some names and longer notes are still in English.</p>
+    </div>
     <div class="gwrap">
     <div class="ggroups" id="ggroups" role="tablist" aria-label="Grown-ups sections" aria-orientation="vertical"></div>
     <div class="gmain">
@@ -130,6 +135,12 @@
 
     <!-- SETTINGS -->
     <section data-pane="set-senses" hidden>
+      <div>
+        <h3>Quick set-up</h3>
+        <p class="note">Each choice sets several of the switches below at once. You can still change any of them afterwards.</p>
+        <div class="chips" id="presetChips" aria-label="Quick set-up"></div>
+        <p class="note" id="presetNote" style="margin-top:8px"></p>
+      </div>
       <div>
         <h3>Senses</h3>
         <div class="grid2">
@@ -366,6 +377,8 @@
 <script src="js/backup.js"></script>
 <script src="js/tools.js"></script>
 <script src="js/touch.js"></script>
+<script src="js/setup.js"></script>
+<script src="js/grown-ga.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

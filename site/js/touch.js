@@ -37,6 +37,7 @@
   var firing = false;      // true while the layer's own click is being dispatched
 
   function target(el) {
+    if (el && el.closest && el.closest("[data-free]")) return null; // grown-up screens (first-time setup) use ordinary taps
     var b = el && el.closest ? el.closest(TARGETS) : null;
     return b && !b.disabled && !b.hidden ? b : null;
   }
@@ -113,7 +114,7 @@
   // (the screen may have changed under the finger). Clicks with no pointer before them are let through.
   document.addEventListener("click", function (e) {
     if (firing) return;
-    if (performance.now() < guardUntil && e.target.closest && e.target.closest(AREA)) {
+    if (performance.now() < guardUntil && e.target.closest && e.target.closest(AREA) && !e.target.closest("[data-free]")) {
       e.preventDefault(); e.stopImmediatePropagation();
     }
   }, true);

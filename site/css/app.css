@@ -538,3 +538,19 @@ body[data-big="on"] .door-i{font-size:52px}
 }
 .danger-zone{border:2px solid var(--warn);border-radius:14px;padding:16px}
 #panel > .row .ghost-btn{padding:10px 16px;font-size:16px}
+body.grownups #stage,body.grownups #sched,body.grownups #progress,body.grownups #talk{display:none!important} /* Grown-ups area on its own: the child's card comes back when it closes */
+
+/* First-time setup (js/setup.js): big, calm choices in the main card. */
+.su-welcome{font-size:clamp(20px,5vw,26px);margin:0}
+.su-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:10px;width:100%;max-width:620px}
+.su-opts.presets{grid-template-columns:1fr}
+.su-opt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:64px;padding:12px;background:var(--surface);border:2px solid var(--line);border-radius:16px;font:600 17px/1.25 var(--display);color:var(--ink);text-align:center}
+.su-opt small{font:400 15px/1.4 var(--body);color:var(--muted)}
+.su-opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.su-e{font-size:34px;line-height:1}
+.su-name input{font-size:20px;padding:12px 14px;max-width:320px;width:100%}
+.su-nav{gap:12px;justify-content:center}
+.su-skip{margin-top:-4px}
+.glang{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.glang #grownLangNote{flex-basis:100%;margin:0}
+.su{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%}
