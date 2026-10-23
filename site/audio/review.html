@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Emma voice check · Calm Match</title>
+<link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/base.css">
+<style>
+  main { max-width: 980px; margin: 0 auto; }
+  h1 { font-size: clamp(26px, 5vw, 36px); margin: 8px 0 6px; }
+  .lede { color: var(--muted); max-width: 64ch; margin: 0 0 16px; }
+  .bar { position: sticky; top: 0; z-index: 2; background: var(--bg); padding: 10px 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-bottom: 1px solid var(--line); }
+  .bar input[type=search] { font: inherit; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 12px; padding: 8px 12px; flex: 1 1 200px; min-width: 0; }
+  .bar button, .row button { min-height: 44px; padding: 0 14px; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); font-weight: 700; }
+  .bar button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .count { color: var(--muted); font-size: 15px; }
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; margin: 14px 0; padding: 4px 14px; }
+  summary { cursor: pointer; padding: 10px 0; font: 600 18px/1.3 var(--display); }
+  summary .n { color: var(--muted); font: 400 15px var(--body); }
+  ul { list-style: none; margin: 0 0 10px; padding: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-top: 1px solid var(--line); }
+  li .t { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  li.flag .t { color: var(--warn); font-weight: 700; }
+  li.playing { background: var(--accent-soft); }
+  .play { min-width: 44px; min-height: 40px; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); }
+  label.f { display: flex; align-items: center; gap: 6px; font-size: 15px; color: var(--muted); white-space: nowrap; }
+  label.f input { width: 20px; height: 20px; }
+  .row { display: flex; gap: 8px; margin: 0 0 8px; flex-wrap: wrap; }
+  #out { width: 100%; min-height: 90px; font: 14px/1.4 var(--mono); border: 2px solid var(--line); border-radius: 12px; padding: 8px; background: var(--surface); color: var(--ink); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Emma voice check</h1>
+  <p class="lede">Every recording Emma uses on the site. Press ▶ to listen, or "Play all" in a section. Tick "Sounds wrong" for any that don't sound right, then press "Copy ticked list" and send the list. Ticks are remembered in this browser. This page isn't linked from the site.</p>
+  <div class="bar">
+    <input type="search" id="q" placeholder="Search, for example apple" aria-label="Search recordings">
+    <button type="button" id="stop">■ Stop</button>
+    <button type="button" class="primary" id="copy">Copy ticked list</button>
+    <span class="count" id="count"></span>
+  </div>
+  <div id="groups"><p>Loading…</p></div>
+  <h2 style="font-size:20px;margin-top:20px">Ticked list</h2>
+  <textarea id="out" readonly aria-label="Ticked recordings"></textarea>
+</main>
+<script src="review.js"></script>
+</body>
+</html>

@@ -81,10 +81,15 @@
     // A grown-up's own recording of this word plays instead of the device voice.
     var rk = CM.alpha.recKey(e);
     if (CM.media.has(rk)) { try { playing = new Audio(CM.media.url(rk)); playing.play().catch(function () {}); return; } catch (x) {} }
-    var t = UI[lang], spoken = e.end ? fill(t.endSay, { w: e.word, l: e.letter.toLowerCase() }) : e.letter + ". " + e.word + ".";
+    // English says "A for apple". Irish says the letter then the word, because "mar" ("for") changes the word after it (B mar bhó).
+    var t = UI[lang], spoken = e.end ? fill(t.endSay, { w: e.word, l: e.letter.toLowerCase() }) : lang === "en" ? e.letter + ", for " + e.word + "." : e.letter + ". " + e.word + ".";
     // Then the built-in recording, then the device's voice.
-    var urls = CM.alpha.clipsFor(e);
-    if (urls) { stopClips = CM.alpha.playClips(urls, function () { stopClips = null; say(spoken); }); return; }
+    // A grown-up can choose the device's voice instead of Emma (Grown-ups > Settings > Voice).
+    var useDevice = S.voice === "device" && voiceFor(lang) && !(CM.speech && CM.speech.status() === "none");
+    var urls = useDevice ? null : CM.alpha.clipsFor(e);
+    // The voice speed setting slows or speeds Emma too, without changing her pitch (80% to 125%).
+    var rate = Math.max(0.8, Math.min(1.25, (+S.rate || 0.75) / 0.75));
+    if (urls) { stopClips = CM.alpha.playClips(urls, function () { stopClips = null; say(spoken); }, null, rate); return; }
     say(spoken);
   }
 

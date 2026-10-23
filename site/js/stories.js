@@ -174,6 +174,7 @@
     return changed;
   }
 
+  CM.STORY_TEMPLATES = TEMPLATES; // read by tools/audio/harvest.js to list what the starter stories say
   CM.stories = {
     TEMPLATES: TEMPLATES,
     init: function (helpers) { h = helpers; try { repairTeeth(); } catch (e) {} try { addIrish(); } catch (e) {} },

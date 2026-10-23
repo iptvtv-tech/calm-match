@@ -1,20 +1,61 @@
-# Built-in recordings
+# Emma: the built-in voice
 
-Short sound files for the Alphabet book (letters and words, English and Irish), so words are read aloud
-on every device, even ones with no voice of their own, and in Irish, which almost no device can speak.
+Short recordings that ship with the site, so everything Calm Match says sounds the same on every device,
+works offline and sends nothing anywhere. English uses the Kokoro open voice (Apache 2.0), voice `bf_emma`.
+Irish will use the same system once there are Irish recordings (ABAIR or a fluent speaker).
 
-- Clips live in `site/audio/<lang>/letters/`, `words/` and `phrases/`, listed in `site/audio/manifest.json`.
-- The site plays: a grown-up's own recording → the built-in clip → the device's voice. A word with no clip
-  just uses the device's voice, so a language can be filled in a bit at a time.
-- Everything goes through `build.py` (run `python3 tools/audio/build.py -h`).
+- Recordings live in `site/audio/<lang>/`:
+  - `say/` — Alphabet book cards, one phrase each ("A for apple", "fox ends with x")
+  - `letters/`, `words/`, `phrases/` — letters, alphabet words and "ends with x" on their own
+  - `lib/` — everything else the site says, in pieces ("find the", "dog", "look again")
+- `site/audio/manifest.json` lists them: `lib` maps each piece to its file, `core` lists what is saved for
+  offline use straight away (Alphabet book and games); the rest is saved the first time it plays.
+- `site/js/emma.js` splits a sentence into pieces and plays them. If any piece has no recording (words a
+  grown-up typed), the device's voice says the whole sentence, so voices are never mixed in one sentence.
+- Playback order everywhere: a grown-up's own recording → Emma → the device's voice. Grown-ups can choose
+  "This device" in Settings > Voice. The voice speed setting changes Emma's speed too (80% to 125%).
+- The child's name: a grown-up records it in the Children tab; until then Emma leaves the name out.
+- Listening check: `site/audio/review.html` (not linked from the site) plays every recording and lets the
+  owner tick ones that sound wrong.
 
-## When the word lists change
+## When words change
 
-Word lists are in `site/js/alphabet.js`. After adding or changing a word:
+1. `node tools/audio/harvest.js` — lists every piece the site can say (reads the site's own code, so new
+   games, phrases or words are picked up), and checks sample sentences can all be put together.
+2. `python3 tools/audio/build.py check` — what's missing or no longer used (delete unused files).
+3. Make the missing clips (below). The manifest is rebuilt automatically.
+4. Bump `VERSION` in `site/sw.js`.
 
-1. `python3 tools/audio/build.py check` lists what's missing or no longer used (delete unused files).
-2. Make or record the missing clips (below), then the manifest is rebuilt automatically.
-3. Bump `VERSION` in `site/sw.js` so devices download the new clips.
+## Making English clips with Kokoro
+
+Put these in one folder and point `CM_TTS_DIR` at it (they are large, so they're not in the repo):
+
+- `kokoro-v1.0.onnx` and `voices-v1.0.bin` from https://github.com/thewh1teagle/kokoro-onnx/releases (model-files-v1.0)
+- `kokoro-config.json`: `src/kokoro_onnx/config.json` from the same repo
+- `kokoro-v1.0-timed.onnx`: run `python3 tools/audio/onnx_timings.py kokoro-v1.0.onnx kokoro-v1.0-timed.onnx`
+  (a copy of the model that also reports how long each sound lasts)
+- `piper/`: the unpacked `piper/` folder from https://github.com/rhasspy/piper/releases (2023.11.14-2,
+  `piper_linux_x86_64.tar.gz`), used only for its espeak-ng pronunciation library
+
+Needs Python with `numpy` and `onnxruntime`, plus `ffmpeg` and `node`.
+
+```
+CM_TTS_DIR=/path/to/models python3 tools/audio/build.py kokoro --lang en                 # only missing clips
+CM_TTS_DIR=/path/to/models python3 tools/audio/build.py kokoro --lang en --only say-a-apple,lib-find-the-1a2b3c   # remake some
+CM_TTS_DIR=/path/to/models python3 tools/audio/build.py kokoro --lang en --only say-a-apple --out /tmp/try    # listen first
+```
+
+How the clips are made, and why:
+
+- **Pronunciation:** espeak-ng gives the sounds, converted to Kokoro's own spelling ("misaki": `A` for the
+  sound in "day", `I` for "eye", `Q` for "go", `ʤ`, `ʧ`). Sending espeak's spelling made letters sound wrong.
+- **Clean starts and ends:** the voice stumbles on the first and last sound of a clip ("za for apple",
+  "apples"). So every clip is spoken inside a carrier, "Now: A for apple. Two.", and "Now" and "Two" are cut
+  off using the model's own timings (`cut_by_timing`), in the pauses either side. The full stop matters: with
+  a comma the voice stayed up as if more was coming and swallowed the last sound, so sentences sounded clipped.
+- Letter names follow Irish English: H is "haitch", Z is "zed".
+- Speeds: Alphabet cards 0.8, other phrases 0.85, letters and words 0.9.
+- Every clip is trimmed, levelled to the same calm loudness (−20 LUFS) and saved as a small mono MP3.
 
 ## Recording with a person (any language)
 
@@ -22,29 +63,9 @@ Word lists are in `site/js/alphabet.js`. After adding or changing a word:
 2. Record each line as its own file, named after the `file` column (for example `bo.m4a`, `letter-b.m4a`).
    A phone voice-memo app in a quiet room is fine. Calm, friendly, a little slow.
 3. `python3 tools/audio/build.py import --lang ga path/to/folder --credit "Name, Connacht Irish"`.
-   Each file is trimmed, levelled to the same loudness and saved as a small MP3.
-
-## Making English clips with Kokoro (current English set)
-
-The English set was made with the Kokoro open voice (Apache 2.0), voice `bf_emma`, speed 0.9.
-The model files are large and are not kept in the repo. To remake or add clips, put these in one folder
-and point `CM_TTS_DIR` at it:
-
-- `kokoro-v1.0.onnx` and `voices-v1.0.bin` from https://github.com/thewh1teagle/kokoro-onnx/releases (model-files-v1.0)
-- `kokoro-config.json`: `src/kokoro_onnx/config.json` from the same repo
-- `piper/`: the unpacked `piper/` folder from https://github.com/rhasspy/piper/releases (2023.11.14-2,
-  `piper_linux_x86_64.tar.gz`), used only for its espeak-ng pronunciation library
-
-Needs Python with `numpy` and `onnxruntime`, plus `ffmpeg` and `node`.
-
-```
-CM_TTS_DIR=/path/to/models python3 tools/audio/build.py kokoro --lang en            # only missing clips
-CM_TTS_DIR=/path/to/models python3 tools/audio/build.py kokoro --lang en --only bee,letter-b   # remake some
-```
-
-Letter names follow Irish English: H is "haitch", Z is "zed".
 
 ## Irish
 
 Kokoro has no Irish voice. Irish clips need a fluent speaker (`import`), or ABAIR (abair.ie, Trinity College
 Dublin) if permission is granted. Finish the Irish speaker's check of the word lists before recording.
+Irish still needs its own phrase list: `harvest.js` lists English only for now.

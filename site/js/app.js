@@ -66,8 +66,28 @@
     }
     return parts;
   }
+  // Emma, the built-in voice (js/emma.js). The child's name is a grown-up's recording, if there is one.
+  function nameKey(id) { return "voice/name/" + (id || CM.store.activeId()); }
+  function emmaSay(text) {
+    if (!CM.emma) return false;
+    var nk = nameKey();
+    return CM.emma.say(text, { lang: CM.lang(), rate: S().rate, clear: S().clearSpeech !== false, childName: P().name,
+      childClip: CM.media && CM.media.has(nk) ? CM.media.url(nk) : null });
+  }
+  function deviceCanSpeak() {
+    if (!("speechSynthesis" in window)) return false;
+    if (CM.lang() === "ga" && !CM.irishVoice()) return false;
+    return !(CM.speech && CM.speech.status() === "none");
+  }
+  // Read something aloud. Emma first (unless a grown-up chose the device's voice); the device's voice for
+  // anything Emma has no recording of, such as words a grown-up typed. Never both in one sentence.
   function say(text) {
-    if (!S().speech || !("speechSynthesis" in window)) return;
+    if (!S().speech) return;
+    if (S().voice !== "device" || !deviceCanSpeak()) {
+      if (emmaSay(text)) { try { speechSynthesis.cancel(); } catch (e) {} return; }
+    }
+    if (CM.emma) CM.emma.stop();
+    if (!("speechSynthesis" in window)) return;
     var ga = CM.lang() === "ga", v = ga ? CM.irishVoice() : (localVoice(/^en-(IE|GB)/i) || localVoice(/^en/i));
     if (ga && !v) return; // no Irish voice on this device: an English voice would mispronounce Irish
     try {
@@ -91,18 +111,19 @@
   // Grown-ups settings: a note when this device has no voice that can read aloud.
   function speechNote() {
     var el = $("speechNote"); if (!el || !CM.speech) return;
+    var emma = S().voice !== "device" && CM.emma && CM.emma.has(CM.lang());
     el.hidden = !(S().speech && CM.speech.status() === "none");
-    el.textContent = CM.speech.help.en;
+    el.textContent = emma ? "This device has no reading voice of its own. Emma still reads the games, but words you type yourself (your own stories, pictures and schedule steps) stay silent unless you record them, or add a voice in the device's Settings under \"text-to-speech\"." : CM.speech.help.en;
   }
   if (CM.speech) CM.speech.onChange(speechNote);
   var stopClips = null;
-  function hush() { try { speechSynthesis.cancel(); } catch (e) {} if (stopClips) { stopClips(); stopClips = null; } }
+  function hush() { try { speechSynthesis.cancel(); } catch (e) {} if (stopClips) { stopClips(); stopClips = null; } if (CM.emma) CM.emma.stop(); }
   // Say a turn's instruction. On a device that can't speak this language, play the turn's built-in
   // recording instead, if it has one (the Letters game's first-sound words: js/alphabet.js).
   function sayTurn() {
     if (!cur) return;
     var ga = CM.lang() === "ga", cant = (CM.speech && CM.speech.status() === "none") || (ga && !CM.irishVoice());
-    if (cur.audio && S().speech && cant && CM.alpha) { if (stopClips) stopClips(); stopClips = CM.alpha.playClips(cur.audio); return; }
+    if (cur.audio && S().speech && cant && CM.alpha && !(CM.emma && CM.emma.has(CM.lang()))) { if (stopClips) stopClips(); stopClips = CM.alpha.playClips(cur.audio); return; }
     say(cur.speak);
   }
   function praise(name) {
@@ -737,6 +758,7 @@
       };
     });
     $("renameInput").value = P().name;
+    if (CM.voice && $("nameRec")) { $("nameRec").innerHTML = CM.voice.canRecord || CM.media.has(nameKey()) ? CM.voice.button(nameKey()) : '<span class="note">This browser can\'t record sound.</span>'; CM.voice.bind($("nameRec")); }
     $("avatarChips").innerHTML = AVATARS.map(function (a) { return '<button type="button" class="chip" aria-pressed="' + (a === newAvatar) + '" data-a="' + a + '" aria-label="Avatar ' + a + '">' + a + "</button>"; }).join("");
     $("avatarChips").querySelectorAll(".chip").forEach(function (c) { c.onclick = function () { newAvatar = c.dataset.a; renderChild(); }; });
     $("stickerBook").innerHTML = P().stickers.length ? P().stickers.map(function (s) { return "<span>" + s + "</span>"; }).join("") : '<p class="note">No stickers yet. One is earned for each game finished.</p>';
@@ -750,6 +772,7 @@
     twoTap($("deleteBtn"), "del", "Tap again to remove " + P().name, "Remove this child", function () {
       if (session || CM.store.list().length < 2) return;
       var goneId = CM.store.activeId(), gone = CM.store.remove(goneId); try { CM.lib.forget(goneId); } catch (e) {}
+      if (CM.media) CM.media.del(nameKey(goneId));
       if (CM.cloud && CM.cloud.user()) CM.cloud.deleteRemoteChild(gone).catch(function () {});
       applySenses(); renderWho(); renderChild();
     });
@@ -811,6 +834,7 @@
     var tryBtn = $("touchTry"), tryN = 0;
     $("touchTryMsg").textContent = "";
     tryBtn.onclick = function () { tryN++; chime(); $("touchTryMsg").textContent = tryN === 1 ? "Chosen! That's how it will feel in the games." : "Chosen " + tryN + " times."; };
+    chipGroup($("voiceChips"), [["emma", "Emma (built in)"], ["device", "This device"]], s.voice, function (v) { s.voice = v; log("Voice", v === "emma" ? "Emma, the built-in voice" : "this device's voice"); setTimeout(function () { say(t("sayFind", { name: CM.nm(CM.THEMES.animals.items[0]) })); }, 50); });
     chipGroup($("rateChips"), [[0.6, "Voice: very slow"], [0.7, "Voice: slow"], [0.85, "Voice: gentle"], [1, "Voice: normal"]], s.rate, function (v) { s.rate = +v; say("This is how I will sound. Find the dog."); });
     chipGroup($("blockChips"), [[2, "2"], [3, "3"], [4, "4"]], s.blocks, function (v) { s.blocks = +v; });
     chipGroup($("turnChips"), [[3, "3"], [4, "4"], [6, "6"]], s.turns, function (v) { s.turns = +v; });
@@ -1192,6 +1216,7 @@
     stage.innerHTML = "";
     CM.media.ready.then(function () { if (!session && !CM.tools.active()) startScreen(); });
     if (CM.alpha) CM.alpha.loadAudio("");
+    if (CM.emma) CM.emma.load("").then(function () { if (!$("panel").hidden && tab === "settings") speechNote(); });
     if (CM.cloud && CM.cloud.enabled) {
       CM.cloud.onChange(function (ev) {
         if (!$("panel").hidden && tab === "account") renderAccount();

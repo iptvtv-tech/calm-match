@@ -132,9 +132,12 @@
     hasClips: function (lang) { return !!clips && Object.keys(clips).some(function (k) { return k.indexOf(lang + "/") === 0; }); },
     letterClip: function (lang, L) { return clipUrl(lang + "/letters/" + String(L).toLowerCase() + ".mp3"); },
     wordClip: function (lang, word) { return clipUrl(lang + "/words/" + slug(word) + ".mp3"); },
-    // What to play for a ready-made word: "b … bee", or "fox … ends with x". Null if the word has no clip.
+    // What to play for a ready-made word. Best: one natural phrase, "A for apple" or "fox ends with x".
+    // Otherwise the letter then the word: "b … bee". Null if the word has no clip.
     clipsFor: function (e) {
       if (e.kind !== "preset") return null;
+      var say = clipUrl(e.lang + "/say/" + e.letter.toLowerCase() + "-" + slug(e.word) + ".mp3");
+      if (say) return [say];
       var w = this.wordClip(e.lang, e.word); if (!w) return null;
       if (e.end) { var ph = clipUrl(e.lang + "/phrases/ends-with-" + e.letter.toLowerCase() + ".mp3"); return ph ? [w, ph] : [w]; }
       var l = this.letterClip(e.lang, e.letter);
@@ -143,12 +146,13 @@
     // Play clips one after another with a short pause. Returns a stop function.
     // onFail runs once if any clip can't play (for example the letter played but the word file is missing),
     // so the caller can say the words with the device's voice instead.
-    playClips: function (urls, onFail, gapMs) {
+    playClips: function (urls, onFail, gapMs, rate) {
       var i = 0, cur = null, timer = null, stopped = false, failed = false;
       function fail() { if (stopped || failed) return; failed = true; stopped = true; clearTimeout(timer); if (onFail) onFail(); }
       function next() {
         if (stopped || i >= urls.length) return;
         cur = new Audio(urls[i++]); cur.volume = 0.9;
+        if (rate && rate !== 1) { try { cur.preservesPitch = cur.mozPreservesPitch = cur.webkitPreservesPitch = true; } catch (e) {} cur.playbackRate = rate; }
         cur.onended = function () { timer = setTimeout(next, gapMs == null ? 350 : gapMs); };
         cur.onerror = fail;
         var p = cur.play(); if (p && p.catch) p.catch(function (e) { if (!e || e.name !== "AbortError") fail(); });

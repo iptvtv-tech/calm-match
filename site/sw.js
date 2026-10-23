@@ -1,9 +1,9 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-23-1";
+var VERSION = "cm-2026-10-23-2";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html", "privacy-kids.html", "summary.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css", "css/kids.css", "css/summary.css",
-  "js/config.js", "js/common.js", "js/speech.js", "js/engine.js", "js/i18n.js", "js/store.js", "js/media.js", "js/photos.js", "js/symbols.js", "js/library.js", "js/cloud.js",
+  "js/config.js", "js/common.js", "js/speech.js", "js/emma.js", "js/engine.js", "js/i18n.js", "js/store.js", "js/media.js", "js/photos.js", "js/symbols.js", "js/library.js", "js/cloud.js",
   "js/alphabet.js", "js/alphabet-tab.js",
   "js/ui.js", "js/voice.js", "js/games.js", "js/rewards.js", "js/stories.js", "js/talk.js", "js/classroom.js", "js/backup.js", "js/tools.js", "js/touch.js", "js/app.js", "js/summary.js",
   "credits.html",
@@ -27,10 +27,11 @@ self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) {
     // Symbols for the talk board and schedules, listed by tools/build-symbols.py.
     var syms = fetch("symbols/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
-    // Built-in recordings for the Alphabet book, listed by tools/audio/build.py (about 1.2 MB in English).
-    var clips = fetch("audio/manifest.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : { files: [] }; }).catch(function () { return { files: [] }; });
+    // Emma's recordings (tools/audio/build.py). "core" (the Alphabet book and the games) is saved now; the rest
+    // (Talk board, stories, schedules, timers) is saved the first time it plays, which keeps the first visit light.
+    var clips = fetch("audio/manifest.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
     return Promise.all([syms, clips]).then(function (x) {
-      return CORE.concat(SINGALONG, ALPHABET, ["audio/manifest.json"], x[0].map(function (id) { return "symbols/" + id + ".svg"; }), (x[1].files || []).map(function (f) { return "audio/" + f; }));
+      return CORE.concat(SINGALONG, ALPHABET, ["audio/manifest.json"], x[0].map(function (id) { return "symbols/" + id + ".svg"; }), (x[1].core || x[1].files || []).map(function (f) { return "audio/" + f; }));
     });
   }).then(function (all) {
     return caches.open(VERSION).then(function (c) {
@@ -68,8 +69,16 @@ self.addEventListener("fetch", function (e) {
   }
   // Recordings: Safari asks for sound in byte ranges and won't play a whole file in reply, so answer ranges from the cache.
   if (url.pathname.indexOf("/audio/") !== -1 && req.headers.get("range")) {
-    e.respondWith(caches.match(url.origin + url.pathname, { ignoreSearch: true }).then(function (hit) {
-      if (!hit) return fetch(req);
+    var whole = url.origin + url.pathname;
+    e.respondWith(caches.match(whole, { ignoreSearch: true }).then(function (hit) {
+      // Not saved yet: fetch the whole file once, save it, then answer the range from it.
+      if (!hit) return fetch(whole).then(function (r) {
+        if (!r.ok || r.type !== "basic") return fetch(req);
+        var copy = r.clone(); return caches.open(VERSION).then(function (c) { return c.put(whole, copy); }).then(function () { return r; });
+      }).catch(function () { return fetch(req); });
+      return hit;
+    }).then(function (hit) {
+      if (!hit || hit.status === 206 || !hit.arrayBuffer) return hit;
       return hit.arrayBuffer().then(function (buf) {
         var m = /bytes=(\d*)-(\d*)/.exec(req.headers.get("range")) || [], size = buf.byteLength;
         var start = m[1] ? +m[1] : 0, end = m[2] ? Math.min(+m[2], size - 1) : size - 1;

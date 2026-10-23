@@ -169,6 +169,9 @@
           <label class="toggle"><input type="checkbox" id="s-keys"><span>Number keys<small>Shows 1, 2, 3 on answers for keyboard or switch users.</small></span></label>
         </div>
         <p class="note" id="speechNote" aria-live="polite" hidden></p>
+        <h3 style="margin-top:14px">Voice</h3>
+        <p class="note">Emma is a calm voice built into Calm Match. She sounds the same on every phone, tablet and computer, and works offline. Words you type yourself, like your own stories, are read by this device's voice. Choose "This device" to use the device's voice for everything.</p>
+        <div class="chips" id="voiceChips" aria-label="Which voice"></div>
         <div class="chips" id="rateChips" aria-label="Voice speed"></div>
       </div>
       <div>
@@ -247,6 +250,8 @@
       <div>
         <h3>Nickname</h3>
         <div class="inline-field"><input type="text" id="renameInput" maxlength="20" aria-label="Nickname"><button class="small-btn" type="button" id="renameBtn">Save</button></div>
+        <p class="note" style="margin-top:10px">Emma, the voice that reads the games aloud, can't say names. Record your child's name in your own voice and Emma will use it, for example "Great work, Sam". Until then she leaves the name out. The recording stays on this device.</p>
+        <div class="row start" id="nameRec"></div>
       </div>
       <div>
         <h3>Add a child</h3>
@@ -323,6 +328,7 @@
 <script src="js/config.js"></script>
 <script src="js/common.js"></script>
 <script src="js/speech.js"></script>
+<script src="js/emma.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/store.js"></script>

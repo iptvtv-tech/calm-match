@@ -83,6 +83,7 @@
     }
   };
 
+  CM.STRINGS = T; // read by tools/audio/harvest.js to list what the site says
   CM.lang = function () { var s = CM.store && CM.store.S(); return s && s.lang === "ga" ? "ga" : "en"; };
   CM.t = function (key, vars) {
     var dict = T[CM.lang()], s = dict[key] != null ? dict[key] : T.en[key] != null ? T.en[key] : key;

@@ -241,4 +241,5 @@
     }
   };
   CM.GEN_SHUFFLE = shuffle;
+  CM.GAME_WORDS = { TOGETHER: TOGETHER, WHY: WHY, WHERE: WHERE }; // read by tools/audio/harvest.js to list what the games say
 })();
