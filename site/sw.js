@@ -1,5 +1,5 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-22-6";
+var VERSION = "cm-2026-10-23-1";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html", "privacy-kids.html", "summary.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css", "css/kids.css", "css/summary.css",
@@ -74,6 +74,7 @@ self.addEventListener("fetch", function (e) {
         var m = /bytes=(\d*)-(\d*)/.exec(req.headers.get("range")) || [], size = buf.byteLength;
         var start = m[1] ? +m[1] : 0, end = m[2] ? Math.min(+m[2], size - 1) : size - 1;
         if (!m[1] && m[2]) { start = Math.max(0, size - +m[2]); end = size - 1; }
+        if (start >= size || start > end) return new Response(null, { status: 416, headers: { "Content-Range": "bytes */" + size } });
         return new Response(buf.slice(start, end + 1), { status: 206, headers: {
           "Content-Type": hit.headers.get("Content-Type") || "audio/mpeg", "Content-Length": String(end - start + 1),
           "Content-Range": "bytes " + start + "-" + end + "/" + size, "Accept-Ranges": "bytes" } });

@@ -18,7 +18,7 @@
       '<div class="row start" style="margin-top:10px"><a class="small-btn primary" href="alphabet/?lang=' + lang + "&letter=" + L + '">Open the Alphabet book</a></div></div>' +
 
       '<div><h3>Words and photos</h3>' +
-      '<p class="note">Change a picture to your own photo, hide a word your child doesn\'t like, or add words from your child\'s world, like Mam, their dog\'s name or their favourite cup. Your words also turn up in the Letters game. Words marked 🔊 have a built-in recording, so they are read aloud even on devices with no voice of their own. If you record a word yourself, your recording plays instead. Photos are shrunk and kept on this device only. They are never uploaded, even with an account.</p>' +
+      '<p class="note">Change a picture to your own photo, hide a word your child doesn\'t like, or add words from your child\'s world, like Mam, their dog\'s name or their favourite cup. Your words also turn up in the Letters game. Words marked 🔊 have a built-in recording, so they are read aloud even on devices with no voice of their own. Words without 🔊, like the words you add, use the device\'s voice, so on a device with no voice they stay silent unless you record them. If you record a word yourself, your recording plays instead. Photos are shrunk and kept on this device only. They are never uploaded, even with an account.</p>' +
       '<div class="chips" id="alLang" role="group" aria-label="Alphabet language">' +
         [["en", "English"], ["ga", "Gaeilge"]].map(function (x) { return '<button type="button" class="chip" data-lang="' + x[0] + '" aria-pressed="' + (x[0] === lang) + '">' + x[1] + "</button>"; }).join("") + "</div>" +
       '<div class="chips" id="alLetters" role="group" aria-label="Letter">' +

@@ -140,15 +140,18 @@
       var l = this.letterClip(e.lang, e.letter);
       return l ? [l, w] : [w];
     },
-    // Play clips one after another with a short pause. Returns a stop function. onFail runs if a clip can't play.
+    // Play clips one after another with a short pause. Returns a stop function.
+    // onFail runs once if any clip can't play (for example the letter played but the word file is missing),
+    // so the caller can say the words with the device's voice instead.
     playClips: function (urls, onFail, gapMs) {
-      var i = 0, cur = null, timer = null, stopped = false;
+      var i = 0, cur = null, timer = null, stopped = false, failed = false;
+      function fail() { if (stopped || failed) return; failed = true; stopped = true; clearTimeout(timer); if (onFail) onFail(); }
       function next() {
         if (stopped || i >= urls.length) return;
         cur = new Audio(urls[i++]); cur.volume = 0.9;
         cur.onended = function () { timer = setTimeout(next, gapMs == null ? 350 : gapMs); };
-        cur.onerror = function () { if (!stopped && i === 1 && onFail) onFail(); };
-        var p = cur.play(); if (p && p.catch) p.catch(function () { if (!stopped && i === 1 && onFail) onFail(); });
+        cur.onerror = fail;
+        var p = cur.play(); if (p && p.catch) p.catch(function (e) { if (!e || e.name !== "AbortError") fail(); });
       }
       next();
       return function () { stopped = true; clearTimeout(timer); if (cur) { try { cur.pause(); } catch (e) {} } };
