@@ -137,7 +137,7 @@
       return { title: t("goesWith", { name: nmx(a) }),
         show: '<p class="label">' + esc(t("whatGoesWith")) + '</p><div class="target" role="img" aria-label="' + esc(nmx(a)) + '">' + emo(a[0]) + "</div>",
         opts: shuffle([b].concat(rest)).map(function (o) { return { html: emo(o[0]), label: nmx(o), correct: o === b }; }),
-        speak: t("goesWith", { name: nmx(a) }), praiseName: nmx(a) + ", " + nmx(b) };
+        speak: t("goesWith", { name: nmx(a) }), praiseName: t("goTogether", { a: nmx(a), b: nmx(b) }) }; // "Yes! Socks and shoes go together."
     },
 
     num: function (c) {

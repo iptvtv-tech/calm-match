@@ -127,6 +127,8 @@ for (const [k, slot, values] of WHOLE) {
 }
 // "First {list}": the plan for the day starts with the first game's name.
 games.forEach((g) => addWhole("First " + g));
+// Goes together praise: "Socks and shoes go together", in either order (the game shows either one first).
+GW.TOGETHER.forEach((p) => { addWhole(en.goTogether.replace("{a}", p[0][1]).replace("{b}", p[1][1])); addWhole(en.goTogether.replace("{a}", p[1][1]).replace("{b}", p[0][1])); });
 // Step n of m on schedules
 for (let m = 2; m <= 20; m++) for (let n = 1; n <= m; n++) addWhole("Step " + n + " of " + m);
 

@@ -68,11 +68,11 @@
   }
   // Emma, the built-in voice (js/emma.js). The child's name is a grown-up's recording, if there is one.
   function nameKey(id) { return "voice/name/" + (id || CM.store.activeId()); }
-  function emmaSay(text) {
+  function emmaSay(text, done) {
     if (!CM.emma) return false;
     var nk = nameKey();
     return CM.emma.say(text, { lang: CM.lang(), rate: S().rate, clear: S().clearSpeech !== false, childName: P().name,
-      childClip: CM.media && CM.media.has(nk) ? CM.media.url(nk) : null });
+      childClip: CM.media && CM.media.has(nk) ? CM.media.url(nk) : null, onend: done });
   }
   function deviceCanSpeak() {
     if (!("speechSynthesis" in window)) return false;
@@ -81,15 +81,18 @@
   }
   // Read something aloud. Emma first (unless a grown-up chose the device's voice); the device's voice for
   // anything Emma has no recording of, such as words a grown-up typed. Never both in one sentence.
-  function say(text) {
-    if (!S().speech) return;
+  // done (optional) is called once, when the words have been said, or straight away if nothing will be said.
+  function say(text, done) {
+    var called = false, fin = function () { if (!called && done) { called = true; done(); } };
+    var none = function () { setTimeout(fin, 0); };
+    if (!S().speech) return none();
     if (S().voice !== "device" || !deviceCanSpeak()) {
-      if (emmaSay(text)) { try { speechSynthesis.cancel(); } catch (e) {} return; }
+      if (emmaSay(text, fin)) { try { speechSynthesis.cancel(); } catch (e) {} return; }
     }
     if (CM.emma) CM.emma.stop();
-    if (!("speechSynthesis" in window)) return;
+    if (!("speechSynthesis" in window)) return none();
     var ga = CM.lang() === "ga", v = ga ? CM.irishVoice() : (localVoice(/^en-(IE|GB)/i) || localVoice(/^en/i));
-    if (ga && !v) return; // no Irish voice on this device: an English voice would mispronounce Irish
+    if (ga && !v) return none(); // no Irish voice on this device: an English voice would mispronounce Irish
     try {
       var clear = S().clearSpeech !== false, list = clear ? phrases(text) : [text];
       var us = list.map(function (p) {
@@ -100,12 +103,13 @@
         return u;
       });
       if (us[0] && CM.speech) CM.speech.watch(us[0]); // notices a device with no working voice (js/speech.js)
+      var lastU = us[us.length - 1]; if (lastU) { lastU.onend = fin; lastU.onerror = fin; }
       spoken = us;
       var go = function () { try { speechSynthesis.resume(); } catch (e) {} us.forEach(function (u) { speechSynthesis.speak(u); }); };
       // Some browsers drop speech started straight after stopping other speech, so wait a moment if something was playing.
       var busy = speechSynthesis.speaking || speechSynthesis.pending;
       if (busy) { speechSynthesis.cancel(); setTimeout(go, 120); } else go();
-    } catch (e) {}
+    } catch (e) { none(); }
   }
   var spoken = []; // kept so the browser doesn't throw phrases away half-way (a Chrome bug)
   // Grown-ups settings: a note when this device has no voice that can read aloud.
@@ -155,6 +159,18 @@
 
   /* ================= session state ================= */
   var session = null, blk = null, cur = null, locked = false, pendingAdvance = null, screenFn = null, lastTarget = null, lastCount = 0, lastFeel = null, pairsTimer = null;
+  // After a right answer: say the praise in full, then move on. Waits at least minMs (as before), and for the
+  // words to finish plus a short pause, so the next instruction never cuts the praise off. A break or leaving
+  // the game clears pendingAdvance, and then nothing moves on.
+  function sayThenNext(msg, minMs) {
+    var t0 = Date.now(), timer = setTimeout(nextTurn, minMs + 7000); // safety net if speech never reports back
+    pendingAdvance = timer;
+    say(msg, function () {
+      if (pendingAdvance !== timer) return;
+      clearTimeout(timer);
+      pendingAdvance = setTimeout(nextTurn, Math.max(minMs - (Date.now() - t0), 400));
+    });
+  }
   function clearTimers() { clearTimeout(pendingAdvance); clearTimeout(pairsTimer); pendingAdvance = null; pairsTimer = null; }
 
   function renderSched() {
@@ -484,9 +500,9 @@
     if (good) { blk.firstTry++; blk.okRun++; } else blk.okRun = 0;
     if (S().adaptive && blk.okRun >= 2 && blk.lvl < maxL) { blk.lvl++; blk.okRun = 0; log("2 boards done with few misses", CM.lvDesc("pairs", blk.lvl)); }
     if (S().adaptive && cur.mism > cur.n * 2 && blk.lvl > 0) { blk.lvl--; log("Many misses on a board", CM.lvDesc("pairs", blk.lvl)); }
-    var fb = $("fb"); fb.className = "feedback ok"; fb.textContent = t("allPairs"); fanfare(); say(t("allPairs"));
+    var fb = $("fb"); fb.className = "feedback ok"; fb.textContent = t("allPairs"); fanfare();
     blk.t++; renderDots();
-    pendingAdvance = setTimeout(nextTurn, S().calm ? 2000 : 1700);
+    sayThenNext(t("allPairs"), S().calm ? 2000 : 1700);
   }
 
   /* ---------- remember first (What's missing?) ---------- */
@@ -520,8 +536,9 @@
       if (cur.next >= cur.n) { locked = true; renderTap(); return customComplete(cur.misses === 0, $("fb")); }
       renderTap();
     } else {
-      cur.misses++; fb.className = "feedback"; fb.textContent = t("notYet"); say(t("lookAgain"));
+      cur.misses++; fb.className = "feedback"; fb.textContent = t("notYet");
       if (cur.misses >= 2 && !cur.hint) { cur.hint = true; blk.hints++; log("2 misses on one turn", "dashed outline on the next picture"); renderTap(); $("fb").textContent = t("lookOutline"); }
+      say($("fb").textContent);
     }
   }
 
@@ -572,8 +589,8 @@
     if (S().adaptive && blk.okRun >= 3 && blk.lvl < maxL) { blk.lvl++; blk.okRun = 0; log("3 right first time in a row", CM.lvDesc(blk.game, blk.lvl, blk.skill)); }
     var msg = praise(cur.praiseName, cur.praiseThing);
     if (fb) { fb.className = "feedback ok"; fb.textContent = msg; }
-    chime(); say(msg); blk.t++; renderDots();
-    pendingAdvance = setTimeout(nextTurn, S().calm ? 1900 : 1600);
+    chime(); blk.t++; renderDots();
+    sayThenNext(msg, S().calm ? 1900 : 1600);
   }
 
   /* ---------- answering, with errorless prompt fading ---------- */
@@ -594,19 +611,19 @@
       if (cur.onRight) cur.onRight(o);
       if (o.basket) { var gg = btn.querySelector(".bgot"); if (gg) gg.innerHTML = o.basket.got.join(""); }
       var msg = praise(cur.praiseName, cur.praiseThing);
-      fb.className = "feedback ok"; fb.textContent = msg; chime(); say(msg);
+      fb.className = "feedback ok"; fb.textContent = msg; chime();
       if (S().adaptive && blk.okRun >= 3 && blk.lvl < maxL) {
         blk.lvl++; blk.okRun = 0;
         log("3 right first time in a row", blk.game === "sort" ? "more baskets next time Sort is played" : CM.lvDesc(blk.game, blk.lvl) + " from the next turn");
       }
       blk.t++; renderDots();
-      pendingAdvance = setTimeout(nextTurn, S().calm ? 1700 : 1400);
+      sayThenNext(msg, S().calm ? 1700 : 1400);
     } else {
       btn.disabled = true;
       if (cur.first) { if (!cur.prompt) CM.bkt(blk.skill, false, nOpts); cur.first = false; }
       if (cur.prompt) st.promptRun = 0;
       blk.okRun = 0; cur.misses++;
-      fb.className = "feedback"; fb.textContent = t("notThat"); say(t("lookAgain"));
+      fb.className = "feedback"; fb.textContent = t("notThat");
       if (cur.misses >= 2 && !cur.hint) {
         cur.hint = true; blk.hints++;
         stage.querySelectorAll(".opt").forEach(function (b) { if (cur.opts[+b.dataset.i].correct) b.classList.add("hint"); });
@@ -618,6 +635,7 @@
           log("2 misses on one turn", blk.game === "sort" ? "fewer baskets next time Sort is played" : CM.lvDesc(blk.game, blk.lvl) + " from the next turn");
         }
       }
+      say(fb.textContent); // the same words as the screen: "Not that one. Look again." or the outline hint
     }
   }
 

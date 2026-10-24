@@ -94,7 +94,8 @@
   // recordings without changing their pitch: 88%, 100% (the Alphabet book's pace) or 112%.
   E.rate = function (r) { r = +r || 0.75; return Math.max(0.85, Math.min(1.15, r / 0.75)); };
 
-  // Say a sentence with Emma. opts: { lang, rate, clear, childName, childClip }.
+  // Say a sentence with Emma. opts: { lang, rate, clear, childName, childClip, onend }.
+  // onend is called once the whole sentence has been said (not if it is stopped part-way).
   // Returns true if Emma is saying it, false if she can't (then the caller uses the device's voice).
   E.say = function (text, opts) {
     opts = opts || {};
@@ -118,11 +119,12 @@
         list.push({ url: u, gap: j === ph.length - 1 ? gap : gapPiece, fb: fb && fb.length ? fb : null });
       });
     });
-    if (!list.length) return true; // only the child's name, and it isn't recorded: say nothing
+    if (!list.length) { if (opts.onend) setTimeout(opts.onend, 0); return true; } // only the child's name, and it isn't recorded: say nothing
     E.stop();
     var rate = E.rate(opts.rate), i = 0, stopped = false, timer = null, cur = null;
     function next() {
-      if (stopped || i >= list.length) return;
+      if (stopped) return;
+      if (i >= list.length) { playing = null; if (opts.onend) opts.onend(); return; }
       var it = list[i++];
       cur = new Audio(it.url); cur.volume = 0.9;
       try { cur.preservesPitch = cur.mozPreservesPitch = cur.webkitPreservesPitch = true; } catch (e) {}
