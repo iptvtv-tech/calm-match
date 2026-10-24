@@ -24,8 +24,17 @@
       .replace(/[^a-z0-9áéíóú' -]+/g, " ").replace(/\s+-\s+/g, " ").replace(/\s+/g, " ").trim();
   };
   // Phrases, split at sentence and clause punctuation.
+  var SPLIT = /[.!?:;,…]+|\s[–—-]\s/;
   E.chunks = function (text) {
-    return String(text == null ? "" : text).split(/[.!?:;,…]+|\s[–—-]\s/).map(function (s) { return E.norm(s); }).filter(Boolean);
+    return String(text == null ? "" : text).split(SPLIT).map(function (s) { return E.norm(s); }).filter(Boolean);
+  };
+  // For each phrase, whether a full stop (true) or a comma-like pause (false) follows it. Same order as chunks.
+  E.ends = function (text) {
+    var out = [], re = new RegExp(SPLIT.source, "g"), str = String(text == null ? "" : text), last = 0, m;
+    function push(piece, sep) { if (E.norm(piece)) out.push(/[.!?…]/.test(sep || ".")); }
+    while ((m = re.exec(str))) { push(str.slice(last, m.index), m[0]); last = m.index + m[0].length; if (!m[0].length) re.lastIndex++; }
+    push(str.slice(last), ".");
+    return out;
   };
   // The fewest recorded pieces that make up a phrase, or null. has(key) says whether a piece exists.
   E.segment = function (phrase, has) {
@@ -63,7 +72,7 @@
 
   /* ---------- in the browser ---------- */
   var CM = root.CM = root.CM || {};
-  var lib = {}, base = "", ready = null, playing = null;
+  var lib = {}, whole = {}, base = "", ready = null, playing = null;
 
   // Read the list of recordings once. base is the path to the site root ("" or "../").
   E.load = function (b) {
@@ -71,15 +80,19 @@
     base = b || "";
     ready = fetch(base + "audio/manifest.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; })
       .catch(function () { return {}; })
-      .then(function (m) { lib = m.lib || {}; return lib; });
+      .then(function (m) {
+        lib = m.lib || {};
+        Object.keys(m.whole || {}).forEach(function (l) { whole[l] = {}; m.whole[l].forEach(function (k) { whole[l][k] = true; }); });
+        return lib;
+      });
     return ready;
   };
   E.has = function (lang) { return !!(lib[lang] && Object.keys(lib[lang]).length); };
   function url(lang, key) { var p = lib[lang] && lib[lang][key]; return p ? base + "audio/" + p : null; }
 
-  // Speed: the grown-ups' voice speed setting (0.6 very slow ... 1 normal; 0.75 is the default) slows or
-  // speeds the recordings without changing their pitch. Kept between 80% and 125%, where they still sound natural.
-  E.rate = function (r) { r = +r || 0.75; return Math.max(0.8, Math.min(1.25, r / 0.75)); };
+  // Speed: the grown-ups' voice speed setting (0.66 slower, 0.75 normal, 0.84 faster) slows or speeds the
+  // recordings without changing their pitch: 88%, 100% (the Alphabet book's pace) or 112%.
+  E.rate = function (r) { r = +r || 0.75; return Math.max(0.85, Math.min(1.15, r / 0.75)); };
 
   // Say a sentence with Emma. opts: { lang, rate, clear, childName, childClip }.
   // Returns true if Emma is saying it, false if she can't (then the caller uses the device's voice).
@@ -89,11 +102,20 @@
     if (!L) return false;
     var plan = E.plan(text, function (k) { return !!L[k]; }, opts.childName);
     if (!plan) return false;
-    var list = [], gapPhrase = opts.clear === false ? 120 : 260, gapPiece = 60;
+    // Pauses: between sentences, at commas, and (only when a sentence had to be built from pieces) between pieces.
+    var clear = opts.clear !== false, gapStop = clear ? 450 : 250, gapComma = clear ? 220 : 140, gapPiece = 60;
+    var ends = E.ends(text), W = whole[lang] || {};
+    var pieceOf = function (k) { return E.segment(k, function (x) { return !!L[x] && !W[x]; }); };
+    var list = [];
     plan.forEach(function (ph, i) {
+      var last = i === plan.length - 1, gap = last ? 0 : ends[i] === false ? gapComma : gapStop;
       ph.forEach(function (k, j) {
         var u = k === CHILD ? opts.childClip || null : url(lang, k);
-        if (u) list.push({ url: u, gap: j === ph.length - 1 ? (i === plan.length - 1 ? 0 : gapPhrase) : gapPiece });
+        if (!u) return;
+        // A whole-sentence recording is saved on the device the first time it plays. If it can't load (offline
+        // before then), the same words are said from the smaller pieces that are always saved.
+        var fb = W[k] ? (pieceOf(k) || []).map(function (x) { return url(lang, x); }).filter(Boolean) : null;
+        list.push({ url: u, gap: j === ph.length - 1 ? gap : gapPiece, fb: fb && fb.length ? fb : null });
       });
     });
     if (!list.length) return true; // only the child's name, and it isn't recorded: say nothing
@@ -105,9 +127,15 @@
       cur = new Audio(it.url); cur.volume = 0.9;
       try { cur.preservesPitch = cur.mozPreservesPitch = cur.webkitPreservesPitch = true; } catch (e) {}
       cur.playbackRate = rate;
-      cur.onended = function () { timer = setTimeout(next, it.gap / rate); };
-      cur.onerror = function () { timer = setTimeout(next, 0); };
-      var p = cur.play(); if (p && p.catch) p.catch(function (e) { if (!e || e.name !== "AbortError") timer = setTimeout(next, 0); });
+      // Each clip moves on exactly once, whichever of these happens first.
+      var moved = false, move = function (wait, useFb) {
+        if (moved) return; moved = true;
+        if (useFb && it.fb) list.splice.apply(list, [i, 0].concat(it.fb.map(function (u, n) { return { url: u, gap: n === it.fb.length - 1 ? it.gap : gapPiece }; })));
+        timer = setTimeout(next, wait);
+      };
+      cur.onended = function () { move(it.gap / rate, false); };
+      cur.onerror = function () { move(0, true); };
+      var p = cur.play(); if (p && p.catch) p.catch(function (e) { if (!e || e.name !== "AbortError") move(0, !e || e.name === "NotSupportedError"); });
     }
     playing = { stop: function () { stopped = true; clearTimeout(timer); if (cur) { try { cur.pause(); } catch (e) {} } } };
     next();

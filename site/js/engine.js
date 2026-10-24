@@ -58,7 +58,7 @@
 
   // cat: the group a game is listed under in the grown-ups area.
   CM.GAMES = {
-    match:    { cat: "look",  label: "Match",    ga: "Meaitseáil", does: "Find the picture that is the same.", doesGa: "Aimsigh an pictiúr atá mar an gcéanna." },
+    match:    { cat: "look",  label: "Match",    ga: "Meaitseáil", does: "Find the picture that's the same.", doesGa: "Aimsigh an pictiúr atá mar an gcéanna." },
     pairs:    { cat: "look",  label: "Pairs",    ga: "Péirí",      does: "Turn over two cards. Find the ones that are the same.", doesGa: "Iompaigh dhá chárta. Aimsigh na cinn atá mar an gcéanna." },
     shadow:   { cat: "look",  label: "Shadows",  ga: "Scáthanna",  does: "Find the picture that makes this shadow.", doesGa: "Aimsigh an pictiúr a dhéanann an scáth seo." },
     missing:  { cat: "look",  label: "What's missing?", ga: "Cad atá in easnamh?", does: "Look at the pictures. One goes away. Which one?", doesGa: "Féach ar na pictiúir. Imíonn ceann amháin. Cé acu?" },

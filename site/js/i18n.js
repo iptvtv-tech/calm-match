@@ -7,8 +7,8 @@
   var T = {
     en: {
       today: "Today, {name}", gamesThenDone: "{n} games, then all done", tapBreak: "You can tap Break any time.",
-      sayToday: "Today: {list}. Then all done.", then: "then", allDone: "All done", now: "Now", go: "Go", start: "Start",
-      sayNow: "Now: {game}. {does}", next: "Next", finish: "Finish",
+      sayToday: "First {list}. Then we're all done.", then: "then", allDone: "All done", now: "Now", go: "Go", start: "Start",
+      sayNow: "Next is {game}. {does}", next: "Next", finish: "Finish",
       findSame: "Find the same one", findThis: "Find this", sayFind: "Find the {name}",
       bigOrSmall: "Big or small?", whichGroup: "Which group?", putSame: "Put it with the same one", whereGo: "Where does it go?",
       big: "Big", small: "Small", sayBigSmall: "Is this {name} big or small?", sayGroup: "Which group does the {name} go in?", saySortPic: "Put the {name} with the same picture",
@@ -20,7 +20,7 @@
       feelSame: "Find the same face", feelOther: "Find another face that feels the same", feelOtherShort: "Same feeling",
       notThat: "Not that one. Look again.", lookAgain: "Look again", lookOutline: "Look for the dashed outline.", lookHighlight: "Tap the one with the bright outline.",
       sayAgain: "Say it again",
-      praiseCheer: "Brilliant! {name}!", praiseGentle: "Yes! {name}.", praiseCalm: "That's right. {name}.",
+      praiseCheer: "Brilliant! {name}!", praiseGentle: "Yes! {name}.", praiseGentleThe: "Yes! That's the {name}.", praiseCalm: "That's right. {name}.",
       praiseCheerPlain: "Brilliant!", praiseGentlePlain: "Yes!", praiseCalmPlain: "That's right.",
       finished: "{game} finished", stickerTitle: "You earned a sticker", calmDone: "Finished",
       nextIs: "Next: {game}.", lastGame: "That was the last game.", somethingNew: "Something new is open: {skill}",
@@ -59,7 +59,7 @@
       feelSame: "Aimsigh an aghaidh chéanna", feelOther: "Aimsigh aghaidh eile leis an mothúchán céanna", feelOtherShort: "An mothúchán céanna",
       notThat: "Ní hé sin é. Féach arís.", lookAgain: "Féach arís", lookOutline: "Féach ar an gceann leis an imlíne.", lookHighlight: "Brúigh an ceann leis an imlíne gheal.",
       sayAgain: "Abair arís é",
-      praiseCheer: "Iontach! {name}!", praiseGentle: "Maith thú! {name}.", praiseCalm: "Sin é. {name}.",
+      praiseCheer: "Iontach! {name}!", praiseGentle: "Maith thú! {name}.", praiseGentleThe: "Maith thú! {name}.", praiseCalm: "Sin é. {name}.",
       praiseCheerPlain: "Iontach!", praiseGentlePlain: "Maith thú!", praiseCalmPlain: "Sin é.",
       finished: "{game}: críochnaithe", stickerTitle: "Fuair tú greamán", calmDone: "Críochnaithe",
       nextIs: "Ar aghaidh: {game}.", lastGame: "B'shin an cluiche deireanach.", somethingNew: "Rud nua le triail!",

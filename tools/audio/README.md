@@ -13,7 +13,7 @@ Irish will use the same system once there are Irish recordings (ABAIR or a fluen
 - `site/js/emma.js` splits a sentence into pieces and plays them. If any piece has no recording (words a
   grown-up typed), the device's voice says the whole sentence, so voices are never mixed in one sentence.
 - Playback order everywhere: a grown-up's own recording → Emma → the device's voice. Grown-ups can choose
-  "This device" in Settings > Voice. The voice speed setting changes Emma's speed too (80% to 125%).
+  "This device" in Settings > Voice. The voice speed setting changes Emma's speed too: Slower 88%, Normal 100%, Faster 112%.
 - The child's name: a grown-up records it in the Children tab; until then Emma leaves the name out.
 - Listening check: `site/audio/review.html` (not linked from the site) plays every recording and lets the
   owner tick ones that sound wrong.
@@ -54,7 +54,8 @@ How the clips are made, and why:
   off using the model's own timings (`cut_by_timing`), in the pauses either side. The full stop matters: with
   a comma the voice stayed up as if more was coming and swallowed the last sound, so sentences sounded clipped.
 - Letter names follow Irish English: H is "haitch", Z is "zed".
-- Speeds: Alphabet cards 0.8, other phrases 0.85, letters and words 0.9.
+- Speeds: Alphabet cards and everything else the site says 0.8 (the pace the owner chose, Oct 2026), letters and words 0.9.
+- Whole sentence parts: anything with a fill-in ("find the train", "next is Match") is also recorded whole, so it isn't stitched. These are saved on a device the first time they play; until then Emma uses the pieces.
 - Every clip is trimmed, levelled to the same calm loudness (−20 LUFS) and saved as a small mono MP3.
 
 ## Recording with a person (any language)

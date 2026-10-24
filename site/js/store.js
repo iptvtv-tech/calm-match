@@ -45,6 +45,10 @@
   CM.NEW_GAMES = ["find", "shadow", "odd", "num", "shapes", "together", "missing", "puzzle", "letters", "order"];
   // Keep settings within what the app can show (also used for settings that come back from an account).
   CM.tidySettings = function (st) {
+    // Voice speed (Oct 2026): the four old buttons became Slower / Normal / Faster. Old "very slow" and "slow"
+    // become Slower; everything else becomes Normal (the Alphabet book's pace).
+    // (rateV2 is deliberately not in CM.DEFAULTS: settings are filled in from the defaults before this runs.)
+    if (!st.rateV2) { st.rate = +st.rate && +st.rate < 0.72 ? 0.66 : 0.75; st.rateV2 = true; }
     var n = (CM.ACTIVITIES || []).length || 1, ok = function (v) { v = Math.floor(+v); return isFinite(v) && v >= 0 && v < n ? v : null; };
     st.board = Object.assign(clone(CM.DEFAULTS.board), st.board || {});
     st.board.first = ok(st.board.first) == null ? 1 : ok(st.board.first);

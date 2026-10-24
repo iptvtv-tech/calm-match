@@ -239,20 +239,22 @@ def cmd_manifest(a=None, voice_note=None):
     os.makedirs(AUDIO, exist_ok=True)
     # lib: phrase -> clip, for site/js/emma.js. core: clips saved for offline use straight away (the Alphabet
     # book and the games); the rest are saved the first time they play.
-    lib, core = {}, []
+    lib, core, whole = {}, [], {}
     for lang in ("en", "ga"):
         src = os.path.join(HERE, "phrases-%s.json" % lang)
         if not os.path.exists(src): continue
-        L = {}
+        L, W = {}, []
         for e in json.load(open(src, encoding="utf8")):
             if os.path.exists(os.path.join(AUDIO, e["path"])):
                 L[e["key"]] = e["path"]
+                if e.get("whole"): W.append(e["key"])
                 if e["group"] == "core" and e["path"] not in core: core.append(e["path"])
         if L: lib[lang] = L
+        if W: whole[lang] = sorted(W)
     for p in files:
         if "/lib/" not in p and p not in core: core.append(p)
     with open(path, "w", encoding="utf8") as f:
-        json.dump({"v": 2, "voices": voices, "files": files, "core": sorted(core), "lib": lib}, f, ensure_ascii=False, indent=0)
+        json.dump({"v": 2, "voices": voices, "files": files, "core": sorted(core), "lib": lib, "whole": whole}, f, ensure_ascii=False, indent=0)
         f.write("\n")
     print("manifest: %d clips" % len(files))
 
@@ -277,7 +279,7 @@ if __name__ == "__main__":
     sub = p.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("script"); s.add_argument("--lang", choices=["en", "ga"])
     s = sub.add_parser("kokoro"); s.add_argument("--lang", default="en"); s.add_argument("--voice", default="bf_emma")
-    s.add_argument("--speed", type=float, default=0.9); s.add_argument("--say-speed", type=float, default=0.8); s.add_argument("--lib-speed", type=float, default=0.85)
+    s.add_argument("--speed", type=float, default=0.9); s.add_argument("--say-speed", type=float, default=0.8); s.add_argument("--lib-speed", type=float, default=0.8)
     s.add_argument("--kind", help="only make clips of this kind: letter, word, say, phrase or lib"); s.add_argument("--only"); s.add_argument("--force", action="store_true")
     s.add_argument("--out", help="write clips here instead of site/audio (for listening samples)")
     s = sub.add_parser("import"); s.add_argument("--lang", required=True, choices=["en", "ga"]); s.add_argument("folder"); s.add_argument("--credit")

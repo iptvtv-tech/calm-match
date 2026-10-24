@@ -86,6 +86,50 @@ function numberWord(n) {
   return t[Math.floor(n / 10)] + (n % 10 ? " " + a[n % 10] : "");
 }
 
+/* ---------- whole sentence parts ----------
+   A filled-in part ("find the" + "train") said from two recordings sounds stitched: a gap, then the last word
+   said on its own as if it were a whole sentence. So every filled-in part the games and tools can say gets its
+   own recording too ("find the train"), made in one go. They are marked whole: site/js/emma.js plays them when
+   it can and falls back to the pieces (always saved for offline use) if one hasn't been saved on the device yet. */
+const theme = [...new Set(Object.values(CM.THEMES).flatMap((t) => t.items.map((i) => i[1])))];
+const abc = [...new Set(Object.values(CM.alpha.WORDS.en).flatMap((l) => l.map((i) => i[1])))];
+const together = [...new Set(GW.TOGETHER.flatMap((p) => p.map((x) => x[1])))];
+const games = Object.keys(CM.GAMES).map((g) => CM.GAMES[g].label);
+const talk = [...new Set(fill.x)];
+const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+const WHOLE = [
+  // [template key, slot, values]
+  ["sayFind", "name", theme], ["sayBigSmall", "name", theme], ["sayGroup", "name", theme],
+  ["saySortPic", "name", theme], ["sayCount", "name", theme], ["aPair", "name", theme], ["sayFindShadow", "name", theme],
+  ["praiseGentleThe", "name", theme.map((n) => n.toLowerCase())], ["goesWith", "name", together], ["sayFirstLetter", "name", abc],
+  ["sayNow", "game", games], ["finished", "game", games], ["lastOne", "next", games], ["nMore", "next", games],
+  ["gamesThenDone", "n", range(1, 6)], ["played", "n", range(1, 6)], ["playedCalm", "n", range(1, 6)], ["faceDown", "n", range(1, 20)],
+  ["nMore", "n", range(1, 10)], ["tokensLeft", "n", range(1, 10)], ["findGroup", "n", range(1, 10)], ["nPictures", "n", range(1, 10)],
+  ["sizeN", "n", range(1, 6)], ["minutesLeftSay", "n", range(1, 60)],
+  ["played", "s", range(1, 100)], ["traceLetter", "l", fill.l], ["sayIWant", "x", talk], ["tokensLeft", "reward", talk]
+];
+const say = (t) => t.replace(/\b\d+\b/g, (d) => numberWord(+d));
+let wholeCount = 0;
+function addWhole(text) {
+  const key = E.norm(text);
+  if (!key) return;
+  const prev = entries.get(key);
+  if (prev) return; // already a recording (one word, or a fixed phrase)
+  entries.set(key, { key, text, group: "later", whole: true, say: /\d/.test(text) ? say(text) : undefined }); wholeCount++;
+}
+for (const [k, slot, values] of WHOLE) {
+  const tpl = en[k]; if (!tpl) throw new Error("no phrase " + k);
+  for (const chunk of tpl.split(/[.!?:;,…]+|\s[–—-]\s/)) {
+    if (chunk.indexOf("{" + slot + "}") < 0 || !chunk.replace(/\{[a-z]+\}/gi, "").trim()) continue;
+    if (/\{(?!slot)[a-z]+\}/i.test(chunk.split("{" + slot + "}").join(""))) continue; // two different gaps: pieces only
+    for (const v of values) addWhole(chunk.split("{" + slot + "}").join(String(v)).trim());
+  }
+}
+// "First {list}": the plan for the day starts with the first game's name.
+games.forEach((g) => addWhole("First " + g));
+// Step n of m on schedules
+for (let m = 2; m <= 20; m++) for (let n = 1; n <= m; n++) addWhole("Step " + n + " of " + m);
+
 /* ---------- file names ---------- */
 for (const e of entries.values()) {
   if (e.path) continue;
@@ -112,6 +156,6 @@ for (const k of Object.keys(en)) {
 const list = [...entries.values()].sort((a, b) => a.key.localeCompare(b.key));
 fs.writeFileSync(path.join(__dirname, "phrases-en.json"), JSON.stringify(list, null, 0).replace(/},{/g, "},\n{") + "\n");
 const core = list.filter((e) => e.group === "core"), later = list.filter((e) => e.group === "later");
-console.log("pieces: %d (core %d, later %d); new recordings needed: %d", list.length, core.length, later.length, list.filter((e) => !e.shared).length);
+console.log("pieces: %d (core %d, later %d, whole sentence parts %d); new recordings needed: %d", list.length, core.length, later.length, wholeCount, list.filter((e) => !e.shared).length);
 console.log("sample sentences checked: %d, can't be put together: %d", tried, failed.length);
 failed.slice(0, 40).forEach((f) => console.log("  " + f));

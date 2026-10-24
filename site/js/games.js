@@ -99,7 +99,7 @@
       return { title: t("sayFind", { name: nmx(tg) }),
         show: '<div class="target word" role="img" aria-label="' + esc(nmx(tg)) + '"><span aria-hidden="true">🔊</span> ' + esc(nmx(tg)) + "</div>",
         opts: shuffle([tg].concat(rest)).map(function (o) { return { html: pic(o, tk), label: nmx(o), correct: o === tg }; }),
-        speak: t("sayFind", { name: nmx(tg) }), praiseName: nmx(tg) };
+        speak: t("sayFind", { name: nmx(tg) }), praiseName: nmx(tg), praiseThing: true };
     },
 
     shadow: function (c) {
@@ -109,7 +109,7 @@
       return { title: toPic ? t("whoseShadow") : t("findShadow"),
         show: '<p class="label">' + esc(toPic ? t("thisShadow") : t("findThis")) + '</p><div class="target" role="img" aria-label="' + esc(toPic ? t("aShadow") : nmx(tg)) + '">' + (toPic ? shadowOf(tg[0]) : emo(tg[0])) + "</div>",
         opts: shuffle([tg].concat(rest)).map(function (o) { return { html: toPic ? emo(o[0]) : shadowOf(o[0]), label: toPic ? nmx(o) : t("shadowOfN", { n: nmx(o) }), correct: o === tg }; }),
-        speak: toPic ? t("whoseShadow") : t("sayFindShadow", { name: nmx(tg) }), praiseName: nmx(tg) };
+        speak: toPic ? t("whoseShadow") : t("sayFindShadow", { name: nmx(tg) }), praiseName: nmx(tg), praiseThing: true };
     },
 
     odd: function (c) {
@@ -127,7 +127,7 @@
       var all = shuffle(list.concat([{ it: odd, tk: list.oddTheme || c.themeKey, odd: true }]));
       return { title: t("findOdd"), show: "",
         opts: all.map(function (o) { return { html: pic(o.it, o.tk), label: nmx(o.it), correct: o.odd }; }),
-        speak: t("sayOdd"), praiseName: nmx(odd) };
+        speak: t("sayOdd"), praiseName: nmx(odd), praiseThing: true };
     },
 
     together: function (c) {
@@ -166,7 +166,7 @@
       var tg = fresh("shape", sh, function (x) { return x[0]; }), rest = shuffle(sh.filter(function (s) { return s !== tg; })).slice(0, c.n - 1);
       return { title: t("sayFind", { name: nmx(tg) }), show: '<div class="target word" role="img" aria-label="' + esc(nmx(tg)) + '">' + esc(nmx(tg)) + "</div>",
         opts: shuffle([tg].concat(rest)).map(function (o) { return { html: emo(o[0]), label: nmx(o), correct: o === tg }; }),
-        speak: t("sayFind", { name: nmx(tg) }), praiseName: nmx(tg) };
+        speak: t("sayFind", { name: nmx(tg) }), praiseName: nmx(tg), praiseThing: true };
     },
 
     missing: function (c) {
@@ -175,7 +175,7 @@
       var rowHtml = function (hide) { return '<div class="seqrow">' + row.map(function (r) { return r === gone && hide ? '<span class="slot">?</span>' : "<span>" + pic(r) + "</span>"; }).join("") + "</div>"; };
       return { title: t("whatMissing"), pre: { html: '<h1 class="say">' + esc(t("remember")) + "</h1>" + rowHtml(false), ms: 2500 + n * 700, speak: t("remember") },
         show: rowHtml(true), opts: opts.map(function (o) { return { html: pic(o), label: nmx(o), correct: o === gone }; }),
-        speak: t("whatMissing"), praiseName: nmx(gone) };
+        speak: t("whatMissing"), praiseName: nmx(gone), praiseThing: true };
     },
 
     puzzle: function (c) {
@@ -185,7 +185,7 @@
       var rest = shuffle(items.filter(function (x) { return x !== tg; })).slice(0, c.n - 1);
       return { title: t("finishPicture"), show: '<div class="pz n' + n + '" role="img" aria-label="' + esc(nmx(tg)) + '">' + whole + "</div>",
         opts: shuffle([tg].concat(rest)).map(function (o) { return { html: '<span class="pz pzopt">' + piece(pic(o), n, k) + "</span>", label: t("pieceOf", { n: nmx(o) }), correct: o === tg }; }),
-        speak: t("finishPicture"), praiseName: nmx(tg) };
+        speak: t("finishPicture"), praiseName: nmx(tg), praiseThing: true };
     },
 
     letters: function (c) {

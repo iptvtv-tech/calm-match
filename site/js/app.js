@@ -126,9 +126,12 @@
     if (cur.audio && S().speech && cant && CM.alpha && !(CM.emma && CM.emma.has(CM.lang()))) { if (stopClips) stopClips(); stopClips = CM.alpha.playClips(cur.audio); return; }
     say(cur.speak);
   }
-  function praise(name) {
-    var k = { cheerful: "praiseCheer", gentle: "praiseGentle", calm: "praiseCalm" }[S().celebrate] || "praiseGentle";
-    return name != null && name !== "" ? t(k, { name: CM.cap(name) }) : t(k + "Plain");
+  // thing: the name is a picture ("the train"), so Gentle says "Yes! That's the train." Numbers, letters and feelings
+  // keep "Yes! 3." / "Yes! B, bee." / "Yes! Happy."
+  function praise(name, thing) {
+    var k = { cheerful: "praiseCheer", gentle: thing ? "praiseGentleThe" : "praiseGentle", calm: "praiseCalm" }[S().celebrate] || "praiseGentle";
+    if (name == null || name === "") return t((k === "praiseGentleThe" ? "praiseGentle" : k) + "Plain");
+    return t(k, { name: k === "praiseGentleThe" && CM.lang() !== "ga" ? String(name).toLowerCase() : CM.cap(name) });
   }
   var STICKERS = { stars: ["⭐", "🌟", "✨", "💫", "🌠"], hearts: ["💚", "💙", "💜", "🧡", "💛", "❤️"], shapes: ["🔷", "🔶", "🟢", "🟣", "🔺", "🟦"] };
   function newSticker() {
@@ -300,7 +303,7 @@
       title: t("findSame"),
       show: '<p class="label">' + esc(t("findThis")) + '</p><div class="target" role="img" aria-label="' + esc(CM.nm(tg)) + '">' + pic(tg) + "</div>",
       opts: shuffle([tg].concat(others)).map(function (o) { return { html: pic(o), label: CM.nm(o), correct: o[0] === tg[0] }; }),
-      speak: t("sayFind", { name: CM.nm(tg) }), praiseName: CM.nm(tg)
+      speak: t("sayFind", { name: CM.nm(tg) }), praiseName: CM.nm(tg), praiseThing: true
     };
   }
 
@@ -347,7 +350,7 @@
           html: '<span class="bicon" aria-hidden="true">' + b.icon + '</span><span class="bname">' + esc(basketName(b)) + '</span><span class="bgot" aria-hidden="true">' + b.got.join("") + "</span>" };
       }),
       speak: mode === "size" ? t("sayBigSmall", { name: nm }) : mode === "kind" ? t("sayGroup", { name: nm }) : mode === "colour" || mode === "shape" ? t("whichGroup") : t("saySortPic", { name: nm }),
-      praiseName: mode === "size" ? t(q.size) : nm,
+      praiseName: mode === "size" ? t(q.size) : nm, praiseThing: mode !== "size",
       onRight: function (o) { o.basket.got.push(q.html); }
     };
   }
@@ -367,7 +370,7 @@
       title: t("whatNext"),
       show: '<div class="seqrow" role="img" aria-label="' + esc(row.map(CM.nm).join(", ")) + ', ?">' + row.map(function (r) { return "<span>" + pic(r) + "</span>"; }).join("") + '<span class="slot" id="slot">?</span></div>',
       opts: opts.map(function (o) { return { html: pic(o), label: CM.nm(o), correct: o[0] === ans[0] }; }),
-      speak: row.map(CM.nm).join(", ") + ". " + t("sayWhatNext"), praiseName: CM.nm(ans),
+      speak: row.map(CM.nm).join(", ") + ". " + t("sayWhatNext"), praiseName: CM.nm(ans), praiseThing: true,
       onRight: function () { var s = $("slot"); if (s) { s.innerHTML = pic(ans); s.classList.add("filled"); } }
     };
   }
@@ -567,7 +570,7 @@
     CM.bkt(blk.skill, good, 3);
     if (good) { blk.firstTry++; blk.okRun++; } else blk.okRun = 0;
     if (S().adaptive && blk.okRun >= 3 && blk.lvl < maxL) { blk.lvl++; blk.okRun = 0; log("3 right first time in a row", CM.lvDesc(blk.game, blk.lvl, blk.skill)); }
-    var msg = praise(cur.praiseName);
+    var msg = praise(cur.praiseName, cur.praiseThing);
     if (fb) { fb.className = "feedback ok"; fb.textContent = msg; }
     chime(); say(msg); blk.t++; renderDots();
     pendingAdvance = setTimeout(nextTurn, S().calm ? 1900 : 1600);
@@ -590,7 +593,7 @@
       else blk.okRun = 0;
       if (cur.onRight) cur.onRight(o);
       if (o.basket) { var gg = btn.querySelector(".bgot"); if (gg) gg.innerHTML = o.basket.got.join(""); }
-      var msg = praise(cur.praiseName);
+      var msg = praise(cur.praiseName, cur.praiseThing);
       fb.className = "feedback ok"; fb.textContent = msg; chime(); say(msg);
       if (S().adaptive && blk.okRun >= 3 && blk.lvl < maxL) {
         blk.lvl++; blk.okRun = 0;
@@ -892,7 +895,7 @@
     $("touchTryMsg").textContent = "";
     tryBtn.onclick = function () { tryN++; chime(); $("touchTryMsg").textContent = tryN === 1 ? "Chosen! That's how it will feel in the games." : "Chosen " + tryN + " times."; };
     chipGroup($("voiceChips"), [["emma", "Emma (built in)"], ["device", "This device"]], s.voice, function (v) { s.voice = v; log("Voice", v === "emma" ? "Emma, the built-in voice" : "this device's voice"); setTimeout(function () { say(t("sayFind", { name: CM.nm(CM.THEMES.animals.items[0]) })); }, 50); });
-    chipGroup($("rateChips"), [[0.6, "Voice: very slow"], [0.7, "Voice: slow"], [0.85, "Voice: gentle"], [1, "Voice: normal"]], s.rate, function (v) { s.rate = +v; say("This is how I will sound. Find the dog."); });
+    chipGroup($("rateChips"), [[0.66, "Voice: slower"], [0.75, "Voice: normal"], [0.84, "Voice: faster"]], s.rate, function (v) { s.rate = +v; say("This is how I will sound. Find the dog."); });
     chipGroup($("blockChips"), [[2, "2"], [3, "3"], [4, "4"]], s.blocks, function (v) { s.blocks = +v; });
     chipGroup($("turnChips"), [[3, "3"], [4, "4"], [6, "6"]], s.turns, function (v) { s.turns = +v; });
     chipGroup($("modeChips"), [["engine", "Engine picks"], ["fixed", "Same order every time"]], s.mode, function (v) { s.mode = v; });

@@ -87,8 +87,8 @@
     // A grown-up can choose the device's voice instead of Emma (Grown-ups > Settings > Senses and voice).
     var useDevice = S.voice === "device" && voiceFor(lang) && !(CM.speech && CM.speech.status() === "none");
     var urls = useDevice ? null : CM.alpha.clipsFor(e);
-    // The voice speed setting slows or speeds Emma too, without changing her pitch (80% to 125%).
-    var rate = Math.max(0.8, Math.min(1.25, (+S.rate || 0.75) / 0.75));
+    // The voice speed setting slows or speeds Emma too, without changing her pitch (88% to 112%).
+    var rate = Math.max(0.85, Math.min(1.15, (+S.rate || 0.75) / 0.75));
     if (urls) { stopClips = CM.alpha.playClips(urls, function () { stopClips = null; say(spoken); }, null, rate); return; }
     say(spoken);
   }

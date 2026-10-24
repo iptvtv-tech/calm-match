@@ -279,7 +279,10 @@
 "Delete everything on this device": "Scrios gach rud ar an ngléas seo",
 "3 tokens": "3 chomhartha",
 "5 tokens": "5 chomhartha",
-"10 tokens": "10 gcomhartha"
+"10 tokens": "10 gcomhartha",
+"Voice: slower": "Guth: níos moille",
+"Voice: normal": "Guth: gnáth",
+"Voice: faster": "Guth: níos tapúla"
 };
   var PATTERNS = [
     [/^What is (\d+) plus (\d+)\?$/, "Cé mhéad é $1 móide $2?"],
