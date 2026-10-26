@@ -116,6 +116,7 @@ body[data-calm="on"] .breath{animation:none}
 .chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:15px}
 .chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
 .note{font-size:14px;color:var(--muted);margin:0}
+.whats-new{background:var(--surface-2,var(--surface));border:2px solid var(--line);border-radius:14px;padding:12px 14px 14px;margin-bottom:14px}.whats-new h3{margin:0 0 6px}.whats-new ul{padding-left:18px;margin:0 0 10px}.whats-new li+li{margin-top:6px}
 .inline-field{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .inline-field input[type=text]{font:inherit;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:8px 12px;min-width:0;flex:1 1 160px;max-width:260px}
 .log{list-style:none;margin:0;padding:0;font-size:14px;display:flex;flex-direction:column;gap:6px;max-height:340px;overflow:auto}

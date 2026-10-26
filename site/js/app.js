@@ -791,8 +791,18 @@
     chipGroup($("grownLangChips"), [["en", "English"], ["ga", "Gaeilge"]], app.grownLang === "ga" ? "ga" : "en", function (v) { app.grownLang = v; CM.store.persist(); }, function () { renderPanel(); gateLabel(); });
     $("grownLangNote").hidden = app.grownLang !== "ga";
   }
+  // "What's new" note at the top of Children: shown until a grown-up taps Got it, then hidden until the next update
+  // (the date below changes). Remembered on this device only, like every other setting.
+  var WHATS_NEW = "2026-10";
+  function renderWhatsNew() {
+    var box = $("whatsNew"); if (!box) return;
+    var app = CM.store.db().app;
+    box.hidden = app.whatsNewSeen === WHATS_NEW;
+    $("whatsNewOk").onclick = function () { app.whatsNewSeen = WHATS_NEW; CM.store.persist(); box.hidden = true; };
+  }
   function renderPanel() {
     renderGrownLang();
+    renderWhatsNew();
     renderNav();
     document.querySelectorAll("#panel [data-pane]").forEach(function (p) { p.hidden = p.dataset.pane !== tab; });
     CM.ui.closePicker();

@@ -49,6 +49,7 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   vendor/supabase.js    the Supabase sign-in library (self-hosted; not in the zips, keep your copy)
 tools/build-symbols.py   copies chosen Mulberry symbols into site/symbols (and tools/symbols-own/)
 tools/archive-policies.py keeps dated copies of the policy pages
+tools/tests/check.py    regression check: run before every push (see "Before every push")
 docs/                  plans for class sync and app-store versions (not built)
 supabase/schema.sql    database tables, privacy rules and delete-account function
 supabase/02-account-deletion-email.sql   confirmation email when a parent deletes their account
@@ -68,7 +69,13 @@ From the `site` folder: `python3 -m http.server 8000`, then open http://localhos
 3. Framework preset **None**, build command **empty**, build output directory **`site`**.
 4. Deploy. Every push to the main branch redeploys automatically.
 
-When you change files, bump `VERSION` at the top of `site/sw.js` so devices that saved the site for offline use pick up the change.
+### Before every push
+
+1. If any words, phrases or games changed: `node tools/audio/harvest.js`, then make the missing clips with `tools/audio/build.py` (see `tools/audio/README.md`). Re-render the whole library only when the voice itself changes (speed, carrier phrase, model).
+2. If a change affects **what is stored on the device** (new kinds of photos, recordings, files or settings) or **how speech works** (voices, recordings, microphone): re-read `site/privacy.html`, `site/privacy-kids.html`, `site/accessibility.html` and `site/credits.html`. If a policy page changes: run `python3 tools/archive-policies.py` first, then edit, then update `policyDate` in `site/js/config.js`.
+3. Bump `VERSION` at the top of `site/sw.js` so devices that saved the site for offline use pick up the change.
+4. Run `python3 tools/tests/check.py`. The file and wording checks need only Python; the browser checks need `pip install playwright` and `python3 -m playwright install chromium` (use `--no-browser` to skip them).
+5. Nothing is committed or pushed until the owner has reviewed the diff.
 
 ## Settings (`site/js/config.js`)
 

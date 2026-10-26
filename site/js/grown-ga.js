@@ -7,6 +7,21 @@
   "use strict";
   var CM = window.CM;
   var GA = {
+// What's new note (Children pane). Draft Irish, to be checked with the rest.
+"What's new — October 2026": "Cad atá nua — Deireadh Fómhair 2026",
+"Picture doors.": "Doirse pictiúr.",
+"Under Start, your child now has big picture doors to Sing along, the Alphabet book, Stories, Stickers, the Calm corner and My day. Turn any of them off in Settings › Home screen.": "Faoi Tosaigh, tá doirse móra pictiúr ag do pháiste anois chuig Canaimis le chéile, an Leabhar Aibítre, Scéalta, Greamáin, an Cúinne Ciúin agus Mo Lá. Múch ceann ar bith díobh i Socruithe › Scáileán baile.",
+"The Grown-ups area is in four sections:": "Tá limistéar na nDaoine Fásta i gceithre chuid:",
+"Progress, Make, Settings, and Children and device. Everything is still here; it's just grouped.": "Dul chun cinn, Déan, Socruithe, agus Páistí agus gléas. Tá gach rud fós anseo; tá sé grúpáilte anois.",
+"Emma, a built-in voice.": "Emma, guth ionsuite.",
+"English read-aloud now uses Emma on every device, even offline. Choose Slower, Normal or Faster in Settings › Senses and voice, or switch back to your device's own voice there.": "Úsáideann léamh os ard an Bhéarla Emma anois ar gach gléas, fiú as líne. Roghnaigh Níos moille, Gnáth nó Níos tapúla i Socruithe › Céadfaí agus guth, nó athraigh ar ais go guth do ghléis féin ansin.",
+"Your child's name.": "Ainm do pháiste.",
+"Record it once below and Emma will use it. Until then, she leaves the name out.": "Taifead é uair amháin thíos agus úsáidfidh Emma é. Go dtí sin, fágann sí an t-ainm ar lár.",
+"Quick presets.": "Réamhshocruithe tapa.",
+"Very calm, Standard and Bigger and clearer, at the top of Senses and voice.": "An-chiúin, Caighdeánach agus Níos mó agus níos soiléire, ag barr Céadfaí agus guth.",
+"Gaeilge for grown-ups.": "Gaeilge do dhaoine fásta.",
+"The switch at the top of this area shows it in Irish. The Irish is still being checked by a fluent speaker.": "Taispeánann an lasc ag barr an limistéir seo i nGaeilge é. Tá an Ghaeilge fós á seiceáil ag cainteoir líofa.",
+"Got it": "Tuigim",
 "Grown-ups": "Daoine fásta",
 "Grown-ups sections": "Ranna do dhaoine fásta",
 "Pages in this section": "Leathanaigh sa rann seo",
