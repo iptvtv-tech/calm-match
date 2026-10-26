@@ -50,6 +50,8 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
 tools/build-symbols.py   copies chosen Mulberry symbols into site/symbols (and tools/symbols-own/)
 tools/archive-policies.py keeps dated copies of the policy pages
 tools/irish-review.js    writes docs/irish-review.md: every Irish string beside its English, for a fluent speaker
+tools/review-page.js     builds site/review/data.js for the private Irish review page (calmmatch.com/review/)
+functions/review/api.js  Cloudflare Pages Function: saves the reviewer's ticks to KV (binding REVIEW), behind Cloudflare Access
 tools/tests/check.py    regression check: run before every push (see "Before every push")
 docs/                  Irish review sheet, Sing along lyrics sheet, plans for class sync and app-store versions (not built)
 supabase/schema.sql    database tables, privacy rules and delete-account function
@@ -77,6 +79,24 @@ From the `site` folder: `python3 -m http.server 8000`, then open http://localhos
 3. Bump `VERSION` at the top of `site/sw.js` so devices that saved the site for offline use pick up the change.
 4. Run `python3 tools/tests/check.py`. The file and wording checks need only Python; the browser checks need `pip install playwright` and `python3 -m playwright install chromium` (use `--no-browser` to skip them).
 5. Nothing is committed or pushed until the owner has reviewed the diff.
+
+## Private review area (`/review/`)
+
+A page for an invited fluent Irish speaker to tick or correct every Irish line. It is not linked from the site,
+not in the sitemap, not cached by the service worker, and sends `X-Robots-Tag: noindex`.
+
+- **Who can open it:** Cloudflare Access on `calmmatch.com/review/*`. Zero Trust → Access → Applications →
+  Add → Self-hosted; domain `calmmatch.com`, path `review`; policy *Allow* with the reviewer's and your email
+  addresses; login method One-time PIN (an email code, no passwords). Session: up to a month.
+- **Where ticks are saved:** `functions/review/api.js` runs on Cloudflare Pages and writes to a KV namespace.
+  Create one (Workers & Pages → KV → Create, e.g. `calm-match-review`) and bind it to the Pages project as
+  **REVIEW** (project → Settings → Functions → KV namespace bindings). The function refuses every request that
+  doesn't carry Access's signed-in email, so it stays closed until Access is on.
+- **Keeping the page current:** after any Irish text or song change,
+  `node tools/irish-review.js && node tools/singalong.js review > docs/singalong-irish-lyrics.md && node tools/review-page.js`.
+  A line keeps its tick until its text changes.
+- **Collecting corrections:** open the page yourself and press *Copy all corrections*, or ask Claude to read
+  the KV store. Delete the KV data when the check is finished (the privacy policy says so).
 
 ## Settings (`site/js/config.js`)
 
