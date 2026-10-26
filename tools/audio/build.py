@@ -172,6 +172,36 @@ def cut_by_timing(audio, dur, n_lead, n_body):
     return out
 
 
+# Sounds that are hissy or have a burst of their own at the end of a word (fox, cat, fish). After any other
+# final sound (door, moon, lemon, yellow) a bright hiss at the end of the cut is the breath into the carrier's
+# "Two", not part of the word, and it reads as a plural "s" (owner's listening check, 26 Oct 2026).
+NOISY_ENDINGS = set("ptkbdgszfvhθðʃʒʧʤ")
+
+def trim_hiss(audio, body):
+    """Cut the breath before "Two" off the end of a clip whose word ends in a vowel, nasal, liquid or glide.
+    Finds the last 10 ms window that is clearly voiced (energy up, spectral centroid below 3.5 kHz), then
+    keeps 20 ms more and fades out. Clips ending in a hiss or stop of their own are left alone."""
+    import numpy as np
+    last = body.rstrip().rstrip(".").rstrip()[-1:] if body else ""
+    if not last or last in NOISY_ENDINGS: return audio
+    w = 240                                                         # 10 ms at 24 kHz
+    n = min(len(audio), 24000 // 4)                                 # look at the last 250 ms
+    peak = float(np.sqrt(np.mean(audio[-n:] ** 2))) + 1e-9
+    fr = np.fft.rfftfreq(w, 1 / 24000)
+    voiced_end = None
+    for i in range(len(audio) - w, len(audio) - n, -w):
+        seg = audio[i:i + w]
+        rms = float(np.sqrt(np.mean(seg ** 2)))
+        if rms < 0.6 * peak: continue
+        sp = np.abs(np.fft.rfft(seg * np.hanning(w)))
+        if (sp * fr).sum() / (sp.sum() + 1e-9) < 3500: voiced_end = i + w; break
+    if voiced_end is None or voiced_end + 2 * w >= len(audio): return audio
+    end = voiced_end + 2 * w
+    out = audio[:end].copy()
+    out[-2 * w:] *= np.linspace(1, 0, 2 * w)
+    return out
+
+
 def cmd_kokoro(a):
     import numpy as np, onnxruntime as ort
     if a.lang != "en": sys.exit("Kokoro has no Irish voice. Irish clips need a person or ABAIR (see the plan).")
@@ -204,6 +234,7 @@ def cmd_kokoro(a):
         audio, dur = sess.run(None, {tok_in: np.array([[0] + toks + [0]], dtype=np.int64), "style": style.astype(np.float32),
                                      "speed": np.array([speed], dtype=np.float32)})
         audio = cut_by_timing(audio.ravel(), np.asarray(dur).ravel(), ntok(lead, vocab), ntok(body, vocab))
+        audio = trim_hiss(audio, body)
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
             with wave.open(tmp.name, "wb") as w:
                 w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000)
