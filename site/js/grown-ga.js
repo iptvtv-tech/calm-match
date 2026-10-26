@@ -158,7 +158,7 @@
 "Hide": "Folaigh",
 "Rename": "Athainmnigh",
 "Open Sing along": "Oscail na hamhráin",
-"16 songs, from Twinkle Twinkle to Old MacDonald. A gentle tune plays and the words light up as it goes, so your child can join in at their own pace. The speed slider slows a song down, and the repeat button plays it again and again.": "16 amhrán, ó Twinkle Twinkle go Old MacDonald. Seinntear fonn séimh agus lasann na focail de réir a chéile, ionas gur féidir le do pháiste páirt a ghlacadh ar a luas féin. Moillíonn an sleamhnán luais amhrán, agus seinneann an cnaipe athuair arís agus arís é.",
+"23 songs, from Twinkle Twinkle to Humpty Dumpty. A gentle tune plays and the words light up as it goes, so your child can join in at their own pace. The speed slider slows a song down, and the repeat button plays it again and again.": "23 amhrán, ó Twinkle Twinkle go Humpty Dumpty. Seinntear fonn séimh agus lasann na focail de réir a chéile, ionas gur féidir le do pháiste páirt a ghlacadh ar a luas féin. Moillíonn an sleamhnán luais amhrán, agus seinneann an cnaipe athuair arís agus arís é.",
 "Nothing is recorded and the microphone is never used. Use your browser's back button to come back here.": "Ní thaifeadtar aon rud agus ní úsáidtear an micreafón riamh. Úsáid cnaipe siar do bhrabhsálaí le teacht ar ais anseo.",
 "Songs start in English, because the games are set to English for this child. You can switch to Irish on the song page.": "Tosaíonn na hamhráin i mBéarla, mar tá na cluichí socraithe go Béarla don pháiste seo. Is féidir leat aistriú go Gaeilge ar leathanach an amhráin.",
 "Quick set-up": "Socrú tapa",

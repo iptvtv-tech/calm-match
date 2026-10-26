@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A child standing with both hands on their head, with dots marking head, shoulders, knees and toes</title>
+  <rect width="400" height="300" fill="#f5efe0"/>
+  <rect y="262" width="400" height="38" fill="#d9c7a3"/>
+  <!-- body -->
+  <circle cx="200" cy="70" r="30" fill="#f3c9a8"/>
+  <path d="M172 58 q28 -22 56 0 v-6 q-28 -16 -56 0 z" fill="#5a3a22"/>
+  <g fill="#2c2d35"><circle cx="190" cy="68" r="3"/><circle cx="210" cy="68" r="3"/></g>
+  <path d="M190 82 q10 8 20 0" fill="none" stroke="#2c2d35" stroke-width="3" stroke-linecap="round"/>
+  <rect x="166" y="104" width="68" height="76" rx="18" fill="#e2b85a"/>
+  <!-- arms up to the head -->
+  <g fill="none" stroke="#f3c9a8" stroke-width="14" stroke-linecap="round"><path d="M170 112 q-34 -40 10 -70"/><path d="M230 112 q34 -40 -10 -70"/></g>
+  <!-- legs -->
+  <g fill="none" stroke="#5f8fcf" stroke-width="22" stroke-linecap="round"><path d="M184 180 v70"/><path d="M216 180 v70"/></g>
+  <g fill="#2c2d35"><ellipse cx="180" cy="258" rx="16" ry="7"/><ellipse cx="220" cy="258" rx="16" ry="7"/></g>
+  <!-- dots -->
+  <g fill="#d5607e" stroke="#ffffff" stroke-width="3"><circle cx="200" cy="40" r="8"/><circle cx="166" cy="110" r="8"/><circle cx="234" cy="110" r="8"/><circle cx="184" cy="216" r="8"/><circle cx="216" cy="216" r="8"/><circle cx="172" cy="258" r="8"/><circle cx="228" cy="258" r="8"/></g>
+</svg>

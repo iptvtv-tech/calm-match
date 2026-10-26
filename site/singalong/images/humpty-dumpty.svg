@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A smiling egg with little legs sitting on top of a red brick wall under a blue sky</title>
+  <rect width="400" height="300" fill="#dcebf5"/>
+  <circle cx="330" cy="60" r="28" fill="#f7dc8a"/>
+  <g fill="#ffffff"><ellipse cx="90" cy="70" rx="38" ry="16"/><ellipse cx="110" cy="62" rx="26" ry="14"/></g>
+  <rect y="230" width="400" height="70" fill="#9ccb7a"/>
+  <!-- wall -->
+  <rect x="60" y="150" width="280" height="90" fill="#c96a4e"/>
+  <g stroke="#f0d9c8" stroke-width="3"><path d="M60 172 h280 M60 194 h280 M60 216 h280"/><path d="M110 150 v22 M180 150 v22 M250 150 v22 M320 150 v22 M75 172 v22 M145 172 v22 M215 172 v22 M285 172 v22 M110 194 v22 M180 194 v22 M250 194 v22 M320 194 v22 M75 216 v24 M145 216 v24 M215 216 v24 M285 216 v24"/></g>
+  <rect x="52" y="142" width="296" height="12" rx="3" fill="#a9553b"/>
+  <!-- egg -->
+  <ellipse cx="200" cy="100" rx="40" ry="50" fill="#fbf3e2"/>
+  <path d="M160 100 q40 -8 80 0 v8 q-40 6 -80 0 z" fill="#5f8fcf"/>
+  <g fill="#2c2d35"><circle cx="186" cy="88" r="4"/><circle cx="214" cy="88" r="4"/></g>
+  <path d="M186 108 q14 10 28 0" fill="none" stroke="#2c2d35" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#f0a9a0"><circle cx="178" cy="100" r="5"/><circle cx="222" cy="100" r="5"/></g>
+  <g stroke="#2c2d35" stroke-width="4" stroke-linecap="round" fill="none"><path d="M186 148 v20 M214 148 v20"/></g>
+  <g fill="#2c2d35"><ellipse cx="183" cy="170" rx="8" ry="4"/><ellipse cx="217" cy="170" rx="8" ry="4"/></g>
+</svg>

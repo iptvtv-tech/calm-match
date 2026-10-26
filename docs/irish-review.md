@@ -1088,7 +1088,7 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | Hide | Folaigh |  |
 | Rename | Athainmnigh |  |
 | Open Sing along | Oscail na hamhráin |  |
-| 16 songs, from Twinkle Twinkle to Old MacDonald. A gentle tune plays and the words light up as it goes, so your child can join in at their own pace. The speed slider slows a song down, and the repeat button plays it again and again. | 16 amhrán, ó Twinkle Twinkle go Old MacDonald. Seinntear fonn séimh agus lasann na focail de réir a chéile, ionas gur féidir le do pháiste páirt a ghlacadh ar a luas féin. Moillíonn an sleamhnán luais amhrán, agus seinneann an cnaipe athuair arís agus arís é. |  |
+| 23 songs, from Twinkle Twinkle to Humpty Dumpty. A gentle tune plays and the words light up as it goes, so your child can join in at their own pace. The speed slider slows a song down, and the repeat button plays it again and again. | 23 amhrán, ó Twinkle Twinkle go Humpty Dumpty. Seinntear fonn séimh agus lasann na focail de réir a chéile, ionas gur féidir le do pháiste páirt a ghlacadh ar a luas féin. Moillíonn an sleamhnán luais amhrán, agus seinneann an cnaipe athuair arís agus arís é. |  |
 | Nothing is recorded and the microphone is never used. Use your browser's back button to come back here. | Ní thaifeadtar aon rud agus ní úsáidtear an micreafón riamh. Úsáid cnaipe siar do bhrabhsálaí le teacht ar ais anseo. |  |
 | Songs start in English, because the games are set to English for this child. You can switch to Irish on the song page. | Tosaíonn na hamhráin i mBéarla, mar tá na cluichí socraithe go Béarla don pháiste seo. Is féidir leat aistriú go Gaeilge ar leathanach an amhráin. |  |
 | Quick set-up | Socrú tapa |  |
@@ -1258,7 +1258,7 @@ Song titles:
 | Mary Had a Little Lamb | Máire agus an tUan |  |
 | Row, Row, Row Your Boat | Seol do Bhád |  |
 | Are You Sleeping? | A Sheáin Bhig |  |
-| Hot Cross Buns | Cístí Te |  |
+| Hot Cross Buns | Cístí Teo |  |
 | Rain, Rain, Go Away | Báisteach, Imigh Uainn |  |
 | Happy Birthday | Lá Breithe Sona |  |
 | London Bridge Is Falling Down | Droichead Mór |  |
@@ -1269,6 +1269,11 @@ Song titles:
 | Jack and Jill | Seán agus Síle |  |
 | Yankee Doodle | Dúdlí Beag |  |
 | Jingle Bells | Cloigín Beag |  |
+| Humpty Dumpty | Humpty Dumpty |  |
+| Head, Shoulders, Knees and Toes | Ceann, Guaillí, Glúine is Cosa |  |
+| Bingo | Bingo |  |
+| Here We Go Round the Mulberry Bush | Timpeall an Toir Bhig |  |
+| Hush, Little Baby | Fuist, a Linbh |  |
 
 Picture descriptions (read by screen readers):
 
@@ -1290,6 +1295,13 @@ Picture descriptions (read by screen readers):
 | A green hill with a well and a wooden bucket at the top | Cnoc glas le tobar agus buicéad adhmaid ar a bharr |  |
 | A small brown pony and a hat with a feather in it | Capaillín donn agus hata le cleite ann |  |
 | Two golden jingle bells tied with a red ribbon, with snowflakes | Dhá chloigín órga ceangailte le ribín dearg, le calóga sneachta |  |
+| A smiling egg with little legs sitting on top of a red brick wall under a blue sky | Ubh ag gáire, le cosa beaga, ina suí ar bharr balla bríce dearg faoi spéir ghorm |  |
+| Four children holding hands in a circle on the grass, with pink roses around them | Ceathrar páistí ag breith ar lámha a chéile i gciorcal ar an bhféar, le rósanna bándearga thart orthu |  |
+| A child standing with both hands on their head, with dots marking head, shoulders, knees and toes | Páiste ina sheasamh agus a dhá lámh ar a cheann, le poncanna ar an gceann, na guaillí, na glúine agus na cosa |  |
+| A happy brown and white farm dog sitting in a field, with a red barn behind | Madra feirme donn agus bán, sásta, ina shuí i bpáirc, agus scioból dearg taobh thiar de |  |
+| A round green bush full of purple berries, with a path of footprints circling it | Tor glas cruinn lán de chaora corcra, agus cosán de loirg coise ina thimpeall |  |
+| A sleeping baby in a wooden cradle at night, with a small grey bird on the window sill | Leanbh ina chodladh i gcliabhán adhmaid san oíche, agus éan beag liath ar leac na fuinneoige |  |
+| A field of purple lavender under a soft blue sky, with a bee flying above the flowers | Páirc labhandair chorcra faoi spéir bhog ghorm, agus beach ag eitilt os cionn na mbláthanna |  |
 
 Words on the Sing along screens:
 
@@ -1371,4 +1383,4 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 6. **The Grown-ups area** — any phrase that is grammatically fine but would read oddly to a parent or teacher.
 7. **Your name for the credits page**, and the dialect to name there.
 
-_1065 items in this sheet._
+_1077 items in this sheet._

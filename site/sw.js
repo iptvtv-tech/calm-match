@@ -1,5 +1,5 @@
 /* Offline support. Bump VERSION whenever you deploy changed files so devices pick them up. */
-var VERSION = "cm-2026-10-26-3";
+var VERSION = "cm-2026-10-26-5";
 var CORE = [
   "./", "index.html", "play.html", "privacy.html", "cookies.html", "terms.html", "accessibility.html", "support.html", "privacy-kids.html", "summary.html",
   "css/base.css", "css/app.css", "css/home.css", "css/support.css", "css/kids.css", "css/summary.css",
@@ -17,6 +17,8 @@ var SINGALONG = [
   "singalong/images/are-you-sleeping.svg", "singalong/images/baa-baa.svg", "singalong/images/happy-birthday.svg", "singalong/images/hickory-dickory.svg",
   "singalong/images/hot-cross-buns.svg", "singalong/images/incy-wincy.svg", "singalong/images/jack-and-jill.svg", "singalong/images/jingle-bells.svg",
   "singalong/images/london-bridge.svg", "singalong/images/mary-lamb.svg", "singalong/images/old-macdonald.svg", "singalong/images/rain-rain.svg",
+  "singalong/images/humpty-dumpty.svg", "singalong/images/ring-a-roses.svg", "singalong/images/head-shoulders.svg", "singalong/images/bingo.svg",
+  "singalong/images/mulberry-bush.svg", "singalong/images/hush-little-baby.svg", "singalong/images/lavenders-blue.svg",
   "singalong/images/row-boat.svg", "singalong/images/this-old-man.svg", "singalong/images/twinkle.svg", "singalong/images/yankee-doodle.svg"
 ];
 

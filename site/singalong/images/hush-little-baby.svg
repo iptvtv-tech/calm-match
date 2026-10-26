@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A sleeping baby in a wooden cradle at night, with a small grey bird on the window sill</title>
+  <rect width="400" height="300" fill="#2f3f66"/>
+  <g fill="#f7dc8a"><circle cx="60" cy="50" r="3"/><circle cx="120" cy="30" r="2"/><circle cx="340" cy="40" r="3"/><circle cx="290" cy="80" r="2"/></g>
+  <path d="M330 70 a26 26 0 1 1 -10 -40 a20 20 0 1 0 10 40 z" fill="#f7dc8a"/>
+  <rect y="230" width="400" height="70" fill="#4a3a60"/>
+  <!-- window -->
+  <rect x="40" y="90" width="90" height="110" rx="6" fill="#9db6e0"/>
+  <path d="M85 90 v110 M40 145 h90" stroke="#2f3f66" stroke-width="5"/>
+  <rect x="30" y="196" width="110" height="10" rx="3" fill="#6e4a2e"/>
+  <g><ellipse cx="60" cy="186" rx="14" ry="9" fill="#9aa1ab"/><circle cx="72" cy="180" r="7" fill="#9aa1ab"/><path d="M78 180 l7 2 -7 2z" fill="#e2b85a"/><circle cx="74" cy="178" r="1.6" fill="#2c2d35"/></g>
+  <!-- cradle -->
+  <path d="M170 160 h150 l-14 60 h-122 z" fill="#a8714a"/>
+  <path d="M150 232 q95 40 190 0" fill="none" stroke="#8a5c38" stroke-width="8" stroke-linecap="round"/>
+  <rect x="184" y="176" width="122" height="30" rx="8" fill="#fbf3e2"/>
+  <path d="M184 190 h122 v16 h-122 z" fill="#e98fa5"/>
+  <circle cx="212" cy="180" r="18" fill="#f3c9a8"/>
+  <path d="M200 176 q8 -4 16 0" fill="none" stroke="#2c2d35" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M206 186 q6 4 12 0" fill="none" stroke="#2c2d35" stroke-width="2" stroke-linecap="round"/>
+</svg>

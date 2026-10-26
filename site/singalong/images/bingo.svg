@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A happy brown and white farm dog sitting in a field, with a red barn behind</title>
+  <rect width="400" height="300" fill="#dcebf5"/>
+  <rect y="200" width="400" height="100" fill="#9ccb7a"/>
+  <!-- barn -->
+  <path d="M40 200 v-70 l50 -34 l50 34 v70 z" fill="#c96a4e"/>
+  <rect x="74" y="160" width="32" height="40" fill="#6e4a2e"/>
+  <path d="M74 160 l32 40 M106 160 l-32 40" stroke="#f0d9c8" stroke-width="3"/>
+  <!-- dog -->
+  <ellipse cx="250" cy="210" rx="56" ry="40" fill="#a8714a"/>
+  <ellipse cx="236" cy="222" rx="30" ry="24" fill="#fbf3e2"/>
+  <circle cx="290" cy="150" r="36" fill="#a8714a"/>
+  <ellipse cx="300" cy="166" rx="22" ry="16" fill="#fbf3e2"/>
+  <ellipse cx="262" cy="136" rx="12" ry="22" fill="#6e4a2e" transform="rotate(20 262 136)"/>
+  <ellipse cx="318" cy="136" rx="12" ry="22" fill="#6e4a2e" transform="rotate(-20 318 136)"/>
+  <g fill="#2c2d35"><circle cx="280" cy="146" r="4"/><circle cx="302" cy="146" r="4"/><ellipse cx="300" cy="164" rx="6" ry="4.5"/></g>
+  <path d="M292 170 q8 8 16 0" fill="none" stroke="#2c2d35" stroke-width="3" stroke-linecap="round"/>
+  <path d="M296 172 q4 10 10 6" fill="#e58a96"/>
+  <g fill="none" stroke="#a8714a" stroke-width="12" stroke-linecap="round"><path d="M220 240 v18"/><path d="M276 240 v18"/></g>
+  <path d="M196 196 q-30 -20 -20 -46" fill="none" stroke="#a8714a" stroke-width="10" stroke-linecap="round"/>
+  <path d="M286 190 a8 8 0 1 0 0 1" fill="#d5607e"/>
+  <circle cx="300" cy="195" r="6" fill="#e2b85a"/>
+</svg>

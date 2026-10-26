@@ -93,7 +93,10 @@ if (mode === 'review') {
       before.pop();   // the indentation in front of "ga: ["
       for (var k = before.length - 1; k >= 0 && /^\s*\/\//.test(before[k]); k--) notes.unshift(before[k].replace(/^\s*\/\/\s?/, ''));
     }
-    if (notes.length) out.push('Meaning: ' + notes.join(' '), '');
+    var checks = notes.filter(function (n) { return /^Check:/.test(n); }).map(function (n) { return n.replace(/^Check:\s*/, ''); });
+    var meaning = notes.filter(function (n) { return !/^Check:/.test(n); });
+    if (meaning.length) out.push('Meaning: ' + meaning.join(' '), '');
+    if (checks.length) out.push('**Please check:** ' + checks.join(' '), '');
   });
   process.stdout.write(out.join('\n') + '\n');
 }

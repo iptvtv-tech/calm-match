@@ -30,6 +30,8 @@ Meaning: Little star, little star, up in the sky, / You shine quietly, gently. /
 
 Meaning: Black sheep, have you wool on you? / Yes, yes, my bag is full! / One for Daddy and one for Mammy, / and one for the little boy who lives in the glen.
 
+**Please check:** "Tá, tá, tá mo mhála lán" loses the three bags; "Tá, tá, tá, trí mhála lán" (7) keeps them.
+
 ## 3. Máire agus an tUan (Mary Had a Little Lamb)
 
 | English | Gaeilge | Syllables |
@@ -45,6 +47,8 @@ Meaning: Black sheep, have you wool on you? / Yes, yes, my bag is full! / One fo
 
 Meaning: Máire and a little white lamb, / little white lamb, little white lamb, / Máire and a little white lamb, / its wool bright and white. The lamb followed her down and up, ... everywhere she went.
 
+**Please check:** "Máire agus uan beag bán" says "Mary and a lamb", not "had"; "Bhí uan beag bán ag Máire" (7) is literal but moves the stress.
+
 ## 4. Seol do Bhád (Row, Row, Row Your Boat)
 
 | English | Gaeilge | Syllables |
@@ -55,6 +59,8 @@ Meaning: Máire and a little white lamb, / little white lamb, little white lamb,
 | life is but a dream. | níl ann ach aisling. | 5 |
 
 Meaning: Sail, sail, sail your boat / gently down the stream. / Joyful, joyful, joyful, joyful, / it's only a dream.
+
+**Please check:** "Lúcháireach" is a dictionary word; "go meidhreach" (3 syllables) is the everyday "merrily".
 
 ## 5. A Sheáin Bhig (Are You Sleeping?)
 
@@ -67,16 +73,20 @@ Meaning: Sail, sail, sail your boat / gently down the stream. / Joyful, joyful, 
 
 Meaning: Still asleep? Still asleep? / Little Seán, little Seán? / The morning bell is ringing, the morning bell is ringing, / ding, dang, dong.
 
-## 6. Cístí Te (Hot Cross Buns)
+**Please check:** "Id' chodladh fós?" is a spoken contraction of "I do chodladh"; does it read right on screen for a child?
+
+## 6. Cístí Teo (Hot Cross Buns)
 
 | English | Gaeilge | Syllables |
 |---|---|---|
-| Hot cross buns! | Cístí te! | 3 |
-| Hot cross buns! | Cístí te! | 3 |
+| Hot cross buns! | Cístí teo! | 3 |
+| Hot cross buns! | Cístí teo! | 3 |
 | One a penny, two a penny, | Ceann do Mhamaí, ceann do Dhaidí, | 8 |
-| hot cross buns! | cístí te! | 3 |
+| hot cross buns! | cístí teo! | 3 |
 
 Meaning: Hot cakes! Hot cakes! / One for Mammy, one for Daddy, / hot cakes!
+
+**Please check:** changed 26 Oct from "cístí te" to "cístí teo" (plural adjective). Please confirm.
 
 ## 7. Báisteach, Imigh Uainn (Rain, Rain, Go Away)
 
@@ -146,6 +156,8 @@ Meaning: A big bridge falling down, / falling down, falling down, ... young girl
 
 Meaning: Seán had a farm long ago, / and on that farm there was a cow (a pig, a hen), / with a moo moo here and a moo moo there, / here moo, there moo, and every place moo moo.
 
+**Please check:** "feirm" is sung here as two syllables (fei-rm), which it isn't; "Bhí feirm bheag ag Seán fadó" (7) and "is ar an bhfeirm bheag bhí bó bhán / muc bheag / cearc bheag" (8) would fix it. Also the animal sounds: mú, oinc, gog.
+
 ## 11. An Seanfhear Beag (This Old Man)
 
 | English | Gaeilge | Syllables |
@@ -172,6 +184,8 @@ Meaning: Seán had a farm long ago, / and on that farm there was a cow (a pig, a
 | this old man came rolling home. | rith sé abhaile go beo. | 7 |
 
 Meaning: Little old man, that's one, / he knocked a knock on my little thumb (shoe, knee, the door, a beehive), / with a knick knock and a pat-a-pat, a bone for the white dog, / he ran home lively.
+
+**Please check:** verse 4 drops "sin" to keep 6 syllables ("Seanfhear beag, a ceathair"); and whether "cnig cnag is patapat" and "rith sé abhaile go beo" sound like child's speech.
 
 ## 12. An Damhán Alla (Incy Wincy Spider)
 
@@ -223,4 +237,109 @@ Meaning: Little Dúdlí on a white horse, going to the town, / a nice feather in
 | Oh, what fun it is to ride in a one-horse open sleigh! | Ó, nach deas an spórt é bheith ag taisteal sa charr sleamhnáin! | 14 |
 
 Meaning: Little bell, little bell, little bell on the road! / Oh, isn't it great fun to be travelling in the sleigh, hey!
+
+## 17. Humpty Dumpty (Humpty Dumpty)
+
+| English | Gaeilge | Syllables |
+|---|---|---|
+| Humpty Dumpty sat on a wall, | Humpty Dumpty thuas ar an mballa, | 9 |
+| Humpty Dumpty had a great fall. | Humpty Dumpty thit sé le plab. | 9 |
+| All the king's horses and all the king's men couldn't | Caipill an rí is fir an rí go léir, níor | 12 / 11 |
+| put Humpty Dumpty together again. | chuir siad Humpty Dumpty ar ais le chéile. | 10 / 11 |
+
+Meaning: Humpty Dumpty was up on the wall, / Humpty Dumpty fell down with a thump. / All the king's horses and all the king's men could not / put Humpty Dumpty back together.
+
+**Please check:** the name is kept as in English (children know it); "le plab" (with a thump) for the fall; "ar ais le chéile" for "together again".
+
+## 18. Fáinne Rósanna (Ring a Ring o' Roses)
+
+| English | Gaeilge | Syllables |
+|---|---|---|
+| Ring a ring o' roses, a | Fáinne beag rósanna, is | 7 |
+| pocket full of posies, | póca lán bláthanna, | 6 |
+| atishoo, atishoo, we | haitsiú _, haitsiú _, is | 7 |
+| all fall down! | titimid síos! | 4 |
+
+Meaning: A ring of roses, a / little pocket full of flowers, / atishoo, atishoo, / we all fall down!
+
+**Please check:** "haitsiú" for the sneeze; "titimid uile síos" for "we all fall down".
+
+## 20. Ceann, Guaillí, Glúine is Cosa (Head, Shoulders, Knees and Toes)
+
+| English | Gaeilge | Syllables |
+|---|---|---|
+| Head, shoulders, knees and toes, knees and toes, | Ceann, guaillí, glúin, cosa, glúin, cosa, | 10 |
+| head, shoulders, knees and toes, knees and toes, | ceann, guaillí, glúin, cosa, glúin, cosa, | 10 |
+| and eyes and ears and mouth and nose, | is súile, cluasa, béal is srón, | 9 |
+| head, shoulders, knees and toes, knees and toes. | ceann, guaillí, glúin, cosa, glúin, cosa. | 10 |
+
+Meaning: Head, shoulders, knees and feet (x2), / and eyes and ears and mouth and nose, / head, shoulders, knees and feet.
+
+**Please check:** "glúin" (singular) and "cosa" (feet) stand in for "knees and toes" to fit the notes; "barraicíní" is four syllables. Is there a better short pair a child would know?
+
+## 22. Bingo (Bingo)
+
+| English | Gaeilge | Syllables |
+|---|---|---|
+| There was a farmer had a dog, and | Bhí madra beag ag an bhfeirmeoir, is | 9 |
+| Bingo was his name, oh! | Bingo ab ainm dó, ó! | 6 |
+| B, I, N, G, O, | Bé, í, ein, gé, ó, | 5 |
+| B, I, N, G, O, | bé, í, ein, gé, ó, | 5 |
+| B, I, N, G, O, and | bé, í, ein, gé, ó, is | 6 |
+| Bingo was his name, oh! | Bingo ab ainm dó, ó! | 6 |
+
+Meaning: A farmer had a little dog, and / Bingo was his name, oh! / B-I-N-G-O (x3), and / Bingo was his name, oh!
+
+**Please check:** the letters use their Irish names (bé, í, ein, gé, ó); please confirm the letter names used with children.
+
+## 24. Timpeall an Toir Bhig (Here We Go Round the Mulberry Bush)
+
+| English | Gaeilge | Syllables |
+|---|---|---|
+| Here we go round the mulberry bush, the | Timpeall is timpeall an tor beag glas, an | 10 |
+| mulberry bush, the mulberry bush; | tor beag glas, an tor beag glas, | 9 |
+| here we go round the mulberry bush on a | timpeall is timpeall an tor beag glas, ar | 11 |
+| cold and frosty morning. | maidin fhuar sheaca. | 8 |
+| This is the way we wash our hands, wash our | Seo mar a nímid ár lámha, ár | 10 |
+| hands, wash our hands, | lámha, ár lámha, | 9 |
+| this is the way we wash our hands, on a | seo mar a nímid ár lámha, ar | 11 |
+| cold and frosty morning. | maidin fhuar sheaca. | 8 |
+| This is the way we brush our teeth, brush our | Seo mar a scuabaimid ár bhfiacla, ár | 10 |
+| teeth, brush our teeth, | bhfiacla, ár bhfiacla, | 9 |
+| this is the way we brush our teeth, on a | seo mar a scuabaimid ár bhfiacla, ar | 11 |
+| cold and frosty morning. | maidin fhuar sheaca. | 8 |
+
+Meaning: Round and round the little bush, the little bush, the little bush; / round and round the little bush, on a cold frosty morning. / This is how we wash our hands... / This is how we brush our teeth...
+
+**Please check:** "tor beag" (little bush) rather than mulberry ("maoildearg"), which children won't know; "maidin fhuar sheaca" for "cold and frosty morning".
+
+## 26. Fuist, a Linbh (Hush, Little Baby)
+
+| English | Gaeilge | Syllables |
+|---|---|---|
+| Hush, little baby, don't say a word, | Fuist, a linbh, téigh a chodladh anois, | 10 |
+| Papa's gonna buy you a mockingbird. | gheobhaidh Daidí éinín beag duit. | 11 |
+| And if that mockingbird don't sing, | Is mura gcanann an t-éinín beag, | 10 |
+| Papa's gonna buy you a diamond ring. | gheobhaidh Daidí fáinne óir duit. | 11 |
+| And if that diamond ring turns brass, | Is má chailltear an fáinne óir, | 10 |
+| Papa's gonna buy you a looking glass. | gheobhaidh Daidí scáthán beag duit. | 11 |
+| And if that looking glass gets broke, | Is má bhriseann an scáthán beag, | 10 |
+| Papa's gonna buy you a billy goat. | gheobhaidh Daidí gabhar beag duit. | 11 |
+
+Meaning: Hush, little child, go to sleep now, / Daddy will get you a little bird. / And if the little bird won't sing, / Daddy will get you a gold ring. / And if the gold ring gets lost, / Daddy will get you a little mirror. / And if the little mirror breaks, / Daddy will get you a little goat.
+
+**Please check:** "Fuist" for hush; "gheobhaidh Daidí ... duit" (Daddy will get you) for "Papa's gonna buy you"; the gifts are simplified.
+
+## 29. Labhandar Gorm (Lavender's Blue)
+
+| English | Gaeilge | Syllables |
+|---|---|---|
+| Lavender's blue, diddle diddle, lavender's green; | Labhandar gorm, didil didil, labhandar glas; | 12 |
+| when I am king, diddle diddle, you shall be queen. | nuair is rí mé, didil didil, is banríon tú. | 12 |
+| Who told you so, diddle diddle, who told you so? | Cé dúirt é sin, didil didil, cé dúirt é sin? | 12 |
+| 'Twas my own heart, diddle diddle, that told me so. | Mo chroí féin, didil didil, a dúirt é sin liom. | 12 |
+
+Meaning: Lavender is blue, diddle diddle, lavender is green; / when I am king, diddle diddle, you'll be the queen. / Who told you that, diddle diddle, who told you that? / It was my own heart, diddle diddle, that told me that.
+
+**Please check:** "Labhandar" is the dictionary word; "didil didil" kept as a nonsense refrain; "banríon" for queen.
 

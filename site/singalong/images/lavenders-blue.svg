@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">A field of purple lavender under a soft blue sky, with a bee flying above the flowers</title>
+  <rect width="400" height="300" fill="#dcebf5"/>
+  <rect y="190" width="400" height="110" fill="#9ccb7a"/>
+  <g stroke="#5c9a4c" stroke-width="4" stroke-linecap="round" fill="none"><path d="M60 270 v-70 M120 275 v-80 M180 270 v-75 M240 276 v-82 M300 270 v-72 M350 275 v-70"/></g>
+  <g fill="#8f6fc7">
+    <ellipse cx="60" cy="190" rx="10" ry="26"/><ellipse cx="120" cy="184" rx="10" ry="28"/><ellipse cx="180" cy="186" rx="10" ry="26"/><ellipse cx="240" cy="182" rx="10" ry="28"/><ellipse cx="300" cy="188" rx="10" ry="26"/><ellipse cx="350" cy="194" rx="10" ry="24"/>
+  </g>
+  <g fill="#b39ddb"><circle cx="56" cy="176" r="4"/><circle cx="124" cy="170" r="4"/><circle cx="176" cy="174" r="4"/><circle cx="244" cy="166" r="4"/><circle cx="296" cy="176" r="4"/><circle cx="354" cy="182" r="4"/></g>
+  <!-- bee -->
+  <g transform="translate(200 110)">
+    <ellipse cx="0" cy="0" rx="16" ry="11" fill="#e2b85a"/>
+    <path d="M-6 -10 v20 M4 -11 v22" stroke="#2c2d35" stroke-width="4"/>
+    <circle cx="16" cy="-2" r="7" fill="#2c2d35"/>
+    <ellipse cx="-4" cy="-14" rx="10" ry="6" fill="#ffffff" opacity=".8"/><ellipse cx="8" cy="-14" rx="10" ry="6" fill="#ffffff" opacity=".8"/>
+  </g>
+  <path d="M120 130 q30 -30 60 -10 q20 10 20 -10" fill="none" stroke="#b39ddb" stroke-width="2" stroke-dasharray="4 6"/>
+</svg>
