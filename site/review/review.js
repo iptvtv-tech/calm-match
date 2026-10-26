@@ -1,4 +1,4 @@
-/* Private Irish review page: ticks and corrections are saved through /review/api (a Cloudflare Pages Function
+/* Private Irish review page: ticks and corrections are saved through /review/api (handled by the site's Worker,
    behind Cloudflare Access), keyed by the signed-in email. Data comes from data.js (tools/review-page.js). */
 (function () {
   "use strict";

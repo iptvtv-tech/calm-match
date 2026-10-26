@@ -1,0 +1,16 @@
+{
+  // Calm Match on Cloudflare Workers: static site from site/ plus one small handler (worker/index.js).
+  // Deployed by Cloudflare's Git integration on every push to main.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "calm-match",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS"
+  },
+  "kv_namespaces": [
+    // Ticks and corrections from the private review page (/review/). Id = the namespace's ID in the dashboard.
+    { "binding": "REVIEW", "id": "1ef3fc03fa16416c8baa7b2eed558fb6" }
+  ]
+}

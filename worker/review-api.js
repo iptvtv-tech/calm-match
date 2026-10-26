@@ -1,14 +1,14 @@
 /* Calm Match — saves the Irish checker's ticks and corrections.
-   Runs on Cloudflare Pages as a Function at /review/api, behind Cloudflare Access.
+   Handles /review/api inside the site's Worker (see worker/index.js), behind Cloudflare Access.
    Access puts the signed-in person's email on every request (Cf-Access-Authenticated-User-Email);
    without it we refuse, so the API is closed until Access is switched on for /review/*.
-   Storage: a KV namespace bound as REVIEW (Pages project → Settings → Functions → KV namespace bindings).
+   Storage: the KV namespace bound as REVIEW in wrangler.jsonc.
    Keys: item:<id> → { ok, note, by, at }. Nothing about children is ever stored here. */
-export async function onRequest({ request, env }) {
+export async function reviewApi(request, env) {
   const email = request.headers.get("Cf-Access-Authenticated-User-Email");
   const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
   if (!email) return json({ error: "Sign in through Cloudflare Access first." }, 401);
-  if (!env.REVIEW) return json({ error: "The REVIEW storage isn't set up yet (Cloudflare Pages → Settings → Functions → KV bindings)." }, 503);
+  if (!env.REVIEW) return json({ error: "The REVIEW storage isn't set up yet (kv_namespaces in wrangler.jsonc)." }, 503);
 
   if (request.method === "GET") {
     const out = {}; let cursor;

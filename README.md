@@ -7,7 +7,7 @@ Plain HTML, CSS and JavaScript. No build step, no framework, no tracking.
 ## What's in the folder
 
 ```
-site/                  ← deploy this folder (Cloudflare Pages "build output directory")
+site/                  ← the website itself, served as static files by the Worker
   index.html           home page for parents
   play.html            the games and the Grown-ups area
   account.html         optional parent account (Supabase)
@@ -41,7 +41,7 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
                        Add a song: one object in songs.js + one SVG + the SVG's path in sw.js,
                        then run `node tools/singalong.js check`
   sw.js                offline support (bump VERSION on each deploy)
-  _headers             security headers for Cloudflare Pages
+  _headers             security headers (read by the Worker's static assets)
   manifest.webmanifest, icons/, robots.txt
   symbols/             symbols for the Talk board, schedules and stories (Mulberry Symbols, CC BY-SA 4.0)
   photos/README.txt    optional built-in photo pack and licensing rules
@@ -51,12 +51,13 @@ tools/build-symbols.py   copies chosen Mulberry symbols into site/symbols (and t
 tools/archive-policies.py keeps dated copies of the policy pages
 tools/irish-review.js    writes docs/irish-review.md: every Irish string beside its English, for a fluent speaker
 tools/review-page.js     builds site/review/data.js for the private Irish review page (calmmatch.com/review/)
-functions/review/api.js  Cloudflare Pages Function: saves the reviewer's ticks to KV (binding REVIEW), behind Cloudflare Access
 tools/tests/check.py    regression check: run before every push (see "Before every push")
 docs/                  Irish review sheet, Sing along lyrics sheet, plans for class sync and app-store versions (not built)
 supabase/schema.sql    database tables, privacy rules and delete-account function
 supabase/02-account-deletion-email.sql   confirmation email when a parent deletes their account
 supabase/03-inactive-account-cleanup.sql monthly job: warn after 23 months unused, delete after 24
+worker/index.js        the Cloudflare Worker: serves site/ and handles /review/api (worker/review-api.js)
+wrangler.jsonc         Worker name, assets folder and the REVIEW KV binding
 supabase/email-templates/                sign-up, sign-in, reset and change-email templates
 ```
 
@@ -65,12 +66,16 @@ supabase/email-templates/                sign-up, sign-in, reset and change-emai
 From the `site` folder: `python3 -m http.server 8000`, then open http://localhost:8000/play.html.
 (Opening the files directly with file:// works for the games, but not offline mode or accounts.)
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare Workers
+
+The site is a Cloudflare Worker with static assets: `wrangler.jsonc` names the Worker, points `assets.directory`
+at `site/`, and binds the `REVIEW` KV namespace. `worker/index.js` hands every request to the static files
+except `/review/api`.
 
 1. Put this whole folder in a GitHub repository.
-2. Cloudflare → Workers & Pages → Create → Pages → Connect to Git → choose the repo.
-3. Framework preset **None**, build command **empty**, build output directory **`site`**.
-4. Deploy. Every push to the main branch redeploys automatically.
+2. Cloudflare → Workers & Pages → Create → Workers → Import a repository → choose the repo. Build command
+   empty, deploy command `npx wrangler deploy`. The name in `wrangler.jsonc` must match the Worker's name.
+3. Every push to the main branch redeploys automatically. Custom domains are set in the Worker's Settings → Domains.
 
 ### Before every push
 
@@ -88,10 +93,9 @@ not in the sitemap, not cached by the service worker, and sends `X-Robots-Tag: n
 - **Who can open it:** Cloudflare Access on `calmmatch.com/review/*`. Zero Trust → Access → Applications →
   Add → Self-hosted; domain `calmmatch.com`, path `review`; policy *Allow* with the reviewer's and your email
   addresses; login method One-time PIN (an email code, no passwords). Session: up to a month.
-- **Where ticks are saved:** `functions/review/api.js` runs on Cloudflare Pages and writes to a KV namespace.
-  Create one (Workers & Pages → KV → Create, e.g. `calm-match-review`) and bind it to the Pages project as
-  **REVIEW** (project → Settings → Functions → KV namespace bindings). The function refuses every request that
-  doesn't carry Access's signed-in email, so it stays closed until Access is on.
+- **Where ticks are saved:** `worker/review-api.js` writes to a KV namespace. Create one (Workers & Pages → KV →
+  Create, e.g. `calm-match-review`) and put its ID in `wrangler.jsonc` under `kv_namespaces` (binding **REVIEW**).
+  The handler refuses every request that doesn't carry Access's signed-in email, so it stays closed until Access is on.
 - **Keeping the page current:** after any Irish text or song change,
   `node tools/irish-review.js && node tools/singalong.js review > docs/singalong-irish-lyrics.md && node tools/review-page.js`.
   A line keeps its tick until its text changes.
