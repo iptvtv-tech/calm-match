@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Public pages only. Account, progress summary, the voice check page and policy archives are deliberately left out. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://calmmatch.com/</loc></url>
+  <url><loc>https://calmmatch.com/play.html</loc></url>
+  <url><loc>https://calmmatch.com/alphabet/</loc></url>
+  <url><loc>https://calmmatch.com/singalong/</loc></url>
+  <url><loc>https://calmmatch.com/support.html</loc></url>
+  <url><loc>https://calmmatch.com/credits.html</loc></url>
+  <url><loc>https://calmmatch.com/accessibility.html</loc></url>
+  <url><loc>https://calmmatch.com/privacy.html</loc></url>
+  <url><loc>https://calmmatch.com/privacy-kids.html</loc></url>
+  <url><loc>https://calmmatch.com/cookies.html</loc></url>
+  <url><loc>https://calmmatch.com/terms.html</loc></url>
+</urlset>
