@@ -93,3 +93,1235 @@ number,kind,say,file
 92,word,ubh,ubh
 93,word,uisce,uisce
 94,word,ulchabhán,ulchabhan
+95,lib,a náid,lib-0-b6589f
+96,lib,a haon,lib-1-356a19
+97,lib,1 eile,lib-1-eile-9a5b05
+98,lib,1 nóiméad fágtha,lib-1-noimead-fagtha-e6db04
+99,lib,a deich,lib-10-b1d578
+100,lib,10 eile,lib-10-eile-c6f37b
+101,lib,10 nóiméad fágtha,lib-10-noimead-fagtha-4b7c10
+102,lib,céad,lib-100-310b86
+103,lib,a haon déag,lib-11-17ba07
+104,lib,11 nóiméad fágtha,lib-11-noimead-fagtha-42ee16
+105,lib,a dó dhéag,lib-12-7b5200
+106,lib,12 nóiméad fágtha,lib-12-noimead-fagtha-aba0d5
+107,lib,a trí déag,lib-13-bd307a
+108,lib,13 nóiméad fágtha,lib-13-noimead-fagtha-445ca1
+109,lib,a ceathair déag,lib-14-fa35e1
+110,lib,14 nóiméad fágtha,lib-14-noimead-fagtha-45f319
+111,lib,a cúig déag,lib-15-f1abd6
+112,lib,15 nóiméad fágtha,lib-15-noimead-fagtha-a8074f
+113,lib,a sé déag,lib-16-1574bd
+114,lib,16 nóiméad fágtha,lib-16-noimead-fagtha-b75ffe
+115,lib,a seacht déag,lib-17-0716d9
+116,lib,17 nóiméad fágtha,lib-17-noimead-fagtha-52275b
+117,lib,a hocht déag,lib-18-9e6a55
+118,lib,18 nóiméad fágtha,lib-18-noimead-fagtha-c989c6
+119,lib,a naoi déag,lib-19-b3f0c7
+120,lib,19 nóiméad fágtha,lib-19-noimead-fagtha-bbfb5a
+121,lib,a dó,lib-2-da4b92
+122,lib,2 eile,lib-2-eile-9c004b
+123,lib,2 nóiméad fágtha,lib-2-noimead-fagtha-3508aa
+124,lib,fiche,lib-20-91032a
+125,lib,20 nóiméad fágtha,lib-20-noimead-fagtha-6d778c
+126,lib,fiche a haon,lib-21-472b07
+127,lib,21 nóiméad fágtha,lib-21-noimead-fagtha-45abf0
+128,lib,fiche a dó,lib-22-12c6fc
+129,lib,22 nóiméad fágtha,lib-22-noimead-fagtha-63810a
+130,lib,fiche a trí,lib-23-d435a6
+131,lib,23 nóiméad fágtha,lib-23-noimead-fagtha-7cd410
+132,lib,fiche a ceathair,lib-24-4d134b
+133,lib,24 nóiméad fágtha,lib-24-noimead-fagtha-8daf4e
+134,lib,fiche a cúig,lib-25-f6e112
+135,lib,25 nóiméad fágtha,lib-25-noimead-fagtha-9e4636
+136,lib,fiche a sé,lib-26-887309
+137,lib,26 nóiméad fágtha,lib-26-noimead-fagtha-858a25
+138,lib,fiche a seacht,lib-27-bc33ea
+139,lib,27 nóiméad fágtha,lib-27-noimead-fagtha-cf13b8
+140,lib,fiche a hocht,lib-28-0a57cb
+141,lib,28 nóiméad fágtha,lib-28-noimead-fagtha-7886d5
+142,lib,fiche a naoi,lib-29-7719a1
+143,lib,29 nóiméad fágtha,lib-29-noimead-fagtha-2fe802
+144,lib,a trí,lib-3-77de68
+145,lib,3 eile,lib-3-eile-6563d0
+146,lib,3 nóiméad fágtha,lib-3-noimead-fagtha-b58aab
+147,lib,tríocha,lib-30-22d200
+148,lib,30 nóiméad fágtha,lib-30-noimead-fagtha-f73c21
+149,lib,tríocha a haon,lib-31-632667
+150,lib,31 nóiméad fágtha,lib-31-noimead-fagtha-507373
+151,lib,tríocha a dó,lib-32-cb4e52
+152,lib,32 nóiméad fágtha,lib-32-noimead-fagtha-ca6d1e
+153,lib,tríocha a trí,lib-33-b6692e
+154,lib,33 nóiméad fágtha,lib-33-noimead-fagtha-fc0665
+155,lib,tríocha a ceathair,lib-34-f1f836
+156,lib,34 nóiméad fágtha,lib-34-noimead-fagtha-4e6475
+157,lib,tríocha a cúig,lib-35-972a67
+158,lib,35 nóiméad fágtha,lib-35-noimead-fagtha-cfc40d
+159,lib,tríocha a sé,lib-36-fc074d
+160,lib,36 nóiméad fágtha,lib-36-noimead-fagtha-5fe143
+161,lib,tríocha a seacht,lib-37-cb7a1d
+162,lib,37 nóiméad fágtha,lib-37-noimead-fagtha-d8b505
+163,lib,tríocha a hocht,lib-38-5b384c
+164,lib,38 nóiméad fágtha,lib-38-noimead-fagtha-96b5d8
+165,lib,tríocha a naoi,lib-39-ca3512
+166,lib,39 nóiméad fágtha,lib-39-noimead-fagtha-90c5de
+167,lib,a ceathair,lib-4-1b6453
+168,lib,4 eile,lib-4-eile-b2e3f4
+169,lib,4 nóiméad fágtha,lib-4-noimead-fagtha-b25d30
+170,lib,daichead,lib-40-af3e13
+171,lib,40 nóiméad fágtha,lib-40-noimead-fagtha-239953
+172,lib,daichead a haon,lib-41-761f22
+173,lib,41 nóiméad fágtha,lib-41-noimead-fagtha-26d80a
+174,lib,daichead a dó,lib-42-92cfce
+175,lib,42 nóiméad fágtha,lib-42-noimead-fagtha-47b6ec
+176,lib,daichead a trí,lib-43-0286dd
+177,lib,43 nóiméad fágtha,lib-43-noimead-fagtha-712b77
+178,lib,daichead a ceathair,lib-44-98fbc4
+179,lib,44 nóiméad fágtha,lib-44-noimead-fagtha-438784
+180,lib,daichead a cúig,lib-45-fb6443
+181,lib,45 nóiméad fágtha,lib-45-noimead-fagtha-edb96e
+182,lib,daichead a sé,lib-46-fe2ef4
+183,lib,46 nóiméad fágtha,lib-46-noimead-fagtha-a16a5d
+184,lib,daichead a seacht,lib-47-827bfc
+185,lib,47 nóiméad fágtha,lib-47-noimead-fagtha-64ced0
+186,lib,daichead a hocht,lib-48-64e095
+187,lib,48 nóiméad fágtha,lib-48-noimead-fagtha-20e20d
+188,lib,daichead a naoi,lib-49-2e01e1
+189,lib,49 nóiméad fágtha,lib-49-noimead-fagtha-8d0d6e
+190,lib,a cúig,lib-5-ac3478
+191,lib,5 eile,lib-5-eile-66ef9d
+192,lib,5 nóiméad fágtha,lib-5-noimead-fagtha-31be6a
+193,lib,caoga,lib-50-e1822d
+194,lib,50 nóiméad fágtha,lib-50-noimead-fagtha-4025ac
+195,lib,caoga a haon,lib-51-b7eb6c
+196,lib,51 nóiméad fágtha,lib-51-noimead-fagtha-7de8f0
+197,lib,caoga a dó,lib-52-a93349
+198,lib,52 nóiméad fágtha,lib-52-noimead-fagtha-5c8a3d
+199,lib,caoga a trí,lib-53-c5b76d
+200,lib,53 nóiméad fágtha,lib-53-noimead-fagtha-882735
+201,lib,caoga a ceathair,lib-54-80e28a
+202,lib,54 nóiméad fágtha,lib-54-noimead-fagtha-902d5d
+203,lib,caoga a cúig,lib-55-8effee
+204,lib,55 nóiméad fágtha,lib-55-noimead-fagtha-8ec48a
+205,lib,caoga a sé,lib-56-54ceb9
+206,lib,56 nóiméad fágtha,lib-56-noimead-fagtha-dbea51
+207,lib,caoga a seacht,lib-57-9109c8
+208,lib,57 nóiméad fágtha,lib-57-noimead-fagtha-02845c
+209,lib,caoga a hocht,lib-58-667be5
+210,lib,58 nóiméad fágtha,lib-58-noimead-fagtha-bc4e7e
+211,lib,caoga a naoi,lib-59-5a5b0f
+212,lib,59 nóiméad fágtha,lib-59-noimead-fagtha-16aef1
+213,lib,a sé,lib-6-c1dfd9
+214,lib,6 eile,lib-6-eile-293d93
+215,lib,6 nóiméad fágtha,lib-6-noimead-fagtha-f55948
+216,lib,seasca,lib-60-e6c3dd
+217,lib,60 nóiméad fágtha,lib-60-noimead-fagtha-367559
+218,lib,seasca a haon,lib-61-6c1e67
+219,lib,seasca a dó,lib-62-511a41
+220,lib,seasca a trí,lib-63-a17554
+221,lib,seasca a ceathair,lib-64-c66c65
+222,lib,seasca a cúig,lib-65-2a4593
+223,lib,seasca a sé,lib-66-59129a
+224,lib,seasca a seacht,lib-67-4d89d2
+225,lib,seasca a hocht,lib-68-b4c96d
+226,lib,seasca a naoi,lib-69-a72b20
+227,lib,a seacht,lib-7-902ba3
+228,lib,7 eile,lib-7-eile-b60c7f
+229,lib,7 nóiméad fágtha,lib-7-noimead-fagtha-0af079
+230,lib,seachtó,lib-70-b7103c
+231,lib,seachtó a haon,lib-71-d02560
+232,lib,seachtó a dó,lib-72-c09763
+233,lib,seachtó a trí,lib-73-35e995
+234,lib,seachtó a ceathair,lib-74-1f1362
+235,lib,seachtó a cúig,lib-75-450dde
+236,lib,seachtó a sé,lib-76-d54ad0
+237,lib,seachtó a seacht,lib-77-d321d6
+238,lib,seachtó a hocht,lib-78-eb4ac3
+239,lib,seachtó a naoi,lib-79-b74f5e
+240,lib,a hocht,lib-8-fe5dbb
+241,lib,8 eile,lib-8-eile-5ee278
+242,lib,8 nóiméad fágtha,lib-8-noimead-fagtha-326993
+243,lib,ochtó,lib-80-b888b2
+244,lib,ochtó a haon,lib-81-1d513c
+245,lib,ochtó a dó,lib-82-76546f
+246,lib,ochtó a trí,lib-83-7d7116
+247,lib,ochtó a ceathair,lib-84-be461a
+248,lib,ochtó a cúig,lib-85-135224
+249,lib,ochtó a sé,lib-86-3c26df
+250,lib,ochtó a seacht,lib-87-e62d7f
+251,lib,ochtó a hocht,lib-88-b37f6d
+252,lib,ochtó a naoi,lib-89-16b06b
+253,lib,a naoi,lib-9-0ade7c
+254,lib,9 eile,lib-9-eile-742bd1
+255,lib,9 nóiméad fágtha,lib-9-noimead-fagtha-af92d7
+256,lib,nócha,lib-90-2d0c8a
+257,lib,nócha a haon,lib-91-4cd66d
+258,lib,nócha a dó,lib-92-8ee51c
+259,lib,nócha a trí,lib-93-08a352
+260,lib,nócha a ceathair,lib-94-215bb4
+261,lib,nócha a cúig,lib-95-8e63fd
+262,lib,nócha a sé,lib-96-6fb84a
+263,lib,nócha a seacht,lib-97-812ed4
+264,lib,nócha a hocht,lib-98-31bd9b
+265,lib,nócha a naoi,lib-99-9a79be
+266,lib,Abair arís é,lib-abair-aris-e-8939a0
+267,lib,Abair é,lib-abair-e-0a7c93
+268,lib,Abhaile,lib-abhaile-f8f2e0
+269,lib,Ag obair i gcomhair,lib-ag-obair-i-gcomhair-0f638d
+270,lib,ag teacht amach,lib-ag-teacht-amach-0f3b84
+271,lib,agus,lib-agus-052588
+272,lib,Aibítir,lib-aibitir-04af06
+273,lib,Aimsigh,lib-aimsigh-f34845
+274,lib,Aimsigh 1,lib-aimsigh-1-a63a19
+275,lib,Aimsigh 10,lib-aimsigh-10-7f0832
+276,lib,Aimsigh 2,lib-aimsigh-2-89f9a7
+277,lib,Aimsigh 3,lib-aimsigh-3-ecc692
+278,lib,Aimsigh 4,lib-aimsigh-4-d986c2
+279,lib,Aimsigh 5,lib-aimsigh-5-eb49fa
+280,lib,Aimsigh 6,lib-aimsigh-6-7bfe45
+281,lib,Aimsigh 7,lib-aimsigh-7-a13722
+282,lib,Aimsigh 8,lib-aimsigh-8-44058a
+283,lib,Aimsigh 9,lib-aimsigh-9-88a835
+284,lib,Aimsigh aghaidh eile leis an mothúchán céanna,lib-aimsigh-aghaidh-eile-leis-an-mothuchan-c-557611
+285,lib,Aimsigh an aghaidh chéanna,lib-aimsigh-an-aghaidh-cheanna-d4339c
+286,lib,Aimsigh an ceann atá difriúil,lib-aimsigh-an-ceann-ata-difriuil-e0bc3f
+287,lib,Aimsigh an ceann céanna,lib-aimsigh-an-ceann-ceanna-10366c
+288,lib,aimsigh an chéad fhuaim agus rianaigh litreacha,lib-aimsigh-an-chead-fhuaim-agus-rianaigh-li-e9d41c
+289,lib,Aimsigh an cruth,lib-aimsigh-an-cruth-3dc4cf
+290,lib,Aimsigh an liathróid ar an mbosca,lib-aimsigh-an-liathroid-ar-an-mbosca-05b351
+291,lib,Aimsigh an liathróid faoin mbosca,lib-aimsigh-an-liathroid-faoin-mbosca-48da2e
+292,lib,Aimsigh an liathróid in aice leis an mbosca,lib-aimsigh-an-liathroid-in-aice-leis-an-mbo-58b88b
+293,lib,Aimsigh an liathróid sa bhosca,lib-aimsigh-an-liathroid-sa-bhosca-8fc1ec
+294,lib,Aimsigh an litir bheag,lib-aimsigh-an-litir-bheag-3d9d13
+295,lib,Aimsigh an mothúchán,lib-aimsigh-an-mothuchan-b42553
+296,lib,Aimsigh an pictiúr a dhéanann an scáth seo,lib-aimsigh-an-pictiur-a-dheanann-an-scath-s-fc8f0e
+297,lib,Aimsigh an pictiúr atá mar an gcéanna,lib-aimsigh-an-pictiur-ata-mar-an-gceanna-7ffa52
+298,lib,Aimsigh an pictiúr sin,lib-aimsigh-an-pictiur-sin-1cd792
+299,lib,Aimsigh an píosa a chríochnaíonn an pictiúr,lib-aimsigh-an-piosa-a-chriochnaionn-an-pict-2ad652
+300,lib,Aimsigh an scáth,lib-aimsigh-an-scath-150b69
+301,lib,Aimsigh cad a thagann ina dhiaidh,lib-aimsigh-cad-a-thagann-ina-dhiaidh-471f9f
+302,lib,Aimsigh cad a théann leis an bpictiúr seo,lib-aimsigh-cad-a-theann-leis-an-bpictiur-se-9b8c03
+303,lib,Aimsigh cé acu is mó,lib-aimsigh-ce-acu-is-mo-f706d2
+304,lib,Aimsigh é,lib-aimsigh-e-b5122a
+305,lib,Aimsigh é seo,lib-aimsigh-e-seo-921773
+306,lib,Aimsigh na cinn atá mar an gcéanna,lib-aimsigh-na-cinn-ata-mar-an-gceanna-ee0f8d
+307,lib,Aimsigh na péirí,lib-aimsigh-na-peiri-d97ff2
+308,lib,Aimsir,lib-aimsir-036c49
+309,lib,Ainmhithe,lib-ainmhithe-105da1
+310,lib,Áiteanna,lib-aiteanna-25e26b
+311,lib,altra,lib-altra-bbdb6a
+312,lib,Am ciúin,lib-am-ciuin-e078d0
+313,lib,Am do,lib-am-do-cad9e9
+314,lib,Am luí,lib-am-lui-6235b2
+315,lib,Am sosa,lib-am-sosa-33c91a
+316,lib,amach,lib-amach-482049
+317,lib,Amhráin,lib-amhrain-eef391
+318,lib,amuigh,lib-amuigh-8ac3d7
+319,lib,An bhfuil tú réidh,lib-an-bhfuil-tu-reidh-33cf8d
+320,lib,An ceann corr,lib-an-ceann-corr-9eab27
+321,lib,an Domhan,lib-an-domhan-d0414a
+322,lib,An mothúchán céanna,lib-an-mothuchan-ceanna-86903e
+323,lib,An scáth seo,lib-an-scath-seo-29cfb4
+324,lib,Anáil amach,lib-anail-amach-573ce9
+325,lib,Anáil isteach,lib-anail-isteach-632556
+326,lib,Análú,lib-analu-047e1b
+327,lib,Análú balúin,lib-analu-baluin-e15cc3
+328,lib,Anois,lib-anois-75b70a
+329,lib,anseo,lib-anseo-a4d4e0
+330,lib,Ansin,lib-ansin-2b32da
+331,lib,ansin an chéad cheann eile,lib-ansin-an-chead-cheann-eile-7d03f4
+332,lib,ansin ar ais go dtí an cluiche,lib-ansin-ar-ais-go-dti-an-cluiche-d87a69
+333,lib,ansin cárta eile,lib-ansin-carta-eile-015588
+334,lib,ar,lib-ar-23d8e0
+335,lib,Ar aghaidh,lib-ar-aghaidh-5a59e3
+336,lib,Ar ais go dtí an tús,lib-ar-ais-go-dti-an-tus-f8dde5
+337,lib,ar an mbosca,lib-ar-an-mbosca-ae0362
+338,lib,ar bís,lib-ar-bis-b756d0
+339,lib,Ar deireadh,lib-ar-deireadh-9d97b1
+340,lib,Ar dtús,lib-ar-dtus-681a8b
+341,lib,arís,lib-aris-9d7e02
+342,lib,as,lib-as-df211c
+343,lib,Athrú,lib-athru-dac94c
+344,lib,B'shin an cluiche deireanach,lib-b-shin-an-cluiche-deireanach-84fb00
+345,lib,Ba mhaith liom,lib-ba-mhaith-liom-fc8987
+346,lib,Ba mhaith liom altra,lib-ba-mhaith-liom-altra-bc54bd
+347,lib,Ba mhaith liom Am ciúin,lib-ba-mhaith-liom-am-ciuin-c08574
+348,lib,Ba mhaith liom am luí,lib-ba-mhaith-liom-am-lui-3b9e8a
+349,lib,Ba mhaith liom amach,lib-ba-mhaith-liom-amach-41f47d
+350,lib,Ba mhaith liom amuigh,lib-ba-mhaith-liom-amuigh-d0fede
+351,lib,Ba mhaith liom anseo,lib-ba-mhaith-liom-anseo-75b557
+352,lib,Ba mhaith liom ar,lib-ba-mhaith-liom-ar-937e6f
+353,lib,Ba mhaith liom ar bís,lib-ba-mhaith-liom-ar-bis-3a0519
+354,lib,Ba mhaith liom arís,lib-ba-mhaith-liom-aris-66220b
+355,lib,Ba mhaith liom as,lib-ba-mhaith-liom-as-af6ee0
+356,lib,Ba mhaith liom ba mhaith liom,lib-ba-mhaith-liom-ba-mhaith-liom-a3df52
+357,lib,Ba mhaith liom bábóg,lib-ba-mhaith-liom-babog-3715a9
+358,lib,Ba mhaith liom baile,lib-ba-mhaith-liom-baile-56105c
+359,lib,Ba mhaith liom bainne,lib-ba-mhaith-liom-bainne-bab307
+360,lib,Ba mhaith liom banana,lib-ba-mhaith-liom-banana-546a78
+361,lib,Ba mhaith liom barróg,lib-ba-mhaith-liom-barrog-9a5eb2
+362,lib,Ba mhaith liom beag,lib-ba-mhaith-liom-beag-673044
+363,lib,Ba mhaith liom béal,lib-ba-mhaith-liom-beal-fbf371
+364,lib,Ba mhaith liom bearradh gruaige,lib-ba-mhaith-liom-bearradh-gruaige-916b6d
+365,lib,Ba mhaith liom bloic,lib-ba-mhaith-liom-bloic-c71440
+366,lib,Ba mhaith liom boilgeoga,lib-ba-mhaith-liom-boilgeoga-84172b
+367,lib,Ba mhaith liom bolg,lib-ba-mhaith-liom-bolg-df0422
+368,lib,Ba mhaith liom bosca gainimh,lib-ba-mhaith-liom-bosca-gainimh-4f8bb6
+369,lib,Ba mhaith liom bosca lóin,lib-ba-mhaith-liom-bosca-loin-d24539
+370,lib,Ba mhaith liom bricfeasta,lib-ba-mhaith-liom-bricfeasta-eec6fe
+371,lib,Ba mhaith liom briosca,lib-ba-mhaith-liom-briosca-60a799
+372,lib,Ba mhaith liom briste,lib-ba-mhaith-liom-briste-12826c
+373,lib,Ba mhaith liom bróga,lib-ba-mhaith-liom-broga-cb5edf
+374,lib,Ba mhaith liom Bróga ort,lib-ba-mhaith-liom-broga-ort-1139a4
+375,lib,Ba mhaith liom brónach,lib-ba-mhaith-liom-bronach-2967bd
+376,lib,Ba mhaith liom buartha,lib-ba-mhaith-liom-buartha-e93c3d
+377,lib,Ba mhaith liom bus,lib-ba-mhaith-liom-bus-f5220e
+378,lib,Ba mhaith liom cá,lib-ba-mhaith-liom-ca-030246
+379,lib,Ba mhaith liom cabhair,lib-ba-mhaith-liom-cabhair-45f07c
+380,lib,Ba mhaith liom cad,lib-ba-mhaith-liom-cad-39dae9
+381,lib,Ba mhaith liom cáis,lib-ba-mhaith-liom-cais-cf627d
+382,lib,Ba mhaith liom Calm Match,lib-ba-mhaith-liom-calm-match-f841e2
+383,lib,Ba mhaith liom cara,lib-ba-mhaith-liom-cara-d7e260
+384,lib,Ba mhaith liom carr,lib-ba-mhaith-liom-carr-a460a4
+385,lib,Ba mhaith liom carr bréagáin,lib-ba-mhaith-liom-carr-breagain-da899b
+386,lib,Ba mhaith liom cas,lib-ba-mhaith-liom-cas-c5459e
+387,lib,Ba mhaith liom cat,lib-ba-mhaith-liom-cat-173c64
+388,lib,Ba mhaith liom cathain,lib-ba-mhaith-liom-cathain-f6c038
+389,lib,Ba mhaith liom cé,lib-ba-mhaith-liom-ce-eff196
+390,lib,Ba mhaith liom ceann,lib-ba-mhaith-liom-ceann-9009af
+391,lib,Ba mhaith liom ceapaire,lib-ba-mhaith-liom-ceapaire-fba9ab
+392,lib,Ba mhaith liom cén fáth,lib-ba-mhaith-liom-cen-fath-353cc2
+393,lib,Ba mhaith liom ceol,lib-ba-mhaith-liom-ceol-05036b
+394,lib,Ba mhaith liom cigilt,lib-ba-mhaith-liom-cigilt-c93689
+395,lib,Ba mhaith liom ciúin,lib-ba-mhaith-liom-ciuin-ca7f12
+396,lib,Ba mhaith liom clog,lib-ba-mhaith-liom-clog-aee027
+397,lib,Ba mhaith liom cluas,lib-ba-mhaith-liom-cluas-a482d6
+398,lib,Ba mhaith liom cluasáin,lib-ba-mhaith-liom-cluasain-6c54df
+399,lib,Ba mhaith liom cluiche ríomhaire,lib-ba-mhaith-liom-cluiche-riomhaire-bb5447
+400,lib,Ba mhaith liom codladh,lib-ba-mhaith-liom-codladh-f04dfc
+401,lib,Ba mhaith liom cos,lib-ba-mhaith-liom-cos-63f7c8
+402,lib,Ba mhaith liom cosa,lib-ba-mhaith-liom-cosa-648f90
+403,lib,Ba mhaith liom cóta,lib-ba-mhaith-liom-cota-2b9d22
+404,lib,Ba mhaith liom Cóta ort,lib-ba-mhaith-liom-cota-ort-65125a
+405,lib,Ba mhaith liom criáin,lib-ba-mhaith-liom-criain-30d801
+406,lib,Ba mhaith liom críochnaithe,lib-ba-mhaith-liom-criochnaithe-239c90
+407,lib,Ba mhaith liom criospaí,lib-ba-mhaith-liom-criospai-8be02b
+408,lib,Ba mhaith liom crosta,lib-ba-mhaith-liom-crosta-7ba042
+409,lib,Ba mhaith liom cuir,lib-ba-mhaith-liom-cuir-c4d2e2
+410,lib,Ba mhaith liom cuir ort,lib-ba-mhaith-liom-cuir-ort-5df907
+411,lib,Ba mhaith liom Daid,lib-ba-mhaith-liom-daid-9dd2f1
+412,lib,Ba mhaith liom Daideo,lib-ba-mhaith-liom-daideo-a2ca36
+413,lib,Ba mhaith liom déan,lib-ba-mhaith-liom-dean-71ab0d
+414,lib,Ba mhaith liom déan é,lib-ba-mhaith-liom-dean-e-ddb5ea
+415,lib,Ba mhaith liom deartháir,lib-ba-mhaith-liom-dearthair-123244
+416,lib,Ba mhaith liom deirfiúr,lib-ba-mhaith-liom-deirfiur-14f77e
+417,lib,Ba mhaith liom dia duit,lib-ba-mhaith-liom-dia-duit-19d1fc
+418,lib,Ba mhaith liom difriúil,lib-ba-mhaith-liom-difriuil-a7d3f5
+419,lib,Ba mhaith liom dinnéar,lib-ba-mhaith-liom-dinnear-42edfa
+420,lib,Ba mhaith liom do sheal,lib-ba-mhaith-liom-do-sheal-cf984f
+421,lib,Ba mhaith liom dochtúir,lib-ba-mhaith-liom-dochtuir-fdde03
+422,lib,Ba mhaith liom doirteal,lib-ba-mhaith-liom-doirteal-0adec2
+423,lib,Ba mhaith liom é,lib-ba-mhaith-liom-e-bc2749
+424,lib,Ba mhaith liom Éadaí ort,lib-ba-mhaith-liom-eadai-ort-d489d0
+425,lib,Ba mhaith liom éirigh,lib-ba-mhaith-liom-eirigh-8b7615
+426,lib,Ba mhaith liom eitleán,lib-ba-mhaith-liom-eitlean-33051f
+427,lib,Ba mhaith liom faigh,lib-ba-mhaith-liom-faigh-017b91
+428,lib,Ba mhaith liom fáisc,lib-ba-mhaith-liom-faisc-92a6d2
+429,lib,Ba mhaith liom fan,lib-ba-mhaith-liom-fan-5826ff
+430,lib,Ba mhaith liom faoi,lib-ba-mhaith-liom-faoi-fc6363
+431,lib,Ba mhaith liom féach,lib-ba-mhaith-liom-feach-e1af8b
+432,lib,Ba mhaith liom fiacla,lib-ba-mhaith-liom-fiacla-f104a4
+433,lib,Ba mhaith liom fiaclóir,lib-ba-mhaith-liom-fiacloir-a73d47
+434,lib,Ba mhaith liom fíonchaora,lib-ba-mhaith-liom-fionchaora-fdfb61
+435,lib,Ba mhaith liom fliuch,lib-ba-mhaith-liom-fliuch-3c9b2c
+436,lib,Ba mhaith liom fo-éadaí,lib-ba-mhaith-liom-fo-eadai-71d48c
+437,lib,Ba mhaith liom folcadh,lib-ba-mhaith-liom-folcadh-533e8b
+438,lib,Ba mhaith liom fuar,lib-ba-mhaith-liom-fuar-dc4e1b
+439,lib,Ba mhaith liom gach,lib-ba-mhaith-liom-gach-919f23
+440,lib,Ba mhaith liom gairdín,lib-ba-mhaith-liom-gairdin-f2a2e3
+441,lib,Ba mhaith liom gallúnach,lib-ba-mhaith-liom-gallunach-9d5c31
+442,lib,Ba mhaith liom geansaí,lib-ba-mhaith-liom-geansai-39cd3b
+443,lib,Ba mhaith liom Glan suas,lib-ba-mhaith-liom-glan-suas-8f08dc
+444,lib,Ba mhaith liom glórach,lib-ba-mhaith-liom-glorach-2efc6e
+445,lib,Ba mhaith liom go maith,lib-ba-mhaith-liom-go-maith-e4568a
+446,lib,Ba mhaith liom go raibh maith agat,lib-ba-mhaith-liom-go-raibh-maith-agat-906fc0
+447,lib,Ba mhaith liom gortaithe,lib-ba-mhaith-liom-gortaithe-aee0f4
+448,lib,Ba mhaith liom gránach,lib-ba-mhaith-liom-granach-b0580d
+449,lib,Ba mhaith liom inneall dóiteáin,lib-ba-mhaith-liom-inneall-doiteain-cfc236
+450,lib,Ba mhaith liom iógart,lib-ba-mhaith-liom-iogart-4b0a61
+451,lib,Ba mhaith liom ionadh,lib-ba-mhaith-liom-ionadh-6b2ab7
+452,lib,Ba mhaith liom is ea,lib-ba-mhaith-liom-is-ea-666fa9
+453,lib,Ba mhaith liom is féidir,lib-ba-mhaith-liom-is-feidir-259705
+454,lib,Ba mhaith liom is maith liom,lib-ba-mhaith-liom-is-maith-liom-94b8d9
+455,lib,Ba mhaith liom isteach,lib-ba-mhaith-liom-isteach-f16984
+456,lib,Ba mhaith liom ith,lib-ba-mhaith-liom-ith-197451
+457,lib,Ba mhaith liom lámh,lib-ba-mhaith-liom-lamh-46b2b1
+458,lib,Ba mhaith liom le do thoil,lib-ba-mhaith-liom-le-do-thoil-a1c81e
+459,lib,Ba mhaith liom Leaba,lib-ba-mhaith-liom-leaba-885be4
+460,lib,Ba mhaith liom leabhar,lib-ba-mhaith-liom-leabhar-4ecd99
+461,lib,Ba mhaith liom Léamh,lib-ba-mhaith-liom-leamh-a7e36f
+462,lib,Ba mhaith liom leanbh,lib-ba-mhaith-liom-leanbh-3f3948
+463,lib,Ba mhaith liom léigh,lib-ba-mhaith-liom-leigh-6ce14f
+464,lib,Ba mhaith liom léim,lib-ba-mhaith-liom-leim-f8cb05
+465,lib,Ba mhaith liom leithreas,lib-ba-mhaith-liom-leithreas-741a97
+466,lib,Ba mhaith liom liathróid,lib-ba-mhaith-liom-liathroid-bf0763
+467,lib,Ba mhaith liom líne,lib-ba-mhaith-liom-line-9b7048
+468,lib,Ba mhaith liom Líníocht,lib-ba-mhaith-liom-liniocht-dc9a0b
+469,lib,Ba mhaith liom lón,lib-ba-mhaith-liom-lon-281678
+470,lib,Ba mhaith liom luasc,lib-ba-mhaith-liom-luasc-5501b9
+471,lib,Ba mhaith liom luascán,lib-ba-mhaith-liom-luascan-e0494d
+472,lib,Ba mhaith liom madra,lib-ba-mhaith-liom-madra-28d0b5
+473,lib,Ba mhaith liom mála scoile,lib-ba-mhaith-liom-mala-scoile-1cfb3b
+474,lib,Ba mhaith liom Mam,lib-ba-mhaith-liom-mam-d6e93a
+475,lib,Ba mhaith liom Mamó,lib-ba-mhaith-liom-mamo-741468
+476,lib,Ba mhaith liom mar an gcéanna,lib-ba-mhaith-liom-mar-an-gceanna-d3ec7f
+477,lib,Ba mhaith liom márla,lib-ba-mhaith-liom-marla-30e5f9
+478,lib,Ba mhaith liom mé,lib-ba-mhaith-liom-me-a138be
+479,lib,Ba mhaith liom míreanna mearaí,lib-ba-mhaith-liom-mireanna-mearai-e6bd7c
+480,lib,Ba mhaith liom mo sheal,lib-ba-mhaith-liom-mo-sheal-557b84
+481,lib,Ba mhaith liom mór,lib-ba-mhaith-liom-mor-5b810b
+482,lib,Ba mhaith liom mothaigh,lib-ba-mhaith-liom-mothaigh-125dd1
+483,lib,Ba mhaith liom múch an solas,lib-ba-mhaith-liom-much-an-solas-ed53d2
+484,lib,Ba mhaith liom múinteoir,lib-ba-mhaith-liom-muinteoir-b0d82d
+485,lib,Ba mhaith liom ní,lib-ba-mhaith-liom-ni-0edabb
+486,lib,Ba mhaith liom ní hea,lib-ba-mhaith-liom-ni-hea-c122a1
+487,lib,Ba mhaith liom nigh d'aghaidh,lib-ba-mhaith-liom-nigh-d-aghaidh-192b2e
+488,lib,Ba mhaith liom nigh do lámha,lib-ba-mhaith-liom-nigh-do-lamha-044c74
+489,lib,Ba mhaith liom níos mó,lib-ba-mhaith-liom-nios-mo-d90c86
+490,lib,Ba mhaith liom Obair bhaile,lib-ba-mhaith-liom-obair-bhaile-6ac0d1
+491,lib,Ba mhaith liom ocras,lib-ba-mhaith-liom-ocras-1e2d2b
+492,lib,Ba mhaith liom ól,lib-ba-mhaith-liom-ol-99bbb2
+493,lib,Ba mhaith liom oscail,lib-ba-mhaith-liom-oscail-d5165c
+494,lib,Ba mhaith liom páirc,lib-ba-mhaith-liom-pairc-cbfced
+495,lib,Ba mhaith liom pasta,lib-ba-mhaith-liom-pasta-d8d7ff
+496,lib,Ba mhaith liom péint,lib-ba-mhaith-liom-peint-6e2c61
+497,lib,Ba mhaith liom píotsa,lib-ba-mhaith-liom-piotsa-358e89
+498,lib,Ba mhaith liom pitseámaí,lib-ba-mhaith-liom-pitseamai-f9ff74
+499,lib,Ba mhaith liom plástar,lib-ba-mhaith-liom-plastar-a97574
+500,lib,Ba mhaith liom pluid,lib-ba-mhaith-liom-pluid-20ae06
+501,lib,Ba mhaith liom rith,lib-ba-mhaith-liom-rith-65c60c
+502,lib,Ba mhaith liom roinn,lib-ba-mhaith-liom-roinn-a0f25d
+503,lib,Ba mhaith liom roinnt,lib-ba-mhaith-liom-roinnt-df3815
+504,lib,Ba mhaith liom rothar,lib-ba-mhaith-liom-rothar-5d8c22
+505,lib,Ba mhaith liom salach,lib-ba-mhaith-liom-salach-82bdb8
+506,lib,Ba mhaith liom sásta,lib-ba-mhaith-liom-sasta-a50859
+507,lib,Ba mhaith liom scanraithe,lib-ba-mhaith-liom-scanraithe-872045
+508,lib,Ba mhaith liom scáthán,lib-ba-mhaith-liom-scathan-75cc43
+509,lib,Ba mhaith liom sceallóga,lib-ba-mhaith-liom-scealloga-d2fe92
+510,lib,Ba mhaith liom scoil,lib-ba-mhaith-liom-scoil-5f1e37
+511,lib,Ba mhaith liom sconna,lib-ba-mhaith-liom-sconna-24cf6a
+512,lib,Ba mhaith liom scuab fiacla,lib-ba-mhaith-liom-scuab-fiacla-fe63ee
+513,lib,Ba mhaith liom scuais,lib-ba-mhaith-liom-scuais-b974af
+514,lib,Ba mhaith liom sé,lib-ba-mhaith-liom-se-f4741e
+515,lib,Ba mhaith liom seacláid,lib-ba-mhaith-liom-seaclaid-e4fc62
+516,lib,Ba mhaith liom seacláid the,lib-ba-mhaith-liom-seaclaid-the-4d965e
+517,lib,Ba mhaith liom seas,lib-ba-mhaith-liom-seas-be384e
+518,lib,Ba mhaith liom seomra ranga,lib-ba-mhaith-liom-seomra-ranga-3442fe
+519,lib,Ba mhaith liom sí,lib-ba-mhaith-liom-si-289650
+520,lib,Ba mhaith liom sin,lib-ba-mhaith-liom-sin-e61b9a
+521,lib,Ba mhaith liom siopa,lib-ba-mhaith-liom-siopa-f8bf56
+522,lib,Ba mhaith liom síos,lib-ba-mhaith-liom-sios-a0ff91
+523,lib,Ba mhaith liom siúil,lib-ba-mhaith-liom-siuil-2eadd1
+524,lib,Ba mhaith liom Siúlóid,lib-ba-mhaith-liom-siuloid-40b91b
+525,lib,Ba mhaith liom slán,lib-ba-mhaith-liom-slan-9a2fd2
+526,lib,Ba mhaith liom sleamhnán,lib-ba-mhaith-liom-sleamhnan-dc869b
+527,lib,Ba mhaith liom snámh,lib-ba-mhaith-liom-snamh-fbaac9
+528,lib,Ba mhaith liom Sneaic,lib-ba-mhaith-liom-sneaic-8dec6f
+529,lib,Ba mhaith liom sos,lib-ba-mhaith-liom-sos-b1e2bf
+530,lib,Ba mhaith liom sruthlaigh,lib-ba-mhaith-liom-sruthlaigh-ec105f
+531,lib,Ba mhaith liom stop,lib-ba-mhaith-liom-stop-c48e66
+532,lib,Ba mhaith liom sú oráiste,lib-ba-mhaith-liom-su-oraiste-79292c
+533,lib,Ba mhaith liom sú talún,lib-ba-mhaith-liom-su-talun-061a38
+534,lib,Ba mhaith liom sú úll,lib-ba-mhaith-liom-su-ull-d1843e
+535,lib,Ba mhaith liom suas,lib-ba-mhaith-liom-suas-e4322d
+536,lib,Ba mhaith liom súgradh,lib-ba-mhaith-liom-sugradh-f2f217
+537,lib,Ba mhaith liom suigh,lib-ba-mhaith-liom-suigh-338299
+538,lib,Ba mhaith liom súile,lib-ba-mhaith-liom-suile-bc146b
+539,lib,Ba mhaith liom tá brón orm,lib-ba-mhaith-liom-ta-bron-orm-09a067
+540,lib,Ba mhaith liom taispeáin,lib-ba-mhaith-liom-taispeain-732c8f
+541,lib,Ba mhaith liom taos fiacla,lib-ba-mhaith-liom-taos-fiacla-5fe8d2
+542,lib,Ba mhaith liom tar,lib-ba-mhaith-liom-tar-10ff3e
+543,lib,Ba mhaith liom tarraing,lib-ba-mhaith-liom-tarraing-3bbf49
+544,lib,Ba mhaith liom tart,lib-ba-mhaith-liom-tart-fd0326
+545,lib,Ba mhaith liom te,lib-ba-mhaith-liom-te-721170
+546,lib,Ba mhaith liom teidí,lib-ba-mhaith-liom-teidi-0ffc86
+547,lib,Ba mhaith liom téigh,lib-ba-mhaith-liom-teigh-1be00e
+548,lib,Ba mhaith liom teilifís,lib-ba-mhaith-liom-teilifis-6ef389
+549,lib,Ba mhaith liom tósta,lib-ba-mhaith-liom-tosta-104073
+550,lib,Ba mhaith liom trá,lib-ba-mhaith-liom-tra-838f67
+551,lib,Ba mhaith liom trampailín,lib-ba-mhaith-liom-trampailin-5c6de2
+552,lib,Ba mhaith liom tú,lib-ba-mhaith-liom-tu-e3463c
+553,lib,Ba mhaith liom tuáille,lib-ba-mhaith-liom-tuaille-55e896
+554,lib,Ba mhaith liom tuirseach,lib-ba-mhaith-liom-tuirseach-aff669
+555,lib,Ba mhaith liom uachtar reoite,lib-ba-mhaith-liom-uachtar-reoite-50011b
+556,lib,Ba mhaith liom uisce,lib-ba-mhaith-liom-uisce-37399c
+557,lib,Ba mhaith liom úll,lib-ba-mhaith-liom-ull-e4b23f
+558,lib,babhla,lib-babhla-ef1023
+559,lib,bábóg,lib-babog-2d24d4
+560,lib,Baile,lib-baile-905793
+561,lib,bainne,lib-bainne-473728
+562,lib,báisteach,lib-baisteach-b50c55
+563,lib,barróg,lib-barrog-711848
+564,lib,beach,lib-beach-486174
+565,lib,Beag,lib-beag-cc48a9
+566,lib,béal,lib-beal-b3c1e3
+567,lib,bearradh gruaige,lib-bearradh-gruaige-603d23
+568,lib,Bia,lib-bia-a73bd1
+569,lib,bláth,lib-blath-974b6b
+570,lib,bloic,lib-bloic-445ddd
+571,lib,Boilgeoga,lib-boilgeoga-eb07f8
+572,lib,Bolb,lib-bolb-c93d1b
+573,lib,bolcán,lib-bolcan-adeaad
+574,lib,bolg,lib-bolg-1f708b
+575,lib,bosca gainimh,lib-bosca-gainimh-bd607b
+576,lib,bosca lóin,lib-bosca-loin-dc86dd
+577,lib,Bréagáin,lib-breagain-9d0e85
+578,lib,bricfeasta,lib-bricfeasta-223179
+579,lib,briosca,lib-briosca-bf64dc
+580,lib,briste,lib-briste-b6d0bf
+581,lib,bríste,lib-briste-ea76e5
+582,lib,bróga,lib-broga-6dc597
+583,lib,Bróga ort,lib-broga-ort-5fc565
+584,lib,brónach,lib-bronach-7d6f8e
+585,lib,Brúigh an ceann is lú ar dtús,lib-bruigh-an-ceann-is-lu-ar-dtus-5a2692
+586,lib,Brúigh an ceann leis an imlíne gheal,lib-bruigh-an-ceann-leis-an-imline-gheal-b1c384
+587,lib,Brúigh an uimhir,lib-bruigh-an-uimhir-eeb056
+588,lib,Brúigh cárta,lib-bruigh-carta-9075a5
+589,lib,Brúigh na pictiúir in ord,lib-bruigh-na-pictiuir-in-ord-812a35
+590,lib,buartha,lib-buartha-5d5a06
+591,lib,buí,lib-bui-e6262e
+592,lib,bunoscionn,lib-bunoscionn-ab99a7
+593,lib,cá,lib-ca-d2aa5d
+594,lib,Cá dtéann sé,lib-ca-dteann-se-435af2
+595,lib,cabhair,lib-cabhair-7bd773
+596,lib,cad,lib-cad-462c18
+597,lib,Cad a thagann ina dhiaidh,lib-cad-a-thagann-ina-dhiaidh-bbc4c7
+598,lib,Cad a théann leis seo,lib-cad-a-theann-leis-seo-13ef62
+599,lib,Cad atá in easnamh,lib-cad-ata-in-easnamh-149060
+600,lib,caipín,lib-caipin-a625a3
+601,lib,cairéad,lib-cairead-b19ac9
+602,lib,Calm Match,lib-calm-match-49f26c
+603,lib,caora,lib-caora-510c6b
+604,lib,cara,lib-cara-95c087
+605,lib,carr bréagáin,lib-carr-breagain-3683b9
+606,lib,Cárta,lib-carta-1a670b
+607,lib,Cárta 1,lib-carta-1-6d627f
+608,lib,Cárta 10,lib-carta-10-7a184b
+609,lib,Cárta 11,lib-carta-11-cfcd49
+610,lib,Cárta 12,lib-carta-12-99b240
+611,lib,Cárta 13,lib-carta-13-630c16
+612,lib,Cárta 14,lib-carta-14-c18ed5
+613,lib,Cárta 15,lib-carta-15-b3dc0a
+614,lib,Cárta 16,lib-carta-16-cddef8
+615,lib,Cárta 17,lib-carta-17-f658a9
+616,lib,Cárta 18,lib-carta-18-39bdab
+617,lib,Cárta 19,lib-carta-19-a8e490
+618,lib,Cárta 2,lib-carta-2-897f15
+619,lib,Cárta 20,lib-carta-20-ef3f9d
+620,lib,Cárta 3,lib-carta-3-d69b81
+621,lib,Cárta 4,lib-carta-4-6e080f
+622,lib,Cárta 5,lib-carta-5-8e87c8
+623,lib,Cárta 6,lib-carta-6-1e6287
+624,lib,Cárta 7,lib-carta-7-152121
+625,lib,Cárta 8,lib-carta-8-93f04d
+626,lib,Cárta 9,lib-carta-9-4c2f60
+627,lib,Cártaí,lib-cartai-1d1c96
+628,lib,cas,lib-cas-a70e06
+629,lib,cas air an sconna,lib-cas-air-an-sconna-b9e92c
+630,lib,cathain,lib-cathain-5ebecb
+631,lib,cathaoir,lib-cathaoir-7cec3c
+632,lib,cé,lib-ce-d1bc94
+633,lib,Cé acu,lib-ce-acu-a2f651
+634,lib,Cé acu a bhfuil níos mó ann,lib-ce-acu-a-bhfuil-nios-mo-ann-708855
+635,lib,Cé acu atá difriúil,lib-ce-acu-ata-difriuil-ee5973
+636,lib,Cé atá ag imirt,lib-ce-ata-ag-imirt-0020d4
+637,lib,Cé leis an scáth seo,lib-ce-leis-an-scath-seo-71b474
+638,lib,Cé mhéad,lib-ce-mhead-019b70
+639,lib,ceann,lib-ceann-dd4020
+640,lib,ceapaire,lib-ceapaire-920dce
+641,lib,Ceapaire a dhéanamh,lib-ceapaire-a-dheanamh-111d12
+642,lib,cearc,lib-cearc-57467a
+643,lib,cearnóg,lib-cearnog-a2a6d3
+644,lib,Ceart go leor,lib-ceart-go-leor-71a8c0
+645,lib,Céim,lib-ceim-af6812
+646,lib,Céim 1 as 10,lib-ceim-1-as-10-653cc7
+647,lib,Céim 1 as 11,lib-ceim-1-as-11-185051
+648,lib,Céim 1 as 12,lib-ceim-1-as-12-48cd2c
+649,lib,Céim 1 as 13,lib-ceim-1-as-13-74ed55
+650,lib,Céim 1 as 14,lib-ceim-1-as-14-383ce0
+651,lib,Céim 1 as 15,lib-ceim-1-as-15-d2f4f2
+652,lib,Céim 1 as 16,lib-ceim-1-as-16-852524
+653,lib,Céim 1 as 17,lib-ceim-1-as-17-ee8b99
+654,lib,Céim 1 as 18,lib-ceim-1-as-18-ac7f0f
+655,lib,Céim 1 as 19,lib-ceim-1-as-19-15f0b1
+656,lib,Céim 1 as 2,lib-ceim-1-as-2-c633e5
+657,lib,Céim 1 as 20,lib-ceim-1-as-20-2b6eba
+658,lib,Céim 1 as 3,lib-ceim-1-as-3-be012d
+659,lib,Céim 1 as 4,lib-ceim-1-as-4-e3a6a5
+660,lib,Céim 1 as 5,lib-ceim-1-as-5-872f26
+661,lib,Céim 1 as 6,lib-ceim-1-as-6-3e7d4f
+662,lib,Céim 1 as 7,lib-ceim-1-as-7-14a786
+663,lib,Céim 1 as 8,lib-ceim-1-as-8-13b556
+664,lib,Céim 1 as 9,lib-ceim-1-as-9-d22092
+665,lib,Céim 10 as 10,lib-ceim-10-as-10-80b8cc
+666,lib,Céim 10 as 11,lib-ceim-10-as-11-265286
+667,lib,Céim 10 as 12,lib-ceim-10-as-12-ff77be
+668,lib,Céim 10 as 13,lib-ceim-10-as-13-cf3a05
+669,lib,Céim 10 as 14,lib-ceim-10-as-14-b2b4a7
+670,lib,Céim 10 as 15,lib-ceim-10-as-15-ff0c99
+671,lib,Céim 10 as 16,lib-ceim-10-as-16-e7d51e
+672,lib,Céim 10 as 17,lib-ceim-10-as-17-04f801
+673,lib,Céim 10 as 18,lib-ceim-10-as-18-765d1e
+674,lib,Céim 10 as 19,lib-ceim-10-as-19-84da5d
+675,lib,Céim 10 as 20,lib-ceim-10-as-20-1189a1
+676,lib,Céim 11 as 11,lib-ceim-11-as-11-98341e
+677,lib,Céim 11 as 12,lib-ceim-11-as-12-6c98a4
+678,lib,Céim 11 as 13,lib-ceim-11-as-13-950075
+679,lib,Céim 11 as 14,lib-ceim-11-as-14-2357b0
+680,lib,Céim 11 as 15,lib-ceim-11-as-15-f50b8c
+681,lib,Céim 11 as 16,lib-ceim-11-as-16-d89bab
+682,lib,Céim 11 as 17,lib-ceim-11-as-17-46cac0
+683,lib,Céim 11 as 18,lib-ceim-11-as-18-ad08fa
+684,lib,Céim 11 as 19,lib-ceim-11-as-19-820f76
+685,lib,Céim 11 as 20,lib-ceim-11-as-20-2fd736
+686,lib,Céim 12 as 12,lib-ceim-12-as-12-392811
+687,lib,Céim 12 as 13,lib-ceim-12-as-13-552827
+688,lib,Céim 12 as 14,lib-ceim-12-as-14-7b07f9
+689,lib,Céim 12 as 15,lib-ceim-12-as-15-72f79c
+690,lib,Céim 12 as 16,lib-ceim-12-as-16-d1aa34
+691,lib,Céim 12 as 17,lib-ceim-12-as-17-fb7724
+692,lib,Céim 12 as 18,lib-ceim-12-as-18-30f39e
+693,lib,Céim 12 as 19,lib-ceim-12-as-19-ebf445
+694,lib,Céim 12 as 20,lib-ceim-12-as-20-1ae004
+695,lib,Céim 13 as 13,lib-ceim-13-as-13-538c86
+696,lib,Céim 13 as 14,lib-ceim-13-as-14-5d1dee
+697,lib,Céim 13 as 15,lib-ceim-13-as-15-674170
+698,lib,Céim 13 as 16,lib-ceim-13-as-16-0c519b
+699,lib,Céim 13 as 17,lib-ceim-13-as-17-2a917e
+700,lib,Céim 13 as 18,lib-ceim-13-as-18-90cf70
+701,lib,Céim 13 as 19,lib-ceim-13-as-19-359655
+702,lib,Céim 13 as 20,lib-ceim-13-as-20-ae894f
+703,lib,Céim 14 as 14,lib-ceim-14-as-14-605eef
+704,lib,Céim 14 as 15,lib-ceim-14-as-15-bc0d78
+705,lib,Céim 14 as 16,lib-ceim-14-as-16-db7789
+706,lib,Céim 14 as 17,lib-ceim-14-as-17-59f7b1
+707,lib,Céim 14 as 18,lib-ceim-14-as-18-ca1569
+708,lib,Céim 14 as 19,lib-ceim-14-as-19-d8366e
+709,lib,Céim 14 as 20,lib-ceim-14-as-20-b63559
+710,lib,Céim 15 as 15,lib-ceim-15-as-15-1b88d3
+711,lib,Céim 15 as 16,lib-ceim-15-as-16-24602d
+712,lib,Céim 15 as 17,lib-ceim-15-as-17-8ddd6f
+713,lib,Céim 15 as 18,lib-ceim-15-as-18-307644
+714,lib,Céim 15 as 19,lib-ceim-15-as-19-6f6da0
+715,lib,Céim 15 as 20,lib-ceim-15-as-20-e87803
+716,lib,Céim 16 as 16,lib-ceim-16-as-16-8c26fb
+717,lib,Céim 16 as 17,lib-ceim-16-as-17-ca2db6
+718,lib,Céim 16 as 18,lib-ceim-16-as-18-fa3b53
+719,lib,Céim 16 as 19,lib-ceim-16-as-19-6ae680
+720,lib,Céim 16 as 20,lib-ceim-16-as-20-aa15fe
+721,lib,Céim 17 as 17,lib-ceim-17-as-17-771ac6
+722,lib,Céim 17 as 18,lib-ceim-17-as-18-049b53
+723,lib,Céim 17 as 19,lib-ceim-17-as-19-a870a9
+724,lib,Céim 17 as 20,lib-ceim-17-as-20-d85fd3
+725,lib,Céim 18 as 18,lib-ceim-18-as-18-f68562
+726,lib,Céim 18 as 19,lib-ceim-18-as-19-4332e9
+727,lib,Céim 18 as 20,lib-ceim-18-as-20-6ff0a7
+728,lib,Céim 19 as 19,lib-ceim-19-as-19-f6a13f
+729,lib,Céim 19 as 20,lib-ceim-19-as-20-6f707b
+730,lib,Céim 2 as 10,lib-ceim-2-as-10-0771f5
+731,lib,Céim 2 as 11,lib-ceim-2-as-11-d680dd
+732,lib,Céim 2 as 12,lib-ceim-2-as-12-7cb2bb
+733,lib,Céim 2 as 13,lib-ceim-2-as-13-dafd3a
+734,lib,Céim 2 as 14,lib-ceim-2-as-14-cea33c
+735,lib,Céim 2 as 15,lib-ceim-2-as-15-0705d5
+736,lib,Céim 2 as 16,lib-ceim-2-as-16-3b222b
+737,lib,Céim 2 as 17,lib-ceim-2-as-17-7c9e51
+738,lib,Céim 2 as 18,lib-ceim-2-as-18-ac88c0
+739,lib,Céim 2 as 19,lib-ceim-2-as-19-84a8af
+740,lib,Céim 2 as 2,lib-ceim-2-as-2-6bc628
+741,lib,Céim 2 as 20,lib-ceim-2-as-20-72ed64
+742,lib,Céim 2 as 3,lib-ceim-2-as-3-854440
+743,lib,Céim 2 as 4,lib-ceim-2-as-4-6275de
+744,lib,Céim 2 as 5,lib-ceim-2-as-5-af7505
+745,lib,Céim 2 as 6,lib-ceim-2-as-6-b24b8d
+746,lib,Céim 2 as 7,lib-ceim-2-as-7-df1d53
+747,lib,Céim 2 as 8,lib-ceim-2-as-8-e1b2db
+748,lib,Céim 2 as 9,lib-ceim-2-as-9-08c695
+749,lib,Céim 20 as 20,lib-ceim-20-as-20-94d192
+750,lib,Céim 3 as 10,lib-ceim-3-as-10-616e4d
+751,lib,Céim 3 as 11,lib-ceim-3-as-11-964dd4
+752,lib,Céim 3 as 12,lib-ceim-3-as-12-9c529d
+753,lib,Céim 3 as 13,lib-ceim-3-as-13-a13948
+754,lib,Céim 3 as 14,lib-ceim-3-as-14-9fe2ee
+755,lib,Céim 3 as 15,lib-ceim-3-as-15-a2438f
+756,lib,Céim 3 as 16,lib-ceim-3-as-16-ba85b8
+757,lib,Céim 3 as 17,lib-ceim-3-as-17-1fb8f0
+758,lib,Céim 3 as 18,lib-ceim-3-as-18-b5f248
+759,lib,Céim 3 as 19,lib-ceim-3-as-19-6309e8
+760,lib,Céim 3 as 20,lib-ceim-3-as-20-604d7d
+761,lib,Céim 3 as 3,lib-ceim-3-as-3-456504
+762,lib,Céim 3 as 4,lib-ceim-3-as-4-7a1ee1
+763,lib,Céim 3 as 5,lib-ceim-3-as-5-9d64b0
+764,lib,Céim 3 as 6,lib-ceim-3-as-6-47444a
+765,lib,Céim 3 as 7,lib-ceim-3-as-7-4e6bbe
+766,lib,Céim 3 as 8,lib-ceim-3-as-8-eadb1b
+767,lib,Céim 3 as 9,lib-ceim-3-as-9-816a47
+768,lib,Céim 4 as 10,lib-ceim-4-as-10-b78dc4
+769,lib,Céim 4 as 11,lib-ceim-4-as-11-9c4127
+770,lib,Céim 4 as 12,lib-ceim-4-as-12-e903c4
+771,lib,Céim 4 as 13,lib-ceim-4-as-13-15b9eb
+772,lib,Céim 4 as 14,lib-ceim-4-as-14-ffaa7c
+773,lib,Céim 4 as 15,lib-ceim-4-as-15-0c9e9b
+774,lib,Céim 4 as 16,lib-ceim-4-as-16-7bf105
+775,lib,Céim 4 as 17,lib-ceim-4-as-17-ca32e8
+776,lib,Céim 4 as 18,lib-ceim-4-as-18-3e15b1
+777,lib,Céim 4 as 19,lib-ceim-4-as-19-8530b3
+778,lib,Céim 4 as 20,lib-ceim-4-as-20-7c4f78
+779,lib,Céim 4 as 4,lib-ceim-4-as-4-e4c80c
+780,lib,Céim 4 as 5,lib-ceim-4-as-5-3907d9
+781,lib,Céim 4 as 6,lib-ceim-4-as-6-ad5ab4
+782,lib,Céim 4 as 7,lib-ceim-4-as-7-ed9ce0
+783,lib,Céim 4 as 8,lib-ceim-4-as-8-6b5100
+784,lib,Céim 4 as 9,lib-ceim-4-as-9-3d32ea
+785,lib,Céim 5 as 10,lib-ceim-5-as-10-13640b
+786,lib,Céim 5 as 11,lib-ceim-5-as-11-a586f1
+787,lib,Céim 5 as 12,lib-ceim-5-as-12-c8e280
+788,lib,Céim 5 as 13,lib-ceim-5-as-13-c549ab
+789,lib,Céim 5 as 14,lib-ceim-5-as-14-8d19cb
+790,lib,Céim 5 as 15,lib-ceim-5-as-15-434b45
+791,lib,Céim 5 as 16,lib-ceim-5-as-16-503e9a
+792,lib,Céim 5 as 17,lib-ceim-5-as-17-632953
+793,lib,Céim 5 as 18,lib-ceim-5-as-18-fa765a
+794,lib,Céim 5 as 19,lib-ceim-5-as-19-f9bda0
+795,lib,Céim 5 as 20,lib-ceim-5-as-20-0450e1
+796,lib,Céim 5 as 5,lib-ceim-5-as-5-1179c0
+797,lib,Céim 5 as 6,lib-ceim-5-as-6-6ee1d5
+798,lib,Céim 5 as 7,lib-ceim-5-as-7-51f4d3
+799,lib,Céim 5 as 8,lib-ceim-5-as-8-867edd
+800,lib,Céim 5 as 9,lib-ceim-5-as-9-8b52a4
+801,lib,Céim 6 as 10,lib-ceim-6-as-10-4ef7d9
+802,lib,Céim 6 as 11,lib-ceim-6-as-11-a70d1b
+803,lib,Céim 6 as 12,lib-ceim-6-as-12-690048
+804,lib,Céim 6 as 13,lib-ceim-6-as-13-7f6e94
+805,lib,Céim 6 as 14,lib-ceim-6-as-14-9cd436
+806,lib,Céim 6 as 15,lib-ceim-6-as-15-602410
+807,lib,Céim 6 as 16,lib-ceim-6-as-16-dc09c6
+808,lib,Céim 6 as 17,lib-ceim-6-as-17-fcc428
+809,lib,Céim 6 as 18,lib-ceim-6-as-18-0bef2c
+810,lib,Céim 6 as 19,lib-ceim-6-as-19-50ddc1
+811,lib,Céim 6 as 20,lib-ceim-6-as-20-30bd83
+812,lib,Céim 6 as 6,lib-ceim-6-as-6-7d93fa
+813,lib,Céim 6 as 7,lib-ceim-6-as-7-c969ab
+814,lib,Céim 6 as 8,lib-ceim-6-as-8-0fd64d
+815,lib,Céim 6 as 9,lib-ceim-6-as-9-69d864
+816,lib,Céim 7 as 10,lib-ceim-7-as-10-c4b89d
+817,lib,Céim 7 as 11,lib-ceim-7-as-11-bb1c1f
+818,lib,Céim 7 as 12,lib-ceim-7-as-12-606824
+819,lib,Céim 7 as 13,lib-ceim-7-as-13-0985fc
+820,lib,Céim 7 as 14,lib-ceim-7-as-14-0e0765
+821,lib,Céim 7 as 15,lib-ceim-7-as-15-7ec4c7
+822,lib,Céim 7 as 16,lib-ceim-7-as-16-c6ac8a
+823,lib,Céim 7 as 17,lib-ceim-7-as-17-5232f8
+824,lib,Céim 7 as 18,lib-ceim-7-as-18-e0487f
+825,lib,Céim 7 as 19,lib-ceim-7-as-19-2cf325
+826,lib,Céim 7 as 20,lib-ceim-7-as-20-4d94b7
+827,lib,Céim 7 as 7,lib-ceim-7-as-7-66069d
+828,lib,Céim 7 as 8,lib-ceim-7-as-8-29a358
+829,lib,Céim 7 as 9,lib-ceim-7-as-9-341396
+830,lib,Céim 8 as 10,lib-ceim-8-as-10-d1b352
+831,lib,Céim 8 as 11,lib-ceim-8-as-11-da5586
+832,lib,Céim 8 as 12,lib-ceim-8-as-12-dc2191
+833,lib,Céim 8 as 13,lib-ceim-8-as-13-8467b3
+834,lib,Céim 8 as 14,lib-ceim-8-as-14-cf5917
+835,lib,Céim 8 as 15,lib-ceim-8-as-15-33e5f4
+836,lib,Céim 8 as 16,lib-ceim-8-as-16-279ea5
+837,lib,Céim 8 as 17,lib-ceim-8-as-17-cfea5d
+838,lib,Céim 8 as 18,lib-ceim-8-as-18-212b62
+839,lib,Céim 8 as 19,lib-ceim-8-as-19-edc73f
+840,lib,Céim 8 as 20,lib-ceim-8-as-20-177544
+841,lib,Céim 8 as 8,lib-ceim-8-as-8-3d9ed8
+842,lib,Céim 8 as 9,lib-ceim-8-as-9-90a8cd
+843,lib,Céim 9 as 10,lib-ceim-9-as-10-b374ac
+844,lib,Céim 9 as 11,lib-ceim-9-as-11-4e3308
+845,lib,Céim 9 as 12,lib-ceim-9-as-12-3e2c90
+846,lib,Céim 9 as 13,lib-ceim-9-as-13-8c3c2b
+847,lib,Céim 9 as 14,lib-ceim-9-as-14-0225e1
+848,lib,Céim 9 as 15,lib-ceim-9-as-15-15c4bf
+849,lib,Céim 9 as 16,lib-ceim-9-as-16-2a8a68
+850,lib,Céim 9 as 17,lib-ceim-9-as-17-b69b80
+851,lib,Céim 9 as 18,lib-ceim-9-as-18-995e23
+852,lib,Céim 9 as 19,lib-ceim-9-as-19-effdfe
+853,lib,Céim 9 as 20,lib-ceim-9-as-20-6ad9b8
+854,lib,Céim 9 as 9,lib-ceim-9-as-9-6ae8ce
+855,lib,Céim siar,lib-ceim-siar-95517a
+856,lib,Céimeanna in ord,lib-ceimeanna-in-ord-54ca4b
+857,lib,Cén aghaidh a bhfuil ionadh uirthi,lib-cen-aghaidh-a-bhfuil-ionadh-uirthi-12ad9e
+858,lib,Cén aghaidh atá brónach,lib-cen-aghaidh-ata-bronach-81291e
+859,lib,Cén aghaidh atá buartha,lib-cen-aghaidh-ata-buartha-63580a
+860,lib,Cén aghaidh atá crosta,lib-cen-aghaidh-ata-crosta-f34835
+861,lib,Cén aghaidh atá grámhar,lib-cen-aghaidh-ata-gramhar-8a3a8d
+862,lib,Cén aghaidh atá sásta,lib-cen-aghaidh-ata-sasta-d22cf5
+863,lib,Cén aghaidh atá scanraithe,lib-cen-aghaidh-ata-scanraithe-24bfe5
+864,lib,Cén aghaidh atá seafóideach,lib-cen-aghaidh-ata-seafoideach-15527c
+865,lib,Cén aghaidh atá socair,lib-cen-aghaidh-ata-socair-5fd45a
+866,lib,Cén aghaidh atá tuirseach,lib-cen-aghaidh-ata-tuirseach-2ae44b
+867,lib,cén fáth,lib-cen-fath-c59d5c
+868,lib,Cén grúpa,lib-cen-grupa-cc7623
+869,lib,Cén litir atá ar dtús,lib-cen-litir-ata-ar-dtus-557692
+870,lib,Cén píosa a chríochnaíonn an pictiúr,lib-cen-piosa-a-chriochnaionn-an-pictiur-1d04ca
+871,lib,Cén sórt sosa,lib-cen-sort-sosa-0e5019
+872,lib,Ceol,lib-ceol-d55fff
+873,lib,cigilt,lib-cigilt-55b5a8
+874,lib,ciorcal,lib-ciorcal-675add
+875,lib,ciúin,lib-ciuin-976593
+876,lib,Ciúnas,lib-ciunas-557841
+877,lib,clár scátála,lib-clar-scatala-de4330
+878,lib,clog,lib-clog-5a08f6
+879,lib,cluas,lib-cluas-22c05b
+880,lib,cluasáin,lib-cluasain-1c7a37
+881,lib,cluiche ríomhaire,lib-cluiche-riomhaire-59dc89
+882,lib,Cluichí a d'imir tú,lib-cluichi-a-d-imir-tu-b1735b
+883,lib,Cluichí inniu,lib-cluichi-inniu-3ae5e4
+884,lib,cnámh,lib-cnamh-da6d87
+885,lib,codladh,lib-codladh-daa7d2
+886,lib,coinín,lib-coinin-6ec816
+887,lib,Cóisir,lib-coisir-5a4446
+888,lib,Comhair,lib-comhair-ac5486
+889,lib,Comhair na pictiúir,lib-comhair-na-pictiuir-f17226
+890,lib,Comhrá,lib-comhra-289b1d
+891,lib,Conas,lib-conas-96659e
+892,lib,Conas a mhothaíonn siad,lib-conas-a-mhothaionn-siad-d924da
+893,lib,corcra,lib-corcra-2458be
+894,lib,Corp,lib-corp-ee0bfd
+895,lib,corrán,lib-corran-ea54ed
+896,lib,cos,lib-cos-5bcc2c
+897,lib,cosa,lib-cosa-ab0965
+898,lib,cóta,lib-cota-dafae8
+899,lib,Cóta ort,lib-cota-ort-77f612
+900,lib,crann pailme,lib-crann-pailme-d99c9d
+901,lib,criáin,lib-criain-efd021
+902,lib,crián,lib-crian-bb9409
+903,lib,Críoch,lib-crioch-1dd9c8
+904,lib,Críochnaigh,lib-criochnaigh-9dd05b
+905,lib,críochnaithe,lib-criochnaithe-17552d
+906,lib,Críochnaithe go fóill,lib-criochnaithe-go-foill-3beca5
+907,lib,criospaí,lib-criospai-935f75
+908,lib,crogall,lib-crogall-bcc6f4
+909,lib,croí,lib-croi-40594c
+910,lib,Croífhocail,lib-croifhocail-a7ddc8
+911,lib,cros,lib-cros-8c19ca
+912,lib,crosta,lib-crosta-2baced
+913,lib,Cruthanna,lib-cruthanna-af2faf
+914,lib,Cruthanna agus méideanna,lib-cruthanna-agus-meideanna-62db22
+915,lib,cuimil do lámha,lib-cuimil-do-lamha-5611e8
+916,lib,Cúinne ciúin,lib-cuinne-ciuin-36ee5e
+917,lib,cuir,lib-cuir-fcbfe0
+918,lib,Cuir ar sos,lib-cuir-ar-sos-d53a5a
+919,lib,Cuir gach pictiúr sa chiseán ceart,lib-cuir-gach-pictiur-sa-chisean-ceart-91a690
+920,lib,Cuir leis an gceann céanna é,lib-cuir-leis-an-gceann-ceanna-e-b7a190
+921,lib,Cuir na pictiúir ó bheag go mór,lib-cuir-na-pictiuir-o-bheag-go-mor-f2f041
+922,lib,cuir ort,lib-cuir-ort-06dd1b
+923,lib,cúl,lib-cul-c5715f
+924,lib,Cur síos,lib-cur-sios-48471b
+925,lib,D'imigh an balún,lib-d-imigh-an-balun-558b24
+926,lib,Daid,lib-daid-5e077c
+927,lib,Daideo,lib-daideo-812fb3
+928,lib,Daoine,lib-daoine-a64930
+929,lib,Dathanna,lib-dathanna-5168de
+930,lib,déan,lib-dean-2412cc
+931,lib,déan é,lib-dean-e-b047ee
+932,lib,déan fear sneachta,lib-dean-fear-sneachta-cef381
+933,lib,Déanta,lib-deanta-65dc5d
+934,lib,dearg,lib-dearg-199a52
+935,lib,deartháir,lib-dearthair-256f80
+936,lib,deirfiúr,lib-deirfiur-186c8b
+937,lib,Deochanna,lib-deochanna-aaeba1
+938,lib,dia duit,lib-dia-duit-0dbaf9
+939,lib,difriúil,lib-difriuil-431cae
+940,lib,Díneasáir,lib-dineasair-2ee844
+941,lib,dinnéar,lib-dinnear-7d4819
+942,lib,dísle,lib-disle-8712d4
+943,lib,do sheal,lib-do-sheal-9c48f2
+944,lib,dochtúir,lib-dochtuir-f7a4cf
+945,lib,doirteal,lib-doirteal-e06393
+946,lib,donn,lib-donn-62894f
+947,lib,dubh,lib-dubh-f0b612
+948,lib,Dún,lib-dun-3c8920
+949,lib,Dún an clár,lib-dun-an-clar-97a027
+950,lib,Dún an sceideal,lib-dun-an-sceideal-b7ba78
+951,lib,Dún an t-amadóir,lib-dun-an-t-amadoir-35472a
+952,lib,é,lib-e-bf15be
+953,lib,Éadaí,lib-eadai-5d3661
+954,lib,Éadaí ort,lib-eadai-ort-df6bde
+955,lib,eile,lib-eile-fed469
+956,lib,éirigh,lib-eirigh-0c24aa
+957,lib,Éiríonn an balún níos lú,lib-eirionn-an-balun-nios-lu-fbb7eb
+958,lib,Éiríonn an balún níos mó,lib-eirionn-an-balun-nios-mo-453b21
+959,lib,Éist leis an bhfocal,lib-eist-leis-an-bhfocal-a7d647
+960,lib,eochair,lib-eochair-edf420
+961,lib,faigh,lib-faigh-c1a7e3
+962,lib,Faigheann tú ceann i ndiaidh gach cluiche,lib-faigheann-tu-ceann-i-ndiaidh-gach-cluich-01700f
+963,lib,fáisc,lib-faisc-c247f3
+964,lib,fan,lib-fan-289944
+965,lib,Fanfaidh do chluiche leat,lib-fanfaidh-do-chluiche-leat-ed6956
+966,lib,faoi,lib-faoi-7c7285
+967,lib,faoin mbosca,lib-faoin-mbosca-8c9b42
+968,lib,Farraige,lib-farraige-446d85
+969,lib,Fásann síol,lib-fasann-siol-130c73
+970,lib,féach,lib-feach-f2825a
+971,lib,Féach agus cuimhnigh,lib-feach-agus-cuimhnigh-f174e8
+972,lib,Féach ar an gceann leis an imlíne,lib-feach-ar-an-gceann-leis-an-imline-9bff54
+973,lib,Féach ar líne na bpictiúr,lib-feach-ar-line-na-bpictiur-17c3d5
+974,lib,Féach ar na haghaidheanna,lib-feach-ar-na-haghaidheanna-a24260
+975,lib,Féach ar na pictiúir,lib-feach-ar-na-pictiuir-d1171b
+976,lib,Féach arís,lib-feach-aris-70b81e
+977,lib,Féach go cúramach,lib-feach-go-curamach-7bc31e
+978,lib,Fear sneachta,lib-fear-sneachta-2e6553
+979,lib,Feicfidh mé arís thú,lib-feicfidh-me-aris-thu-237bf9
+980,lib,Feirm,lib-feirm-e142e3
+981,lib,Feithiclí,lib-feithicli-7a5b23
+982,lib,fiacla,lib-fiacla-49ffe1
+983,lib,Fiacla a scuabadh,lib-fiacla-a-scuabadh-65fad7
+984,lib,fiaclóir,lib-fiacloir-0f7384
+985,lib,Fill nuair a bheidh tú réidh,lib-fill-nuair-a-bheidh-tu-reidh-688862
+986,lib,fíonchaora,lib-fionchaora-420fe5
+987,lib,fliuch,lib-fliuch-c34c69
+988,lib,fo-éadaí,lib-fo-eadai-40bbde
+989,lib,Focail,lib-focail-dcb6bb
+990,lib,folcadán,lib-folcadan-59de20
+991,lib,folcadh,lib-folcadh-d9e9c1
+992,lib,fráma comhairimh,lib-frama-comhairimh-b0037b
+993,lib,Fuair tú greamán,lib-fuair-tu-greaman-29c03c
+994,lib,Fuair tú na péirí ar fad,lib-fuair-tu-na-peiri-ar-fad-17be5f
+995,lib,fuar,lib-fuar-1521a6
+996,lib,gach,lib-gach-f3bef1
+997,lib,gairdín,lib-gairdin-8b9c3c
+998,lib,gallúnach,lib-gallunach-9187d8
+999,lib,gaoth,lib-gaoth-15e598
+1000,lib,géag,lib-geag-1f2778
+1001,lib,geansaí,lib-geansai-420b15
+1002,lib,Glan,lib-glan-c0db52
+1003,lib,Glan suas,lib-glan-suas-9cd878
+1004,lib,glas,lib-glas-6320a6
+1005,lib,glórach,lib-glorach-77d1da
+1006,lib,go maith,lib-go-maith-1fcc3f
+1007,lib,go raibh maith agat,lib-go-raibh-maith-agat-3551ee
+1008,lib,gorm,lib-gorm-946df4
+1009,lib,gortaithe,lib-gortaithe-f089ae
+1010,lib,grámhar,lib-gramhar-829d8d
+1011,lib,gránach,lib-granach-8ce9c6
+1012,lib,Greamáin i do leabhar,lib-greamain-i-do-leabhar-d96933
+1013,lib,Imíonn ceann amháin,lib-imionn-ceann-amhain-c70b2f
+1014,lib,Imir arís,lib-imir-aris-4b0cb8
+1015,lib,in aice leis an mbosca,lib-in-aice-leis-an-mbosca-403079
+1016,lib,in áit,lib-in-ait-e3f265
+1017,lib,inneall dóiteáin,lib-inneall-doiteain-f69b62
+1018,lib,Inniu,lib-inniu-828b5e
+1019,lib,Inniu: Aimsigh é,lib-inniu-aimsigh-e-207d80
+1020,lib,Inniu: An ceann corr,lib-inniu-an-ceann-corr-6ec6bc
+1021,lib,Inniu: Cad atá in easnamh?,lib-inniu-cad-ata-in-easnamh-d5739c
+1022,lib,Inniu: Céimeanna in ord,lib-inniu-ceimeanna-in-ord-0396a3
+1023,lib,Inniu: Comhair,lib-inniu-comhair-ee3461
+1024,lib,Inniu: Cruthanna agus méideanna,lib-inniu-cruthanna-agus-meideanna-7e7281
+1025,lib,Inniu: Le chéile,lib-inniu-le-cheile-64efc9
+1026,lib,Inniu: Litreacha,lib-inniu-litreacha-ca372b
+1027,lib,Inniu: Meaitseáil,lib-inniu-meaitseail-dc0c83
+1028,lib,Inniu: Mír mhearaí,lib-inniu-mir-mhearai-6642d7
+1029,lib,Inniu: Mothúcháin,lib-inniu-mothuchain-746d4d
+1030,lib,Inniu: Patrúin,lib-inniu-patruin-ad8376
+1031,lib,Inniu: Péirí,lib-inniu-peiri-d7db17
+1032,lib,Inniu: Scáthanna,lib-inniu-scathanna-02dfee
+1033,lib,Inniu: Sórtáil,lib-inniu-sortail-1f6134
+1034,lib,Inniu: Uimhreacha,lib-inniu-uimhreacha-ddbbaa
+1035,lib,iógart,lib-iogart-2e6f08
+1036,lib,Iompaigh dhá chárta,lib-iompaigh-dha-charta-093b14
+1037,lib,Iompóidh na cártaí,lib-iompoidh-na-cartai-d67128
+1038,lib,Iompóidh siad ar ais,lib-iompoidh-siad-ar-ais-fbe1e9
+1039,lib,ionadh,lib-ionadh-e44d3d
+1040,lib,Iontach,lib-iontach-45c0a5
+1041,lib,is ea,lib-is-ea-201aa2
+1042,lib,is féidir,lib-is-feidir-793d44
+1043,lib,Is féidir le duine fásta focail a chur anseo,lib-is-feidir-le-duine-fasta-focail-a-chur-a-bfb6e5
+1044,lib,Is féidir le duine fásta roghanna a chur anseo,lib-is-feidir-le-duine-fasta-roghanna-a-chur-06e225
+1045,lib,Is féidir leat Sos a bhrú am ar bith,lib-is-feidir-leat-sos-a-bhru-am-ar-bith-4cbc1f
+1046,lib,Is lú,lib-is-lu-9c1eb8
+1047,lib,is maith liom,lib-is-maith-liom-fcfe9c
+1048,lib,Is mó,lib-is-mo-c3ca4f
+1049,lib,isteach,lib-isteach-4350e4
+1050,lib,ith,lib-ith-99e48d
+1051,lib,lá,lib-la-30dc38
+1052,lib,Lá ag an trá,lib-la-ag-an-tra-98dfde
+1053,lib,Labhair,lib-labhair-d3ef24
+1054,lib,laghairt,lib-laghairt-516ae7
+1055,lib,Lámha a ní,lib-lamha-a-ni-1d316d
+1056,lib,lámhainní,lib-lamhainni-ad5bfc
+1057,lib,le chéile,lib-le-cheile-1dcf1e
+1058,lib,le do thoil,lib-le-do-thoil-0a4951
+1059,lib,leabhair,lib-leabhair-16b59a
+1060,lib,Leag duine éigin an túr,lib-leag-duine-eigin-an-tur-1b9d12
+1061,lib,Léamh,lib-leamh-a07683
+1062,lib,Lean an litir le do mhéar,lib-lean-an-litir-le-do-mhear-215ce5
+1063,lib,Lean ar aghaidh,lib-lean-ar-aghaidh-be21f9
+1064,lib,leanbh,lib-leanbh-3f46ba
+1065,lib,leánn sé,lib-leann-se-c41e1c
+1066,lib,léigh,lib-leigh-0fe0d7
+1067,lib,Léigh ár scéal,lib-leigh-ar-sceal-82fe9b
+1068,lib,léim,lib-leim-9e4737
+1069,lib,leithreas,lib-leithreas-2e1a95
+1070,lib,liathróid,lib-liathroid-8da41a
+1071,lib,Lig do scíth,lib-lig-do-scith-cbaaa0
+1072,lib,líne,lib-line-ef0853
+1073,lib,Líníocht,lib-liniocht-1dd746
+1074,lib,Litreacha,lib-litreacha-26c69d
+1075,lib,lón,lib-lon-98a18d
+1076,lib,luasc,lib-luasc-45c807
+1077,lib,luascán,lib-luascan-c4ec91
+1078,lib,lus na gréine,lib-lus-na-greine-ea0668
+1079,lib,maidin,lib-maidin-735403
+1080,lib,Maith thú,lib-maith-thu-597375
+1081,lib,mála scoile,lib-mala-scoile-480661
+1082,lib,Mam,lib-mam-704500
+1083,lib,Mamó,lib-mamo-c17ae4
+1084,lib,mar an gcéanna,lib-mar-an-gceanna-e7b239
+1085,lib,márla,lib-marla-fe098a
+1086,lib,mé,lib-me-19c49a
+1087,lib,Meaitseáil,lib-meaitseail-c921c8
+1088,lib,Meaitseáil litreacha,lib-meaitseail-litreacha-7a7414
+1089,lib,Meaitseáil uimhreacha agus grúpaí,lib-meaitseail-uimhreacha-agus-grupai-8fb2ed
+1090,lib,Méid,lib-meid-2af903
+1091,lib,Méid 1,lib-meid-1-0026dd
+1092,lib,Méid 2,lib-meid-2-24401d
+1093,lib,Méid 3,lib-meid-3-38b392
+1094,lib,Méid 4,lib-meid-4-552f75
+1095,lib,Méid 5,lib-meid-5-a5fd82
+1096,lib,Méid 6,lib-meid-6-9a49ff
+1097,lib,micreafón,lib-micreafon-b96b36
+1098,lib,míol mór,lib-miol-mor-13f2db
+1099,lib,Mír mhearaí,lib-mir-mhearai-f46227
+1100,lib,míreanna mearaí,lib-mireanna-mearai-a53c23
+1101,lib,Mo chuid focal,lib-mo-chuid-focal-054b79
+1102,lib,Mo ghreamáin,lib-mo-ghreamain-02e0b7
+1103,lib,Mo lá,lib-mo-la-96704d
+1104,lib,Mo roghanna,lib-mo-roghanna-6e122c
+1105,lib,Mo scéalta,lib-mo-scealta-98f514
+1106,lib,mo sheal,lib-mo-sheal-7a5d00
+1107,lib,Mór,lib-mor-f5db73
+1108,lib,Mór nó beag,lib-mor-no-beag-b28ae7
+1109,lib,mothaigh,lib-mothaigh-9b4d91
+1110,lib,Mothúcháin,lib-mothuchain-71ab12
+1111,lib,múch an solas,lib-much-an-solas-b1d177
+1112,lib,muileata,lib-muileata-5fca42
+1113,lib,múinteoir,lib-muinteoir-699c7f
+1114,lib,Na céimeanna ar fad,lib-na-ceimeanna-ar-fad-9e2115
+1115,lib,ní,lib-ni-c4513d
+1116,lib,Ní hé sin é,lib-ni-he-sin-e-72e025
+1117,lib,Ní hé sin fós,lib-ni-he-sin-fos-27eb90
+1118,lib,ní hea,lib-ni-hea-dfd0bf
+1119,lib,Ní hionann iad,lib-ni-hionann-iad-ee7e11
+1120,lib,Ní théann an píosa isteach,lib-ni-theann-an-piosa-isteach-66ef31
+1121,lib,nigh d'aghaidh,lib-nigh-d-aghaidh-0ed45a
+1122,lib,nigh do lámha,lib-nigh-do-lamha-826d5a
+1123,lib,Níl greamán ar bith fós,lib-nil-greaman-ar-bith-fos-37b870
+1124,lib,Níos lú ná nóiméad,lib-nios-lu-na-noimead-6ce8ca
+1125,lib,níos mó,lib-nios-mo-60e3be
+1126,lib,nóim,lib-noim-10b252
+1127,lib,Nóiméad amháin,lib-noimead-amhain-76fd80
+1128,lib,Nóiméad amháin fágtha,lib-noimead-amhain-fagtha-674ab2
+1129,lib,nóiméad fágtha,lib-noimead-fagtha-5294c9
+1130,lib,Ó bheag go mór,lib-o-bheag-go-mor-5ef9da
+1131,lib,Ó ubh go cearc,lib-o-ubh-go-cearc-e27a40
+1132,lib,Obair bhaile,lib-obair-bhaile-2a3bae
+1133,lib,Obair iontach,lib-obair-iontach-49f6f5
+1134,lib,ocras,lib-ocras-472bf4
+1135,lib,oíche,lib-oiche-f42071
+1136,lib,ól,lib-ol-8d88da
+1137,lib,oscail,lib-oscail-e16c73
+1138,lib,páipéar,lib-paipear-9d4e2f
+1139,lib,páirc,lib-pairc-58b7e5
+1140,lib,pasta,lib-pasta-46139b
+1141,lib,Patrúin,lib-patruin-f26d07
+1142,lib,péacán,lib-peacan-eab244
+1143,lib,peann luaidhe,lib-peann-luaidhe-62fcdb
+1144,lib,péint,lib-peint-e07173
+1145,lib,péinteanna,lib-peinteanna-942480
+1146,lib,Péire,lib-peire-3cd87e
+1147,lib,Péirí,lib-peiri-ba3868
+1148,lib,pianó,lib-piano-513ae4
+1149,lib,Pictiúir,lib-pictiuir-432c8f
+1150,lib,Píosa,lib-piosa-17dc56
+1151,lib,pitseámaí,lib-pitseamai-dba223
+1152,lib,pláinéad,lib-plainead-628f41
+1153,lib,planda,lib-planda-0edfd3
+1154,lib,plástar,lib-plastar-7bbe6d
+1155,lib,Pléasc na boilgeoga,lib-pleasc-na-boilgeoga-3e43ee
+1156,lib,pluid,lib-pluid-47bc5c
+1157,lib,portán,lib-portan-20ecb1
+1158,lib,rialóir,lib-rialoir-7f7c85
+1159,lib,Rianaigh an litir,lib-rianaigh-an-litir-462584
+1160,lib,Rianaigh an litir A,lib-rianaigh-an-litir-a-ed4f3c
+1161,lib,Rianaigh an litir B,lib-rianaigh-an-litir-b-50a00b
+1162,lib,Rianaigh an litir C,lib-rianaigh-an-litir-c-14fc29
+1163,lib,Rianaigh an litir D,lib-rianaigh-an-litir-d-305b5e
+1164,lib,Rianaigh an litir E,lib-rianaigh-an-litir-e-92bb5f
+1165,lib,Rianaigh an litir F,lib-rianaigh-an-litir-f-e4d234
+1166,lib,Rianaigh an litir G,lib-rianaigh-an-litir-g-3fb109
+1167,lib,Rianaigh an litir H,lib-rianaigh-an-litir-h-1e3e4d
+1168,lib,Rianaigh an litir I,lib-rianaigh-an-litir-i-e3a1f0
+1169,lib,Rianaigh an litir L,lib-rianaigh-an-litir-l-c0df49
+1170,lib,Rianaigh an litir M,lib-rianaigh-an-litir-m-6b8d14
+1171,lib,Rianaigh an litir N,lib-rianaigh-an-litir-n-489bc1
+1172,lib,Rianaigh an litir O,lib-rianaigh-an-litir-o-b9d43f
+1173,lib,Rianaigh an litir P,lib-rianaigh-an-litir-p-5139ed
+1174,lib,Rianaigh an litir R,lib-rianaigh-an-litir-r-4a49d1
+1175,lib,Rianaigh an litir S,lib-rianaigh-an-litir-s-e73d88
+1176,lib,Rianaigh an litir T,lib-rianaigh-an-litir-t-016a30
+1177,lib,Rianaigh an litir U,lib-rianaigh-an-litir-u-510856
+1178,lib,Rinne tú é,lib-rinne-tu-e-992b26
+1179,lib,rith,lib-rith-1a72ab
+1180,lib,Roghnaigh freagra,lib-roghnaigh-freagra-df859b
+1181,lib,Roghnaigh scéal,lib-roghnaigh-sceal-a4180b
+1182,lib,roinn,lib-roinn-84db59
+1183,lib,roinnt,lib-roinnt-3889b1
+1184,lib,Rud nua le triail,lib-rud-nua-le-triail-9afd1b
+1185,lib,sa bhosca,lib-sa-bhosca-296ca1
+1186,lib,salach,lib-salach-7a7fed
+1187,lib,sásta,lib-sasta-6b03e2
+1188,lib,scamall,lib-scamall-4b7f7e
+1189,lib,scanraithe,lib-scanraithe-08fd55
+1190,lib,Scáth,lib-scath-9ba30c
+1191,lib,scáth fearthainne,lib-scath-fearthainne-609c34
+1192,lib,scáthán,lib-scathan-c9ef54
+1193,lib,Scáthanna,lib-scathanna-600e09
+1194,lib,sceallóga,lib-scealloga-91260f
+1195,lib,scoil,lib-scoil-b89b3e
+1196,lib,sconna,lib-sconna-90f0dc
+1197,lib,Scrios an focal deireanach,lib-scrios-an-focal-deireanach-12ebd6
+1198,lib,scuab do chuid fiacla,lib-scuab-do-chuid-fiacla-429270
+1199,lib,scuab fiacla,lib-scuab-fiacla-df564d
+1200,lib,scuab phéinte,lib-scuab-pheinte-742b1c
+1201,lib,scuais,lib-scuais-8c9317
+1202,lib,scuid,lib-scuid-4824fa
+1203,lib,sé,lib-se-9bd61a
+1204,lib,seacláid,lib-seaclaid-78d40b
+1205,lib,seacláid the,lib-seaclaid-the-7146e2
+1206,lib,seafóideach,lib-seafoideach-e3d2bc
+1207,lib,seas,lib-seas-a90bad
+1208,lib,Seo an ceann deireanach,lib-seo-an-ceann-deireanach-fcdd4b
+1209,lib,Seo bronntanas duit,lib-seo-bronntanas-duit-e8254e
+1210,lib,seomra ranga,lib-seomra-ranga-509237
+1211,lib,sí,lib-si-5e06bd
+1212,lib,Siar,lib-siar-63eff9
+1213,lib,sicín,lib-sicin-c62536
+1214,lib,sin,lib-sin-7d14c0
+1215,lib,Sin é,lib-sin-e-1de033
+1216,lib,síol,lib-siol-45bbfb
+1217,lib,siopa,lib-siopa-22a997
+1218,lib,siorc,lib-siorc-5d0e74
+1219,lib,síos,lib-sios-687887
+1220,lib,siosúr,lib-siosur-602062
+1221,lib,siúil,lib-siuil-544e9d
+1222,lib,Siúlóid,lib-siuloid-3160d6
+1223,lib,slán,lib-slan-a0b94f
+1224,lib,sleamhnán,lib-sleamhnan-8b0b1b
+1225,lib,sliogán,lib-sliogan-32fc80
+1226,lib,snámh,lib-snamh-e7e554
+1227,lib,sneachta,lib-sneachta-93acc7
+1228,lib,Sneaic,lib-sneaic-31106a
+1229,lib,socair,lib-socair-c93b07
+1230,lib,Sórtáil,lib-sortail-41213f
+1231,lib,Sos,lib-sos-2a816d
+1232,lib,Spás,lib-spas-6fb0fc
+1233,lib,spásaire,lib-spasaire-3e74be
+1234,lib,spásárthach,lib-spasarthach-156567
+1235,lib,Spraoi,lib-spraoi-913625
+1236,lib,spúnóg,lib-spunog-2c99a7
+1237,lib,srón,lib-sron-c37aad
+1238,lib,sruthlaigh,lib-sruthlaigh-2ca130
+1239,lib,Stoirm ard san oíche,lib-stoirm-ard-san-oiche-769f48
+1240,lib,stop,lib-stop-1b4801
+1241,lib,Stop anois,lib-stop-anois-1f2240
+1242,lib,sú oráiste,lib-su-oraiste-7e97c7
+1243,lib,sú úll,lib-su-ull-c89258
+1244,lib,Suaimhneas,lib-suaimhneas-600a86
+1245,lib,suas,lib-suas-a58051
+1246,lib,suas go dtí an ceann is mó,lib-suas-go-dti-an-ceann-is-mo-7c9181
+1247,lib,súgradh,lib-sugradh-88cfad
+1248,lib,suigh,lib-suigh-8fc619
+1249,lib,súil,lib-suil-32b225
+1250,lib,súile,lib-suile-130e45
+1251,lib,T-léine,lib-t-leine-d5bbb1
+1252,lib,T-rex,lib-t-rex-832f72
+1253,lib,Tá an sos thart,lib-ta-an-sos-thart-ab3b75
+1254,lib,Tá an t-am istigh,lib-ta-an-t-am-istigh-4d1131
+1255,lib,tá brón orm,lib-ta-bron-orm-ccd4bc
+1256,lib,Tá madra mór ag tafann,lib-ta-madra-mor-ag-tafann-b62891
+1257,lib,Tá sé an-déanach,lib-ta-se-an-deanach-06f356
+1258,lib,tagann an ghrian amach,lib-tagann-an-ghrian-amach-dc8d9e
+1259,lib,Táim réidh,lib-taim-reidh-4e465b
+1260,lib,taispeáin,lib-taispeain-a32c59
+1261,lib,Taispeáin dom,lib-taispeain-dom-80f924
+1262,lib,taos fiacla,lib-taos-fiacla-ad1e2b
+1263,lib,taos fiacla ar an scuab,lib-taos-fiacla-ar-an-scuab-42fddc
+1264,lib,tar,lib-tar-680254
+1265,lib,tarraing,lib-tarraing-e5ae22
+1266,lib,tart,lib-tart-bda067
+1267,lib,te,lib-te-33e950
+1268,lib,Téann,lib-teann-65d184
+1269,lib,Téann arán agus im le chéile,lib-teann-aran-agus-im-le-cheile-5e15f0
+1270,lib,Téann babhla agus spúnóg le chéile,lib-teann-babhla-agus-spunog-le-cheile-1fa227
+1271,lib,Téann bainne agus briosca le chéile,lib-teann-bainne-agus-briosca-le-cheile-e7da16
+1272,lib,Téann báisteach agus scáth fearthainne le chéile,lib-teann-baisteach-agus-scath-fearthainne-l-18045c
+1273,lib,Téann banana agus moncaí le chéile,lib-teann-banana-agus-moncai-le-cheile-8d041d
+1274,lib,Téann beach agus bláth le chéile,lib-teann-beach-agus-blath-le-cheile-0b81d3
+1275,lib,Téann bláth agus beach le chéile,lib-teann-blath-agus-beach-le-cheile-92cd28
+1276,lib,Téann briosca agus bainne le chéile,lib-teann-briosca-agus-bainne-le-cheile-bef42f
+1277,lib,Téann bróga agus stocaí le chéile,lib-teann-broga-agus-stocai-le-cheile-d6bde6
+1278,lib,Téann cairéad agus coinín le chéile,lib-teann-cairead-agus-coinin-le-cheile-b4db41
+1279,lib,Téann cearc agus ubh le chéile,lib-teann-cearc-agus-ubh-le-cheile-7989a9
+1280,lib,Téann cnámh agus madra le chéile,lib-teann-cnamh-agus-madra-le-cheile-cd47f5
+1281,lib,Téann coinín agus cairéad le chéile,lib-teann-coinin-agus-cairead-le-cheile-46d141
+1282,lib,Téann cúl agus liathróid le chéile,lib-teann-cul-agus-liathroid-le-cheile-bbd915
+1283,lib,Téann doras agus eochair le chéile,lib-teann-doras-agus-eochair-le-cheile-4bb94a
+1284,lib,Téann eochair agus doras le chéile,lib-teann-eochair-agus-doras-le-cheile-37c356
+1285,lib,Téann im agus arán le chéile,lib-teann-im-agus-aran-le-cheile-39c768
+1286,lib,Téann lámhainní agus sneachta le chéile,lib-teann-lamhainni-agus-sneachta-le-cheile-89b8f7
+1287,lib,Téann leaba agus teidí le chéile,lib-teann-leaba-agus-teidi-le-cheile-242e74
+1288,lib,Téann liathróid agus cúl le chéile,lib-teann-liathroid-agus-cul-le-cheile-ee9056
+1289,lib,Téann madra agus cnámh le chéile,lib-teann-madra-agus-cnamh-le-cheile-c1adb2
+1290,lib,Téann moncaí agus banana le chéile,lib-teann-moncai-agus-banana-le-cheile-84f16a
+1291,lib,Téann páipéar agus peann luaidhe le chéile,lib-teann-paipear-agus-peann-luaidhe-le-chei-3f7fd8
+1292,lib,Téann peann luaidhe agus páipéar le chéile,lib-teann-peann-luaidhe-agus-paipear-le-chei-409123
+1293,lib,Téann péinteanna agus scuab phéinte le chéile,lib-teann-peinteanna-agus-scuab-pheinte-le-c-0b3b21
+1294,lib,Téann scáth fearthainne agus báisteach le chéile,lib-teann-scath-fearthainne-agus-baisteach-l-c49470
+1295,lib,Téann scuab phéinte agus péinteanna le chéile,lib-teann-scuab-pheinte-agus-peinteanna-le-c-090a0e
+1296,lib,Téann sneachta agus lámhainní le chéile,lib-teann-sneachta-agus-lamhainni-le-cheile-6e827f
+1297,lib,Téann spúnóg agus babhla le chéile,lib-teann-spunog-agus-babhla-le-cheile-8486ea
+1298,lib,Téann stocaí agus bróga le chéile,lib-teann-stocai-agus-broga-le-cheile-4d9523
+1299,lib,Téann teidí agus leaba le chéile,lib-teann-teidi-agus-leaba-le-cheile-81ff59
+1300,lib,Téann ubh agus cearc le chéile,lib-teann-ubh-agus-cearc-le-cheile-93b89a
+1301,lib,teidí,lib-teidi-73be12
+1302,lib,téigh,lib-teigh-6b430e
+1303,lib,teilifís,lib-teilifis-68e88a
+1304,lib,Thit an t-uachtar reoite ar an talamh,lib-thit-an-t-uachtar-reoite-ar-an-talamh-adc5f2
+1305,lib,tintreach,lib-tintreach-3e4cc6
+1306,lib,titeann sneachta,lib-titeann-sneachta-5b469c
+1307,lib,Tóg do chuid ama,lib-tog-do-chuid-ama-41114b
+1308,lib,Tosaigh,lib-tosaigh-9fc780
+1309,lib,Tosaigh arís,lib-tosaigh-aris-a33de6
+1310,lib,tósta,lib-tosta-d43f34
+1311,lib,trá,lib-tra-c8ab1d
+1312,lib,trampailín,lib-trampailin-d2d5a5
+1313,lib,tráthnóna,lib-trathnona-84562f
+1314,lib,triantán,lib-triantan-05f39f
+1315,lib,triomaigh do lámha,lib-triomaigh-do-lamha-748a6a
+1316,lib,troigh,lib-troigh-df8ef5
+1317,lib,trumpa,lib-trumpa-16d2bc
+1318,lib,tú,lib-tu-044e99
+1319,lib,tuáille,lib-tuaille-153152
+1320,lib,tuar ceatha,lib-tuar-ceatha-ae4138
+1321,lib,Tuilleadh le déanamh,lib-tuilleadh-le-deanamh-eef697
+1322,lib,tuirseach,lib-tuirseach-bbe9b1
+1323,lib,uachtar reoite,lib-uachtar-reoite-972bc8
+1324,lib,Uimhreacha,lib-uimhreacha-091455
+1325,lib,veidhlín,lib-veidhlin-85fbad
+1326,lib,yó-yó,lib-yo-yo-f7d3de

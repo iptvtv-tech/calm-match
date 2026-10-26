@@ -20,7 +20,7 @@ Irish will use the same system once there are Irish recordings (ABAIR or a fluen
 
 ## When words change
 
-1. `node tools/audio/harvest.js` — lists every piece the site can say (reads the site's own code, so new
+1. `node tools/audio/harvest.js` (and `--lang ga` for Irish) — lists every piece the site can say (reads the site's own code, so new
    games, phrases or words are picked up), and checks sample sentences can all be put together.
 2. `python3 tools/audio/build.py check` — what's missing or no longer used (delete unused files).
 3. Make the missing clips (below). The manifest is rebuilt automatically.
@@ -68,5 +68,14 @@ How the clips are made, and why:
 ## Irish
 
 Kokoro has no Irish voice. Irish clips need a fluent speaker (`import`), or ABAIR (abair.ie, Trinity College
-Dublin) if permission is granted. Finish the Irish speaker's check of the word lists before recording.
-Irish still needs its own phrase list: `harvest.js` lists English only for now.
+Dublin) if permission is granted. **Finish the Irish text check first**: `node tools/irish-review.js` writes
+`docs/irish-review.md`, every piece of Irish on the site beside its English, for a fluent speaker.
+
+Then `node tools/audio/harvest.js --lang ga` writes `phrases-ga.json` (about 1,300 pieces: the same shape as
+English, from the same site code, so `build.py script --lang ga`, `import --lang ga`, `check` and the manifest
+all work for Irish already). Two things differ from English:
+
+- Skill names, the starter stories and the two settings messages in `app.js` are English only on the site,
+  so they are not in the Irish list.
+- A number before a noun changes form in Irish, so whole phrases with a number ("3 nóiméad fágtha") carry no
+  `say` text: the speaker writes the spoken form in section 12 of the review sheet, and the recording follows it.

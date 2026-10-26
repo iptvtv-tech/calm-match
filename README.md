@@ -49,8 +49,9 @@ site/                  ← deploy this folder (Cloudflare Pages "build output di
   vendor/supabase.js    the Supabase sign-in library (self-hosted; not in the zips, keep your copy)
 tools/build-symbols.py   copies chosen Mulberry symbols into site/symbols (and tools/symbols-own/)
 tools/archive-policies.py keeps dated copies of the policy pages
+tools/irish-review.js    writes docs/irish-review.md: every Irish string beside its English, for a fluent speaker
 tools/tests/check.py    regression check: run before every push (see "Before every push")
-docs/                  plans for class sync and app-store versions (not built)
+docs/                  Irish review sheet, Sing along lyrics sheet, plans for class sync and app-store versions (not built)
 supabase/schema.sql    database tables, privacy rules and delete-account function
 supabase/02-account-deletion-email.sql   confirmation email when a parent deletes their account
 supabase/03-inactive-account-cleanup.sql monthly job: warn after 23 months unused, delete after 24
