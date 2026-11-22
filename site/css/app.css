@@ -228,8 +228,6 @@ textarea{width:100%;min-height:120px;font:13px/1.4 var(--mono);background:var(--
 .pcard .pic{font-size:22px;letter-spacing:-2px;min-width:3em;text-align:center}
 .pcard b{display:block;font-family:var(--display);font-weight:600;font-size:15px}
 .pcard div{min-width:0}
-details.rules summary{cursor:pointer;font-weight:700;font-size:15px}
-details.rules p{margin-top:8px}
 
 /* ---------- first/then board and visual timer ---------- */
 .chip.act{font-size:14px;padding:6px 12px}

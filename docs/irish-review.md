@@ -999,7 +999,6 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | Children and device | Páistí agus gléas |  |
 | Summary | Achoimre |  |
 | History | Stair |  |
-| Why it chose | Cén fáth ar roghnaigh sé |  |
 | Schedules and timer | Sceidil agus amadóir |  |
 | Talk | Caint |  |
 | Stories | Scéalta |  |
@@ -1046,6 +1045,8 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | Copy as text | Cóipeáil mar théacs |  |
 | Download full backup (JSON) | Íoslódáil cúltaca iomlán (JSON) |  |
 | The spreadsheet has one row per game played. The child's nickname is included, so check before sending it on. | Tá líne amháin sa scarbhileog do gach cluiche a imríodh. Tá leasainm an pháiste ann, mar sin seiceáil é sula gcuireann tú ar aghaidh é. |  |
+| The rules | Na rialacha |  |
+| On this visit | Ar an gcuairt seo |  |
 | Every decision the engine makes on this visit, newest first. | Gach cinneadh a dhéanann an t-inneall ar an gcuairt seo, an ceann is nuaí ar dtús. |  |
 | First / Then board | Clár Ar dtús / Ansin |  |
 | Shows "First this, then that" full-size for your child. Pictures and words follow the game language. For more steps, use a schedule below. | Taispeánann sé "Ar dtús seo, ansin siúd" go mór do do pháiste. Leanann na pictiúir agus na focail teanga na gcluichí. Le haghaidh tuilleadh céimeanna, úsáid sceideal thíos. |  |
@@ -1234,7 +1235,7 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | More feelings | Tuilleadh mothúchán |  |
 | Adds calm, silly, worried and loving to the Feelings game. Best once your child knows happy, sad, angry, scared, surprised and sleepy. | Cuireann sé ciúin, amaideach, imníoch agus grámhar leis an gcluiche Mothúcháin. Is fearr é nuair is eol do do pháiste sona, brónach, crosta, scanraithe, iontas agus codladh. |  |
 | Auto-adjust difficulty | Coigeartaigh an deacracht go huathoibríoch |  |
-| Adds or removes answer choices using the rules in Progress > Summary. | Cuireann sé roghanna freagra leis nó baineann sé iad, de réir na rialacha in Dul chun cinn > Achoimre. |  |
+| Adds or removes answer choices using the rules in Progress > How the engine decides. | Cuireann sé roghanna freagra leis nó baineann sé iad, de réir na rialacha in Dul chun cinn > Conas a shocraíonn an t-inneall. |  |
 | Games per session | Cluichí sa seisiún |  |
 | Turns per game | Babhtaí sa chluiche |  |
 | Which games | Cé na cluichí |  |
@@ -1478,4 +1479,4 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 7. **Your name for the credits page**, and the dialect to name there.
 8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in "Ba mhaith liom" + "úll". "I need" ("Teastaíonn … uaim") and "I feel" ("Tá mé …") don't do that for every word. Is there a natural way to say "I need" and "I feel" with the word at the end, or are whole-sentence cards better for these? Also: "I feel sad" is "Tá mé brónach" so it isn't mixed up with "Tá brón orm" (sorry). Is that right?
 
-_1163 items in this sheet._
+_1164 items in this sheet._

@@ -65,10 +65,6 @@
         <h3>Next session</h3>
         <ol class="pplan" id="planPreview"></ol>
       </div>
-      <details class="rules">
-        <summary>How the engine decides</summary>
-        <p class="note">Inside a game: 3 right first time in a row adds an answer choice. 2 misses on one turn puts a dashed outline on the right answer and removes a choice next turn. In Pairs, two good boards shorten the peek at the start. With errorless start on, a new skill begins with the right answer highlighted; after 2 right answers the help drops to an outline, then to no help. Helped answers don't count towards "how sure". Between sessions: a game where fewer than half the independent turns were right first time is flagged, and next time the engine practises the skill before it. Sessions start with the strongest game and end on something familiar. Once a session starts its plan never changes.</p>
-      </details>
     </section>
 
     <!-- HISTORY -->
@@ -198,7 +194,7 @@
         <h3>Help</h3>
         <label class="toggle" style="border:0"><input type="checkbox" id="s-errorless"><span>Errorless start<small>New skills begin with the right answer highlighted and the others greyed out. After 2 right answers the help drops to an outline, then goes away. If your child struggles, the outline comes back.</small></span></label>
         <label class="toggle" style="border:0"><input type="checkbox" id="s-moreFeelings"><span>More feelings<small>Adds calm, silly, worried and loving to the Feelings game. Best once your child knows happy, sad, angry, scared, surprised and sleepy.</small></span></label>
-        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules in Progress > Summary.</small></span></label>
+        <label class="toggle" style="border:0"><input type="checkbox" id="s-adaptive"><span>Auto-adjust difficulty<small>Adds or removes answer choices using the rules in Progress > How the engine decides.</small></span></label>
       </div>
       <div class="grid2">
         <div><h3>Games per session</h3><div class="chips" id="blockChips"></div></div>
@@ -352,8 +348,15 @@
 
     <!-- ENGINE LOG -->
     <section data-pane="engine" hidden>
-      <p class="note">Every decision the engine makes on this visit, newest first.</p>
-      <ul class="log" id="log"></ul>
+      <div>
+        <h3>The rules</h3>
+        <p class="note">Inside a game: 3 right first time in a row adds an answer choice. 2 misses on one turn puts a dashed outline on the right answer and removes a choice next turn. In Pairs, two good boards shorten the peek at the start. With errorless start on, a new skill begins with the right answer highlighted; after 2 right answers the help drops to an outline, then to no help. Helped answers don't count towards "how sure". Between sessions: a game where fewer than half the independent turns were right first time is flagged, and next time the engine practises the skill before it. Sessions start with the strongest game and end on something familiar. Once a session starts its plan never changes.</p>
+      </div>
+      <div>
+        <h3>On this visit</h3>
+        <p class="note">Every decision the engine makes on this visit, newest first.</p>
+        <ul class="log" id="log"></ul>
+      </div>
     </section>
     </div>
     </div>

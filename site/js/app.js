@@ -759,7 +759,7 @@
   }
   // Grown-ups area: four sections, each with a few pages. Ids are the data-pane names in play.html.
   var GROUPS = [
-    { id: "progress", icon: "📈", label: "Progress", tabs: [["skills", "Summary"], ["history", "History"], ["engine", "Why it chose"]] },
+    { id: "progress", icon: "📈", label: "Progress", tabs: [["skills", "Summary"], ["history", "History"], ["engine", "How the engine decides"]] },
     { id: "make", icon: "✏️", label: "Make", tabs: [["tools", "Schedules and timer"], ["talk", "Talk"], ["cards", "Talk cards"], ["stories", "Stories"], ["pictures", "Pictures"], ["alpha", "Alphabet"], ["sing", "Sing along"]] },
     { id: "settings", icon: "⚙️", label: "Settings", tabs: [["set-senses", "Senses and voice"], ["set-games", "Games"], ["set-home", "Home screen"], ["set-rewards", "Rewards and breaks"]] },
     { id: "people", icon: "👥", label: "Children and device", tabs: [["child", "Children"], ["class", "Classroom"], ["backup", "Backup"], ["account", "Account"], ["device", "This device"]] }
