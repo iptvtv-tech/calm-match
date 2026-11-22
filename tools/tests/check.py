@@ -58,6 +58,8 @@ noindex = [u for u in urls if sm_file(u) and 'name="robots"' in read(sm_file(u))
 ok("sitemap: no noindex pages listed", not noindex, str(noindex))
 canon = [u for u in urls if sm_file(u) and '<link rel="canonical" href="https://calmmatch.com/%s">' % u not in read(sm_file(u))]
 ok("canonical tag on every sitemap page matches its address", not canon, str(canon))
+og_missing = [(u, m) for u in urls if sm_file(u) for m in re.findall(r'property="og:image" content="https://calmmatch\.com/([^"]+)"', read(sm_file(u))) if not os.path.isfile(os.path.join(SITE, m))]
+ok("preview pictures (og:image) all exist", not og_missing, str(og_missing))
 
 # ---------- words ----------
 print("words")
