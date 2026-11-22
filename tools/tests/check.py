@@ -5,7 +5,8 @@
     python3 tools/tests/check.py --no-browser   # file checks only (no Playwright needed)
 
 What it checks
-  files     every file listed in site/sw.js and site/audio/manifest.json exists; every sitemap URL has a file
+  files     every file listed in site/sw.js and site/audio/manifest.json exists; every sitemap URL has a file,
+            is a final address (no .html) and matches the page's canonical tag
   words     the policy pages describe Emma correctly and the credits page credits Kokoro
   version   sw.js VERSION looks like cm-YYYY-MM-DD-N and is not older than the newest site file
   pages     (browser) every public page loads at phone and tablet width with no console errors
@@ -44,10 +45,19 @@ ok("audio manifest: %d clips all exist" % len(files), not miss_audio, str(miss_a
 
 sm = read("sitemap.xml")
 urls = re.findall(r"<loc>https://calmmatch\.com/([^<]*)</loc>", sm)
-miss_sm = [u for u in urls if not os.path.exists(os.path.join(SITE, u or "index.html")) and not os.path.exists(os.path.join(SITE, u, "index.html"))]
+def sm_file(u):
+    """The file the site serves for a sitemap address: '' -> index.html, 'play' -> play.html, 'alphabet/' -> alphabet/index.html."""
+    for f in ([u + "index.html"] if u.endswith("/") or not u else [u + ".html", u]):
+        if os.path.isfile(os.path.join(SITE, f)): return f
+    return None
+miss_sm = [u for u in urls if not sm_file(u)]
 ok("sitemap: %d URLs all have a page" % len(urls), not miss_sm, str(miss_sm))
-noindex = [u for u in urls if u and os.path.isfile(os.path.join(SITE, u)) and 'name="robots"' in read(u)]
+html_sm = [u for u in urls if u.endswith(".html")]
+ok("sitemap: final addresses only (/play, not /play.html, which redirects)", not html_sm, str(html_sm))
+noindex = [u for u in urls if sm_file(u) and 'name="robots"' in read(sm_file(u))]
 ok("sitemap: no noindex pages listed", not noindex, str(noindex))
+canon = [u for u in urls if sm_file(u) and '<link rel="canonical" href="https://calmmatch.com/%s">' % u not in read(sm_file(u))]
+ok("canonical tag on every sitemap page matches its address", not canon, str(canon))
 
 # ---------- words ----------
 print("words")

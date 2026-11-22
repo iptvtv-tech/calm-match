@@ -59,6 +59,7 @@ def archive(slug, label, date_text, date):
         return dest
     page = open(src, encoding="utf-8").read()
     page = freeze(relink(page))
+    page = re.sub(r'<link rel="canonical"[^>]*>\n?', "", page)  # archives are noindex copies, not the canonical page
     page = page.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
     page = re.sub(r"<title>(.*?)</title>", lambda m: f"<title>{m.group(1)} (version of {html.escape(date_text)})</title>", page, count=1)
     banner = (f'<div class="msg info" role="note" style="margin:0 0 20px"><b>This is a saved copy</b> of the {html.escape(label.lower())} '
