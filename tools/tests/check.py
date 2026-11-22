@@ -60,6 +60,8 @@ canon = [u for u in urls if sm_file(u) and '<link rel="canonical" href="https://
 ok("canonical tag on every sitemap page matches its address", not canon, str(canon))
 og_missing = [(u, m) for u in urls if sm_file(u) for m in re.findall(r'property="og:image" content="https://calmmatch\.com/([^"]+)"', read(sm_file(u))) if not os.path.isfile(os.path.join(SITE, m))]
 ok("preview pictures (og:image) all exist", not og_missing, str(og_missing))
+icon_missing = [h for h in re.findall(r'<link rel="(?:icon|apple-touch-icon)" href="([^"]+)"', read("index.html")) if not os.path.isfile(os.path.join(SITE, h.lstrip("/")))]
+ok("home page icons and /favicon.ico exist (Google uses them in search results)", not icon_missing and os.path.isfile(os.path.join(SITE, "favicon.ico")), str(icon_missing))
 try:
     sp = subprocess.run(["node", os.path.join(ROOT, "tools", "song-pages.js"), "--check"], capture_output=True, text=True)
     ok("song pages match songs.js and tools/song-pages.json", sp.returncode == 0, (sp.stdout + sp.stderr).strip())
