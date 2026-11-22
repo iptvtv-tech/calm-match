@@ -793,7 +793,7 @@
   }
   // "What's new" note at the top of Children: shown until a grown-up taps Got it, then hidden until the next update
   // (the date below changes). Remembered on this device only, like every other setting.
-  var WHATS_NEW = "2026-10";
+  var WHATS_NEW = "2026-11";
   function renderWhatsNew() {
     var box = $("whatsNew"); if (!box) return;
     var app = CM.store.db().app;

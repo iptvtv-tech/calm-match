@@ -2,8 +2,8 @@
    Starter cards ("I want", "I need" …) go next to a picture card on a sentence strip; whole-sentence cards
    ("I need a break") say it all on one card; picture cards come from the Talk board's pages, so a child sees
    the same picture on the screen and on paper. A grown-up can add their own sentence cards.
-   Sentence strips ("I want ___") are two cards wide: the starter, then an empty box that a picture card of the
-   same size covers. They print as a full sheet of their own.
+   Sentence strips ("I want ___", "I like ___" …) are two cards wide: the starter, then an empty box that a picture
+   card of the same size covers. The chosen strips take turns to fill whole sheets of their own.
    The cards are made on this device and printed by the browser. Own sentence cards and the print choices are
    kept with the Talk board in the device library (js/library.js); nothing is sent anywhere.
    The Irish needs checking by a fluent speaker (tools/irish-review.js lists it). "…" in Irish marks where the
@@ -45,9 +45,10 @@
   ];
   var SIZES = [["page", "Full page", 1], ["half", "Half page", 2], ["large", "Large", 6], ["medium", "Medium", 12], ["keyring", "Keyring", 20]];
   // Sentence strips: which starters get one (ids from STARTERS), and how many fit a sheet at each size.
-  // Only "I want" for now: in Irish it works with the word at the end ("Ba mhaith liom úll"). "I need" and "I feel"
-  // put the word in the middle in Irish ("Teastaíonn … uaim"), so they wait for the Irish checker (question 8).
-  var STRIPS = ["want"];
+  // Only starters that keep the word at the end in Irish too ("Ba mhaith liom úll", "Is maith liom úll", "Feicim úll").
+  // "I need" and "I feel" put the word in the middle in Irish ("Teastaíonn … uaim"), so they wait for the Irish
+  // checker (question 8 on the review sheet).
+  var STRIPS = ["want", "dontwant", "like", "dontlike", "love", "see"];
   var STRIP_PER = { large: 3, medium: 4, keyring: 10 };
   // A strip's box fits a picture card of the same size. Full page and Half page cards are too big for a strip,
   // so with those sizes the strips print at Large.
@@ -86,6 +87,7 @@
     if (typeof o.starters !== "boolean") o.starters = true;
     if (typeof o.sentences !== "boolean") o.sentences = true;
     if (typeof o.strips !== "boolean") o.strips = false;
+    o.stripIds = Array.isArray(o.stripIds) ? o.stripIds.filter(function (id) { return STRIPS.indexOf(id) >= 0; }) : ["want"];
     o.pages = Array.isArray(o.pages) ? o.pages : [];
     o.skip = Array.isArray(o.skip) ? o.skip : [];
     if (!SIZES.some(function (s) { return s[0] === o.size; })) o.size = "medium";
@@ -123,21 +125,25 @@
   function per(o) { return SIZES.filter(function (s) { return s[0] === o.size; })[0][2]; }
 
   /* ---------- sentence strips ---------- */
+  function starter(id) { return STARTERS.filter(function (x) { return x[0] === id; })[0]; }
+  // The chosen strips take turns until the last sheet is full (one kind chosen: a whole sheet of it).
   function strips(o) {
-    if (!o.strips) return [];
-    var one = STRIPS.map(function (id) { var s = STARTERS.filter(function (x) { return x[0] === id; })[0]; return { kind: "act", pics: [sym("i"), sym(s[3], s[4])], en: s[1], ga: s[2] }; });
-    var out = [], n = STRIP_PER[stripSize(o)];
-    for (var i = 0; out.length < n; i++) out.push(one[i % one.length]);
+    var chosen = o.stripIds || ["want"], ids = STRIPS.filter(function (id) { return chosen.indexOf(id) >= 0; });
+    if (!o.strips || !ids.length) return [];
+    var kinds = ids.map(function (id) { var s = starter(id); return { kind: "act", pics: [sym("i"), sym(s[3], s[4])], en: s[1], ga: s[2] }; });
+    var n = STRIP_PER[stripSize(o)], total = Math.ceil(kinds.length / n) * n, out = [];
+    for (var i = 0; i < total; i++) out.push(kinds[i % kinds.length]);
     return out;
   }
   function stripHtml(c, o) {
     return '<div class="pc-cell pc-scell"><div class="pc-card pc-strip k-' + c.kind + '"><div class="pc-sl"><div class="pc-pics two">' + c.pics.join("") + "</div>" + words(c, o.words) + '</div><i class="pc-slot" aria-hidden="true"></i></div></div>';
   }
-  // One sheet of strips, in its own wrapper at the strip size. newPage: start it on a fresh sheet of paper.
+  // The strips, in their own wrapper at the strip size, a sheet of paper each. newPage: start on a fresh sheet.
   function stripSheet(o, newPage) {
     var list = strips(o); if (!list.length) return "";
-    var so = Object.assign({}, o, { size: stripSize(o) });
-    return wrap(so, newPage ? " pc-newpage" : "") + '<div class="pc-sheet pc-strips">' + list.map(function (c) { return stripHtml(c, so); }).join("") + "</div></div>";
+    var so = Object.assign({}, o, { size: stripSize(o) }), n = STRIP_PER[so.size], html = "";
+    for (var i = 0; i < list.length; i += n) html += '<div class="pc-sheet pc-strips">' + list.slice(i, i + n).map(function (c) { return stripHtml(c, so); }).join("") + "</div>";
+    return wrap(so, newPage ? " pc-newpage" : "") + html + "</div>";
   }
   function sheets(cards, o, extra) {
     var n = per(o), html = "";
@@ -162,7 +168,7 @@
   /* ---------- grown-ups: Talk cards tab ---------- */
   function renderTab(box, helpers) {
     var k = CM.lib.kid(), o = opts(k), pg = pages(k), cards = list(k, o), stripN = strips(o).length;
-    var sheetsN = Math.ceil(cards.length / per(o)) + (stripN ? 1 : 0);
+    var sheetsN = Math.ceil(cards.length / per(o)) + Math.ceil(stripN / STRIP_PER[stripSize(o)]);
     preload(cards.concat(strips(o)));
     var check = function (attr, val, on, label, n) {
       return '<label class="check"><input type="checkbox" ' + attr + '="' + esc(val) + '"' + (on ? " checked" : "") + "> " + esc(label) + (n != null ? " <small>(" + n + ")</small>" : "") + "</label>";
@@ -172,11 +178,13 @@
     box.innerHTML =
       '<div><h3>Talk cards</h3><p class="note">Picture cards to print and cut out, with the same pictures as the Talk board. Put a starter card like "I want" next to a picture card, or use a whole-sentence card like "I need a break". Keep them on the fridge, in a folder or on a keyring.</p></div>' +
       '<div><h3>Which cards</h3><div class="tk-hide">' + check("data-set", "starters", o.starters, "Starter cards", STARTERS.length) + check("data-set", "sentences", o.sentences, "Whole sentences", SENTENCES.length + own.length) +
-          check("data-set", "strips", o.strips, "Sentence strips: I want ___") + "</div>" +
-        '<p class="note">A sentence strip has "I want" and an empty box. Put a picture card of the same size on the box: "I want" and "apple". A full sheet of strips prints. With Full page or Half page, strips print at Large size.</p>' +
+          check("data-set", "strips", o.strips, "Sentence strips", o.stripIds.length) + "</div>" +
         '<details class="pc-choose"><summary>Choose which starters and sentences</summary><div class="tk-hide">' +
           STARTERS.map(function (s) { return check("data-skip", "st:" + s[0], o.skip.indexOf("st:" + s[0]) < 0, s[1]); }).join("") + "</div><div class=\"tk-hide\">" +
           SENTENCES.map(function (s) { return check("data-skip", "se:" + s[0], o.skip.indexOf("se:" + s[0]) < 0, s[1]); }).join("") + "</div></details>" +
+        '<details class="pc-choose"' + (box.__pcStripsOpen ? " open" : "") + ' id="pcStripPick"><summary>Choose which strips</summary><div class="tk-hide">' +
+          STRIPS.map(function (id) { return check("data-strip", id, o.stripIds.indexOf(id) >= 0, starter(id)[1] + " ___"); }).join("") + "</div></details>" +
+        '<p class="note">A sentence strip has a starter like "I want" and an empty box. Put a picture card of the same size on the box: "I want" and "apple". The strips you choose take turns to fill whole sheets. With Full page or Half page, strips print at Large size.</p>' +
         '<p class="note">Picture cards from the Talk board:</p><div class="tk-hide">' +
           pg.map(function (p) { return check("data-page", p[0], o.pages.indexOf(p[0]) >= 0, p[1], p[2].length); }).join("") + "</div></div>" +
       '<div><h3>How they look</h3>' +
@@ -206,8 +214,12 @@
     box.querySelectorAll("[data-skip]").forEach(function (c) {
       c.onchange = function () { var id = c.dataset.skip, i = o.skip.indexOf(id); if (c.checked && i >= 0) o.skip.splice(i, 1); if (!c.checked && i < 0) o.skip.push(id); save(); again('[data-skip="' + id + '"]'); };
     });
-    var det = box.querySelector(".pc-choose"); if (det && box.__pcOpen) det.open = true;
+    var det = box.querySelector(".pc-choose:not(#pcStripPick)"); if (det && box.__pcOpen) det.open = true;
     if (det) det.ontoggle = function () { box.__pcOpen = det.open; };
+    box.querySelectorAll("[data-strip]").forEach(function (c) {
+      c.onchange = function () { var id = c.dataset.strip, i = o.stripIds.indexOf(id); if (c.checked && i < 0) o.stripIds.push(id); if (!c.checked && i >= 0) o.stripIds.splice(i, 1); save(); again('[data-strip="' + id + '"]'); };
+    });
+    var sp = $("pcStripPick"); if (sp) sp.ontoggle = function () { box.__pcStripsOpen = sp.open; };
     box.querySelectorAll("[data-page]").forEach(function (c) {
       c.onchange = function () { var id = c.dataset.page, i = o.pages.indexOf(id); if (c.checked && i < 0) o.pages.push(id); if (!c.checked && i >= 0) o.pages.splice(i, 1); save(); again('[data-page="' + id + '"]'); };
     });

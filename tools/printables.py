@@ -9,6 +9,9 @@ Writes, for English, Irish and both languages:
         1. a full-page "I want" card
         2. a sheet of three "I want ___" sentence strips (Large)
         3. six Large picture cards that fit the strips' box: water, apple, biscuit, ball, bubbles, hug
+    site/printables/sentence-strips-<english|gaeilge|english-and-irish>.pdf   (A4, three pages)
+        1-2. one of each sentence strip (Large): I want, I don't want, I like, I don't like, I love, I see
+        3. the same six picture cards
 and the picture on the Talk cards page:
     site/img/i-want-strip-sample.webp   (a strip with the apple card on its box)
 
@@ -25,6 +28,8 @@ OUT = os.path.join(SITE, "printables")
 PORT = 8771
 LANGS = [("en", "english", "I want cards (English)"), ("ga", "gaeilge", "Cártaí Ba mhaith liom (Gaeilge)"),
          ("both", "english-and-irish", "I want cards (English and Irish)")]
+STRIP_LANGS = [("en", "english", "Sentence strips (English)"), ("ga", "gaeilge", "Stiallacha abairte (Gaeilge)"),
+               ("both", "english-and-irish", "Sentence strips (English and Irish)")]
 PICTURES = ["water", "apple", "biscuit", "ball", "bubbles", "hug"]   # each reads well after "I want" and "Ba mhaith liom"
 
 BUILD = """([words, pictures]) => {
@@ -36,7 +41,17 @@ BUILD = """([words, pictures]) => {
   const pics = pictures.map(en => all.find(c => c.en === en));
   if (want.length !== 1 || pics.some(c => !c)) throw new Error("card missing: " + JSON.stringify(pictures));
   window.__printed = 0;
-  CM.ui.print(CM.cards.sheets(want, page) + CM.cards.stripSheet(large, true) + CM.cards.sheets(pics, large, " pc-newpage"));
+  CM.ui.print(CM.cards.sheets(want, page) + CM.cards.stripSheet(Object.assign({}, large, { stripIds: ["want"] }), true) + CM.cards.sheets(pics, large, " pc-newpage"));
+}"""
+
+# Every strip once (the chosen strips take turns to fill whole sheets: six at Large make exactly two), then the pictures.
+BUILD_STRIPS = """([words, pictures]) => {
+  const k = CM.lib.kid();
+  const large = { edges: "colour", words, starters: false, sentences: false, strips: true, stripIds: CM.cards.STRIPS.slice(), pages: ["food", "drink", "play", "calm"], skip: [], size: "large" };
+  const pics = pictures.map(en => CM.cards.list(k, large).find(c => c.en === en));
+  if (pics.some(c => !c)) throw new Error("card missing: " + JSON.stringify(pictures));
+  window.__printed = 0;
+  CM.ui.print(CM.cards.stripSheet(large, false) + CM.cards.sheets(pics, large, " pc-newpage"));
 }"""
 
 srv = subprocess.Popen([sys.executable, "-m", "http.server", str(PORT), "-d", SITE], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -59,6 +74,16 @@ try:
             pg.evaluate("t => { document.title = t + ' · Calm Match'; }", title)
             pg.emulate_media(media="print")
             path = os.path.join(OUT, "i-want-card-%s.pdf" % slug)
+            pg.pdf(path=path, format="A4", print_background=True, margin={"top": "10mm", "bottom": "10mm", "left": "10mm", "right": "10mm"})
+            print("printables/%s %d KB" % (os.path.basename(path), os.path.getsize(path) // 1024))
+            pg.evaluate("document.body.classList.remove('printing')")
+        for words, slug, title in STRIP_LANGS:
+            pg.emulate_media(media="screen")
+            pg.evaluate(BUILD_STRIPS, [words, PICTURES])
+            pg.wait_for_function("window.__printed === 1", timeout=10000)
+            pg.evaluate("t => { document.title = t + ' · Calm Match'; }", title)
+            pg.emulate_media(media="print")
+            path = os.path.join(OUT, "sentence-strips-%s.pdf" % slug)
             pg.pdf(path=path, format="A4", print_background=True, margin={"top": "10mm", "bottom": "10mm", "left": "10mm", "right": "10mm"})
             print("printables/%s %d KB" % (os.path.basename(path), os.path.getsize(path) // 1024))
             pg.evaluate("document.body.classList.remove('printing')")

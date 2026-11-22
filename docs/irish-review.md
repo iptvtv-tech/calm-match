@@ -974,19 +974,19 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 
 | English | Irish | OK? / correction |
 |---|---|---|
-| What's new — October 2026 | Cad atá nua — Deireadh Fómhair 2026 |  |
-| Picture doors. | Doirse pictiúr. |  |
-| Under Start, your child now has big picture doors to Sing along, the Alphabet book, Stories, Stickers, the Calm corner and My day. Turn any of them off in Settings › Home screen. | Faoi Tosaigh, tá doirse móra pictiúr ag do pháiste anois chuig Canaimis le chéile, an Leabhar Aibítre, Scéalta, Greamáin, an Cúinne Ciúin agus Mo Lá. Múch ceann ar bith díobh i Socruithe › Scáileán baile. |  |
-| The Grown-ups area is in four sections: | Tá limistéar na nDaoine Fásta i gceithre chuid: |  |
-| Progress, Make, Settings, and Children and device. Everything is still here; it's just grouped. | Dul chun cinn, Déan, Socruithe, agus Páistí agus gléas. Tá gach rud fós anseo; tá sé grúpáilte anois. |  |
-| Emma, a built-in voice. | Emma, guth ionsuite. |  |
-| English read-aloud now uses Emma on every device, even offline. Choose Slower, Normal or Faster in Settings › Senses and voice, or switch back to your device's own voice there. | Úsáideann léamh os ard an Bhéarla Emma anois ar gach gléas, fiú as líne. Roghnaigh Níos moille, Gnáth nó Níos tapúla i Socruithe › Céadfaí agus guth, nó athraigh ar ais go guth do ghléis féin ansin. |  |
-| Your child's name. | Ainm do pháiste. |  |
-| Record it once below and Emma will use it. Until then, she leaves the name out. | Taifead é uair amháin thíos agus úsáidfidh Emma é. Go dtí sin, fágann sí an t-ainm ar lár. |  |
-| Quick presets. | Réamhshocruithe tapa. |  |
-| Very calm, Standard and Bigger and clearer, at the top of Senses and voice. | An-chiúin, Caighdeánach agus Níos mó agus níos soiléire, ag barr Céadfaí agus guth. |  |
-| Gaeilge for grown-ups. | Gaeilge do dhaoine fásta. |  |
-| The switch at the top of this area shows it in Irish. The Irish is still being checked by a fluent speaker. | Taispeánann an lasc ag barr an limistéir seo i nGaeilge é. Tá an Ghaeilge fós á seiceáil ag cainteoir líofa. |  |
+| What's new — November 2026 | Cad atá nua — Samhain 2026 |  |
+| Talk cards. | Cártaí cainte. |  |
+| Print picture cards to cut out, in English, Irish or both, in Make › Talk cards. Five sizes, from one card on a page to keyring size. | Priontáil cártaí pictiúr le gearradh amach, i mBéarla, i nGaeilge nó sa dá theanga, in Déan › Cártaí cainte. Cúig mhéid, ó chárta amháin ar leathanach go méid fáinne eochrach. |  |
+| Sentence strips. | Stiallacha abairte. |  |
+| I want, I don't want, I like, I don't like, I love and I see, each with an empty box for a picture card. Tick Sentence strips in Make › Talk cards. | Ba mhaith liom, Níor mhaith liom, Is maith liom, Ní maith liom, Is breá liom agus Feicim, gach ceann le bosca folamh do chárta pictiúr. Cuir tic le Stiallacha abairte in Déan › Cártaí cainte. |  |
+| Seven more songs. | Seacht n-amhrán eile. |  |
+| Humpty Dumpty, Ring a Ring o' Roses, Head, Shoulders, Knees and Toes, Bingo, Here We Go Round the Mulberry Bush, Hush, Little Baby and Lavender's Blue, in Sing along. | Humpty Dumpty, Fáinne Rósanna, Ceann, Guaillí, Glúine is Cosa, Bingo, Timpeall an Toir Bhig, Fuist, a Linbh agus Labhandar Gorm, in Amhráin. |  |
+| How the engine decides. | Conas a shocraíonn an t-inneall. |  |
+| The page in Progress that was called "Why it chose" has a new name, and the rules are now on that page too, as a short list. | Tá ainm nua ar an leathanach in Dul chun cinn a raibh "Cén fáth ar roghnaigh sé" air, agus tá na rialacha ar an leathanach sin anois freisin, mar liosta gearr. |  |
+| Printing. | Priontáil. |  |
+| Printed cards, boards and schedules no longer have empty boxes where the pictures should be. | Ní bhíonn boscaí folmha a thuilleadh ar chártaí, ar chláir ná ar sceidil phriontáilte, áit ar cheart do na pictiúir a bheith. |  |
+| Free printables. | Rudaí le priontáil saor in aisce. |  |
+| "I want" cards and sentence strips to print, for anyone without the app, are on calmmatch.com/talk-cards. | Tá cártaí "Ba mhaith liom" agus stiallacha abairte le priontáil, do dhuine ar bith gan an aip, ar calmmatch.com/talk-cards. |  |
 | Got it | Tuigim |  |
 | Grown-ups | Daoine fásta |  |
 | Grown-ups sections | Ranna do dhaoine fásta |  |
@@ -1046,6 +1046,16 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | Download full backup (JSON) | Íoslódáil cúltaca iomlán (JSON) |  |
 | The spreadsheet has one row per game played. The child's nickname is included, so check before sending it on. | Tá líne amháin sa scarbhileog do gach cluiche a imríodh. Tá leasainm an pháiste ann, mar sin seiceáil é sula gcuireann tú ar aghaidh é. |  |
 | The rules | Na rialacha |  |
+| Inside a game | Laistigh de chluiche |  |
+| 3 right first time in a row adds an answer choice. | Cuireann 3 fhreagra atá ceart an chéad uair, as a chéile, rogha freagra leis. |  |
+| 2 misses on one turn puts a dashed outline on the right answer and removes a choice next turn. | Má bhíonn 2 bhotún ar bhabhta amháin, cuirtear imlíne bhriste ar an bhfreagra ceart agus baintear rogha amháin an chéad bhabhta eile. |  |
+| In Pairs, two good boards shorten the peek at the start. | In Péirí, giorraíonn dhá chlár mhaithe an spléachadh ag an tús. |  |
+| With errorless start on, a new skill begins with the right answer highlighted. After 2 right answers the help drops to an outline, then to no help. | Le Tús gan earráid ar siúl, tosaíonn scil nua leis an bhfreagra ceart aibhsithe. Tar éis 2 fhreagra chearta, ní bhíonn sa chabhair ach imlíne, agus ansin ní bhíonn cabhair ar bith. |  |
+| Helped answers don't count towards "how sure". | Ní áirítear freagraí a fuair cabhair i dtreo "cé chomh cinnte". |  |
+| Between sessions | Idir seisiúin |  |
+| A game where fewer than half the independent turns were right first time is flagged, and next time the engine practises the skill before it. | Má bhí níos lú ná leath de na babhtaí gan chabhair ceart an chéad uair i gcluiche, cuirtear marc air, agus an chéad uair eile cleachtann an t-inneall an scil roimpi. |  |
+| Sessions start with the strongest game and end on something familiar. | Tosaíonn seisiúin leis an gcluiche is láidre agus críochnaíonn siad le rud éigin aithnid. |  |
+| Once a session starts, its plan never changes. | Nuair a thosaíonn seisiún, ní athraíonn a phlean riamh. |  |
 | On this visit | Ar an gcuairt seo |  |
 | Every decision the engine makes on this visit, newest first. | Gach cinneadh a dhéanann an t-inneall ar an gcuairt seo, an ceann is nuaí ar dtús. |  |
 | First / Then board | Clár Ar dtús / Ansin |  |
@@ -1093,8 +1103,15 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | Whole sentences | Abairtí iomlána |  |
 | Choose which starters and sentences | Roghnaigh na cártaí tosaigh agus na habairtí |  |
 | Picture cards from the Talk board: | Cártaí pictiúr ón gclár cainte: |  |
-| Sentence strips: I want ___ | Stiallacha abairte: Ba mhaith liom ___ |  |
-| A sentence strip has "I want" and an empty box. Put a picture card of the same size on the box: "I want" and "apple". A full sheet of strips prints. With Full page or Half page, strips print at Large size. | Tá "Ba mhaith liom" agus bosca folamh ar stiall abairte. Cuir cárta pictiúr den mhéid chéanna ar an mbosca: "Ba mhaith liom" agus "úll". Priontáiltear leathanach iomlán stiallacha. Le Leathanach iomlán nó Leathleathanach, priontáiltear na stiallacha ag an méid Mór. |  |
+| Sentence strips | Stiallacha abairte |  |
+| Choose which strips | Roghnaigh na stiallacha |  |
+| I want ___ | Ba mhaith liom ___ |  |
+| I don't want ___ | Níor mhaith liom ___ |  |
+| I like ___ | Is maith liom ___ |  |
+| I don't like ___ | Ní maith liom ___ |  |
+| I love ___ | Is breá liom ___ |  |
+| I see ___ | Feicim ___ |  |
+| A sentence strip has a starter like "I want" and an empty box. Put a picture card of the same size on the box: "I want" and "apple". The strips you choose take turns to fill whole sheets. With Full page or Half page, strips print at Large size. | Tá cárta tosaigh mar "Ba mhaith liom" agus bosca folamh ar stiall abairte. Cuir cárta pictiúr den mhéid chéanna ar an mbosca: "Ba mhaith liom" agus "úll". Líonann na stiallacha a roghnaíonn tú leathanaigh iomlána, ceann i ndiaidh a chéile. Le Leathanach iomlán nó Leathleathanach, priontáiltear na stiallacha ag an méid Mór. |  |
 | How they look | An chuma atá orthu |  |
 | Size | Méid |  |
 | Edges | Imill |  |
@@ -1482,4 +1499,4 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 7. **Your name for the credits page**, and the dialect to name there.
 8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in "Ba mhaith liom" + "úll". "I need" ("Teastaíonn … uaim") and "I feel" ("Tá mé …") don't do that for every word. Is there a natural way to say "I need" and "I feel" with the word at the end, or are whole-sentence cards better for these? Also: "I feel sad" is "Tá mé brónach" so it isn't mixed up with "Tá brón orm" (sorry). Is that right?
 
-_1167 items in this sheet._
+_1184 items in this sheet._

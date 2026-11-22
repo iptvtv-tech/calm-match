@@ -26,7 +26,7 @@ site/                  ← the website itself, served as static files by the Wor
   js/rewards.js        token board, sticker book, breaks and the calm corner
   js/stories.js        My stories and how-tos, with starter stories
   js/talk.js           Talk board ("I want", 36 core words, my words)
-  js/cards.js          Talk cards to print: starter, sentence and picture cards, own cards, "I want ___" sentence strips
+  js/cards.js          Talk cards to print: starter, sentence and picture cards, own cards, sentence strips ("I want ___" …)
   js/classroom.js      classroom mode for one shared tablet
   js/backup.js         backup file (save and open)
   js/voice.js          recorded voices and family videos
@@ -60,7 +60,7 @@ site/                  ← the website itself, served as static files by the Wor
 tools/build-symbols.py   copies chosen Mulberry symbols into site/symbols (and tools/symbols-own/)
 tools/archive-policies.py keeps dated copies of the policy pages
 tools/page-pictures.py   takes the pictures in site/img/ for the guide pages from the real app (Playwright)
-tools/printables.py      makes the free "I want" PDFs in site/printables/ (and img/i-want-strip-sample.webp) with the
+tools/printables.py      makes the free "I want" and sentence-strip PDFs in site/printables/ (and img/i-want-strip-sample.webp) with the
                          app's own Talk cards code; run it again after changing the cards' pictures, words or print styles
 tools/irish-review.js    writes docs/irish-review.md: every Irish string beside its English, for a fluent speaker
 tools/review-page.js     builds site/review/data.js for the private Irish review page (calmmatch.com/review/)
