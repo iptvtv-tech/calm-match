@@ -760,7 +760,7 @@
   // Grown-ups area: four sections, each with a few pages. Ids are the data-pane names in play.html.
   var GROUPS = [
     { id: "progress", icon: "📈", label: "Progress", tabs: [["skills", "Summary"], ["history", "History"], ["engine", "Why it chose"]] },
-    { id: "make", icon: "✏️", label: "Make", tabs: [["tools", "Schedules and timer"], ["talk", "Talk"], ["stories", "Stories"], ["pictures", "Pictures"], ["alpha", "Alphabet"], ["sing", "Sing along"]] },
+    { id: "make", icon: "✏️", label: "Make", tabs: [["tools", "Schedules and timer"], ["talk", "Talk"], ["cards", "Talk cards"], ["stories", "Stories"], ["pictures", "Pictures"], ["alpha", "Alphabet"], ["sing", "Sing along"]] },
     { id: "settings", icon: "⚙️", label: "Settings", tabs: [["set-senses", "Senses and voice"], ["set-games", "Games"], ["set-home", "Home screen"], ["set-rewards", "Rewards and breaks"]] },
     { id: "people", icon: "👥", label: "Children and device", tabs: [["child", "Children"], ["class", "Classroom"], ["backup", "Backup"], ["account", "Account"], ["device", "This device"]] }
   ];
@@ -808,7 +808,7 @@
     CM.ui.closePicker();
     ({ child: renderChild, class: renderChild, backup: renderChild, device: function () { renderSettings(); renderChild(); },
        "set-senses": renderSettings, "set-games": renderSettings, "set-home": renderSettings, "set-rewards": renderSettings, skills: renderProgress, history: renderHistory, engine: renderLog, account: renderAccount, tools: renderTools,
-       talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures, sing: renderSing, alpha: function () { CM.alpha.renderTab($("alphaBox")); } }[tab] || renderProgress)();
+       talk: function () { CM.talk.renderTab($("talkBox"), panelHelpers); }, cards: function () { CM.cards.renderTab($("cardsBox"), panelHelpers); }, stories: function () { CM.stories.renderTab($("storyBox"), panelHelpers); }, pictures: renderPictures, sing: renderSing, alpha: function () { CM.alpha.renderTab($("alphaBox")); } }[tab] || renderProgress)();
   }
 
   /* ---------- sing along tab ---------- */

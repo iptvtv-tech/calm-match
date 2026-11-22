@@ -493,6 +493,55 @@ body[data-calm="on"] .anim span{animation:none}
   #printArea table{border-collapse:collapse;width:100%;font-size:10pt}
   #printArea th,#printArea td{border:1px solid #999;padding:2mm;text-align:left}
 }
+/* Talk cards (js/cards.js): one set of card markup for the small preview in the grown-ups area and the printed sheets.
+   Cards are white with black words in both themes, like the paper they print on. */
+.pc{font-family:var(--body);color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pc-card{--edge:#356b64;border:3px solid var(--edge);border-radius:12px;background:#fff;color:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;position:relative;box-sizing:border-box;overflow:hidden}
+.k-act{--edge:#3d7f4f}.k-thing{--edge:#c46a1f}.k-people{--edge:#b38a12}.k-feel{--edge:#3b6ea5}.k-say{--edge:#a64d78}
+.pc-plain .pc-card{--edge:#000;border-width:1.5px}
+.pc-pics{display:flex;align-items:center;justify-content:center;gap:4px}
+.pc-ov{position:relative;display:inline-block;line-height:0}
+.pc-ov img+img{position:absolute;inset:0;background:none}
+.pc-pics img{object-fit:contain;display:block;background:#fff}
+.pc-pics .emo{line-height:1}
+.pc-w{font-weight:700;line-height:1.15}
+.pc-ga{line-height:1.2;color:#222}
+.pc-hole{position:absolute;top:6px;left:6px;width:9px;height:9px;border:1px solid #777;border-radius:50%}
+.pc-lbl{margin:12px 0 6px;font-weight:700;font-size:14px;color:var(--muted)}
+.pc-choose{margin:8px 0}
+.pc-choose summary{cursor:pointer;color:var(--accent);font-weight:700;padding:6px 0}
+.pc-choose .tk-hide{margin:6px 0 10px}
+.pc-preview{margin:14px 0}
+.pc-screen{display:flex;flex-wrap:wrap;gap:10px}
+.pc-screen .pc-cell{width:calc(25% - 8px);min-width:112px}
+.pc-screen .pc-card{min-height:156px;padding:10px 8px}
+.pc-screen .pc-pics img{width:72px;height:72px}
+.pc-screen .pc-pics.two img{width:52px;height:52px}
+.pc-screen .pc-pics .emo{font-size:56px}
+.pc-screen .pc-w{font-size:16px}
+.pc-screen .pc-ga{font-size:13px}
+@media print{
+  /* Cut lines: one dashed line between cards (the sheet draws the top and left edges). Sizes fit A4 and US Letter. */
+  .pc-sheet{display:grid;justify-content:start;align-content:start;break-after:page;border-top:.3mm dashed #888;border-left:.3mm dashed #888;width:max-content;margin:0 auto}
+  .pc-sheet:last-child{break-after:auto}
+  .pc-cell{border-right:.3mm dashed #888;border-bottom:.3mm dashed #888;padding:2.5mm;box-sizing:border-box;display:flex;break-inside:avoid}
+  .pc-card{flex:1;border-width:.9mm;border-radius:3mm;padding:2mm;gap:1.5mm}
+  .pc-plain .pc-card{border-width:.45mm}
+  .pc-hole{top:2mm;left:2mm;width:3.5mm;height:3.5mm;border-width:.3mm}
+  .pc-large .pc-sheet{grid-template-columns:repeat(2,88mm);grid-auto-rows:82mm}
+  .pc-medium .pc-sheet{grid-template-columns:repeat(3,58mm);grid-auto-rows:60mm}
+  .pc-keyring .pc-sheet{grid-template-columns:repeat(4,43mm);grid-auto-rows:48mm}
+  .pc-large .pc-pics img{width:50mm;height:50mm}.pc-large .pc-pics.two img{width:34mm;height:34mm}.pc-large .pc-pics .emo{font-size:110pt}
+  .pc-large .pc-w{font-size:20pt}.pc-large .pc-ga{font-size:14pt}
+  .pc-medium .pc-pics img{width:34mm;height:34mm}.pc-medium .pc-pics.two img{width:24mm;height:24mm}.pc-medium .pc-pics .emo{font-size:75pt}
+  .pc-medium .pc-w{font-size:14pt}.pc-medium .pc-ga{font-size:10.5pt}
+  .pc-keyring .pc-pics img{width:24mm;height:24mm}.pc-keyring .pc-pics.two img{width:17mm;height:17mm}.pc-keyring .pc-pics .emo{font-size:50pt}
+  .pc-keyring .pc-w{font-size:10.5pt}.pc-keyring .pc-ga{font-size:8pt}
+  /* English and Irish together: slightly smaller pictures to leave room for both lines */
+  .pc-both.pc-large .pc-pics img{width:40mm;height:40mm}.pc-both.pc-large .pc-pics.two img{width:30mm;height:30mm}
+  .pc-both.pc-medium .pc-pics img{width:28mm;height:28mm}.pc-both.pc-medium .pc-pics.two img{width:21mm;height:21mm}
+  .pc-both.pc-keyring .pc-pics img{width:19mm;height:19mm}.pc-both.pc-keyring .pc-pics.two img{width:14mm;height:14mm}
+}
 .howstrip .anim .a2{display:none}
 .shelf-pic .anim .a2,.pg-pic .anim .a2,.st-pic .anim .a2,.pk-pic .anim .a2{display:none}
 .picker input[type=search]{font:inherit;font-size:16px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}

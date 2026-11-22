@@ -16,7 +16,7 @@ const read = (p) => fs.readFileSync(path.join(SITE, p), "utf8");
 global.window = global;
 global.CM = window.CM = { esc: (s) => String(s), safeGet: () => null, safeSet: () => true };
 global.document = { getElementById: () => null, addEventListener() {}, querySelectorAll: () => [] };
-for (const f of ["js/engine.js", "js/i18n.js", "js/symbols.js", "js/games.js", "js/talk.js", "js/stories.js", "js/alphabet.js"]) eval(read(f));
+for (const f of ["js/engine.js", "js/i18n.js", "js/symbols.js", "js/games.js", "js/talk.js", "js/cards.js", "js/stories.js", "js/alphabet.js"]) eval(read(f));
 
 // Pull an object literal out of a file by its opening text ("var T = {"), matching braces.
 function literal(src, opener) {
@@ -129,6 +129,9 @@ table(count([[help.en, help.ga, ""]]));
 h("7. Talk board words (site/js/symbols.js, made by tools/build-symbols.py)");
 p("A child taps these to say \"I want …\" or to build a short sentence. Corrections go in `tools/build-symbols.py` (the Irish column), then run it again.");
 table(count(Object.keys(CM.SYMBOLS).map((id) => [CM.SYMBOLS[id][0], CM.SYMBOLS[id][1], ""])));
+out.push("Printed talk cards (site/js/cards.js). Starter cards go next to a picture card (\"Ba mhaith liom\" + \"úll\"); \"…\" marks where the word goes when Irish puts it in the middle. Whole-sentence cards say it all on one card. See question 8.", "");
+table(count(CM.cards.STARTERS.map((s) => [s[1] + " …", s[2], ""])));
+table(count(CM.cards.SENTENCES.map((s) => [s[1], s[2], ""])));
 
 /* ---------- 8 activities ---------- */
 h("8. Schedule activities (site/js/i18n.js `CM.ACTIVITIES`)");
@@ -185,6 +188,7 @@ out.push(
   "5. **Names.** When the child's name is added to a phrase (\"Inniu, {name}\"), the recording of the name is in the parent's own voice. Is there anything about the words around the name that should change (vocative \"a Sheáin\" can't be done, since the name is a recording)?",
   "6. **The Grown-ups area** — any phrase that is grammatically fine but would read oddly to a parent or teacher.",
   "7. **Your name for the credits page**, and the dialect to name there.",
+  "8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in \"Ba mhaith liom\" + \"úll\". \"I need\" (\"Teastaíonn … uaim\") and \"I feel\" (\"Tá mé …\") don't do that for every word. Is there a natural way to say \"I need\" and \"I feel\" with the word at the end, or are whole-sentence cards better for these? Also: \"I feel sad\" is \"Tá mé brónach\" so it isn't mixed up with \"Tá brón orm\" (sorry). Is that right?",
   ""
 );
 

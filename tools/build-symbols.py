@@ -21,6 +21,7 @@ LIST = {
   "core": [
     ("i", "I", "mé", "I.svg"), ("you", "you", "tú", "own"), ("he", "he", "sé", "own"), ("she", "she", "sí", "own"), ("it", "it", "é", "own"),
     ("want", "want", "ba mhaith liom", "want_,_to.svg"), ("like", "like", "is maith liom", "own"), ("not", "not", "ní", "own"),
+    ("love", "love", "is breá liom", "own"), ("need", "need", "teastaíonn", "own"),
     ("more", "more", "níos mó", "more.svg"), ("help", "help", "cabhair", "help_,_to.svg"), ("stop", "stop", "stop", "own"),
     ("go", "go", "téigh", "go_,_to.svg"), ("look", "look", "féach", "look_,_to.svg"), ("get", "get", "faigh", "get_,_to.svg"),
     ("make", "make", "déan", "make_,_to.svg"), ("put", "put", "cuir", "put_,_to.svg"), ("open", "open", "oscail", "open_,_to.svg"),

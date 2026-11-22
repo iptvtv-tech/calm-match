@@ -1,6 +1,6 @@
 # Calm Match — Irish (Gaeilge) review sheet
 
-_Made 2026-10-26 by `node tools/irish-review.js`. Everything Irish on the site, beside its English._
+_Made 2026-11-22 by `node tools/irish-review.js`. Everything Irish on the site, beside its English._
 
 **For the checker.** Calm Match is a free site of calm learning games for neurodivergent children (about 3 to 9), used by a child with a parent or teacher. The Irish was written by the site's maker, who is not a fluent speaker, and is read aloud to children, so natural, simple, spoken Irish matters more than literal translation. Short is good: these show on buttons and cards. Please write a correction in the last column, or just mark ✓. Where a word sits in a gap like `{name}` or `{n}`, the site fills it in (a picture name, a number), so please say if the words around the gap need to change with it (for example a number before a noun). If something should simply not be said in Irish the way it is in English, say so.
 
@@ -675,6 +675,8 @@ A child taps these to say "I want …" or to build a short sentence. Corrections
 | want | ba mhaith liom |  |
 | like | is maith liom |  |
 | not | ní |  |
+| love | is breá liom |  |
+| need | teastaíonn |  |
 | more | níos mó |  |
 | help | cabhair |  |
 | stop | stop |  |
@@ -870,6 +872,38 @@ A child taps these to say "I want …" or to build a short sentence. Corrections
 | rock | luasc |  |
 | lights off | múch an solas |  |
 
+Printed talk cards (site/js/cards.js). Starter cards go next to a picture card ("Ba mhaith liom" + "úll"); "…" marks where the word goes when Irish puts it in the middle. Whole-sentence cards say it all on one card. See question 8.
+
+| English | Irish | OK? / correction |
+|---|---|---|
+| I want … | Ba mhaith liom |  |
+| I don't want … | Níor mhaith liom |  |
+| I need … | Teastaíonn … uaim |  |
+| I love … | Is breá liom |  |
+| I like … | Is maith liom |  |
+| I don't like … | Ní maith liom |  |
+| I feel … | Tá mé … |  |
+| I see … | Feicim |  |
+
+| English | Irish | OK? / correction |
+|---|---|---|
+| I need the toilet | Tá orm dul go dtí an leithreas |  |
+| I need a break | Teastaíonn sos uaim |  |
+| Help me, please | Cabhraigh liom, le do thoil |  |
+| I want a drink | Ba mhaith liom deoch |  |
+| I'm hungry | Tá ocras orm |  |
+| I'm tired | Tá mé tuirseach |  |
+| I feel sad | Tá mé brónach |  |
+| I feel happy | Tá mé sásta |  |
+| I want a hug | Ba mhaith liom barróg |  |
+| I love you | Is breá liom thú |  |
+| It's too loud | Tá sé róghlórach |  |
+| It hurts | Tá pian orm |  |
+| I want to go outside | Ba mhaith liom dul amach |  |
+| More, please | Tuilleadh, le do thoil |  |
+| All done | Críochnaithe |  |
+| Stop | Stop |  |
+
 
 ## 8. Schedule activities (site/js/i18n.js `CM.ACTIVITIES`)
 
@@ -1049,6 +1083,59 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | A 💬 Talk button appears at the top of the games, the schedule and the stories. | Bíonn cnaipe 💬 Caint ag barr na gcluichí, an sceidil agus na scéalta. |  |
 | Open the board | Oscail an clár |  |
 | Print the boards | Priontáil na cláir |  |
+| Talk cards | Cártaí cainte |  |
+| Picture cards to print and cut out, with the same pictures as the Talk board. Put a starter card like "I want" next to a picture card, or use a whole-sentence card like "I need a break". Keep them on the fridge, in a folder or on a keyring. | Cártaí pictiúr le priontáil agus le gearradh amach, leis na pictiúir chéanna atá ar an gclár cainte. Cuir cárta tosaigh ar nós "Ba mhaith liom" in aice le cárta pictiúir, nó úsáid cárta abairte iomláine ar nós "Teastaíonn sos uaim". Coinnigh iad ar an gcuisneoir, i bhfillteán nó ar fháinne eochrach. |  |
+| Which cards | Cé na cártaí |  |
+| Starter cards | Cártaí tosaigh |  |
+| Whole sentences | Abairtí iomlána |  |
+| Choose which starters and sentences | Roghnaigh na cártaí tosaigh agus na habairtí |  |
+| Picture cards from the Talk board: | Cártaí pictiúr ón gclár cainte: |  |
+| How they look | An chuma atá orthu |  |
+| Size | Méid |  |
+| Edges | Imill |  |
+| Words | Focail |  |
+| Large (6 a sheet) | Mór (6 ar leathanach) |  |
+| Medium (12 a sheet) | Meánach (12 ar leathanach) |  |
+| Keyring (20 a sheet) | Fáinne eochrach (20 ar leathanach) |  |
+| Colour | Dath |  |
+| Black and white | Dubh agus bán |  |
+| Both | An dá cheann |  |
+| Colour edges use the usual communication-board colours: green for action words, orange for things and places, yellow for people, blue for feelings and describing words, pink for whole sentences. | Úsáideann na himill dhaite na dathanna is gnách ar chláir chumarsáide: glas do bhriathra, oráiste do rudaí agus d'áiteanna, buí do dhaoine, gorm do mhothúcháin agus d'fhocail a dhéanann cur síos, bándearg d'abairtí iomlána. |  |
+| Preview of the first cards | Réamhamharc ar na chéad chártaí |  |
+| No cards chosen yet. | Níl aon chártaí roghnaithe fós. |  |
+| Print cards | Priontáil na cártaí |  |
+| Cut along the dashed lines. Choose "Save as PDF" in the print window for a file. Laminating makes them last. | Gearr feadh na línte briste. Roghnaigh "Save as PDF" san fhuinneog phriontála chun comhad a fháil. Mairfidh siad níos faide má lannaítear iad. |  |
+| My sentence cards | Mo chártaí abairte |  |
+| Your own whole-sentence cards, for example "I want to go to Granny's" with a photo of her house. Up to 24. They print with the whole sentences and are kept on this device. | Do chártaí abairte féin, mar shampla "Ba mhaith liom dul go teach Mhamó" le grianghraf dá teach. Suas le 24. Priontáiltear iad leis na habairtí iomlána agus coinnítear iad ar an ngléas seo. |  |
+| In Irish (optional) | I nGaeilge (roghnach) |  |
+| For example, I want to go to Granny's | Mar shampla, Ba mhaith liom dul go teach Mhamó |  |
+| Change picture | Athraigh an pictiúr |  |
+| Delete | Scrios |  |
+| None yet. | Níl aon cheann fós. |  |
+| Add a sentence card | Cuir cárta abairte leis |  |
+| I want | Ba mhaith liom |  |
+| I don't want | Níor mhaith liom |  |
+| I need | Teastaíonn … uaim |  |
+| I love | Is breá liom |  |
+| I like | Is maith liom |  |
+| I don't like | Ní maith liom |  |
+| I feel | Tá mé … |  |
+| I see | Feicim |  |
+| I need the toilet | Tá orm dul go dtí an leithreas |  |
+| I need a break | Teastaíonn sos uaim |  |
+| Help me, please | Cabhraigh liom, le do thoil |  |
+| I want a drink | Ba mhaith liom deoch |  |
+| I'm hungry | Tá ocras orm |  |
+| I'm tired | Tá mé tuirseach |  |
+| I feel sad | Tá mé brónach |  |
+| I feel happy | Tá mé sásta |  |
+| I want a hug | Ba mhaith liom barróg |  |
+| I love you | Is breá liom thú |  |
+| It's too loud | Tá sé róghlórach |  |
+| It hurts | Tá pian orm |  |
+| I want to go outside | Ba mhaith liom dul amach |  |
+| More, please | Tuilleadh, le do thoil |  |
+| All done | Críochnaithe |  |
 | "I want" choices | Roghanna "Teastaíonn uaim" |  |
 | Up to 12 big buttons. A tap says "I want …". Help, break, more, stop, finished, yes and no are always there. | Suas le 12 chnaipe mhóra. Deir tapáil "Teastaíonn uaim …". Bíonn cabhair, sos, tuilleadh, stop, críochnaithe, tá agus níl ann i gcónaí. |  |
 | Add a choice | Cuir rogha leis |  |
@@ -1237,6 +1324,7 @@ Patterns with a number in them:
 | Grown-ups: hold | Daoine fásta: coinnigh |  |
 | My day \{n}\ | Mo lá ({n}) |  |
 | {n} min | {n} nóim |  |
+| Cards: {n} · Sheets: {n} | Cártaí: {n} · Leathanaigh: {n} |  |
 
 Child mode header on the Sing along and Alphabet pages (site/js/childbar.js):
 
@@ -1382,5 +1470,6 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 5. **Names.** When the child's name is added to a phrase ("Inniu, {name}"), the recording of the name is in the parent's own voice. Is there anything about the words around the name that should change (vocative "a Sheáin" can't be done, since the name is a recording)?
 6. **The Grown-ups area** — any phrase that is grammatically fine but would read oddly to a parent or teacher.
 7. **Your name for the credits page**, and the dialect to name there.
+8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in "Ba mhaith liom" + "úll". "I need" ("Teastaíonn … uaim") and "I feel" ("Tá mé …") don't do that for every word. Is there a natural way to say "I need" and "I feel" with the word at the end, or are whole-sentence cards better for these? Also: "I feel sad" is "Tá mé brónach" so it isn't mixed up with "Tá brón orm" (sorry). Is that right?
 
-_1077 items in this sheet._
+_1157 items in this sheet._
