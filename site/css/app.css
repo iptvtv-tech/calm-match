@@ -518,10 +518,20 @@ body[data-calm="on"] .anim span{animation:none}
 .pc-screen .pc-pics .emo{font-size:56px}
 .pc-screen .pc-w{font-size:16px}
 .pc-screen .pc-ga{font-size:13px}
+/* Sentence strips (cards.js): two cards wide, the starter on the left and an empty box that a picture card covers */
+.pc-strip{flex-direction:row;align-items:stretch;justify-content:flex-start}
+.pc-sl{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:inherit}
+.pc-slot{flex:1 1 0;border:2px dashed #9a9a9a;border-radius:10px;margin-left:10px}
+.pc-screen .pc-scell{width:calc(50% - 5px);min-width:232px}
+.pc-screen .pc-strip{min-height:156px;padding:10px 8px}
 @media print{
   /* Cut lines: one dashed line between cards (the sheet draws the top and left edges). Sizes fit A4 and US Letter. */
   .pc-sheet{display:grid;justify-content:start;align-content:start;break-after:page;border-top:.3mm dashed #888;border-left:.3mm dashed #888;width:max-content;margin:0 auto}
   .pc-sheet:last-child{break-after:auto}
+  .pc-newpage{break-before:page}
+  .pc-scell{grid-column:span 2}
+  .pc-slot{border:.5mm dashed #999;border-radius:2mm;margin-left:2.5mm}
+  .pc-medium .pc-sheet.pc-strips{grid-template-columns:repeat(2,58mm)}
   .pc-cell{border-right:.3mm dashed #888;border-bottom:.3mm dashed #888;padding:2.5mm;box-sizing:border-box;display:flex;break-inside:avoid}
   .pc-card{flex:1;border-width:.9mm;border-radius:3mm;padding:2mm;gap:1.5mm}
   .pc-plain .pc-card{border-width:.45mm}

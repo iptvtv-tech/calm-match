@@ -1093,6 +1093,8 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | Whole sentences | Abairtí iomlána |  |
 | Choose which starters and sentences | Roghnaigh na cártaí tosaigh agus na habairtí |  |
 | Picture cards from the Talk board: | Cártaí pictiúr ón gclár cainte: |  |
+| Sentence strips: I want ___ | Stiallacha abairte: Ba mhaith liom ___ |  |
+| A sentence strip has "I want" and an empty box. Put a picture card of the same size on the box: "I want" and "apple". A full sheet of strips prints. With Full page or Half page, strips print at Large size. | Tá "Ba mhaith liom" agus bosca folamh ar stiall abairte. Cuir cárta pictiúr den mhéid chéanna ar an mbosca: "Ba mhaith liom" agus "úll". Priontáiltear leathanach iomlán stiallacha. Le Leathanach iomlán nó Leathleathanach, priontáiltear na stiallacha ag an méid Mór. |  |
 | How they look | An chuma atá orthu |  |
 | Size | Méid |  |
 | Edges | Imill |  |
@@ -1330,6 +1332,7 @@ Patterns with a number in them:
 | My day \{n}\ | Mo lá ({n}) |  |
 | {n} min | {n} nóim |  |
 | Cards: {n} · Sheets: {n} | Cártaí: {n} · Leathanaigh: {n} |  |
+| Cards: {n} · Strips: {n} · Sheets: {n} | Cártaí: {n} · Stiallacha: {n} · Leathanaigh: {n} |  |
 
 Child mode header on the Sing along and Alphabet pages (site/js/childbar.js):
 
@@ -1479,4 +1482,4 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 7. **Your name for the credits page**, and the dialect to name there.
 8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in "Ba mhaith liom" + "úll". "I need" ("Teastaíonn … uaim") and "I feel" ("Tá mé …") don't do that for every word. Is there a natural way to say "I need" and "I feel" with the word at the end, or are whole-sentence cards better for these? Also: "I feel sad" is "Tá mé brónach" so it isn't mixed up with "Tá brón orm" (sorry). Is that right?
 
-_1164 items in this sheet._
+_1167 items in this sheet._

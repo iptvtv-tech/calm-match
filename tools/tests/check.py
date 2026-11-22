@@ -62,6 +62,8 @@ canon = [u for u in urls if sm_file(u) and '<link rel="canonical" href="https://
 ok("canonical tag on every sitemap page matches its address", not canon, str(canon))
 og_missing = [(u, m) for u in urls if sm_file(u) for m in re.findall(r'property="og:image" content="https://calmmatch\.com/([^"]+)"', read(sm_file(u))) if not os.path.isfile(os.path.join(SITE, m))]
 ok("preview pictures (og:image) all exist", not og_missing, str(og_missing))
+pdfs = re.findall(r'href="(printables/[^"]+\.pdf)"', read("talk-cards.html"))
+ok("free printables linked from talk-cards.html exist (%d PDFs)" % len(pdfs), len(pdfs) >= 3 and all(os.path.isfile(os.path.join(SITE, f)) for f in pdfs), str(pdfs))
 icon_missing = [h for h in re.findall(r'<link rel="(?:icon|apple-touch-icon)" href="([^"]+)"', read("index.html")) if not os.path.isfile(os.path.join(SITE, h.lstrip("/")))]
 ok("home page icons and /favicon.ico exist (Google uses them in search results)", not icon_missing and os.path.isfile(os.path.join(SITE, "favicon.ico")), str(icon_missing))
 try:

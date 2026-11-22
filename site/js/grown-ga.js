@@ -128,6 +128,8 @@
 "Whole sentences": "Abairtí iomlána",
 "Choose which starters and sentences": "Roghnaigh na cártaí tosaigh agus na habairtí",
 "Picture cards from the Talk board:": "Cártaí pictiúr ón gclár cainte:",
+"Sentence strips: I want ___": "Stiallacha abairte: Ba mhaith liom ___",
+"A sentence strip has \"I want\" and an empty box. Put a picture card of the same size on the box: \"I want\" and \"apple\". A full sheet of strips prints. With Full page or Half page, strips print at Large size.": "Tá \"Ba mhaith liom\" agus bosca folamh ar stiall abairte. Cuir cárta pictiúr den mhéid chéanna ar an mbosca: \"Ba mhaith liom\" agus \"úll\". Priontáiltear leathanach iomlán stiallacha. Le Leathanach iomlán nó Leathleathanach, priontáiltear na stiallacha ag an méid Mór.",
 "How they look": "An chuma atá orthu",
 "Size": "Méid",
 "Edges": "Imill",
@@ -361,7 +363,8 @@
     [/^Grown-ups: hold$/, "Daoine fásta: coinnigh"],
     [/^My day \((\d+)\)$/, "Mo lá ($1)"],
     [/^(\d+) min$/, "$1 nóim"],
-    [/^Cards: (\d+) · Sheets: (\d+)$/, "Cártaí: $1 · Leathanaigh: $2"]
+    [/^Cards: (\d+) · Sheets: (\d+)$/, "Cártaí: $1 · Leathanaigh: $2"],
+    [/^Cards: (\d+) · Strips: (\d+) · Sheets: (\d+)$/, "Cártaí: $1 · Stiallacha: $2 · Leathanaigh: $3"]
   ];
   var ATTRS = ["aria-label", "placeholder", "title"];
   function tr(s) {
