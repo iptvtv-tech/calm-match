@@ -69,6 +69,11 @@ h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;text-wrap:balanc
 .meta{font-size:14px;color:var(--muted)}
 .box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
 .box.summary{border-left:4px solid var(--accent)}
+/* guide pages (visual-schedules, talk-cards, schools): a picture from the app with a caption, and the closing button */
+.shot{margin:20px 0 8px}
+.shot img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--line)}
+.shot figcaption{font-size:15px;color:var(--muted);margin-top:8px}
+.go{margin-top:24px}
 .tablewrap{overflow-x:auto;margin-block:12px}
 table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}

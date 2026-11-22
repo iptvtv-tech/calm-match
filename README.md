@@ -44,6 +44,11 @@ site/                  ← the website itself, served as static files by the Wor
                        listed in tools/song-pages.json (all 23). Add "checked" to a song's entry when
                        the Irish checker approves it, then run `node tools/song-pages.js` (also after any
                        change to a listed song in songs.js; check.py fails until you do)
+  visual-schedules.html, talk-cards.html, schools.html
+                       public guide pages for search (plain HTML, no scripts of their own). Their pictures in
+                       img/ are taken from the real app by `python3 tools/page-pictures.py`: run it again
+                       if schedules, talk cards or "Who is playing?" change how they look. Check the pages'
+                       claims still match the app when those features change.
   sw.js                offline support (bump VERSION on each deploy)
   _headers             security headers (read by the Worker's static assets)
   manifest.webmanifest, icons/, robots.txt
@@ -53,6 +58,7 @@ site/                  ← the website itself, served as static files by the Wor
   vendor/supabase.js    the Supabase sign-in library (self-hosted; not in the zips, keep your copy)
 tools/build-symbols.py   copies chosen Mulberry symbols into site/symbols (and tools/symbols-own/)
 tools/archive-policies.py keeps dated copies of the policy pages
+tools/page-pictures.py   takes the pictures in site/img/ for the guide pages from the real app (Playwright)
 tools/irish-review.js    writes docs/irish-review.md: every Irish string beside its English, for a fluent speaker
 tools/review-page.js     builds site/review/data.js for the private Irish review page (calmmatch.com/review/)
 tools/tests/check.py    regression check: run before every push (see "Before every push")
