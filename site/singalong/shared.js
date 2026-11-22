@@ -11,7 +11,7 @@
 
   SA.UI = {
     en: {
-      singAlong: 'Sing along', lede: 'Pick a song. The words light up as the tune plays, so your child can sing along at their own pace.',
+      singAlong: 'Sing along', pageTitle: 'Nursery rhymes and songs in English and Irish', lede: 'Pick a song. The words light up as the tune plays, so your child can sing along at their own pace.',
       all: 'All', calm: 'Calm', lively: 'Lively', songs: 'Songs', none: 'No songs here yet.',
       play: 'Play', pause: 'Pause', restart: 'Start again', loop: 'Repeat',
       speed: 'Speed', slower: 'Slower', faster: 'Faster', back: 'All songs',
@@ -19,7 +19,7 @@
       about: "Children's songs and nursery rhymes in English and Irish (Gaeilge), such as Twinkle Twinkle Little Star, Old MacDonald Had a Farm, Incy Wincy Spider and Happy Birthday. Each song has Irish words written to the same tune. Free, with no ads and no microphone, and it works offline."
     },
     ga: {
-      singAlong: 'Canaimis le chéile', lede: 'Roghnaigh amhrán. Lasann na focail de réir mar a sheinntear an fonn, ionas gur féidir le do pháiste canadh ar a luas féin.',
+      singAlong: 'Canaimis le chéile', pageTitle: 'Amhráin agus rannta i mBéarla agus i nGaeilge', lede: 'Roghnaigh amhrán. Lasann na focail de réir mar a sheinntear an fonn, ionas gur féidir le do pháiste canadh ar a luas féin.',
       all: 'Gach ceann', calm: 'Ciúin', lively: 'Bríomhar', songs: 'Amhráin', none: 'Níl amhráin anseo fós.',
       play: 'Seinn', pause: 'Sos', restart: 'Tosaigh arís', loop: 'Arís is arís',
       speed: 'Luas', slower: 'Níos moille', faster: 'Níos tapúla', back: 'Na hamhráin go léir',

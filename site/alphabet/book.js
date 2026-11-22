@@ -12,13 +12,13 @@
 
   // UI words. The Irish ones need checking by an Irish speaker, like the word lists.
   var UI = {
-    en: { title: "Alphabet", lede: "Pick a letter. Tap a picture to hear its word.", letters: "Letters", back: "Back", next: "Next",
+    en: { title: "Alphabet", pageTitle: "Alphabet book in English and Irish for children", lede: "Pick a letter. Tap a picture to hear its word.", letters: "Letters", back: "Back", next: "Next",
       voiceOn: "🔊 Read aloud: on", voiceOff: "🔈 Read aloud: off", end: "ends with {l}", endSay: "{w}. {w} ends with {l}.",
       noVoice: "This device has no Irish voice, so words aren't read aloud in Irish.",
       grown: "Grown-ups: you can add your own words and photos, like your child's dog or their favourite cup. Open <a href=\"../play.html\">Play</a>, then Grown-ups, then Make > Alphabet. Photos stay on this device.",
       letterOf: "Letter {l}", word: "{w}",
       about: "An alphabet book for young children, in English and Irish (Gaeilge). Each letter has pictures of everyday things that start with its sound, and tapping a picture says the word. Free, with no ads, and it works offline." },
-    ga: { title: "Aibítir", lede: "Roghnaigh litir. Brúigh ar phictiúr chun an focal a chloisteáil.", letters: "Litreacha", back: "Siar", next: "Ar aghaidh",
+    ga: { title: "Aibítir", pageTitle: "Leabhar aibítre do pháistí i mBéarla agus i nGaeilge", lede: "Roghnaigh litir. Brúigh ar phictiúr chun an focal a chloisteáil.", letters: "Litreacha", back: "Siar", next: "Ar aghaidh",
       voiceOn: "🔊 Léigh os ard: ar siúl", voiceOff: "🔈 Léigh os ard: múchta", end: "", endSay: "{w}.",
       noVoice: "Níl guth Gaeilge ar an ngléas seo, mar sin ní léitear na focail os ard as Gaeilge. Is féidir le duine fásta focail a thaifeadadh ina ghuth féin sa chuid do dhaoine fásta.",
       grown: "Daoine fásta: is féidir libh bhur bhfocail agus bhur ngrianghraif féin a chur leis. Oscail <a href=\"../play.html\">Súgradh</a>, ansin an chuid do dhaoine fásta (Make > Alphabet). Fanann grianghraif ar an ngléas seo.",
@@ -99,7 +99,7 @@
   function render(focusPicker) {
     var t = UI[lang], letters = CM.alpha.letters(lang), i = letters.indexOf(letter);
     document.documentElement.lang = lang;
-    document.title = t.title + " · Calm Match";
+    document.title = (t.pageTitle || t.title) + " · Calm Match";
     $("h1").textContent = t.title;
     $("lede").textContent = t.lede;
     $("about").textContent = t.about;

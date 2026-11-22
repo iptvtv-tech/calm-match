@@ -641,6 +641,7 @@ Words on the Alphabet book's screens:
 | English | Irish | OK? / correction |
 |---|---|---|
 | Alphabet | Aibítir |  |
+| Alphabet book in English and Irish for children | Leabhar aibítre do pháistí i mBéarla agus i nGaeilge |  |
 | Pick a letter. Tap a picture to hear its word. | Roghnaigh litir. Brúigh ar phictiúr chun an focal a chloisteáil. |  |
 | Letters | Litreacha |  |
 | Back | Siar |  |
@@ -1399,6 +1400,7 @@ Words on the Sing along screens:
 | English | Irish | OK? / correction |
 |---|---|---|
 | Sing along | Canaimis le chéile |  |
+| Nursery rhymes and songs in English and Irish | Amhráin agus rannta i mBéarla agus i nGaeilge |  |
 | Pick a song. The words light up as the tune plays, so your child can sing along at their own pace. | Roghnaigh amhrán. Lasann na focail de réir mar a sheinntear an fonn, ionas gur féidir le do pháiste canadh ar a luas féin. |  |
 | All | Gach ceann |  |
 | Calm | Ciúin |  |
@@ -1476,4 +1478,4 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 7. **Your name for the credits page**, and the dialect to name there.
 8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in "Ba mhaith liom" + "úll". "I need" ("Teastaíonn … uaim") and "I feel" ("Tá mé …") don't do that for every word. Is there a natural way to say "I need" and "I feel" with the word at the end, or are whole-sentence cards better for these? Also: "I feel sad" is "Tá mé brónach" so it isn't mixed up with "Tá brón orm" (sorry). Is that right?
 
-_1161 items in this sheet._
+_1163 items in this sheet._

@@ -16,7 +16,7 @@
   function render() {
     var t = UI[lang];
     document.documentElement.lang = lang;
-    document.title = t.singAlong + ' · Calm Match';
+    document.title = (t.pageTitle || t.singAlong) + ' · Calm Match';
     $('h1').textContent = t.singAlong;
     $('lede').textContent = t.lede;
     $('about').textContent = t.about;

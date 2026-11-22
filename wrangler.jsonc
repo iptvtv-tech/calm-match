@@ -7,7 +7,9 @@
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./site",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    // Unknown addresses get site/404.html with a 404 status (not a blank page). Non-page requests such as /review/api still reach the Worker.
+    "not_found_handling": "404-page"
   },
   "kv_namespaces": [
     // Ticks and corrections from the private review page (/review/). Id = the namespace's ID in the dashboard.
