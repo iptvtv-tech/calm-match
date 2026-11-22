@@ -653,6 +653,7 @@ Words on the Alphabet book's screens:
 | Grown-ups: you can add your own words and photos, like your child's dog or their favourite cup. Open <a href="../play.html">Play</a>, then Grown-ups, then Make > Alphabet. Photos stay on this device. | Daoine fásta: is féidir libh bhur bhfocail agus bhur ngrianghraif féin a chur leis. Oscail <a href="../play.html">Súgradh</a>, ansin an chuid do dhaoine fásta (Make > Alphabet). Fanann grianghraif ar an ngléas seo. |  |
 | Letter {l} | Litir {l} |  |
 | {w} | {w} |  |
+| An alphabet book for young children, in English and Irish (Gaeilge). Each letter has pictures of everyday things that start with its sound, and tapping a picture says the word. Free, with no ads, and it works offline. | Leabhar aibítre do pháistí óga, i mBéarla agus i nGaeilge. Tá pictiúir ag gach litir de rudaí laethúla a thosaíonn le fuaim na litreach sin. Saor in aisce, gan fógraí, agus oibríonn sé as líne. |  |
 
 The note shown when a device has no Irish voice:
 
@@ -1413,6 +1414,7 @@ Words on the Sing along screens:
 | Song not found. | Níor aimsíodh an t-amhrán. |  |
 | Language | Teanga |  |
 | Verse | Véarsa |  |
+| Children's songs and nursery rhymes in English and Irish (Gaeilge), such as Twinkle Twinkle Little Star, Old MacDonald Had a Farm, Incy Wincy Spider and Happy Birthday. Each song has Irish words written to the same tune. Free, with no ads and no microphone, and it works offline. | Amhráin agus rannta do pháistí i mBéarla agus i nGaeilge, mar shampla "Réaltín, Réaltín", "Bhí Feirm ag Seán", "An Damhán Alla" agus "Lá Breithe Sona". Tá focail Ghaeilge ar gach amhrán, scríofa don fhonn céanna. Saor in aisce, gan fógraí agus gan micreafón, agus oibríonn sé as líne. |  |
 
 
 ## 12. Numbers
@@ -1472,4 +1474,4 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 7. **Your name for the credits page**, and the dialect to name there.
 8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in "Ba mhaith liom" + "úll". "I need" ("Teastaíonn … uaim") and "I feel" ("Tá mé …") don't do that for every word. Is there a natural way to say "I need" and "I feel" with the word at the end, or are whole-sentence cards better for these? Also: "I feel sad" is "Tá mé brónach" so it isn't mixed up with "Tá brón orm" (sorry). Is that right?
 
-_1157 items in this sheet._
+_1159 items in this sheet._

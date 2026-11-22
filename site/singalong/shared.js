@@ -15,14 +15,16 @@
       all: 'All', calm: 'Calm', lively: 'Lively', songs: 'Songs', none: 'No songs here yet.',
       play: 'Play', pause: 'Pause', restart: 'Start again', loop: 'Repeat',
       speed: 'Speed', slower: 'Slower', faster: 'Faster', back: 'All songs',
-      missing: 'Song not found.', lang: 'Language', verse: 'Verse'
+      missing: 'Song not found.', lang: 'Language', verse: 'Verse',
+      about: "Children's songs and nursery rhymes in English and Irish (Gaeilge), such as Twinkle Twinkle Little Star, Old MacDonald Had a Farm, Incy Wincy Spider and Happy Birthday. Each song has Irish words written to the same tune. Free, with no ads and no microphone, and it works offline."
     },
     ga: {
       singAlong: 'Canaimis le chéile', lede: 'Roghnaigh amhrán. Lasann na focail de réir mar a sheinntear an fonn, ionas gur féidir le do pháiste canadh ar a luas féin.',
       all: 'Gach ceann', calm: 'Ciúin', lively: 'Bríomhar', songs: 'Amhráin', none: 'Níl amhráin anseo fós.',
       play: 'Seinn', pause: 'Sos', restart: 'Tosaigh arís', loop: 'Arís is arís',
       speed: 'Luas', slower: 'Níos moille', faster: 'Níos tapúla', back: 'Na hamhráin go léir',
-      missing: 'Níor aimsíodh an t-amhrán.', lang: 'Teanga', verse: 'Véarsa'
+      missing: 'Níor aimsíodh an t-amhrán.', lang: 'Teanga', verse: 'Véarsa',
+      about: 'Amhráin agus rannta do pháistí i mBéarla agus i nGaeilge, mar shampla "Réaltín, Réaltín", "Bhí Feirm ag Seán", "An Damhán Alla" agus "Lá Breithe Sona". Tá focail Ghaeilge ar gach amhrán, scríofa don fhonn céanna. Saor in aisce, gan fógraí agus gan micreafón, agus oibríonn sé as líne.'
     }
   };
 

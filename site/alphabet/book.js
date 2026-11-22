@@ -16,12 +16,14 @@
       voiceOn: "🔊 Read aloud: on", voiceOff: "🔈 Read aloud: off", end: "ends with {l}", endSay: "{w}. {w} ends with {l}.",
       noVoice: "This device has no Irish voice, so words aren't read aloud in Irish.",
       grown: "Grown-ups: you can add your own words and photos, like your child's dog or their favourite cup. Open <a href=\"../play.html\">Play</a>, then Grown-ups, then Make > Alphabet. Photos stay on this device.",
-      letterOf: "Letter {l}", word: "{w}" },
+      letterOf: "Letter {l}", word: "{w}",
+      about: "An alphabet book for young children, in English and Irish (Gaeilge). Each letter has pictures of everyday things that start with its sound, and tapping a picture says the word. Free, with no ads, and it works offline." },
     ga: { title: "Aibítir", lede: "Roghnaigh litir. Brúigh ar phictiúr chun an focal a chloisteáil.", letters: "Litreacha", back: "Siar", next: "Ar aghaidh",
       voiceOn: "🔊 Léigh os ard: ar siúl", voiceOff: "🔈 Léigh os ard: múchta", end: "", endSay: "{w}.",
       noVoice: "Níl guth Gaeilge ar an ngléas seo, mar sin ní léitear na focail os ard as Gaeilge. Is féidir le duine fásta focail a thaifeadadh ina ghuth féin sa chuid do dhaoine fásta.",
       grown: "Daoine fásta: is féidir libh bhur bhfocail agus bhur ngrianghraif féin a chur leis. Oscail <a href=\"../play.html\">Súgradh</a>, ansin an chuid do dhaoine fásta (Make > Alphabet). Fanann grianghraif ar an ngléas seo.",
-      letterOf: "Litir {l}", word: "{w}" }
+      letterOf: "Litir {l}", word: "{w}",
+      about: "Leabhar aibítre do pháistí óga, i mBéarla agus i nGaeilge. Tá pictiúir ag gach litir de rudaí laethúla a thosaíonn le fuaim na litreach sin. Saor in aisce, gan fógraí, agus oibríonn sé as líne." }
   };
   var fill = function (s, v) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return v[k] != null ? v[k] : m; }); };
 
@@ -100,6 +102,7 @@
     document.title = t.title + " · Calm Match";
     $("h1").textContent = t.title;
     $("lede").textContent = t.lede;
+    $("about").textContent = t.about;
     $("lettersNav").setAttribute("aria-label", t.letters);
     var lb = document.querySelectorAll("#langSeg button");
     for (var k = 0; k < lb.length; k++) lb[k].setAttribute("aria-pressed", String(lb[k].getAttribute("data-lang") === lang));

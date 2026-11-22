@@ -19,6 +19,7 @@
     document.title = t.singAlong + ' · Calm Match';
     $('h1').textContent = t.singAlong;
     $('lede').textContent = t.lede;
+    $('about').textContent = t.about;
     $('filterSeg').setAttribute('aria-label', t.songs);
     setPressed('#langSeg button', 'data-lang', lang);
     setPressed('#filterSeg button', 'data-f', filter);
