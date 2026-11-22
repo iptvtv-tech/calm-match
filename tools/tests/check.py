@@ -7,6 +7,8 @@
 What it checks
   files     every file listed in site/sw.js and site/audio/manifest.json exists; every sitemap URL has a file,
             is a final address (no .html) and matches the page's canonical tag
+  worker    the Worker's Supabase settings match config.js (public key only), the keep-alive timer is set,
+            and the keep-alive sends the right request (node, with a stand-in for the network)
   words     the policy pages describe Emma correctly and the credits page credits Kokoro
   version   sw.js VERSION looks like cm-YYYY-MM-DD-N and is not older than the newest site file
   pages     (browser) every public page loads at phone and tablet width with no console errors
@@ -67,6 +69,28 @@ try:
     ok("song pages match songs.js and tools/song-pages.json", sp.returncode == 0, (sp.stdout + sp.stderr).strip())
 except FileNotFoundError:
     ok("song pages (node not installed, skipped)", True)
+
+# ---------- worker ----------
+print("worker")
+wr = open(os.path.join(ROOT, "wrangler.jsonc"), encoding="utf-8").read()
+cfgjs = read("js/config.js")
+pick = lambda pat, txt: (re.search(pat, txt) or [None, None])[1]
+same_url = pick(r'"SUPABASE_URL":\s*"([^"]*)"', wr) == pick(r'supabaseUrl:\s*"([^"]*)"', cfgjs)
+same_key = pick(r'"SUPABASE_PUBLISHABLE_KEY":\s*"([^"]*)"', wr) == pick(r'supabaseAnonKey:\s*"([^"]*)"', cfgjs)
+ok("Worker's Supabase address and publishable key match site/js/config.js", same_url and same_key)
+ok("Worker never holds a secret Supabase key", not re.search(r"service_role|sb_secret_", wr))
+ok("keep-alive timer is set (Supabase pauses after 7 quiet days)", bool(re.search(r'"crons":\s*\[\s*"[^"]+\*/3 \* \*"', wr)))
+try:
+    test = ("let seen; globalThis.fetch = async (u, o) => { seen = { u, o }; return { ok: true, status: 200 }; };"
+            "const { keepAlive } = await import(process.argv[1]);"
+            "await keepAlive({ SUPABASE_URL: 'https://x.supabase.co', SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_k' });"
+            "const good = seen && seen.u === 'https://x.supabase.co/rest/v1/rpc/keepalive' && seen.o.method === 'POST'"
+            " && seen.o.headers.apikey === 'sb_publishable_k' && seen.o.body === '{}';"
+            "process.exit(good ? 0 : 1);")
+    kr = subprocess.run(["node", "--input-type=module", "-e", test, "--", "file://" + os.path.join(ROOT, "worker", "keepalive.js")], capture_output=True, text=True)
+    ok("keep-alive calls public.keepalive() with only the publishable key", kr.returncode == 0, (kr.stdout + kr.stderr).strip()[:300])
+except FileNotFoundError:
+    ok("keep-alive (node not installed, skipped)", True)
 
 # ---------- words ----------
 print("words")

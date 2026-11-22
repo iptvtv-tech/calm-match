@@ -11,6 +11,14 @@
     // Unknown addresses get site/404.html with a 404 status (not a blank page). Non-page requests such as /review/api still reach the Worker.
     "not_found_handling": "404-page"
   },
+  // Every 3 days at 06:17 UTC: keep the free Supabase project from pausing (worker/keepalive.js, supabase/04-keepalive.sql).
+  // Supabase pauses after 7 quiet days; with "*/3" the longest gap, at the end of a month, is 3 days.
+  "triggers": { "crons": ["17 6 */3 * *"] },
+  // Public values, the same as site/js/config.js (check.py compares them). Only ever the publishable key, never the secret one.
+  "vars": {
+    "SUPABASE_URL": "https://gchrttqakyisdmcucoid.supabase.co",
+    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_TMcAYKlZYIePzya2MqZKrQ_unV--JIs"
+  },
   "kv_namespaces": [
     // Ticks and corrections from the private review page (/review/). Id = the namespace's ID in the dashboard.
     { "binding": "REVIEW", "id": "3a087b074dbf497593f7a984ff15c444" }

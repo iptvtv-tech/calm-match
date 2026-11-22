@@ -66,7 +66,9 @@ docs/                  Irish review sheet, Sing along lyrics sheet, plans for cl
 supabase/schema.sql    database tables, privacy rules and delete-account function
 supabase/02-account-deletion-email.sql   confirmation email when a parent deletes their account
 supabase/03-inactive-account-cleanup.sql monthly job: warn after 23 months unused, delete after 24
-worker/index.js        the Cloudflare Worker: serves site/ and handles /review/api (worker/review-api.js)
+supabase/04-keepalive.sql one-row timestamp the Worker updates every 3 days, so the free project isn't paused
+worker/index.js        the Cloudflare Worker: serves site/ and handles /review/api (worker/review-api.js);
+                       every 3 days (Cron Trigger in wrangler.jsonc) it keeps Supabase awake (worker/keepalive.js)
 wrangler.jsonc         Worker name, assets folder and the REVIEW KV binding
 supabase/email-templates/                sign-up, sign-in, reset and change-email templates
 ```
@@ -136,6 +138,7 @@ Everything in config.js is public. Never put the Supabase **service_role** key t
 5. Authentication → URL Configuration: set the Site URL to your address and add `https://YOUR-SITE/account.html` to Redirect URLs (for both the pages.dev address and any custom domain).
 6. Authentication → Emails: set up custom SMTP before launch (the built-in sender is for testing only).
 7. Project Settings → API: copy the Project URL and the anon/publishable key into config.js.
+8. On the Free plan: run `supabase/04-keepalive.sql`, and put the same Project URL and publishable key in `wrangler.jsonc` under `vars` (check.py makes sure they match config.js). The Worker then updates one timestamp every 3 days, because Supabase pauses free projects after 7 quiet days, and while paused nobody can sign in or delete their account. Check it with `select * from public.keepalive;` in the SQL Editor: the time should never be more than 3 days old. If the project pauses anyway, Supabase dashboard → the project → Resume project.
 
 Don't switch on CAPTCHA in Supabase yet: the sign-up form doesn't send a CAPTCHA token, so sign-ups would fail.
 
