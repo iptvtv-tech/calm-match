@@ -117,9 +117,23 @@
   }
   function wrap(o, extra) { return '<div class="pc pc-' + o.size + " pc-" + o.edges + (o.words === "both" ? " pc-both" : "") + (extra || "") + '">'; }
 
+  // Start loading every picture the chosen cards use while the grown-up is still choosing, so Print can open the
+  // print window straight away (CM.ui.print also waits for any that are still loading).
+  var loaded = {}, keep = [];
+  function preload(cards) {
+    cards.forEach(function (c) {
+      c.pics.join("").replace(/src="([^"]+)"/g, function (m, u) {
+        u = u.replace(/&amp;/g, "&");
+        if (!loaded[u]) { loaded[u] = 1; var im = new Image(); im.src = u; keep.push(im); }
+        return m;
+      });
+    });
+  }
+
   /* ---------- grown-ups: Talk cards tab ---------- */
   function renderTab(box, helpers) {
     var k = CM.lib.kid(), o = opts(k), pg = pages(k), cards = list(k, o), sheetsN = Math.ceil(cards.length / per(o));
+    preload(cards);
     var check = function (attr, val, on, label, n) {
       return '<label class="check"><input type="checkbox" ' + attr + '="' + esc(val) + '"' + (on ? " checked" : "") + "> " + esc(label) + (n != null ? " <small>(" + n + ")</small>" : "") + "</label>";
     };

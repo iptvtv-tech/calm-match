@@ -57,16 +57,31 @@
     document.body.classList.add("printing");
     // Phones open the print dialog without pausing the page, so the print-only view must stay switched on
     // until the grown-up is back on the page. (It changes nothing on screen: it only applies when printing.)
-    var started = Date.now();
+    var started = 0;
     var done = function () {
-      if (Date.now() - started < 2000) return;
+      if (!started || Date.now() - started < 2000) return;
       document.body.classList.remove("printing");
       window.removeEventListener("afterprint", done); document.removeEventListener("pointerdown", done, true); document.removeEventListener("keydown", done, true);
     };
     window.addEventListener("afterprint", done);
     document.addEventListener("pointerdown", done, true); document.addEventListener("keydown", done, true);
-    // Called straight from the tap: some phone browsers refuse to print if it's delayed.
-    try { window.print(); } catch (e) {}
+    var go = function () { if (started) return; started = Date.now(); try { window.print(); } catch (e) {} };
+    // Pictures load a moment after they're added, and the print window takes its snapshot straight away, so
+    // printing waits until they're ready (otherwise sheets print with empty boxes). When they're already loaded
+    // this prints straight from the tap, which some phone browsers need.
+    CM.ui.whenPicturesReady(area, go, 5000);
+  };
+
+  // Calls done() once every picture inside el has loaded (or failed), at most ms later. Straight away if none are waiting.
+  CM.ui.whenPicturesReady = function (el, done, ms) {
+    var imgs = [].slice.call(el.querySelectorAll("img")), waiting = imgs.filter(function (i) { return !i.complete; });
+    if (!waiting.length) { done(); return; }
+    var fired = false, left = waiting.length;
+    var fire = function () { if (!fired) { fired = true; done(); } };
+    var decode = function (i) { return i.decode ? i.decode().catch(function () {}) : Promise.resolve(); };
+    var one = function () { if (--left <= 0) Promise.all(imgs.map(decode)).then(fire, fire); };
+    waiting.forEach(function (i) { i.addEventListener("load", one, { once: true }); i.addEventListener("error", one, { once: true }); });
+    setTimeout(fire, ms || 5000);
   };
 
   // A row of chips for small numbered choices in the grown-ups area.
