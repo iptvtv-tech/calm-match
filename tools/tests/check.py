@@ -115,7 +115,8 @@ if "--no-browser" not in sys.argv:
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         base = "http://127.0.0.1:%d/" % port
         pages = ["", "play.html", "alphabet/", "singalong/", "support.html", "credits.html", "accessibility.html",
-                 "privacy.html", "privacy-kids.html", "cookies.html", "terms.html", "policies/index.html", "404.html"]
+                 "privacy.html", "privacy-kids.html", "cookies.html", "terms.html", "policies/index.html", "404.html",
+                 "singalong/twinkle-twinkle/", "singalong/old-macdonald/"]
         with sync_playwright() as p:
             br = p.chromium.launch()
             for name, vp in [("phone", {"width": 390, "height": 844}), ("tablet", {"width": 1024, "height": 768})]:

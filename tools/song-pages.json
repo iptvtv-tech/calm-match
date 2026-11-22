@@ -1,4 +1,74 @@
 {
-  "_about": "Songs listed here get a public page at calmmatch.com/singalong/<id>/ (made by: node tools/song-pages.js). List a song only once the Irish checker has approved its Irish words. Entry: { \"id\": \"twinkle-twinkle\", \"checked\": \"2026-11-29\", \"checkedBy\": \"name, only if they agreed to be named\" }.",
-  "published": []
+  "_about": "Songs listed here get a public page at calmmatch.com/singalong/<id>/ (made by: node tools/song-pages.js). All 23 published 22 Nov 2026 at the owner's decision. When the Irish checker approves a song's Irish words, add \"checked\": \"<date>\" (and \"checkedBy\" only if they agreed to be named); until then its page says the Irish is still being checked. After any change to a listed song in songs.js, run the tool again.",
+  "published": [
+    {
+      "id": "twinkle-twinkle"
+    },
+    {
+      "id": "baa-baa-black-sheep"
+    },
+    {
+      "id": "mary-had-a-little-lamb"
+    },
+    {
+      "id": "row-row-row-your-boat"
+    },
+    {
+      "id": "are-you-sleeping"
+    },
+    {
+      "id": "hot-cross-buns"
+    },
+    {
+      "id": "rain-rain-go-away"
+    },
+    {
+      "id": "happy-birthday"
+    },
+    {
+      "id": "london-bridge"
+    },
+    {
+      "id": "old-macdonald"
+    },
+    {
+      "id": "this-old-man"
+    },
+    {
+      "id": "incy-wincy-spider"
+    },
+    {
+      "id": "hickory-dickory-dock"
+    },
+    {
+      "id": "jack-and-jill"
+    },
+    {
+      "id": "yankee-doodle"
+    },
+    {
+      "id": "jingle-bells"
+    },
+    {
+      "id": "humpty-dumpty"
+    },
+    {
+      "id": "ring-a-ring-o-roses"
+    },
+    {
+      "id": "head-shoulders-knees-and-toes"
+    },
+    {
+      "id": "bingo"
+    },
+    {
+      "id": "mulberry-bush"
+    },
+    {
+      "id": "hush-little-baby"
+    },
+    {
+      "id": "lavenders-blue"
+    }
+  ]
 }

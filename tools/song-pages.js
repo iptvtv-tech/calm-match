@@ -13,7 +13,8 @@
  *                                       Also write <id>'s page, even if not listed, into a
  *                                       copy of the site, to look at before it is approved.
  *
- * A song is listed (published) only once the Irish checker has approved its Irish words.
+ * A song is listed (published) when the owner decides; until its entry has "checked" (set when the
+ * Irish checker approves its Irish words), its page says the Irish is still being checked.
  * Pages are plain HTML: no scripts, no outside files, the site's own stylesheet.
  * Uses the same lyric parsing as the site (site/singalong/shared.js).
  */
@@ -102,7 +103,7 @@ function page(entry, all) {
   });
   var checked = entry.checked
     ? ' A fluent Irish speaker checked them' + (entry.checkedBy ? ' (' + esc(entry.checkedBy) + ')' : '') + '.'
-    : '';
+    : ' They are still being checked by a fluent Irish speaker, so they may change.';
   return [
     '<!doctype html>',
     '<html lang="en">',

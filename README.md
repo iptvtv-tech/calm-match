@@ -41,9 +41,9 @@ site/                  ← the website itself, served as static files by the Wor
                        Add a song: one object in songs.js + one SVG + the SVG's path in sw.js,
                        then run `node tools/singalong.js check`
                        Song pages (calmmatch.com/singalong/<id>/, words in Irish and English):
-                       list a song in tools/song-pages.json once the Irish checker approves its
-                       Irish words, then run `node tools/song-pages.js` (also after any change to a
-                       listed song in songs.js; check.py fails until you do)
+                       listed in tools/song-pages.json (all 23). Add "checked" to a song's entry when
+                       the Irish checker approves it, then run `node tools/song-pages.js` (also after any
+                       change to a listed song in songs.js; check.py fails until you do)
   sw.js                offline support (bump VERSION on each deploy)
   _headers             security headers (read by the Worker's static assets)
   manifest.webmanifest, icons/, robots.txt
