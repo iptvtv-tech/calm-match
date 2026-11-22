@@ -11,6 +11,6 @@
   },
   "kv_namespaces": [
     // Ticks and corrections from the private review page (/review/). Id = the namespace's ID in the dashboard.
-    { "binding": "REVIEW", "id": "1ef3fc03fa16416c8baa7b2eed558fb6" }
+    { "binding": "REVIEW", "id": "3a087b074dbf497593f7a984ff15c444" }
   ]
 }
