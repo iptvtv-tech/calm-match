@@ -41,7 +41,7 @@
     ["done", "All done", "Críochnaithe", "finished"],
     ["stop", "Stop", "Stop", "stop"]
   ];
-  var SIZES = [["large", "Large", 6], ["medium", "Medium", 12], ["keyring", "Keyring", 20]];
+  var SIZES = [["page", "Full page", 1], ["half", "Half page", 2], ["large", "Large", 6], ["medium", "Medium", 12], ["keyring", "Keyring", 20]];
   var MAX_OWN = 24;
 
   // Edge colours follow the usual communication-board colours (a softened Fitzgerald Key):

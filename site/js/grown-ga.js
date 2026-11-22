@@ -131,6 +131,8 @@
 "Size": "Méid",
 "Edges": "Imill",
 "Words": "Focail",
+"Full page (1 a sheet)": "Leathanach iomlán (1 ar leathanach)",
+"Half page (2 a sheet)": "Leathleathanach (2 ar leathanach)",
 "Large (6 a sheet)": "Mór (6 ar leathanach)",
 "Medium (12 a sheet)": "Meánach (12 ar leathanach)",
 "Keyring (20 a sheet)": "Fáinne eochrach (20 ar leathanach)",

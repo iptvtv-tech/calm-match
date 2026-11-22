@@ -1095,6 +1095,8 @@ Shown to parents and teachers when they switch the Grown-ups area to Gaeilge. Wr
 | Size | Méid |  |
 | Edges | Imill |  |
 | Words | Focail |  |
+| Full page (1 a sheet) | Leathanach iomlán (1 ar leathanach) |  |
+| Half page (2 a sheet) | Leathleathanach (2 ar leathanach) |  |
 | Large (6 a sheet) | Mór (6 ar leathanach) |  |
 | Medium (12 a sheet) | Meánach (12 ar leathanach) |  |
 | Keyring (20 a sheet) | Fáinne eochrach (20 ar leathanach) |  |
@@ -1474,4 +1476,4 @@ Emma will say numbers on their own (counting: "a haon, a dó, a trí" — please
 7. **Your name for the credits page**, and the dialect to name there.
 8. **Talk cards (section 7).** A starter card sits next to a picture card, so it works best when the Irish comes before the word, as in "Ba mhaith liom" + "úll". "I need" ("Teastaíonn … uaim") and "I feel" ("Tá mé …") don't do that for every word. Is there a natural way to say "I need" and "I feel" with the word at the end, or are whole-sentence cards better for these? Also: "I feel sad" is "Tá mé brónach" so it isn't mixed up with "Tá brón orm" (sorry). Is that right?
 
-_1159 items in this sheet._
+_1161 items in this sheet._

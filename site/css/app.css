@@ -528,6 +528,23 @@ body[data-calm="on"] .anim span{animation:none}
   .pc-card{flex:1;border-width:.9mm;border-radius:3mm;padding:2mm;gap:1.5mm}
   .pc-plain .pc-card{border-width:.45mm}
   .pc-hole{top:2mm;left:2mm;width:3.5mm;height:3.5mm;border-width:.3mm}
+  /* Full page: one card fills an A4 or US Letter sheet, no cut lines */
+  .pc-page .pc-sheet{grid-template-columns:176mm;grid-auto-rows:246mm;border:0}
+  .pc-page .pc-cell{border:0;padding:0}
+  .pc-page .pc-card{border-width:1.6mm;border-radius:7mm;padding:8mm;gap:6mm}
+  .pc-plain.pc-page .pc-card{border-width:.8mm}
+  .pc-page .pc-pics{gap:6mm}
+  .pc-page .pc-pics img{width:130mm;height:130mm}.pc-page .pc-pics.two img{width:80mm;height:80mm}.pc-page .pc-pics .emo{font-size:330pt}
+  .pc-page .pc-w{font-size:48pt}.pc-page .pc-ga{font-size:30pt}
+  .pc-both.pc-page .pc-pics img{width:110mm;height:110mm}.pc-both.pc-page .pc-pics.two img{width:72mm;height:72mm}
+  /* Half page: two cards stacked on a sheet, with one cut line between them */
+  .pc-half .pc-sheet{grid-template-columns:176mm;grid-auto-rows:123mm}
+  .pc-half .pc-card{border-width:1.2mm;border-radius:5mm;padding:5mm;gap:4mm}
+  .pc-plain.pc-half .pc-card{border-width:.6mm}
+  .pc-half .pc-pics{gap:5mm}
+  .pc-half .pc-pics img{width:72mm;height:72mm}.pc-half .pc-pics.two img{width:64mm;height:64mm}.pc-half .pc-pics .emo{font-size:200pt}
+  .pc-half .pc-w{font-size:36pt}.pc-half .pc-ga{font-size:22pt}
+  .pc-both.pc-half .pc-pics img{width:58mm;height:58mm}.pc-both.pc-half .pc-pics.two img{width:54mm;height:54mm}
   .pc-large .pc-sheet{grid-template-columns:repeat(2,88mm);grid-auto-rows:82mm}
   .pc-medium .pc-sheet{grid-template-columns:repeat(3,58mm);grid-auto-rows:60mm}
   .pc-keyring .pc-sheet{grid-template-columns:repeat(4,43mm);grid-auto-rows:48mm}
